@@ -24,1474 +24,840 @@ import Foundation
 import SimpleNotificationModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Mock Client for the SimpleNotification service by default returns the `__default` property of its return type.
  */
 public struct MockSimpleNotificationClient: SimpleNotificationClientProtocol {
-    let addPermissionAsyncOverride: AddPermissionAsyncType?
-    let addPermissionSyncOverride: AddPermissionSyncType?
-    let checkIfPhoneNumberIsOptedOutAsyncOverride: CheckIfPhoneNumberIsOptedOutAsyncType?
-    let checkIfPhoneNumberIsOptedOutSyncOverride: CheckIfPhoneNumberIsOptedOutSyncType?
-    let confirmSubscriptionAsyncOverride: ConfirmSubscriptionAsyncType?
-    let confirmSubscriptionSyncOverride: ConfirmSubscriptionSyncType?
-    let createPlatformApplicationAsyncOverride: CreatePlatformApplicationAsyncType?
-    let createPlatformApplicationSyncOverride: CreatePlatformApplicationSyncType?
-    let createPlatformEndpointAsyncOverride: CreatePlatformEndpointAsyncType?
-    let createPlatformEndpointSyncOverride: CreatePlatformEndpointSyncType?
-    let createTopicAsyncOverride: CreateTopicAsyncType?
-    let createTopicSyncOverride: CreateTopicSyncType?
-    let deleteEndpointAsyncOverride: DeleteEndpointAsyncType?
-    let deleteEndpointSyncOverride: DeleteEndpointSyncType?
-    let deletePlatformApplicationAsyncOverride: DeletePlatformApplicationAsyncType?
-    let deletePlatformApplicationSyncOverride: DeletePlatformApplicationSyncType?
-    let deleteTopicAsyncOverride: DeleteTopicAsyncType?
-    let deleteTopicSyncOverride: DeleteTopicSyncType?
-    let getEndpointAttributesAsyncOverride: GetEndpointAttributesAsyncType?
-    let getEndpointAttributesSyncOverride: GetEndpointAttributesSyncType?
-    let getPlatformApplicationAttributesAsyncOverride: GetPlatformApplicationAttributesAsyncType?
-    let getPlatformApplicationAttributesSyncOverride: GetPlatformApplicationAttributesSyncType?
-    let getSMSAttributesAsyncOverride: GetSMSAttributesAsyncType?
-    let getSMSAttributesSyncOverride: GetSMSAttributesSyncType?
-    let getSubscriptionAttributesAsyncOverride: GetSubscriptionAttributesAsyncType?
-    let getSubscriptionAttributesSyncOverride: GetSubscriptionAttributesSyncType?
-    let getTopicAttributesAsyncOverride: GetTopicAttributesAsyncType?
-    let getTopicAttributesSyncOverride: GetTopicAttributesSyncType?
-    let listEndpointsByPlatformApplicationAsyncOverride: ListEndpointsByPlatformApplicationAsyncType?
-    let listEndpointsByPlatformApplicationSyncOverride: ListEndpointsByPlatformApplicationSyncType?
-    let listPhoneNumbersOptedOutAsyncOverride: ListPhoneNumbersOptedOutAsyncType?
-    let listPhoneNumbersOptedOutSyncOverride: ListPhoneNumbersOptedOutSyncType?
-    let listPlatformApplicationsAsyncOverride: ListPlatformApplicationsAsyncType?
-    let listPlatformApplicationsSyncOverride: ListPlatformApplicationsSyncType?
-    let listSubscriptionsAsyncOverride: ListSubscriptionsAsyncType?
-    let listSubscriptionsSyncOverride: ListSubscriptionsSyncType?
-    let listSubscriptionsByTopicAsyncOverride: ListSubscriptionsByTopicAsyncType?
-    let listSubscriptionsByTopicSyncOverride: ListSubscriptionsByTopicSyncType?
-    let listTagsForResourceAsyncOverride: ListTagsForResourceAsyncType?
-    let listTagsForResourceSyncOverride: ListTagsForResourceSyncType?
-    let listTopicsAsyncOverride: ListTopicsAsyncType?
-    let listTopicsSyncOverride: ListTopicsSyncType?
-    let optInPhoneNumberAsyncOverride: OptInPhoneNumberAsyncType?
-    let optInPhoneNumberSyncOverride: OptInPhoneNumberSyncType?
-    let publishAsyncOverride: PublishAsyncType?
-    let publishSyncOverride: PublishSyncType?
-    let removePermissionAsyncOverride: RemovePermissionAsyncType?
-    let removePermissionSyncOverride: RemovePermissionSyncType?
-    let setEndpointAttributesAsyncOverride: SetEndpointAttributesAsyncType?
-    let setEndpointAttributesSyncOverride: SetEndpointAttributesSyncType?
-    let setPlatformApplicationAttributesAsyncOverride: SetPlatformApplicationAttributesAsyncType?
-    let setPlatformApplicationAttributesSyncOverride: SetPlatformApplicationAttributesSyncType?
-    let setSMSAttributesAsyncOverride: SetSMSAttributesAsyncType?
-    let setSMSAttributesSyncOverride: SetSMSAttributesSyncType?
-    let setSubscriptionAttributesAsyncOverride: SetSubscriptionAttributesAsyncType?
-    let setSubscriptionAttributesSyncOverride: SetSubscriptionAttributesSyncType?
-    let setTopicAttributesAsyncOverride: SetTopicAttributesAsyncType?
-    let setTopicAttributesSyncOverride: SetTopicAttributesSyncType?
-    let subscribeAsyncOverride: SubscribeAsyncType?
-    let subscribeSyncOverride: SubscribeSyncType?
-    let tagResourceAsyncOverride: TagResourceAsyncType?
-    let tagResourceSyncOverride: TagResourceSyncType?
-    let unsubscribeAsyncOverride: UnsubscribeAsyncType?
-    let unsubscribeSyncOverride: UnsubscribeSyncType?
-    let untagResourceAsyncOverride: UntagResourceAsyncType?
-    let untagResourceSyncOverride: UntagResourceSyncType?
+    let eventLoop: EventLoop
+    let typedErrorProvider: (Swift.Error) -> SimpleNotificationError = { $0.asTypedError() }
+    let addPermissionEventLoopFutureAsyncOverride: AddPermissionEventLoopFutureAsyncType?
+    let checkIfPhoneNumberIsOptedOutEventLoopFutureAsyncOverride: CheckIfPhoneNumberIsOptedOutEventLoopFutureAsyncType?
+    let confirmSubscriptionEventLoopFutureAsyncOverride: ConfirmSubscriptionEventLoopFutureAsyncType?
+    let createPlatformApplicationEventLoopFutureAsyncOverride: CreatePlatformApplicationEventLoopFutureAsyncType?
+    let createPlatformEndpointEventLoopFutureAsyncOverride: CreatePlatformEndpointEventLoopFutureAsyncType?
+    let createTopicEventLoopFutureAsyncOverride: CreateTopicEventLoopFutureAsyncType?
+    let deleteEndpointEventLoopFutureAsyncOverride: DeleteEndpointEventLoopFutureAsyncType?
+    let deletePlatformApplicationEventLoopFutureAsyncOverride: DeletePlatformApplicationEventLoopFutureAsyncType?
+    let deleteTopicEventLoopFutureAsyncOverride: DeleteTopicEventLoopFutureAsyncType?
+    let getEndpointAttributesEventLoopFutureAsyncOverride: GetEndpointAttributesEventLoopFutureAsyncType?
+    let getPlatformApplicationAttributesEventLoopFutureAsyncOverride: GetPlatformApplicationAttributesEventLoopFutureAsyncType?
+    let getSMSAttributesEventLoopFutureAsyncOverride: GetSMSAttributesEventLoopFutureAsyncType?
+    let getSubscriptionAttributesEventLoopFutureAsyncOverride: GetSubscriptionAttributesEventLoopFutureAsyncType?
+    let getTopicAttributesEventLoopFutureAsyncOverride: GetTopicAttributesEventLoopFutureAsyncType?
+    let listEndpointsByPlatformApplicationEventLoopFutureAsyncOverride: ListEndpointsByPlatformApplicationEventLoopFutureAsyncType?
+    let listPhoneNumbersOptedOutEventLoopFutureAsyncOverride: ListPhoneNumbersOptedOutEventLoopFutureAsyncType?
+    let listPlatformApplicationsEventLoopFutureAsyncOverride: ListPlatformApplicationsEventLoopFutureAsyncType?
+    let listSubscriptionsEventLoopFutureAsyncOverride: ListSubscriptionsEventLoopFutureAsyncType?
+    let listSubscriptionsByTopicEventLoopFutureAsyncOverride: ListSubscriptionsByTopicEventLoopFutureAsyncType?
+    let listTagsForResourceEventLoopFutureAsyncOverride: ListTagsForResourceEventLoopFutureAsyncType?
+    let listTopicsEventLoopFutureAsyncOverride: ListTopicsEventLoopFutureAsyncType?
+    let optInPhoneNumberEventLoopFutureAsyncOverride: OptInPhoneNumberEventLoopFutureAsyncType?
+    let publishEventLoopFutureAsyncOverride: PublishEventLoopFutureAsyncType?
+    let removePermissionEventLoopFutureAsyncOverride: RemovePermissionEventLoopFutureAsyncType?
+    let setEndpointAttributesEventLoopFutureAsyncOverride: SetEndpointAttributesEventLoopFutureAsyncType?
+    let setPlatformApplicationAttributesEventLoopFutureAsyncOverride: SetPlatformApplicationAttributesEventLoopFutureAsyncType?
+    let setSMSAttributesEventLoopFutureAsyncOverride: SetSMSAttributesEventLoopFutureAsyncType?
+    let setSubscriptionAttributesEventLoopFutureAsyncOverride: SetSubscriptionAttributesEventLoopFutureAsyncType?
+    let setTopicAttributesEventLoopFutureAsyncOverride: SetTopicAttributesEventLoopFutureAsyncType?
+    let subscribeEventLoopFutureAsyncOverride: SubscribeEventLoopFutureAsyncType?
+    let tagResourceEventLoopFutureAsyncOverride: TagResourceEventLoopFutureAsyncType?
+    let unsubscribeEventLoopFutureAsyncOverride: UnsubscribeEventLoopFutureAsyncType?
+    let untagResourceEventLoopFutureAsyncOverride: UntagResourceEventLoopFutureAsyncType?
 
     /**
      Initializer that creates an instance of this clients. The behavior of individual
      functions can be overridden by passing them to this initializer.
      */
     public init(
-            addPermissionAsync: AddPermissionAsyncType? = nil,
-            addPermissionSync: AddPermissionSyncType? = nil,
-            checkIfPhoneNumberIsOptedOutAsync: CheckIfPhoneNumberIsOptedOutAsyncType? = nil,
-            checkIfPhoneNumberIsOptedOutSync: CheckIfPhoneNumberIsOptedOutSyncType? = nil,
-            confirmSubscriptionAsync: ConfirmSubscriptionAsyncType? = nil,
-            confirmSubscriptionSync: ConfirmSubscriptionSyncType? = nil,
-            createPlatformApplicationAsync: CreatePlatformApplicationAsyncType? = nil,
-            createPlatformApplicationSync: CreatePlatformApplicationSyncType? = nil,
-            createPlatformEndpointAsync: CreatePlatformEndpointAsyncType? = nil,
-            createPlatformEndpointSync: CreatePlatformEndpointSyncType? = nil,
-            createTopicAsync: CreateTopicAsyncType? = nil,
-            createTopicSync: CreateTopicSyncType? = nil,
-            deleteEndpointAsync: DeleteEndpointAsyncType? = nil,
-            deleteEndpointSync: DeleteEndpointSyncType? = nil,
-            deletePlatformApplicationAsync: DeletePlatformApplicationAsyncType? = nil,
-            deletePlatformApplicationSync: DeletePlatformApplicationSyncType? = nil,
-            deleteTopicAsync: DeleteTopicAsyncType? = nil,
-            deleteTopicSync: DeleteTopicSyncType? = nil,
-            getEndpointAttributesAsync: GetEndpointAttributesAsyncType? = nil,
-            getEndpointAttributesSync: GetEndpointAttributesSyncType? = nil,
-            getPlatformApplicationAttributesAsync: GetPlatformApplicationAttributesAsyncType? = nil,
-            getPlatformApplicationAttributesSync: GetPlatformApplicationAttributesSyncType? = nil,
-            getSMSAttributesAsync: GetSMSAttributesAsyncType? = nil,
-            getSMSAttributesSync: GetSMSAttributesSyncType? = nil,
-            getSubscriptionAttributesAsync: GetSubscriptionAttributesAsyncType? = nil,
-            getSubscriptionAttributesSync: GetSubscriptionAttributesSyncType? = nil,
-            getTopicAttributesAsync: GetTopicAttributesAsyncType? = nil,
-            getTopicAttributesSync: GetTopicAttributesSyncType? = nil,
-            listEndpointsByPlatformApplicationAsync: ListEndpointsByPlatformApplicationAsyncType? = nil,
-            listEndpointsByPlatformApplicationSync: ListEndpointsByPlatformApplicationSyncType? = nil,
-            listPhoneNumbersOptedOutAsync: ListPhoneNumbersOptedOutAsyncType? = nil,
-            listPhoneNumbersOptedOutSync: ListPhoneNumbersOptedOutSyncType? = nil,
-            listPlatformApplicationsAsync: ListPlatformApplicationsAsyncType? = nil,
-            listPlatformApplicationsSync: ListPlatformApplicationsSyncType? = nil,
-            listSubscriptionsAsync: ListSubscriptionsAsyncType? = nil,
-            listSubscriptionsSync: ListSubscriptionsSyncType? = nil,
-            listSubscriptionsByTopicAsync: ListSubscriptionsByTopicAsyncType? = nil,
-            listSubscriptionsByTopicSync: ListSubscriptionsByTopicSyncType? = nil,
-            listTagsForResourceAsync: ListTagsForResourceAsyncType? = nil,
-            listTagsForResourceSync: ListTagsForResourceSyncType? = nil,
-            listTopicsAsync: ListTopicsAsyncType? = nil,
-            listTopicsSync: ListTopicsSyncType? = nil,
-            optInPhoneNumberAsync: OptInPhoneNumberAsyncType? = nil,
-            optInPhoneNumberSync: OptInPhoneNumberSyncType? = nil,
-            publishAsync: PublishAsyncType? = nil,
-            publishSync: PublishSyncType? = nil,
-            removePermissionAsync: RemovePermissionAsyncType? = nil,
-            removePermissionSync: RemovePermissionSyncType? = nil,
-            setEndpointAttributesAsync: SetEndpointAttributesAsyncType? = nil,
-            setEndpointAttributesSync: SetEndpointAttributesSyncType? = nil,
-            setPlatformApplicationAttributesAsync: SetPlatformApplicationAttributesAsyncType? = nil,
-            setPlatformApplicationAttributesSync: SetPlatformApplicationAttributesSyncType? = nil,
-            setSMSAttributesAsync: SetSMSAttributesAsyncType? = nil,
-            setSMSAttributesSync: SetSMSAttributesSyncType? = nil,
-            setSubscriptionAttributesAsync: SetSubscriptionAttributesAsyncType? = nil,
-            setSubscriptionAttributesSync: SetSubscriptionAttributesSyncType? = nil,
-            setTopicAttributesAsync: SetTopicAttributesAsyncType? = nil,
-            setTopicAttributesSync: SetTopicAttributesSyncType? = nil,
-            subscribeAsync: SubscribeAsyncType? = nil,
-            subscribeSync: SubscribeSyncType? = nil,
-            tagResourceAsync: TagResourceAsyncType? = nil,
-            tagResourceSync: TagResourceSyncType? = nil,
-            unsubscribeAsync: UnsubscribeAsyncType? = nil,
-            unsubscribeSync: UnsubscribeSyncType? = nil,
-            untagResourceAsync: UntagResourceAsyncType? = nil,
-            untagResourceSync: UntagResourceSyncType? = nil) {
-        self.addPermissionAsyncOverride = addPermissionAsync
-        self.addPermissionSyncOverride = addPermissionSync
-        self.checkIfPhoneNumberIsOptedOutAsyncOverride = checkIfPhoneNumberIsOptedOutAsync
-        self.checkIfPhoneNumberIsOptedOutSyncOverride = checkIfPhoneNumberIsOptedOutSync
-        self.confirmSubscriptionAsyncOverride = confirmSubscriptionAsync
-        self.confirmSubscriptionSyncOverride = confirmSubscriptionSync
-        self.createPlatformApplicationAsyncOverride = createPlatformApplicationAsync
-        self.createPlatformApplicationSyncOverride = createPlatformApplicationSync
-        self.createPlatformEndpointAsyncOverride = createPlatformEndpointAsync
-        self.createPlatformEndpointSyncOverride = createPlatformEndpointSync
-        self.createTopicAsyncOverride = createTopicAsync
-        self.createTopicSyncOverride = createTopicSync
-        self.deleteEndpointAsyncOverride = deleteEndpointAsync
-        self.deleteEndpointSyncOverride = deleteEndpointSync
-        self.deletePlatformApplicationAsyncOverride = deletePlatformApplicationAsync
-        self.deletePlatformApplicationSyncOverride = deletePlatformApplicationSync
-        self.deleteTopicAsyncOverride = deleteTopicAsync
-        self.deleteTopicSyncOverride = deleteTopicSync
-        self.getEndpointAttributesAsyncOverride = getEndpointAttributesAsync
-        self.getEndpointAttributesSyncOverride = getEndpointAttributesSync
-        self.getPlatformApplicationAttributesAsyncOverride = getPlatformApplicationAttributesAsync
-        self.getPlatformApplicationAttributesSyncOverride = getPlatformApplicationAttributesSync
-        self.getSMSAttributesAsyncOverride = getSMSAttributesAsync
-        self.getSMSAttributesSyncOverride = getSMSAttributesSync
-        self.getSubscriptionAttributesAsyncOverride = getSubscriptionAttributesAsync
-        self.getSubscriptionAttributesSyncOverride = getSubscriptionAttributesSync
-        self.getTopicAttributesAsyncOverride = getTopicAttributesAsync
-        self.getTopicAttributesSyncOverride = getTopicAttributesSync
-        self.listEndpointsByPlatformApplicationAsyncOverride = listEndpointsByPlatformApplicationAsync
-        self.listEndpointsByPlatformApplicationSyncOverride = listEndpointsByPlatformApplicationSync
-        self.listPhoneNumbersOptedOutAsyncOverride = listPhoneNumbersOptedOutAsync
-        self.listPhoneNumbersOptedOutSyncOverride = listPhoneNumbersOptedOutSync
-        self.listPlatformApplicationsAsyncOverride = listPlatformApplicationsAsync
-        self.listPlatformApplicationsSyncOverride = listPlatformApplicationsSync
-        self.listSubscriptionsAsyncOverride = listSubscriptionsAsync
-        self.listSubscriptionsSyncOverride = listSubscriptionsSync
-        self.listSubscriptionsByTopicAsyncOverride = listSubscriptionsByTopicAsync
-        self.listSubscriptionsByTopicSyncOverride = listSubscriptionsByTopicSync
-        self.listTagsForResourceAsyncOverride = listTagsForResourceAsync
-        self.listTagsForResourceSyncOverride = listTagsForResourceSync
-        self.listTopicsAsyncOverride = listTopicsAsync
-        self.listTopicsSyncOverride = listTopicsSync
-        self.optInPhoneNumberAsyncOverride = optInPhoneNumberAsync
-        self.optInPhoneNumberSyncOverride = optInPhoneNumberSync
-        self.publishAsyncOverride = publishAsync
-        self.publishSyncOverride = publishSync
-        self.removePermissionAsyncOverride = removePermissionAsync
-        self.removePermissionSyncOverride = removePermissionSync
-        self.setEndpointAttributesAsyncOverride = setEndpointAttributesAsync
-        self.setEndpointAttributesSyncOverride = setEndpointAttributesSync
-        self.setPlatformApplicationAttributesAsyncOverride = setPlatformApplicationAttributesAsync
-        self.setPlatformApplicationAttributesSyncOverride = setPlatformApplicationAttributesSync
-        self.setSMSAttributesAsyncOverride = setSMSAttributesAsync
-        self.setSMSAttributesSyncOverride = setSMSAttributesSync
-        self.setSubscriptionAttributesAsyncOverride = setSubscriptionAttributesAsync
-        self.setSubscriptionAttributesSyncOverride = setSubscriptionAttributesSync
-        self.setTopicAttributesAsyncOverride = setTopicAttributesAsync
-        self.setTopicAttributesSyncOverride = setTopicAttributesSync
-        self.subscribeAsyncOverride = subscribeAsync
-        self.subscribeSyncOverride = subscribeSync
-        self.tagResourceAsyncOverride = tagResourceAsync
-        self.tagResourceSyncOverride = tagResourceSync
-        self.unsubscribeAsyncOverride = unsubscribeAsync
-        self.unsubscribeSyncOverride = unsubscribeSync
-        self.untagResourceAsyncOverride = untagResourceAsync
-        self.untagResourceSyncOverride = untagResourceSync
+            eventLoop: EventLoop,
+            addPermissionEventLoopFutureAsync: AddPermissionEventLoopFutureAsyncType? = nil,
+            checkIfPhoneNumberIsOptedOutEventLoopFutureAsync: CheckIfPhoneNumberIsOptedOutEventLoopFutureAsyncType? = nil,
+            confirmSubscriptionEventLoopFutureAsync: ConfirmSubscriptionEventLoopFutureAsyncType? = nil,
+            createPlatformApplicationEventLoopFutureAsync: CreatePlatformApplicationEventLoopFutureAsyncType? = nil,
+            createPlatformEndpointEventLoopFutureAsync: CreatePlatformEndpointEventLoopFutureAsyncType? = nil,
+            createTopicEventLoopFutureAsync: CreateTopicEventLoopFutureAsyncType? = nil,
+            deleteEndpointEventLoopFutureAsync: DeleteEndpointEventLoopFutureAsyncType? = nil,
+            deletePlatformApplicationEventLoopFutureAsync: DeletePlatformApplicationEventLoopFutureAsyncType? = nil,
+            deleteTopicEventLoopFutureAsync: DeleteTopicEventLoopFutureAsyncType? = nil,
+            getEndpointAttributesEventLoopFutureAsync: GetEndpointAttributesEventLoopFutureAsyncType? = nil,
+            getPlatformApplicationAttributesEventLoopFutureAsync: GetPlatformApplicationAttributesEventLoopFutureAsyncType? = nil,
+            getSMSAttributesEventLoopFutureAsync: GetSMSAttributesEventLoopFutureAsyncType? = nil,
+            getSubscriptionAttributesEventLoopFutureAsync: GetSubscriptionAttributesEventLoopFutureAsyncType? = nil,
+            getTopicAttributesEventLoopFutureAsync: GetTopicAttributesEventLoopFutureAsyncType? = nil,
+            listEndpointsByPlatformApplicationEventLoopFutureAsync: ListEndpointsByPlatformApplicationEventLoopFutureAsyncType? = nil,
+            listPhoneNumbersOptedOutEventLoopFutureAsync: ListPhoneNumbersOptedOutEventLoopFutureAsyncType? = nil,
+            listPlatformApplicationsEventLoopFutureAsync: ListPlatformApplicationsEventLoopFutureAsyncType? = nil,
+            listSubscriptionsEventLoopFutureAsync: ListSubscriptionsEventLoopFutureAsyncType? = nil,
+            listSubscriptionsByTopicEventLoopFutureAsync: ListSubscriptionsByTopicEventLoopFutureAsyncType? = nil,
+            listTagsForResourceEventLoopFutureAsync: ListTagsForResourceEventLoopFutureAsyncType? = nil,
+            listTopicsEventLoopFutureAsync: ListTopicsEventLoopFutureAsyncType? = nil,
+            optInPhoneNumberEventLoopFutureAsync: OptInPhoneNumberEventLoopFutureAsyncType? = nil,
+            publishEventLoopFutureAsync: PublishEventLoopFutureAsyncType? = nil,
+            removePermissionEventLoopFutureAsync: RemovePermissionEventLoopFutureAsyncType? = nil,
+            setEndpointAttributesEventLoopFutureAsync: SetEndpointAttributesEventLoopFutureAsyncType? = nil,
+            setPlatformApplicationAttributesEventLoopFutureAsync: SetPlatformApplicationAttributesEventLoopFutureAsyncType? = nil,
+            setSMSAttributesEventLoopFutureAsync: SetSMSAttributesEventLoopFutureAsyncType? = nil,
+            setSubscriptionAttributesEventLoopFutureAsync: SetSubscriptionAttributesEventLoopFutureAsyncType? = nil,
+            setTopicAttributesEventLoopFutureAsync: SetTopicAttributesEventLoopFutureAsyncType? = nil,
+            subscribeEventLoopFutureAsync: SubscribeEventLoopFutureAsyncType? = nil,
+            tagResourceEventLoopFutureAsync: TagResourceEventLoopFutureAsyncType? = nil,
+            unsubscribeEventLoopFutureAsync: UnsubscribeEventLoopFutureAsyncType? = nil,
+            untagResourceEventLoopFutureAsync: UntagResourceEventLoopFutureAsyncType? = nil) {
+        self.eventLoop = eventLoop
+        
+        self.addPermissionEventLoopFutureAsyncOverride = addPermissionEventLoopFutureAsync
+        self.checkIfPhoneNumberIsOptedOutEventLoopFutureAsyncOverride = checkIfPhoneNumberIsOptedOutEventLoopFutureAsync
+        self.confirmSubscriptionEventLoopFutureAsyncOverride = confirmSubscriptionEventLoopFutureAsync
+        self.createPlatformApplicationEventLoopFutureAsyncOverride = createPlatformApplicationEventLoopFutureAsync
+        self.createPlatformEndpointEventLoopFutureAsyncOverride = createPlatformEndpointEventLoopFutureAsync
+        self.createTopicEventLoopFutureAsyncOverride = createTopicEventLoopFutureAsync
+        self.deleteEndpointEventLoopFutureAsyncOverride = deleteEndpointEventLoopFutureAsync
+        self.deletePlatformApplicationEventLoopFutureAsyncOverride = deletePlatformApplicationEventLoopFutureAsync
+        self.deleteTopicEventLoopFutureAsyncOverride = deleteTopicEventLoopFutureAsync
+        self.getEndpointAttributesEventLoopFutureAsyncOverride = getEndpointAttributesEventLoopFutureAsync
+        self.getPlatformApplicationAttributesEventLoopFutureAsyncOverride = getPlatformApplicationAttributesEventLoopFutureAsync
+        self.getSMSAttributesEventLoopFutureAsyncOverride = getSMSAttributesEventLoopFutureAsync
+        self.getSubscriptionAttributesEventLoopFutureAsyncOverride = getSubscriptionAttributesEventLoopFutureAsync
+        self.getTopicAttributesEventLoopFutureAsyncOverride = getTopicAttributesEventLoopFutureAsync
+        self.listEndpointsByPlatformApplicationEventLoopFutureAsyncOverride = listEndpointsByPlatformApplicationEventLoopFutureAsync
+        self.listPhoneNumbersOptedOutEventLoopFutureAsyncOverride = listPhoneNumbersOptedOutEventLoopFutureAsync
+        self.listPlatformApplicationsEventLoopFutureAsyncOverride = listPlatformApplicationsEventLoopFutureAsync
+        self.listSubscriptionsEventLoopFutureAsyncOverride = listSubscriptionsEventLoopFutureAsync
+        self.listSubscriptionsByTopicEventLoopFutureAsyncOverride = listSubscriptionsByTopicEventLoopFutureAsync
+        self.listTagsForResourceEventLoopFutureAsyncOverride = listTagsForResourceEventLoopFutureAsync
+        self.listTopicsEventLoopFutureAsyncOverride = listTopicsEventLoopFutureAsync
+        self.optInPhoneNumberEventLoopFutureAsyncOverride = optInPhoneNumberEventLoopFutureAsync
+        self.publishEventLoopFutureAsyncOverride = publishEventLoopFutureAsync
+        self.removePermissionEventLoopFutureAsyncOverride = removePermissionEventLoopFutureAsync
+        self.setEndpointAttributesEventLoopFutureAsyncOverride = setEndpointAttributesEventLoopFutureAsync
+        self.setPlatformApplicationAttributesEventLoopFutureAsyncOverride = setPlatformApplicationAttributesEventLoopFutureAsync
+        self.setSMSAttributesEventLoopFutureAsyncOverride = setSMSAttributesEventLoopFutureAsync
+        self.setSubscriptionAttributesEventLoopFutureAsyncOverride = setSubscriptionAttributesEventLoopFutureAsync
+        self.setTopicAttributesEventLoopFutureAsyncOverride = setTopicAttributesEventLoopFutureAsync
+        self.subscribeEventLoopFutureAsyncOverride = subscribeEventLoopFutureAsync
+        self.tagResourceEventLoopFutureAsyncOverride = tagResourceEventLoopFutureAsync
+        self.unsubscribeEventLoopFutureAsyncOverride = unsubscribeEventLoopFutureAsync
+        self.untagResourceEventLoopFutureAsyncOverride = untagResourceEventLoopFutureAsync
     }
 
     /**
-     Invokes the AddPermission operation returning immediately and passing the response to a callback.
+     Invokes the AddPermission operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AddPermissionInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func addPermissionAsync(
-            input: SimpleNotificationModel.AddPermissionInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let addPermissionAsyncOverride = addPermissionAsyncOverride {
-            return try addPermissionAsyncOverride(input, completion)
+    public func addPermission(
+            input: SimpleNotificationModel.AddPermissionInput) -> EventLoopFuture<Void> {
+        if let addPermissionEventLoopFutureAsyncOverride = addPermissionEventLoopFutureAsyncOverride {
+            return addPermissionEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the AddPermission operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AddPermissionInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func addPermissionSync(
-            input: SimpleNotificationModel.AddPermissionInput) throws {
-        if let addPermissionSyncOverride = addPermissionSyncOverride {
-            return try addPermissionSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the CheckIfPhoneNumberIsOptedOut operation returning immediately and passing the response to a callback.
+     Invokes the CheckIfPhoneNumberIsOptedOut operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CheckIfPhoneNumberIsOptedOutInput object being passed to this operation.
-         - completion: The CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut object or an error will be passed to this 
-           callback when the operation is complete. The CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut
-           object will be validated before being returned to caller.
+     - Returns: A future to the CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    public func checkIfPhoneNumberIsOptedOutAsync(
-            input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput, 
-            completion: @escaping (Result<SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut, SimpleNotificationError>) -> ()) throws {
-        if let checkIfPhoneNumberIsOptedOutAsyncOverride = checkIfPhoneNumberIsOptedOutAsyncOverride {
-            return try checkIfPhoneNumberIsOptedOutAsyncOverride(input, completion)
+    public func checkIfPhoneNumberIsOptedOut(
+            input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput) -> EventLoopFuture<SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut> {
+        if let checkIfPhoneNumberIsOptedOutEventLoopFutureAsyncOverride = checkIfPhoneNumberIsOptedOutEventLoopFutureAsyncOverride {
+            return checkIfPhoneNumberIsOptedOutEventLoopFutureAsyncOverride(input)
         }
 
         let result = CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CheckIfPhoneNumberIsOptedOut operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CheckIfPhoneNumberIsOptedOutInput object being passed to this operation.
-     - Returns: The CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    public func checkIfPhoneNumberIsOptedOutSync(
-            input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput) throws -> SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut {
-        if let checkIfPhoneNumberIsOptedOutSyncOverride = checkIfPhoneNumberIsOptedOutSyncOverride {
-            return try checkIfPhoneNumberIsOptedOutSyncOverride(input)
-        }
-
-        return CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut.__default
-    }
-
-    /**
-     Invokes the ConfirmSubscription operation returning immediately and passing the response to a callback.
+     Invokes the ConfirmSubscription operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ConfirmSubscriptionInput object being passed to this operation.
-         - completion: The ConfirmSubscriptionResponseForConfirmSubscription object or an error will be passed to this 
-           callback when the operation is complete. The ConfirmSubscriptionResponseForConfirmSubscription
-           object will be validated before being returned to caller.
+     - Returns: A future to the ConfirmSubscriptionResponseForConfirmSubscription object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, notFound, subscriptionLimitExceeded.
      */
-    public func confirmSubscriptionAsync(
-            input: SimpleNotificationModel.ConfirmSubscriptionInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription, SimpleNotificationError>) -> ()) throws {
-        if let confirmSubscriptionAsyncOverride = confirmSubscriptionAsyncOverride {
-            return try confirmSubscriptionAsyncOverride(input, completion)
+    public func confirmSubscription(
+            input: SimpleNotificationModel.ConfirmSubscriptionInput) -> EventLoopFuture<SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription> {
+        if let confirmSubscriptionEventLoopFutureAsyncOverride = confirmSubscriptionEventLoopFutureAsyncOverride {
+            return confirmSubscriptionEventLoopFutureAsyncOverride(input)
         }
 
         let result = ConfirmSubscriptionResponseForConfirmSubscription.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ConfirmSubscriptionResponseForConfirmSubscription.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ConfirmSubscription operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ConfirmSubscriptionInput object being passed to this operation.
-     - Returns: The ConfirmSubscriptionResponseForConfirmSubscription object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, notFound, subscriptionLimitExceeded.
-     */
-    public func confirmSubscriptionSync(
-            input: SimpleNotificationModel.ConfirmSubscriptionInput) throws -> SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription {
-        if let confirmSubscriptionSyncOverride = confirmSubscriptionSyncOverride {
-            return try confirmSubscriptionSyncOverride(input)
-        }
-
-        return ConfirmSubscriptionResponseForConfirmSubscription.__default
-    }
-
-    /**
-     Invokes the CreatePlatformApplication operation returning immediately and passing the response to a callback.
+     Invokes the CreatePlatformApplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreatePlatformApplicationInput object being passed to this operation.
-         - completion: The CreatePlatformApplicationResponseForCreatePlatformApplication object or an error will be passed to this 
-           callback when the operation is complete. The CreatePlatformApplicationResponseForCreatePlatformApplication
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreatePlatformApplicationResponseForCreatePlatformApplication object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    public func createPlatformApplicationAsync(
-            input: SimpleNotificationModel.CreatePlatformApplicationInput, 
-            completion: @escaping (Result<SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication, SimpleNotificationError>) -> ()) throws {
-        if let createPlatformApplicationAsyncOverride = createPlatformApplicationAsyncOverride {
-            return try createPlatformApplicationAsyncOverride(input, completion)
+    public func createPlatformApplication(
+            input: SimpleNotificationModel.CreatePlatformApplicationInput) -> EventLoopFuture<SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication> {
+        if let createPlatformApplicationEventLoopFutureAsyncOverride = createPlatformApplicationEventLoopFutureAsyncOverride {
+            return createPlatformApplicationEventLoopFutureAsyncOverride(input)
         }
 
         let result = CreatePlatformApplicationResponseForCreatePlatformApplication.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: CreatePlatformApplicationResponseForCreatePlatformApplication.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CreatePlatformApplication operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreatePlatformApplicationInput object being passed to this operation.
-     - Returns: The CreatePlatformApplicationResponseForCreatePlatformApplication object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    public func createPlatformApplicationSync(
-            input: SimpleNotificationModel.CreatePlatformApplicationInput) throws -> SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication {
-        if let createPlatformApplicationSyncOverride = createPlatformApplicationSyncOverride {
-            return try createPlatformApplicationSyncOverride(input)
-        }
-
-        return CreatePlatformApplicationResponseForCreatePlatformApplication.__default
-    }
-
-    /**
-     Invokes the CreatePlatformEndpoint operation returning immediately and passing the response to a callback.
+     Invokes the CreatePlatformEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreatePlatformEndpointInput object being passed to this operation.
-         - completion: The CreateEndpointResponseForCreatePlatformEndpoint object or an error will be passed to this 
-           callback when the operation is complete. The CreateEndpointResponseForCreatePlatformEndpoint
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateEndpointResponseForCreatePlatformEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func createPlatformEndpointAsync(
-            input: SimpleNotificationModel.CreatePlatformEndpointInput, 
-            completion: @escaping (Result<SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint, SimpleNotificationError>) -> ()) throws {
-        if let createPlatformEndpointAsyncOverride = createPlatformEndpointAsyncOverride {
-            return try createPlatformEndpointAsyncOverride(input, completion)
+    public func createPlatformEndpoint(
+            input: SimpleNotificationModel.CreatePlatformEndpointInput) -> EventLoopFuture<SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint> {
+        if let createPlatformEndpointEventLoopFutureAsyncOverride = createPlatformEndpointEventLoopFutureAsyncOverride {
+            return createPlatformEndpointEventLoopFutureAsyncOverride(input)
         }
 
         let result = CreateEndpointResponseForCreatePlatformEndpoint.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: CreateEndpointResponseForCreatePlatformEndpoint.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CreatePlatformEndpoint operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreatePlatformEndpointInput object being passed to this operation.
-     - Returns: The CreateEndpointResponseForCreatePlatformEndpoint object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func createPlatformEndpointSync(
-            input: SimpleNotificationModel.CreatePlatformEndpointInput) throws -> SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint {
-        if let createPlatformEndpointSyncOverride = createPlatformEndpointSyncOverride {
-            return try createPlatformEndpointSyncOverride(input)
-        }
-
-        return CreateEndpointResponseForCreatePlatformEndpoint.__default
-    }
-
-    /**
-     Invokes the CreateTopic operation returning immediately and passing the response to a callback.
+     Invokes the CreateTopic operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateTopicInput object being passed to this operation.
-         - completion: The CreateTopicResponseForCreateTopic object or an error will be passed to this 
-           callback when the operation is complete. The CreateTopicResponseForCreateTopic
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateTopicResponseForCreateTopic object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, concurrentAccess, internalError, invalidParameter, invalidSecurity, staleTag, tagLimitExceeded, tagPolicy, topicLimitExceeded.
      */
-    public func createTopicAsync(
-            input: SimpleNotificationModel.CreateTopicInput, 
-            completion: @escaping (Result<SimpleNotificationModel.CreateTopicResponseForCreateTopic, SimpleNotificationError>) -> ()) throws {
-        if let createTopicAsyncOverride = createTopicAsyncOverride {
-            return try createTopicAsyncOverride(input, completion)
+    public func createTopic(
+            input: SimpleNotificationModel.CreateTopicInput) -> EventLoopFuture<SimpleNotificationModel.CreateTopicResponseForCreateTopic> {
+        if let createTopicEventLoopFutureAsyncOverride = createTopicEventLoopFutureAsyncOverride {
+            return createTopicEventLoopFutureAsyncOverride(input)
         }
 
         let result = CreateTopicResponseForCreateTopic.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: CreateTopicResponseForCreateTopic.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CreateTopic operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateTopicInput object being passed to this operation.
-     - Returns: The CreateTopicResponseForCreateTopic object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, concurrentAccess, internalError, invalidParameter, invalidSecurity, staleTag, tagLimitExceeded, tagPolicy, topicLimitExceeded.
-     */
-    public func createTopicSync(
-            input: SimpleNotificationModel.CreateTopicInput) throws -> SimpleNotificationModel.CreateTopicResponseForCreateTopic {
-        if let createTopicSyncOverride = createTopicSyncOverride {
-            return try createTopicSyncOverride(input)
-        }
-
-        return CreateTopicResponseForCreateTopic.__default
-    }
-
-    /**
-     Invokes the DeleteEndpoint operation returning immediately and passing the response to a callback.
+     Invokes the DeleteEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteEndpointInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    public func deleteEndpointAsync(
-            input: SimpleNotificationModel.DeleteEndpointInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let deleteEndpointAsyncOverride = deleteEndpointAsyncOverride {
-            return try deleteEndpointAsyncOverride(input, completion)
+    public func deleteEndpoint(
+            input: SimpleNotificationModel.DeleteEndpointInput) -> EventLoopFuture<Void> {
+        if let deleteEndpointEventLoopFutureAsyncOverride = deleteEndpointEventLoopFutureAsyncOverride {
+            return deleteEndpointEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DeleteEndpoint operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteEndpointInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    public func deleteEndpointSync(
-            input: SimpleNotificationModel.DeleteEndpointInput) throws {
-        if let deleteEndpointSyncOverride = deleteEndpointSyncOverride {
-            return try deleteEndpointSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the DeletePlatformApplication operation returning immediately and passing the response to a callback.
+     Invokes the DeletePlatformApplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeletePlatformApplicationInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    public func deletePlatformApplicationAsync(
-            input: SimpleNotificationModel.DeletePlatformApplicationInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let deletePlatformApplicationAsyncOverride = deletePlatformApplicationAsyncOverride {
-            return try deletePlatformApplicationAsyncOverride(input, completion)
+    public func deletePlatformApplication(
+            input: SimpleNotificationModel.DeletePlatformApplicationInput) -> EventLoopFuture<Void> {
+        if let deletePlatformApplicationEventLoopFutureAsyncOverride = deletePlatformApplicationEventLoopFutureAsyncOverride {
+            return deletePlatformApplicationEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DeletePlatformApplication operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeletePlatformApplicationInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    public func deletePlatformApplicationSync(
-            input: SimpleNotificationModel.DeletePlatformApplicationInput) throws {
-        if let deletePlatformApplicationSyncOverride = deletePlatformApplicationSyncOverride {
-            return try deletePlatformApplicationSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the DeleteTopic operation returning immediately and passing the response to a callback.
+     Invokes the DeleteTopic operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteTopicInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, concurrentAccess, internalError, invalidParameter, notFound, staleTag, tagPolicy.
      */
-    public func deleteTopicAsync(
-            input: SimpleNotificationModel.DeleteTopicInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let deleteTopicAsyncOverride = deleteTopicAsyncOverride {
-            return try deleteTopicAsyncOverride(input, completion)
+    public func deleteTopic(
+            input: SimpleNotificationModel.DeleteTopicInput) -> EventLoopFuture<Void> {
+        if let deleteTopicEventLoopFutureAsyncOverride = deleteTopicEventLoopFutureAsyncOverride {
+            return deleteTopicEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DeleteTopic operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteTopicInput object being passed to this operation.
-     - Throws: authorizationError, concurrentAccess, internalError, invalidParameter, notFound, staleTag, tagPolicy.
-     */
-    public func deleteTopicSync(
-            input: SimpleNotificationModel.DeleteTopicInput) throws {
-        if let deleteTopicSyncOverride = deleteTopicSyncOverride {
-            return try deleteTopicSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the GetEndpointAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetEndpointAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetEndpointAttributesInput object being passed to this operation.
-         - completion: The GetEndpointAttributesResponseForGetEndpointAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetEndpointAttributesResponseForGetEndpointAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetEndpointAttributesResponseForGetEndpointAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func getEndpointAttributesAsync(
-            input: SimpleNotificationModel.GetEndpointAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes, SimpleNotificationError>) -> ()) throws {
-        if let getEndpointAttributesAsyncOverride = getEndpointAttributesAsyncOverride {
-            return try getEndpointAttributesAsyncOverride(input, completion)
+    public func getEndpointAttributes(
+            input: SimpleNotificationModel.GetEndpointAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes> {
+        if let getEndpointAttributesEventLoopFutureAsyncOverride = getEndpointAttributesEventLoopFutureAsyncOverride {
+            return getEndpointAttributesEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetEndpointAttributesResponseForGetEndpointAttributes.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetEndpointAttributesResponseForGetEndpointAttributes.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetEndpointAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetEndpointAttributesInput object being passed to this operation.
-     - Returns: The GetEndpointAttributesResponseForGetEndpointAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func getEndpointAttributesSync(
-            input: SimpleNotificationModel.GetEndpointAttributesInput) throws -> SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes {
-        if let getEndpointAttributesSyncOverride = getEndpointAttributesSyncOverride {
-            return try getEndpointAttributesSyncOverride(input)
-        }
-
-        return GetEndpointAttributesResponseForGetEndpointAttributes.__default
-    }
-
-    /**
-     Invokes the GetPlatformApplicationAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetPlatformApplicationAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetPlatformApplicationAttributesInput object being passed to this operation.
-         - completion: The GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func getPlatformApplicationAttributesAsync(
-            input: SimpleNotificationModel.GetPlatformApplicationAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes, SimpleNotificationError>) -> ()) throws {
-        if let getPlatformApplicationAttributesAsyncOverride = getPlatformApplicationAttributesAsyncOverride {
-            return try getPlatformApplicationAttributesAsyncOverride(input, completion)
+    public func getPlatformApplicationAttributes(
+            input: SimpleNotificationModel.GetPlatformApplicationAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes> {
+        if let getPlatformApplicationAttributesEventLoopFutureAsyncOverride = getPlatformApplicationAttributesEventLoopFutureAsyncOverride {
+            return getPlatformApplicationAttributesEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetPlatformApplicationAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetPlatformApplicationAttributesInput object being passed to this operation.
-     - Returns: The GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func getPlatformApplicationAttributesSync(
-            input: SimpleNotificationModel.GetPlatformApplicationAttributesInput) throws -> SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes {
-        if let getPlatformApplicationAttributesSyncOverride = getPlatformApplicationAttributesSyncOverride {
-            return try getPlatformApplicationAttributesSyncOverride(input)
-        }
-
-        return GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes.__default
-    }
-
-    /**
-     Invokes the GetSMSAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetSMSAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetSMSAttributesInput object being passed to this operation.
-         - completion: The GetSMSAttributesResponseForGetSMSAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetSMSAttributesResponseForGetSMSAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetSMSAttributesResponseForGetSMSAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    public func getSMSAttributesAsync(
-            input: SimpleNotificationModel.GetSMSAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes, SimpleNotificationError>) -> ()) throws {
-        if let getSMSAttributesAsyncOverride = getSMSAttributesAsyncOverride {
-            return try getSMSAttributesAsyncOverride(input, completion)
+    public func getSMSAttributes(
+            input: SimpleNotificationModel.GetSMSAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes> {
+        if let getSMSAttributesEventLoopFutureAsyncOverride = getSMSAttributesEventLoopFutureAsyncOverride {
+            return getSMSAttributesEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetSMSAttributesResponseForGetSMSAttributes.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetSMSAttributesResponseForGetSMSAttributes.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetSMSAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetSMSAttributesInput object being passed to this operation.
-     - Returns: The GetSMSAttributesResponseForGetSMSAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    public func getSMSAttributesSync(
-            input: SimpleNotificationModel.GetSMSAttributesInput) throws -> SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes {
-        if let getSMSAttributesSyncOverride = getSMSAttributesSyncOverride {
-            return try getSMSAttributesSyncOverride(input)
-        }
-
-        return GetSMSAttributesResponseForGetSMSAttributes.__default
-    }
-
-    /**
-     Invokes the GetSubscriptionAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetSubscriptionAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetSubscriptionAttributesInput object being passed to this operation.
-         - completion: The GetSubscriptionAttributesResponseForGetSubscriptionAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetSubscriptionAttributesResponseForGetSubscriptionAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetSubscriptionAttributesResponseForGetSubscriptionAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func getSubscriptionAttributesAsync(
-            input: SimpleNotificationModel.GetSubscriptionAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes, SimpleNotificationError>) -> ()) throws {
-        if let getSubscriptionAttributesAsyncOverride = getSubscriptionAttributesAsyncOverride {
-            return try getSubscriptionAttributesAsyncOverride(input, completion)
+    public func getSubscriptionAttributes(
+            input: SimpleNotificationModel.GetSubscriptionAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes> {
+        if let getSubscriptionAttributesEventLoopFutureAsyncOverride = getSubscriptionAttributesEventLoopFutureAsyncOverride {
+            return getSubscriptionAttributesEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetSubscriptionAttributesResponseForGetSubscriptionAttributes.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetSubscriptionAttributesResponseForGetSubscriptionAttributes.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetSubscriptionAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetSubscriptionAttributesInput object being passed to this operation.
-     - Returns: The GetSubscriptionAttributesResponseForGetSubscriptionAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func getSubscriptionAttributesSync(
-            input: SimpleNotificationModel.GetSubscriptionAttributesInput) throws -> SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes {
-        if let getSubscriptionAttributesSyncOverride = getSubscriptionAttributesSyncOverride {
-            return try getSubscriptionAttributesSyncOverride(input)
-        }
-
-        return GetSubscriptionAttributesResponseForGetSubscriptionAttributes.__default
-    }
-
-    /**
-     Invokes the GetTopicAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetTopicAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetTopicAttributesInput object being passed to this operation.
-         - completion: The GetTopicAttributesResponseForGetTopicAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetTopicAttributesResponseForGetTopicAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetTopicAttributesResponseForGetTopicAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
      */
-    public func getTopicAttributesAsync(
-            input: SimpleNotificationModel.GetTopicAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes, SimpleNotificationError>) -> ()) throws {
-        if let getTopicAttributesAsyncOverride = getTopicAttributesAsyncOverride {
-            return try getTopicAttributesAsyncOverride(input, completion)
+    public func getTopicAttributes(
+            input: SimpleNotificationModel.GetTopicAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes> {
+        if let getTopicAttributesEventLoopFutureAsyncOverride = getTopicAttributesEventLoopFutureAsyncOverride {
+            return getTopicAttributesEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetTopicAttributesResponseForGetTopicAttributes.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetTopicAttributesResponseForGetTopicAttributes.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetTopicAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetTopicAttributesInput object being passed to this operation.
-     - Returns: The GetTopicAttributesResponseForGetTopicAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
-     */
-    public func getTopicAttributesSync(
-            input: SimpleNotificationModel.GetTopicAttributesInput) throws -> SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes {
-        if let getTopicAttributesSyncOverride = getTopicAttributesSyncOverride {
-            return try getTopicAttributesSyncOverride(input)
-        }
-
-        return GetTopicAttributesResponseForGetTopicAttributes.__default
-    }
-
-    /**
-     Invokes the ListEndpointsByPlatformApplication operation returning immediately and passing the response to a callback.
+     Invokes the ListEndpointsByPlatformApplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListEndpointsByPlatformApplicationInput object being passed to this operation.
-         - completion: The ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication object or an error will be passed to this 
-           callback when the operation is complete. The ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func listEndpointsByPlatformApplicationAsync(
-            input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication, SimpleNotificationError>) -> ()) throws {
-        if let listEndpointsByPlatformApplicationAsyncOverride = listEndpointsByPlatformApplicationAsyncOverride {
-            return try listEndpointsByPlatformApplicationAsyncOverride(input, completion)
+    public func listEndpointsByPlatformApplication(
+            input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput) -> EventLoopFuture<SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication> {
+        if let listEndpointsByPlatformApplicationEventLoopFutureAsyncOverride = listEndpointsByPlatformApplicationEventLoopFutureAsyncOverride {
+            return listEndpointsByPlatformApplicationEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListEndpointsByPlatformApplication operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListEndpointsByPlatformApplicationInput object being passed to this operation.
-     - Returns: The ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func listEndpointsByPlatformApplicationSync(
-            input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput) throws -> SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication {
-        if let listEndpointsByPlatformApplicationSyncOverride = listEndpointsByPlatformApplicationSyncOverride {
-            return try listEndpointsByPlatformApplicationSyncOverride(input)
-        }
-
-        return ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication.__default
-    }
-
-    /**
-     Invokes the ListPhoneNumbersOptedOut operation returning immediately and passing the response to a callback.
+     Invokes the ListPhoneNumbersOptedOut operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListPhoneNumbersOptedOutInput object being passed to this operation.
-         - completion: The ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut object or an error will be passed to this 
-           callback when the operation is complete. The ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    public func listPhoneNumbersOptedOutAsync(
-            input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut, SimpleNotificationError>) -> ()) throws {
-        if let listPhoneNumbersOptedOutAsyncOverride = listPhoneNumbersOptedOutAsyncOverride {
-            return try listPhoneNumbersOptedOutAsyncOverride(input, completion)
+    public func listPhoneNumbersOptedOut(
+            input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput) -> EventLoopFuture<SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut> {
+        if let listPhoneNumbersOptedOutEventLoopFutureAsyncOverride = listPhoneNumbersOptedOutEventLoopFutureAsyncOverride {
+            return listPhoneNumbersOptedOutEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListPhoneNumbersOptedOut operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListPhoneNumbersOptedOutInput object being passed to this operation.
-     - Returns: The ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    public func listPhoneNumbersOptedOutSync(
-            input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput) throws -> SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut {
-        if let listPhoneNumbersOptedOutSyncOverride = listPhoneNumbersOptedOutSyncOverride {
-            return try listPhoneNumbersOptedOutSyncOverride(input)
-        }
-
-        return ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut.__default
-    }
-
-    /**
-     Invokes the ListPlatformApplications operation returning immediately and passing the response to a callback.
+     Invokes the ListPlatformApplications operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListPlatformApplicationsInput object being passed to this operation.
-         - completion: The ListPlatformApplicationsResponseForListPlatformApplications object or an error will be passed to this 
-           callback when the operation is complete. The ListPlatformApplicationsResponseForListPlatformApplications
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListPlatformApplicationsResponseForListPlatformApplications object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    public func listPlatformApplicationsAsync(
-            input: SimpleNotificationModel.ListPlatformApplicationsInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications, SimpleNotificationError>) -> ()) throws {
-        if let listPlatformApplicationsAsyncOverride = listPlatformApplicationsAsyncOverride {
-            return try listPlatformApplicationsAsyncOverride(input, completion)
+    public func listPlatformApplications(
+            input: SimpleNotificationModel.ListPlatformApplicationsInput) -> EventLoopFuture<SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications> {
+        if let listPlatformApplicationsEventLoopFutureAsyncOverride = listPlatformApplicationsEventLoopFutureAsyncOverride {
+            return listPlatformApplicationsEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListPlatformApplicationsResponseForListPlatformApplications.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListPlatformApplicationsResponseForListPlatformApplications.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListPlatformApplications operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListPlatformApplicationsInput object being passed to this operation.
-     - Returns: The ListPlatformApplicationsResponseForListPlatformApplications object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    public func listPlatformApplicationsSync(
-            input: SimpleNotificationModel.ListPlatformApplicationsInput) throws -> SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications {
-        if let listPlatformApplicationsSyncOverride = listPlatformApplicationsSyncOverride {
-            return try listPlatformApplicationsSyncOverride(input)
-        }
-
-        return ListPlatformApplicationsResponseForListPlatformApplications.__default
-    }
-
-    /**
-     Invokes the ListSubscriptions operation returning immediately and passing the response to a callback.
+     Invokes the ListSubscriptions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListSubscriptionsInput object being passed to this operation.
-         - completion: The ListSubscriptionsResponseForListSubscriptions object or an error will be passed to this 
-           callback when the operation is complete. The ListSubscriptionsResponseForListSubscriptions
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListSubscriptionsResponseForListSubscriptions object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    public func listSubscriptionsAsync(
-            input: SimpleNotificationModel.ListSubscriptionsInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions, SimpleNotificationError>) -> ()) throws {
-        if let listSubscriptionsAsyncOverride = listSubscriptionsAsyncOverride {
-            return try listSubscriptionsAsyncOverride(input, completion)
+    public func listSubscriptions(
+            input: SimpleNotificationModel.ListSubscriptionsInput) -> EventLoopFuture<SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions> {
+        if let listSubscriptionsEventLoopFutureAsyncOverride = listSubscriptionsEventLoopFutureAsyncOverride {
+            return listSubscriptionsEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListSubscriptionsResponseForListSubscriptions.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListSubscriptionsResponseForListSubscriptions.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListSubscriptions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListSubscriptionsInput object being passed to this operation.
-     - Returns: The ListSubscriptionsResponseForListSubscriptions object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    public func listSubscriptionsSync(
-            input: SimpleNotificationModel.ListSubscriptionsInput) throws -> SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions {
-        if let listSubscriptionsSyncOverride = listSubscriptionsSyncOverride {
-            return try listSubscriptionsSyncOverride(input)
-        }
-
-        return ListSubscriptionsResponseForListSubscriptions.__default
-    }
-
-    /**
-     Invokes the ListSubscriptionsByTopic operation returning immediately and passing the response to a callback.
+     Invokes the ListSubscriptionsByTopic operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListSubscriptionsByTopicInput object being passed to this operation.
-         - completion: The ListSubscriptionsByTopicResponseForListSubscriptionsByTopic object or an error will be passed to this 
-           callback when the operation is complete. The ListSubscriptionsByTopicResponseForListSubscriptionsByTopic
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListSubscriptionsByTopicResponseForListSubscriptionsByTopic object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func listSubscriptionsByTopicAsync(
-            input: SimpleNotificationModel.ListSubscriptionsByTopicInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic, SimpleNotificationError>) -> ()) throws {
-        if let listSubscriptionsByTopicAsyncOverride = listSubscriptionsByTopicAsyncOverride {
-            return try listSubscriptionsByTopicAsyncOverride(input, completion)
+    public func listSubscriptionsByTopic(
+            input: SimpleNotificationModel.ListSubscriptionsByTopicInput) -> EventLoopFuture<SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic> {
+        if let listSubscriptionsByTopicEventLoopFutureAsyncOverride = listSubscriptionsByTopicEventLoopFutureAsyncOverride {
+            return listSubscriptionsByTopicEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListSubscriptionsByTopicResponseForListSubscriptionsByTopic.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListSubscriptionsByTopicResponseForListSubscriptionsByTopic.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListSubscriptionsByTopic operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListSubscriptionsByTopicInput object being passed to this operation.
-     - Returns: The ListSubscriptionsByTopicResponseForListSubscriptionsByTopic object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func listSubscriptionsByTopicSync(
-            input: SimpleNotificationModel.ListSubscriptionsByTopicInput) throws -> SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic {
-        if let listSubscriptionsByTopicSyncOverride = listSubscriptionsByTopicSyncOverride {
-            return try listSubscriptionsByTopicSyncOverride(input)
-        }
-
-        return ListSubscriptionsByTopicResponseForListSubscriptionsByTopic.__default
-    }
-
-    /**
-     Invokes the ListTagsForResource operation returning immediately and passing the response to a callback.
+     Invokes the ListTagsForResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTagsForResourceRequest object being passed to this operation.
-         - completion: The ListTagsForResourceResponseForListTagsForResource object or an error will be passed to this 
-           callback when the operation is complete. The ListTagsForResourceResponseForListTagsForResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTagsForResourceResponseForListTagsForResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, tagPolicy.
      */
-    public func listTagsForResourceAsync(
-            input: SimpleNotificationModel.ListTagsForResourceRequest, 
-            completion: @escaping (Result<SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource, SimpleNotificationError>) -> ()) throws {
-        if let listTagsForResourceAsyncOverride = listTagsForResourceAsyncOverride {
-            return try listTagsForResourceAsyncOverride(input, completion)
+    public func listTagsForResource(
+            input: SimpleNotificationModel.ListTagsForResourceRequest) -> EventLoopFuture<SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource> {
+        if let listTagsForResourceEventLoopFutureAsyncOverride = listTagsForResourceEventLoopFutureAsyncOverride {
+            return listTagsForResourceEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListTagsForResourceResponseForListTagsForResource.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListTagsForResourceResponseForListTagsForResource.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListTagsForResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTagsForResourceRequest object being passed to this operation.
-     - Returns: The ListTagsForResourceResponseForListTagsForResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, tagPolicy.
-     */
-    public func listTagsForResourceSync(
-            input: SimpleNotificationModel.ListTagsForResourceRequest) throws -> SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource {
-        if let listTagsForResourceSyncOverride = listTagsForResourceSyncOverride {
-            return try listTagsForResourceSyncOverride(input)
-        }
-
-        return ListTagsForResourceResponseForListTagsForResource.__default
-    }
-
-    /**
-     Invokes the ListTopics operation returning immediately and passing the response to a callback.
+     Invokes the ListTopics operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTopicsInput object being passed to this operation.
-         - completion: The ListTopicsResponseForListTopics object or an error will be passed to this 
-           callback when the operation is complete. The ListTopicsResponseForListTopics
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTopicsResponseForListTopics object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    public func listTopicsAsync(
-            input: SimpleNotificationModel.ListTopicsInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListTopicsResponseForListTopics, SimpleNotificationError>) -> ()) throws {
-        if let listTopicsAsyncOverride = listTopicsAsyncOverride {
-            return try listTopicsAsyncOverride(input, completion)
+    public func listTopics(
+            input: SimpleNotificationModel.ListTopicsInput) -> EventLoopFuture<SimpleNotificationModel.ListTopicsResponseForListTopics> {
+        if let listTopicsEventLoopFutureAsyncOverride = listTopicsEventLoopFutureAsyncOverride {
+            return listTopicsEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListTopicsResponseForListTopics.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListTopicsResponseForListTopics.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListTopics operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTopicsInput object being passed to this operation.
-     - Returns: The ListTopicsResponseForListTopics object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    public func listTopicsSync(
-            input: SimpleNotificationModel.ListTopicsInput) throws -> SimpleNotificationModel.ListTopicsResponseForListTopics {
-        if let listTopicsSyncOverride = listTopicsSyncOverride {
-            return try listTopicsSyncOverride(input)
-        }
-
-        return ListTopicsResponseForListTopics.__default
-    }
-
-    /**
-     Invokes the OptInPhoneNumber operation returning immediately and passing the response to a callback.
+     Invokes the OptInPhoneNumber operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated OptInPhoneNumberInput object being passed to this operation.
-         - completion: The OptInPhoneNumberResponseForOptInPhoneNumber object or an error will be passed to this 
-           callback when the operation is complete. The OptInPhoneNumberResponseForOptInPhoneNumber
-           object will be validated before being returned to caller.
+     - Returns: A future to the OptInPhoneNumberResponseForOptInPhoneNumber object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    public func optInPhoneNumberAsync(
-            input: SimpleNotificationModel.OptInPhoneNumberInput, 
-            completion: @escaping (Result<SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber, SimpleNotificationError>) -> ()) throws {
-        if let optInPhoneNumberAsyncOverride = optInPhoneNumberAsyncOverride {
-            return try optInPhoneNumberAsyncOverride(input, completion)
+    public func optInPhoneNumber(
+            input: SimpleNotificationModel.OptInPhoneNumberInput) -> EventLoopFuture<SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber> {
+        if let optInPhoneNumberEventLoopFutureAsyncOverride = optInPhoneNumberEventLoopFutureAsyncOverride {
+            return optInPhoneNumberEventLoopFutureAsyncOverride(input)
         }
 
         let result = OptInPhoneNumberResponseForOptInPhoneNumber.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: OptInPhoneNumberResponseForOptInPhoneNumber.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the OptInPhoneNumber operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated OptInPhoneNumberInput object being passed to this operation.
-     - Returns: The OptInPhoneNumberResponseForOptInPhoneNumber object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    public func optInPhoneNumberSync(
-            input: SimpleNotificationModel.OptInPhoneNumberInput) throws -> SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber {
-        if let optInPhoneNumberSyncOverride = optInPhoneNumberSyncOverride {
-            return try optInPhoneNumberSyncOverride(input)
-        }
-
-        return OptInPhoneNumberResponseForOptInPhoneNumber.__default
-    }
-
-    /**
-     Invokes the Publish operation returning immediately and passing the response to a callback.
+     Invokes the Publish operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PublishInput object being passed to this operation.
-         - completion: The PublishResponseForPublish object or an error will be passed to this 
-           callback when the operation is complete. The PublishResponseForPublish
-           object will be validated before being returned to caller.
+     - Returns: A future to the PublishResponseForPublish object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, endpointDisabled, internalError, invalidParameter, invalidParameterValue, invalidSecurity, kMSAccessDenied, kMSDisabled, kMSInvalidState, kMSNotFound, kMSOptInRequired, kMSThrottling, notFound, platformApplicationDisabled.
      */
-    public func publishAsync(
-            input: SimpleNotificationModel.PublishInput, 
-            completion: @escaping (Result<SimpleNotificationModel.PublishResponseForPublish, SimpleNotificationError>) -> ()) throws {
-        if let publishAsyncOverride = publishAsyncOverride {
-            return try publishAsyncOverride(input, completion)
+    public func publish(
+            input: SimpleNotificationModel.PublishInput) -> EventLoopFuture<SimpleNotificationModel.PublishResponseForPublish> {
+        if let publishEventLoopFutureAsyncOverride = publishEventLoopFutureAsyncOverride {
+            return publishEventLoopFutureAsyncOverride(input)
         }
 
         let result = PublishResponseForPublish.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: PublishResponseForPublish.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the Publish operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PublishInput object being passed to this operation.
-     - Returns: The PublishResponseForPublish object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, endpointDisabled, internalError, invalidParameter, invalidParameterValue, invalidSecurity, kMSAccessDenied, kMSDisabled, kMSInvalidState, kMSNotFound, kMSOptInRequired, kMSThrottling, notFound, platformApplicationDisabled.
-     */
-    public func publishSync(
-            input: SimpleNotificationModel.PublishInput) throws -> SimpleNotificationModel.PublishResponseForPublish {
-        if let publishSyncOverride = publishSyncOverride {
-            return try publishSyncOverride(input)
-        }
-
-        return PublishResponseForPublish.__default
-    }
-
-    /**
-     Invokes the RemovePermission operation returning immediately and passing the response to a callback.
+     Invokes the RemovePermission operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RemovePermissionInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func removePermissionAsync(
-            input: SimpleNotificationModel.RemovePermissionInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let removePermissionAsyncOverride = removePermissionAsyncOverride {
-            return try removePermissionAsyncOverride(input, completion)
+    public func removePermission(
+            input: SimpleNotificationModel.RemovePermissionInput) -> EventLoopFuture<Void> {
+        if let removePermissionEventLoopFutureAsyncOverride = removePermissionEventLoopFutureAsyncOverride {
+            return removePermissionEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the RemovePermission operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RemovePermissionInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func removePermissionSync(
-            input: SimpleNotificationModel.RemovePermissionInput) throws {
-        if let removePermissionSyncOverride = removePermissionSyncOverride {
-            return try removePermissionSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the SetEndpointAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetEndpointAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetEndpointAttributesInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func setEndpointAttributesAsync(
-            input: SimpleNotificationModel.SetEndpointAttributesInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let setEndpointAttributesAsyncOverride = setEndpointAttributesAsyncOverride {
-            return try setEndpointAttributesAsyncOverride(input, completion)
+    public func setEndpointAttributes(
+            input: SimpleNotificationModel.SetEndpointAttributesInput) -> EventLoopFuture<Void> {
+        if let setEndpointAttributesEventLoopFutureAsyncOverride = setEndpointAttributesEventLoopFutureAsyncOverride {
+            return setEndpointAttributesEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SetEndpointAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetEndpointAttributesInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func setEndpointAttributesSync(
-            input: SimpleNotificationModel.SetEndpointAttributesInput) throws {
-        if let setEndpointAttributesSyncOverride = setEndpointAttributesSyncOverride {
-            return try setEndpointAttributesSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the SetPlatformApplicationAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetPlatformApplicationAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetPlatformApplicationAttributesInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    public func setPlatformApplicationAttributesAsync(
-            input: SimpleNotificationModel.SetPlatformApplicationAttributesInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let setPlatformApplicationAttributesAsyncOverride = setPlatformApplicationAttributesAsyncOverride {
-            return try setPlatformApplicationAttributesAsyncOverride(input, completion)
+    public func setPlatformApplicationAttributes(
+            input: SimpleNotificationModel.SetPlatformApplicationAttributesInput) -> EventLoopFuture<Void> {
+        if let setPlatformApplicationAttributesEventLoopFutureAsyncOverride = setPlatformApplicationAttributesEventLoopFutureAsyncOverride {
+            return setPlatformApplicationAttributesEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SetPlatformApplicationAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetPlatformApplicationAttributesInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    public func setPlatformApplicationAttributesSync(
-            input: SimpleNotificationModel.SetPlatformApplicationAttributesInput) throws {
-        if let setPlatformApplicationAttributesSyncOverride = setPlatformApplicationAttributesSyncOverride {
-            return try setPlatformApplicationAttributesSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the SetSMSAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetSMSAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetSMSAttributesInput object being passed to this operation.
-         - completion: The SetSMSAttributesResponseForSetSMSAttributes object or an error will be passed to this 
-           callback when the operation is complete. The SetSMSAttributesResponseForSetSMSAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the SetSMSAttributesResponseForSetSMSAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    public func setSMSAttributesAsync(
-            input: SimpleNotificationModel.SetSMSAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes, SimpleNotificationError>) -> ()) throws {
-        if let setSMSAttributesAsyncOverride = setSMSAttributesAsyncOverride {
-            return try setSMSAttributesAsyncOverride(input, completion)
+    public func setSMSAttributes(
+            input: SimpleNotificationModel.SetSMSAttributesInput) -> EventLoopFuture<SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes> {
+        if let setSMSAttributesEventLoopFutureAsyncOverride = setSMSAttributesEventLoopFutureAsyncOverride {
+            return setSMSAttributesEventLoopFutureAsyncOverride(input)
         }
 
         let result = SetSMSAttributesResponseForSetSMSAttributes.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: SetSMSAttributesResponseForSetSMSAttributes.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SetSMSAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetSMSAttributesInput object being passed to this operation.
-     - Returns: The SetSMSAttributesResponseForSetSMSAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    public func setSMSAttributesSync(
-            input: SimpleNotificationModel.SetSMSAttributesInput) throws -> SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes {
-        if let setSMSAttributesSyncOverride = setSMSAttributesSyncOverride {
-            return try setSMSAttributesSyncOverride(input)
-        }
-
-        return SetSMSAttributesResponseForSetSMSAttributes.__default
-    }
-
-    /**
-     Invokes the SetSubscriptionAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetSubscriptionAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetSubscriptionAttributesInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, notFound.
      */
-    public func setSubscriptionAttributesAsync(
-            input: SimpleNotificationModel.SetSubscriptionAttributesInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let setSubscriptionAttributesAsyncOverride = setSubscriptionAttributesAsyncOverride {
-            return try setSubscriptionAttributesAsyncOverride(input, completion)
+    public func setSubscriptionAttributes(
+            input: SimpleNotificationModel.SetSubscriptionAttributesInput) -> EventLoopFuture<Void> {
+        if let setSubscriptionAttributesEventLoopFutureAsyncOverride = setSubscriptionAttributesEventLoopFutureAsyncOverride {
+            return setSubscriptionAttributesEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SetSubscriptionAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetSubscriptionAttributesInput object being passed to this operation.
-     - Throws: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, notFound.
-     */
-    public func setSubscriptionAttributesSync(
-            input: SimpleNotificationModel.SetSubscriptionAttributesInput) throws {
-        if let setSubscriptionAttributesSyncOverride = setSubscriptionAttributesSyncOverride {
-            return try setSubscriptionAttributesSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the SetTopicAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetTopicAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetTopicAttributesInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
      */
-    public func setTopicAttributesAsync(
-            input: SimpleNotificationModel.SetTopicAttributesInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let setTopicAttributesAsyncOverride = setTopicAttributesAsyncOverride {
-            return try setTopicAttributesAsyncOverride(input, completion)
+    public func setTopicAttributes(
+            input: SimpleNotificationModel.SetTopicAttributesInput) -> EventLoopFuture<Void> {
+        if let setTopicAttributesEventLoopFutureAsyncOverride = setTopicAttributesEventLoopFutureAsyncOverride {
+            return setTopicAttributesEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SetTopicAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetTopicAttributesInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
-     */
-    public func setTopicAttributesSync(
-            input: SimpleNotificationModel.SetTopicAttributesInput) throws {
-        if let setTopicAttributesSyncOverride = setTopicAttributesSyncOverride {
-            return try setTopicAttributesSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the Subscribe operation returning immediately and passing the response to a callback.
+     Invokes the Subscribe operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SubscribeInput object being passed to this operation.
-         - completion: The SubscribeResponseForSubscribe object or an error will be passed to this 
-           callback when the operation is complete. The SubscribeResponseForSubscribe
-           object will be validated before being returned to caller.
+     - Returns: A future to the SubscribeResponseForSubscribe object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, invalidSecurity, notFound, subscriptionLimitExceeded.
      */
-    public func subscribeAsync(
-            input: SimpleNotificationModel.SubscribeInput, 
-            completion: @escaping (Result<SimpleNotificationModel.SubscribeResponseForSubscribe, SimpleNotificationError>) -> ()) throws {
-        if let subscribeAsyncOverride = subscribeAsyncOverride {
-            return try subscribeAsyncOverride(input, completion)
+    public func subscribe(
+            input: SimpleNotificationModel.SubscribeInput) -> EventLoopFuture<SimpleNotificationModel.SubscribeResponseForSubscribe> {
+        if let subscribeEventLoopFutureAsyncOverride = subscribeEventLoopFutureAsyncOverride {
+            return subscribeEventLoopFutureAsyncOverride(input)
         }
 
         let result = SubscribeResponseForSubscribe.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: SubscribeResponseForSubscribe.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the Subscribe operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SubscribeInput object being passed to this operation.
-     - Returns: The SubscribeResponseForSubscribe object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, invalidSecurity, notFound, subscriptionLimitExceeded.
-     */
-    public func subscribeSync(
-            input: SimpleNotificationModel.SubscribeInput) throws -> SimpleNotificationModel.SubscribeResponseForSubscribe {
-        if let subscribeSyncOverride = subscribeSyncOverride {
-            return try subscribeSyncOverride(input)
-        }
-
-        return SubscribeResponseForSubscribe.__default
-    }
-
-    /**
-     Invokes the TagResource operation returning immediately and passing the response to a callback.
+     Invokes the TagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagResourceRequest object being passed to this operation.
-         - completion: The TagResourceResponseForTagResource object or an error will be passed to this 
-           callback when the operation is complete. The TagResourceResponseForTagResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the TagResourceResponseForTagResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, staleTag, tagLimitExceeded, tagPolicy.
      */
-    public func tagResourceAsync(
-            input: SimpleNotificationModel.TagResourceRequest, 
-            completion: @escaping (Result<SimpleNotificationModel.TagResourceResponseForTagResource, SimpleNotificationError>) -> ()) throws {
-        if let tagResourceAsyncOverride = tagResourceAsyncOverride {
-            return try tagResourceAsyncOverride(input, completion)
+    public func tagResource(
+            input: SimpleNotificationModel.TagResourceRequest) -> EventLoopFuture<SimpleNotificationModel.TagResourceResponseForTagResource> {
+        if let tagResourceEventLoopFutureAsyncOverride = tagResourceEventLoopFutureAsyncOverride {
+            return tagResourceEventLoopFutureAsyncOverride(input)
         }
 
         let result = TagResourceResponseForTagResource.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: TagResourceResponseForTagResource.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the TagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TagResourceRequest object being passed to this operation.
-     - Returns: The TagResourceResponseForTagResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, staleTag, tagLimitExceeded, tagPolicy.
-     */
-    public func tagResourceSync(
-            input: SimpleNotificationModel.TagResourceRequest) throws -> SimpleNotificationModel.TagResourceResponseForTagResource {
-        if let tagResourceSyncOverride = tagResourceSyncOverride {
-            return try tagResourceSyncOverride(input)
-        }
-
-        return TagResourceResponseForTagResource.__default
-    }
-
-    /**
-     Invokes the Unsubscribe operation returning immediately and passing the response to a callback.
+     Invokes the Unsubscribe operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UnsubscribeInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
      */
-    public func unsubscribeAsync(
-            input: SimpleNotificationModel.UnsubscribeInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws {
-        if let unsubscribeAsyncOverride = unsubscribeAsyncOverride {
-            return try unsubscribeAsyncOverride(input, completion)
+    public func unsubscribe(
+            input: SimpleNotificationModel.UnsubscribeInput) -> EventLoopFuture<Void> {
+        if let unsubscribeEventLoopFutureAsyncOverride = unsubscribeEventLoopFutureAsyncOverride {
+            return unsubscribeEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the Unsubscribe operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UnsubscribeInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
-     */
-    public func unsubscribeSync(
-            input: SimpleNotificationModel.UnsubscribeInput) throws {
-        if let unsubscribeSyncOverride = unsubscribeSyncOverride {
-            return try unsubscribeSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the UntagResource operation returning immediately and passing the response to a callback.
+     Invokes the UntagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagResourceRequest object being passed to this operation.
-         - completion: The UntagResourceResponseForUntagResource object or an error will be passed to this 
-           callback when the operation is complete. The UntagResourceResponseForUntagResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the UntagResourceResponseForUntagResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, staleTag, tagLimitExceeded, tagPolicy.
      */
-    public func untagResourceAsync(
-            input: SimpleNotificationModel.UntagResourceRequest, 
-            completion: @escaping (Result<SimpleNotificationModel.UntagResourceResponseForUntagResource, SimpleNotificationError>) -> ()) throws {
-        if let untagResourceAsyncOverride = untagResourceAsyncOverride {
-            return try untagResourceAsyncOverride(input, completion)
+    public func untagResource(
+            input: SimpleNotificationModel.UntagResourceRequest) -> EventLoopFuture<SimpleNotificationModel.UntagResourceResponseForUntagResource> {
+        if let untagResourceEventLoopFutureAsyncOverride = untagResourceEventLoopFutureAsyncOverride {
+            return untagResourceEventLoopFutureAsyncOverride(input)
         }
 
         let result = UntagResourceResponseForUntagResource.__default
         
-        completion(.success(result))
-    }
-
-    /**
-     Invokes the UntagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UntagResourceRequest object being passed to this operation.
-     - Returns: The UntagResourceResponseForUntagResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, staleTag, tagLimitExceeded, tagPolicy.
-     */
-    public func untagResourceSync(
-            input: SimpleNotificationModel.UntagResourceRequest) throws -> SimpleNotificationModel.UntagResourceResponseForUntagResource {
-        if let untagResourceSyncOverride = untagResourceSyncOverride {
-            return try untagResourceSyncOverride(input)
-        }
-
-        return UntagResourceResponseForUntagResource.__default
+        let promise = self.eventLoop.makePromise(of: UntagResourceResponseForUntagResource.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 }

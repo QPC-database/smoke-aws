@@ -24,282 +24,169 @@ import Foundation
 import RDSDataModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Mock Client for the RDSData service that by default always throws from its methods.
  */
 public struct ThrowingRDSDataClient: RDSDataClientProtocol {
     let error: RDSDataError
-    let batchExecuteStatementAsyncOverride: BatchExecuteStatementAsyncType?
-    let batchExecuteStatementSyncOverride: BatchExecuteStatementSyncType?
-    let beginTransactionAsyncOverride: BeginTransactionAsyncType?
-    let beginTransactionSyncOverride: BeginTransactionSyncType?
-    let commitTransactionAsyncOverride: CommitTransactionAsyncType?
-    let commitTransactionSyncOverride: CommitTransactionSyncType?
-    let executeSqlAsyncOverride: ExecuteSqlAsyncType?
-    let executeSqlSyncOverride: ExecuteSqlSyncType?
-    let executeStatementAsyncOverride: ExecuteStatementAsyncType?
-    let executeStatementSyncOverride: ExecuteStatementSyncType?
-    let rollbackTransactionAsyncOverride: RollbackTransactionAsyncType?
-    let rollbackTransactionSyncOverride: RollbackTransactionSyncType?
+    let eventLoop: EventLoop
+    let typedErrorProvider: (Swift.Error) -> RDSDataError = { $0.asTypedError() }
+    let batchExecuteStatementEventLoopFutureAsyncOverride: BatchExecuteStatementEventLoopFutureAsyncType?
+    let beginTransactionEventLoopFutureAsyncOverride: BeginTransactionEventLoopFutureAsyncType?
+    let commitTransactionEventLoopFutureAsyncOverride: CommitTransactionEventLoopFutureAsyncType?
+    let executeSqlEventLoopFutureAsyncOverride: ExecuteSqlEventLoopFutureAsyncType?
+    let executeStatementEventLoopFutureAsyncOverride: ExecuteStatementEventLoopFutureAsyncType?
+    let rollbackTransactionEventLoopFutureAsyncOverride: RollbackTransactionEventLoopFutureAsyncType?
 
     /**
      Initializer that creates an instance of this clients. The behavior of individual
      functions can be overridden by passing them to this initializer.
      */
-    public init(error: RDSDataError,
-            batchExecuteStatementAsync: BatchExecuteStatementAsyncType? = nil,
-            batchExecuteStatementSync: BatchExecuteStatementSyncType? = nil,
-            beginTransactionAsync: BeginTransactionAsyncType? = nil,
-            beginTransactionSync: BeginTransactionSyncType? = nil,
-            commitTransactionAsync: CommitTransactionAsyncType? = nil,
-            commitTransactionSync: CommitTransactionSyncType? = nil,
-            executeSqlAsync: ExecuteSqlAsyncType? = nil,
-            executeSqlSync: ExecuteSqlSyncType? = nil,
-            executeStatementAsync: ExecuteStatementAsyncType? = nil,
-            executeStatementSync: ExecuteStatementSyncType? = nil,
-            rollbackTransactionAsync: RollbackTransactionAsyncType? = nil,
-            rollbackTransactionSync: RollbackTransactionSyncType? = nil) {
+    public init(
+            error: RDSDataError,
+            eventLoop: EventLoop,
+            batchExecuteStatementEventLoopFutureAsync: BatchExecuteStatementEventLoopFutureAsyncType? = nil,
+            beginTransactionEventLoopFutureAsync: BeginTransactionEventLoopFutureAsyncType? = nil,
+            commitTransactionEventLoopFutureAsync: CommitTransactionEventLoopFutureAsyncType? = nil,
+            executeSqlEventLoopFutureAsync: ExecuteSqlEventLoopFutureAsyncType? = nil,
+            executeStatementEventLoopFutureAsync: ExecuteStatementEventLoopFutureAsyncType? = nil,
+            rollbackTransactionEventLoopFutureAsync: RollbackTransactionEventLoopFutureAsyncType? = nil) {
         self.error = error
-        self.batchExecuteStatementAsyncOverride = batchExecuteStatementAsync
-        self.batchExecuteStatementSyncOverride = batchExecuteStatementSync
-        self.beginTransactionAsyncOverride = beginTransactionAsync
-        self.beginTransactionSyncOverride = beginTransactionSync
-        self.commitTransactionAsyncOverride = commitTransactionAsync
-        self.commitTransactionSyncOverride = commitTransactionSync
-        self.executeSqlAsyncOverride = executeSqlAsync
-        self.executeSqlSyncOverride = executeSqlSync
-        self.executeStatementAsyncOverride = executeStatementAsync
-        self.executeStatementSyncOverride = executeStatementSync
-        self.rollbackTransactionAsyncOverride = rollbackTransactionAsync
-        self.rollbackTransactionSyncOverride = rollbackTransactionSync
+        self.eventLoop = eventLoop
+        
+        self.batchExecuteStatementEventLoopFutureAsyncOverride = batchExecuteStatementEventLoopFutureAsync
+        self.beginTransactionEventLoopFutureAsyncOverride = beginTransactionEventLoopFutureAsync
+        self.commitTransactionEventLoopFutureAsyncOverride = commitTransactionEventLoopFutureAsync
+        self.executeSqlEventLoopFutureAsyncOverride = executeSqlEventLoopFutureAsync
+        self.executeStatementEventLoopFutureAsyncOverride = executeStatementEventLoopFutureAsync
+        self.rollbackTransactionEventLoopFutureAsyncOverride = rollbackTransactionEventLoopFutureAsync
     }
 
     /**
-     Invokes the BatchExecuteStatement operation returning immediately and passing the response to a callback.
+     Invokes the BatchExecuteStatement operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BatchExecuteStatementRequest object being passed to this operation.
-         - completion: The BatchExecuteStatementResponse object or an error will be passed to this 
-           callback when the operation is complete. The BatchExecuteStatementResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the BatchExecuteStatementResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
      */
-    public func batchExecuteStatementAsync(
-            input: RDSDataModel.BatchExecuteStatementRequest, 
-            completion: @escaping (Result<RDSDataModel.BatchExecuteStatementResponse, RDSDataError>) -> ()) throws {
-        if let batchExecuteStatementAsyncOverride = batchExecuteStatementAsyncOverride {
-            return try batchExecuteStatementAsyncOverride(input, completion)
+    public func batchExecuteStatement(
+            input: RDSDataModel.BatchExecuteStatementRequest) -> EventLoopFuture<RDSDataModel.BatchExecuteStatementResponse> {
+        if let batchExecuteStatementEventLoopFutureAsyncOverride = batchExecuteStatementEventLoopFutureAsyncOverride {
+            return batchExecuteStatementEventLoopFutureAsyncOverride(input)
         }
 
-        completion(.failure(error))
+        let promise = self.eventLoop.makePromise(of: BatchExecuteStatementResponse.self)
+        promise.fail(error)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the BatchExecuteStatement operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BatchExecuteStatementRequest object being passed to this operation.
-     - Returns: The BatchExecuteStatementResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
-     */
-    public func batchExecuteStatementSync(
-            input: RDSDataModel.BatchExecuteStatementRequest) throws -> RDSDataModel.BatchExecuteStatementResponse {
-        if let batchExecuteStatementSyncOverride = batchExecuteStatementSyncOverride {
-            return try batchExecuteStatementSyncOverride(input)
-        }
-
-        throw error
-    }
-
-    /**
-     Invokes the BeginTransaction operation returning immediately and passing the response to a callback.
+     Invokes the BeginTransaction operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BeginTransactionRequest object being passed to this operation.
-         - completion: The BeginTransactionResponse object or an error will be passed to this 
-           callback when the operation is complete. The BeginTransactionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the BeginTransactionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
      */
-    public func beginTransactionAsync(
-            input: RDSDataModel.BeginTransactionRequest, 
-            completion: @escaping (Result<RDSDataModel.BeginTransactionResponse, RDSDataError>) -> ()) throws {
-        if let beginTransactionAsyncOverride = beginTransactionAsyncOverride {
-            return try beginTransactionAsyncOverride(input, completion)
+    public func beginTransaction(
+            input: RDSDataModel.BeginTransactionRequest) -> EventLoopFuture<RDSDataModel.BeginTransactionResponse> {
+        if let beginTransactionEventLoopFutureAsyncOverride = beginTransactionEventLoopFutureAsyncOverride {
+            return beginTransactionEventLoopFutureAsyncOverride(input)
         }
 
-        completion(.failure(error))
+        let promise = self.eventLoop.makePromise(of: BeginTransactionResponse.self)
+        promise.fail(error)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the BeginTransaction operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BeginTransactionRequest object being passed to this operation.
-     - Returns: The BeginTransactionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
-     */
-    public func beginTransactionSync(
-            input: RDSDataModel.BeginTransactionRequest) throws -> RDSDataModel.BeginTransactionResponse {
-        if let beginTransactionSyncOverride = beginTransactionSyncOverride {
-            return try beginTransactionSyncOverride(input)
-        }
-
-        throw error
-    }
-
-    /**
-     Invokes the CommitTransaction operation returning immediately and passing the response to a callback.
+     Invokes the CommitTransaction operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CommitTransactionRequest object being passed to this operation.
-         - completion: The CommitTransactionResponse object or an error will be passed to this 
-           callback when the operation is complete. The CommitTransactionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the CommitTransactionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, notFound, serviceUnavailable, statementTimeout.
      */
-    public func commitTransactionAsync(
-            input: RDSDataModel.CommitTransactionRequest, 
-            completion: @escaping (Result<RDSDataModel.CommitTransactionResponse, RDSDataError>) -> ()) throws {
-        if let commitTransactionAsyncOverride = commitTransactionAsyncOverride {
-            return try commitTransactionAsyncOverride(input, completion)
+    public func commitTransaction(
+            input: RDSDataModel.CommitTransactionRequest) -> EventLoopFuture<RDSDataModel.CommitTransactionResponse> {
+        if let commitTransactionEventLoopFutureAsyncOverride = commitTransactionEventLoopFutureAsyncOverride {
+            return commitTransactionEventLoopFutureAsyncOverride(input)
         }
 
-        completion(.failure(error))
+        let promise = self.eventLoop.makePromise(of: CommitTransactionResponse.self)
+        promise.fail(error)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CommitTransaction operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CommitTransactionRequest object being passed to this operation.
-     - Returns: The CommitTransactionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, notFound, serviceUnavailable, statementTimeout.
-     */
-    public func commitTransactionSync(
-            input: RDSDataModel.CommitTransactionRequest) throws -> RDSDataModel.CommitTransactionResponse {
-        if let commitTransactionSyncOverride = commitTransactionSyncOverride {
-            return try commitTransactionSyncOverride(input)
-        }
-
-        throw error
-    }
-
-    /**
-     Invokes the ExecuteSql operation returning immediately and passing the response to a callback.
+     Invokes the ExecuteSql operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ExecuteSqlRequest object being passed to this operation.
-         - completion: The ExecuteSqlResponse object or an error will be passed to this 
-           callback when the operation is complete. The ExecuteSqlResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ExecuteSqlResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, serviceUnavailable.
      */
-    public func executeSqlAsync(
-            input: RDSDataModel.ExecuteSqlRequest, 
-            completion: @escaping (Result<RDSDataModel.ExecuteSqlResponse, RDSDataError>) -> ()) throws {
-        if let executeSqlAsyncOverride = executeSqlAsyncOverride {
-            return try executeSqlAsyncOverride(input, completion)
+    public func executeSql(
+            input: RDSDataModel.ExecuteSqlRequest) -> EventLoopFuture<RDSDataModel.ExecuteSqlResponse> {
+        if let executeSqlEventLoopFutureAsyncOverride = executeSqlEventLoopFutureAsyncOverride {
+            return executeSqlEventLoopFutureAsyncOverride(input)
         }
 
-        completion(.failure(error))
+        let promise = self.eventLoop.makePromise(of: ExecuteSqlResponse.self)
+        promise.fail(error)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ExecuteSql operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ExecuteSqlRequest object being passed to this operation.
-     - Returns: The ExecuteSqlResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, serviceUnavailable.
-     */
-    public func executeSqlSync(
-            input: RDSDataModel.ExecuteSqlRequest) throws -> RDSDataModel.ExecuteSqlResponse {
-        if let executeSqlSyncOverride = executeSqlSyncOverride {
-            return try executeSqlSyncOverride(input)
-        }
-
-        throw error
-    }
-
-    /**
-     Invokes the ExecuteStatement operation returning immediately and passing the response to a callback.
+     Invokes the ExecuteStatement operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ExecuteStatementRequest object being passed to this operation.
-         - completion: The ExecuteStatementResponse object or an error will be passed to this 
-           callback when the operation is complete. The ExecuteStatementResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ExecuteStatementResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
      */
-    public func executeStatementAsync(
-            input: RDSDataModel.ExecuteStatementRequest, 
-            completion: @escaping (Result<RDSDataModel.ExecuteStatementResponse, RDSDataError>) -> ()) throws {
-        if let executeStatementAsyncOverride = executeStatementAsyncOverride {
-            return try executeStatementAsyncOverride(input, completion)
+    public func executeStatement(
+            input: RDSDataModel.ExecuteStatementRequest) -> EventLoopFuture<RDSDataModel.ExecuteStatementResponse> {
+        if let executeStatementEventLoopFutureAsyncOverride = executeStatementEventLoopFutureAsyncOverride {
+            return executeStatementEventLoopFutureAsyncOverride(input)
         }
 
-        completion(.failure(error))
+        let promise = self.eventLoop.makePromise(of: ExecuteStatementResponse.self)
+        promise.fail(error)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ExecuteStatement operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ExecuteStatementRequest object being passed to this operation.
-     - Returns: The ExecuteStatementResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
-     */
-    public func executeStatementSync(
-            input: RDSDataModel.ExecuteStatementRequest) throws -> RDSDataModel.ExecuteStatementResponse {
-        if let executeStatementSyncOverride = executeStatementSyncOverride {
-            return try executeStatementSyncOverride(input)
-        }
-
-        throw error
-    }
-
-    /**
-     Invokes the RollbackTransaction operation returning immediately and passing the response to a callback.
+     Invokes the RollbackTransaction operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RollbackTransactionRequest object being passed to this operation.
-         - completion: The RollbackTransactionResponse object or an error will be passed to this 
-           callback when the operation is complete. The RollbackTransactionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the RollbackTransactionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, notFound, serviceUnavailable, statementTimeout.
      */
-    public func rollbackTransactionAsync(
-            input: RDSDataModel.RollbackTransactionRequest, 
-            completion: @escaping (Result<RDSDataModel.RollbackTransactionResponse, RDSDataError>) -> ()) throws {
-        if let rollbackTransactionAsyncOverride = rollbackTransactionAsyncOverride {
-            return try rollbackTransactionAsyncOverride(input, completion)
+    public func rollbackTransaction(
+            input: RDSDataModel.RollbackTransactionRequest) -> EventLoopFuture<RDSDataModel.RollbackTransactionResponse> {
+        if let rollbackTransactionEventLoopFutureAsyncOverride = rollbackTransactionEventLoopFutureAsyncOverride {
+            return rollbackTransactionEventLoopFutureAsyncOverride(input)
         }
 
-        completion(.failure(error))
-    }
-
-    /**
-     Invokes the RollbackTransaction operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RollbackTransactionRequest object being passed to this operation.
-     - Returns: The RollbackTransactionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, notFound, serviceUnavailable, statementTimeout.
-     */
-    public func rollbackTransactionSync(
-            input: RDSDataModel.RollbackTransactionRequest) throws -> RDSDataModel.RollbackTransactionResponse {
-        if let rollbackTransactionSyncOverride = rollbackTransactionSyncOverride {
-            return try rollbackTransactionSyncOverride(input)
-        }
-
-        throw error
+        let promise = self.eventLoop.makePromise(of: RollbackTransactionResponse.self)
+        promise.fail(error)
+        
+        return promise.futureResult
     }
 }

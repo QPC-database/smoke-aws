@@ -24,870 +24,500 @@ import Foundation
 import SimpleQueueModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Mock Client for the SimpleQueue service by default returns the `__default` property of its return type.
  */
 public struct MockSimpleQueueClient: SimpleQueueClientProtocol {
-    let addPermissionAsyncOverride: AddPermissionAsyncType?
-    let addPermissionSyncOverride: AddPermissionSyncType?
-    let changeMessageVisibilityAsyncOverride: ChangeMessageVisibilityAsyncType?
-    let changeMessageVisibilitySyncOverride: ChangeMessageVisibilitySyncType?
-    let changeMessageVisibilityBatchAsyncOverride: ChangeMessageVisibilityBatchAsyncType?
-    let changeMessageVisibilityBatchSyncOverride: ChangeMessageVisibilityBatchSyncType?
-    let createQueueAsyncOverride: CreateQueueAsyncType?
-    let createQueueSyncOverride: CreateQueueSyncType?
-    let deleteMessageAsyncOverride: DeleteMessageAsyncType?
-    let deleteMessageSyncOverride: DeleteMessageSyncType?
-    let deleteMessageBatchAsyncOverride: DeleteMessageBatchAsyncType?
-    let deleteMessageBatchSyncOverride: DeleteMessageBatchSyncType?
-    let deleteQueueAsyncOverride: DeleteQueueAsyncType?
-    let deleteQueueSyncOverride: DeleteQueueSyncType?
-    let getQueueAttributesAsyncOverride: GetQueueAttributesAsyncType?
-    let getQueueAttributesSyncOverride: GetQueueAttributesSyncType?
-    let getQueueUrlAsyncOverride: GetQueueUrlAsyncType?
-    let getQueueUrlSyncOverride: GetQueueUrlSyncType?
-    let listDeadLetterSourceQueuesAsyncOverride: ListDeadLetterSourceQueuesAsyncType?
-    let listDeadLetterSourceQueuesSyncOverride: ListDeadLetterSourceQueuesSyncType?
-    let listQueueTagsAsyncOverride: ListQueueTagsAsyncType?
-    let listQueueTagsSyncOverride: ListQueueTagsSyncType?
-    let listQueuesAsyncOverride: ListQueuesAsyncType?
-    let listQueuesSyncOverride: ListQueuesSyncType?
-    let purgeQueueAsyncOverride: PurgeQueueAsyncType?
-    let purgeQueueSyncOverride: PurgeQueueSyncType?
-    let receiveMessageAsyncOverride: ReceiveMessageAsyncType?
-    let receiveMessageSyncOverride: ReceiveMessageSyncType?
-    let removePermissionAsyncOverride: RemovePermissionAsyncType?
-    let removePermissionSyncOverride: RemovePermissionSyncType?
-    let sendMessageAsyncOverride: SendMessageAsyncType?
-    let sendMessageSyncOverride: SendMessageSyncType?
-    let sendMessageBatchAsyncOverride: SendMessageBatchAsyncType?
-    let sendMessageBatchSyncOverride: SendMessageBatchSyncType?
-    let setQueueAttributesAsyncOverride: SetQueueAttributesAsyncType?
-    let setQueueAttributesSyncOverride: SetQueueAttributesSyncType?
-    let tagQueueAsyncOverride: TagQueueAsyncType?
-    let tagQueueSyncOverride: TagQueueSyncType?
-    let untagQueueAsyncOverride: UntagQueueAsyncType?
-    let untagQueueSyncOverride: UntagQueueSyncType?
+    let eventLoop: EventLoop
+    let typedErrorProvider: (Swift.Error) -> SimpleQueueError = { $0.asTypedError() }
+    let addPermissionEventLoopFutureAsyncOverride: AddPermissionEventLoopFutureAsyncType?
+    let changeMessageVisibilityEventLoopFutureAsyncOverride: ChangeMessageVisibilityEventLoopFutureAsyncType?
+    let changeMessageVisibilityBatchEventLoopFutureAsyncOverride: ChangeMessageVisibilityBatchEventLoopFutureAsyncType?
+    let createQueueEventLoopFutureAsyncOverride: CreateQueueEventLoopFutureAsyncType?
+    let deleteMessageEventLoopFutureAsyncOverride: DeleteMessageEventLoopFutureAsyncType?
+    let deleteMessageBatchEventLoopFutureAsyncOverride: DeleteMessageBatchEventLoopFutureAsyncType?
+    let deleteQueueEventLoopFutureAsyncOverride: DeleteQueueEventLoopFutureAsyncType?
+    let getQueueAttributesEventLoopFutureAsyncOverride: GetQueueAttributesEventLoopFutureAsyncType?
+    let getQueueUrlEventLoopFutureAsyncOverride: GetQueueUrlEventLoopFutureAsyncType?
+    let listDeadLetterSourceQueuesEventLoopFutureAsyncOverride: ListDeadLetterSourceQueuesEventLoopFutureAsyncType?
+    let listQueueTagsEventLoopFutureAsyncOverride: ListQueueTagsEventLoopFutureAsyncType?
+    let listQueuesEventLoopFutureAsyncOverride: ListQueuesEventLoopFutureAsyncType?
+    let purgeQueueEventLoopFutureAsyncOverride: PurgeQueueEventLoopFutureAsyncType?
+    let receiveMessageEventLoopFutureAsyncOverride: ReceiveMessageEventLoopFutureAsyncType?
+    let removePermissionEventLoopFutureAsyncOverride: RemovePermissionEventLoopFutureAsyncType?
+    let sendMessageEventLoopFutureAsyncOverride: SendMessageEventLoopFutureAsyncType?
+    let sendMessageBatchEventLoopFutureAsyncOverride: SendMessageBatchEventLoopFutureAsyncType?
+    let setQueueAttributesEventLoopFutureAsyncOverride: SetQueueAttributesEventLoopFutureAsyncType?
+    let tagQueueEventLoopFutureAsyncOverride: TagQueueEventLoopFutureAsyncType?
+    let untagQueueEventLoopFutureAsyncOverride: UntagQueueEventLoopFutureAsyncType?
 
     /**
      Initializer that creates an instance of this clients. The behavior of individual
      functions can be overridden by passing them to this initializer.
      */
     public init(
-            addPermissionAsync: AddPermissionAsyncType? = nil,
-            addPermissionSync: AddPermissionSyncType? = nil,
-            changeMessageVisibilityAsync: ChangeMessageVisibilityAsyncType? = nil,
-            changeMessageVisibilitySync: ChangeMessageVisibilitySyncType? = nil,
-            changeMessageVisibilityBatchAsync: ChangeMessageVisibilityBatchAsyncType? = nil,
-            changeMessageVisibilityBatchSync: ChangeMessageVisibilityBatchSyncType? = nil,
-            createQueueAsync: CreateQueueAsyncType? = nil,
-            createQueueSync: CreateQueueSyncType? = nil,
-            deleteMessageAsync: DeleteMessageAsyncType? = nil,
-            deleteMessageSync: DeleteMessageSyncType? = nil,
-            deleteMessageBatchAsync: DeleteMessageBatchAsyncType? = nil,
-            deleteMessageBatchSync: DeleteMessageBatchSyncType? = nil,
-            deleteQueueAsync: DeleteQueueAsyncType? = nil,
-            deleteQueueSync: DeleteQueueSyncType? = nil,
-            getQueueAttributesAsync: GetQueueAttributesAsyncType? = nil,
-            getQueueAttributesSync: GetQueueAttributesSyncType? = nil,
-            getQueueUrlAsync: GetQueueUrlAsyncType? = nil,
-            getQueueUrlSync: GetQueueUrlSyncType? = nil,
-            listDeadLetterSourceQueuesAsync: ListDeadLetterSourceQueuesAsyncType? = nil,
-            listDeadLetterSourceQueuesSync: ListDeadLetterSourceQueuesSyncType? = nil,
-            listQueueTagsAsync: ListQueueTagsAsyncType? = nil,
-            listQueueTagsSync: ListQueueTagsSyncType? = nil,
-            listQueuesAsync: ListQueuesAsyncType? = nil,
-            listQueuesSync: ListQueuesSyncType? = nil,
-            purgeQueueAsync: PurgeQueueAsyncType? = nil,
-            purgeQueueSync: PurgeQueueSyncType? = nil,
-            receiveMessageAsync: ReceiveMessageAsyncType? = nil,
-            receiveMessageSync: ReceiveMessageSyncType? = nil,
-            removePermissionAsync: RemovePermissionAsyncType? = nil,
-            removePermissionSync: RemovePermissionSyncType? = nil,
-            sendMessageAsync: SendMessageAsyncType? = nil,
-            sendMessageSync: SendMessageSyncType? = nil,
-            sendMessageBatchAsync: SendMessageBatchAsyncType? = nil,
-            sendMessageBatchSync: SendMessageBatchSyncType? = nil,
-            setQueueAttributesAsync: SetQueueAttributesAsyncType? = nil,
-            setQueueAttributesSync: SetQueueAttributesSyncType? = nil,
-            tagQueueAsync: TagQueueAsyncType? = nil,
-            tagQueueSync: TagQueueSyncType? = nil,
-            untagQueueAsync: UntagQueueAsyncType? = nil,
-            untagQueueSync: UntagQueueSyncType? = nil) {
-        self.addPermissionAsyncOverride = addPermissionAsync
-        self.addPermissionSyncOverride = addPermissionSync
-        self.changeMessageVisibilityAsyncOverride = changeMessageVisibilityAsync
-        self.changeMessageVisibilitySyncOverride = changeMessageVisibilitySync
-        self.changeMessageVisibilityBatchAsyncOverride = changeMessageVisibilityBatchAsync
-        self.changeMessageVisibilityBatchSyncOverride = changeMessageVisibilityBatchSync
-        self.createQueueAsyncOverride = createQueueAsync
-        self.createQueueSyncOverride = createQueueSync
-        self.deleteMessageAsyncOverride = deleteMessageAsync
-        self.deleteMessageSyncOverride = deleteMessageSync
-        self.deleteMessageBatchAsyncOverride = deleteMessageBatchAsync
-        self.deleteMessageBatchSyncOverride = deleteMessageBatchSync
-        self.deleteQueueAsyncOverride = deleteQueueAsync
-        self.deleteQueueSyncOverride = deleteQueueSync
-        self.getQueueAttributesAsyncOverride = getQueueAttributesAsync
-        self.getQueueAttributesSyncOverride = getQueueAttributesSync
-        self.getQueueUrlAsyncOverride = getQueueUrlAsync
-        self.getQueueUrlSyncOverride = getQueueUrlSync
-        self.listDeadLetterSourceQueuesAsyncOverride = listDeadLetterSourceQueuesAsync
-        self.listDeadLetterSourceQueuesSyncOverride = listDeadLetterSourceQueuesSync
-        self.listQueueTagsAsyncOverride = listQueueTagsAsync
-        self.listQueueTagsSyncOverride = listQueueTagsSync
-        self.listQueuesAsyncOverride = listQueuesAsync
-        self.listQueuesSyncOverride = listQueuesSync
-        self.purgeQueueAsyncOverride = purgeQueueAsync
-        self.purgeQueueSyncOverride = purgeQueueSync
-        self.receiveMessageAsyncOverride = receiveMessageAsync
-        self.receiveMessageSyncOverride = receiveMessageSync
-        self.removePermissionAsyncOverride = removePermissionAsync
-        self.removePermissionSyncOverride = removePermissionSync
-        self.sendMessageAsyncOverride = sendMessageAsync
-        self.sendMessageSyncOverride = sendMessageSync
-        self.sendMessageBatchAsyncOverride = sendMessageBatchAsync
-        self.sendMessageBatchSyncOverride = sendMessageBatchSync
-        self.setQueueAttributesAsyncOverride = setQueueAttributesAsync
-        self.setQueueAttributesSyncOverride = setQueueAttributesSync
-        self.tagQueueAsyncOverride = tagQueueAsync
-        self.tagQueueSyncOverride = tagQueueSync
-        self.untagQueueAsyncOverride = untagQueueAsync
-        self.untagQueueSyncOverride = untagQueueSync
+            eventLoop: EventLoop,
+            addPermissionEventLoopFutureAsync: AddPermissionEventLoopFutureAsyncType? = nil,
+            changeMessageVisibilityEventLoopFutureAsync: ChangeMessageVisibilityEventLoopFutureAsyncType? = nil,
+            changeMessageVisibilityBatchEventLoopFutureAsync: ChangeMessageVisibilityBatchEventLoopFutureAsyncType? = nil,
+            createQueueEventLoopFutureAsync: CreateQueueEventLoopFutureAsyncType? = nil,
+            deleteMessageEventLoopFutureAsync: DeleteMessageEventLoopFutureAsyncType? = nil,
+            deleteMessageBatchEventLoopFutureAsync: DeleteMessageBatchEventLoopFutureAsyncType? = nil,
+            deleteQueueEventLoopFutureAsync: DeleteQueueEventLoopFutureAsyncType? = nil,
+            getQueueAttributesEventLoopFutureAsync: GetQueueAttributesEventLoopFutureAsyncType? = nil,
+            getQueueUrlEventLoopFutureAsync: GetQueueUrlEventLoopFutureAsyncType? = nil,
+            listDeadLetterSourceQueuesEventLoopFutureAsync: ListDeadLetterSourceQueuesEventLoopFutureAsyncType? = nil,
+            listQueueTagsEventLoopFutureAsync: ListQueueTagsEventLoopFutureAsyncType? = nil,
+            listQueuesEventLoopFutureAsync: ListQueuesEventLoopFutureAsyncType? = nil,
+            purgeQueueEventLoopFutureAsync: PurgeQueueEventLoopFutureAsyncType? = nil,
+            receiveMessageEventLoopFutureAsync: ReceiveMessageEventLoopFutureAsyncType? = nil,
+            removePermissionEventLoopFutureAsync: RemovePermissionEventLoopFutureAsyncType? = nil,
+            sendMessageEventLoopFutureAsync: SendMessageEventLoopFutureAsyncType? = nil,
+            sendMessageBatchEventLoopFutureAsync: SendMessageBatchEventLoopFutureAsyncType? = nil,
+            setQueueAttributesEventLoopFutureAsync: SetQueueAttributesEventLoopFutureAsyncType? = nil,
+            tagQueueEventLoopFutureAsync: TagQueueEventLoopFutureAsyncType? = nil,
+            untagQueueEventLoopFutureAsync: UntagQueueEventLoopFutureAsyncType? = nil) {
+        self.eventLoop = eventLoop
+        
+        self.addPermissionEventLoopFutureAsyncOverride = addPermissionEventLoopFutureAsync
+        self.changeMessageVisibilityEventLoopFutureAsyncOverride = changeMessageVisibilityEventLoopFutureAsync
+        self.changeMessageVisibilityBatchEventLoopFutureAsyncOverride = changeMessageVisibilityBatchEventLoopFutureAsync
+        self.createQueueEventLoopFutureAsyncOverride = createQueueEventLoopFutureAsync
+        self.deleteMessageEventLoopFutureAsyncOverride = deleteMessageEventLoopFutureAsync
+        self.deleteMessageBatchEventLoopFutureAsyncOverride = deleteMessageBatchEventLoopFutureAsync
+        self.deleteQueueEventLoopFutureAsyncOverride = deleteQueueEventLoopFutureAsync
+        self.getQueueAttributesEventLoopFutureAsyncOverride = getQueueAttributesEventLoopFutureAsync
+        self.getQueueUrlEventLoopFutureAsyncOverride = getQueueUrlEventLoopFutureAsync
+        self.listDeadLetterSourceQueuesEventLoopFutureAsyncOverride = listDeadLetterSourceQueuesEventLoopFutureAsync
+        self.listQueueTagsEventLoopFutureAsyncOverride = listQueueTagsEventLoopFutureAsync
+        self.listQueuesEventLoopFutureAsyncOverride = listQueuesEventLoopFutureAsync
+        self.purgeQueueEventLoopFutureAsyncOverride = purgeQueueEventLoopFutureAsync
+        self.receiveMessageEventLoopFutureAsyncOverride = receiveMessageEventLoopFutureAsync
+        self.removePermissionEventLoopFutureAsyncOverride = removePermissionEventLoopFutureAsync
+        self.sendMessageEventLoopFutureAsyncOverride = sendMessageEventLoopFutureAsync
+        self.sendMessageBatchEventLoopFutureAsyncOverride = sendMessageBatchEventLoopFutureAsync
+        self.setQueueAttributesEventLoopFutureAsyncOverride = setQueueAttributesEventLoopFutureAsync
+        self.tagQueueEventLoopFutureAsyncOverride = tagQueueEventLoopFutureAsync
+        self.untagQueueEventLoopFutureAsyncOverride = untagQueueEventLoopFutureAsync
     }
 
     /**
-     Invokes the AddPermission operation returning immediately and passing the response to a callback.
+     Invokes the AddPermission operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AddPermissionRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: overLimit.
      */
-    public func addPermissionAsync(
-            input: SimpleQueueModel.AddPermissionRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let addPermissionAsyncOverride = addPermissionAsyncOverride {
-            return try addPermissionAsyncOverride(input, completion)
+    public func addPermission(
+            input: SimpleQueueModel.AddPermissionRequest) -> EventLoopFuture<Void> {
+        if let addPermissionEventLoopFutureAsyncOverride = addPermissionEventLoopFutureAsyncOverride {
+            return addPermissionEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the AddPermission operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AddPermissionRequest object being passed to this operation.
-     - Throws: overLimit.
-     */
-    public func addPermissionSync(
-            input: SimpleQueueModel.AddPermissionRequest) throws {
-        if let addPermissionSyncOverride = addPermissionSyncOverride {
-            return try addPermissionSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the ChangeMessageVisibility operation returning immediately and passing the response to a callback.
+     Invokes the ChangeMessageVisibility operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ChangeMessageVisibilityRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: messageNotInflight, receiptHandleIsInvalid.
      */
-    public func changeMessageVisibilityAsync(
-            input: SimpleQueueModel.ChangeMessageVisibilityRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let changeMessageVisibilityAsyncOverride = changeMessageVisibilityAsyncOverride {
-            return try changeMessageVisibilityAsyncOverride(input, completion)
+    public func changeMessageVisibility(
+            input: SimpleQueueModel.ChangeMessageVisibilityRequest) -> EventLoopFuture<Void> {
+        if let changeMessageVisibilityEventLoopFutureAsyncOverride = changeMessageVisibilityEventLoopFutureAsyncOverride {
+            return changeMessageVisibilityEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ChangeMessageVisibility operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ChangeMessageVisibilityRequest object being passed to this operation.
-     - Throws: messageNotInflight, receiptHandleIsInvalid.
-     */
-    public func changeMessageVisibilitySync(
-            input: SimpleQueueModel.ChangeMessageVisibilityRequest) throws {
-        if let changeMessageVisibilitySyncOverride = changeMessageVisibilitySyncOverride {
-            return try changeMessageVisibilitySyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the ChangeMessageVisibilityBatch operation returning immediately and passing the response to a callback.
+     Invokes the ChangeMessageVisibilityBatch operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ChangeMessageVisibilityBatchRequest object being passed to this operation.
-         - completion: The ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch object or an error will be passed to this 
-           callback when the operation is complete. The ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch
-           object will be validated before being returned to caller.
+     - Returns: A future to the ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: batchEntryIdsNotDistinct, emptyBatchRequest, invalidBatchEntryId, tooManyEntriesInBatchRequest.
      */
-    public func changeMessageVisibilityBatchAsync(
-            input: SimpleQueueModel.ChangeMessageVisibilityBatchRequest, 
-            completion: @escaping (Result<SimpleQueueModel.ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch, SimpleQueueError>) -> ()) throws {
-        if let changeMessageVisibilityBatchAsyncOverride = changeMessageVisibilityBatchAsyncOverride {
-            return try changeMessageVisibilityBatchAsyncOverride(input, completion)
+    public func changeMessageVisibilityBatch(
+            input: SimpleQueueModel.ChangeMessageVisibilityBatchRequest) -> EventLoopFuture<SimpleQueueModel.ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch> {
+        if let changeMessageVisibilityBatchEventLoopFutureAsyncOverride = changeMessageVisibilityBatchEventLoopFutureAsyncOverride {
+            return changeMessageVisibilityBatchEventLoopFutureAsyncOverride(input)
         }
 
         let result = ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ChangeMessageVisibilityBatch operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ChangeMessageVisibilityBatchRequest object being passed to this operation.
-     - Returns: The ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: batchEntryIdsNotDistinct, emptyBatchRequest, invalidBatchEntryId, tooManyEntriesInBatchRequest.
-     */
-    public func changeMessageVisibilityBatchSync(
-            input: SimpleQueueModel.ChangeMessageVisibilityBatchRequest) throws -> SimpleQueueModel.ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch {
-        if let changeMessageVisibilityBatchSyncOverride = changeMessageVisibilityBatchSyncOverride {
-            return try changeMessageVisibilityBatchSyncOverride(input)
-        }
-
-        return ChangeMessageVisibilityBatchResultForChangeMessageVisibilityBatch.__default
-    }
-
-    /**
-     Invokes the CreateQueue operation returning immediately and passing the response to a callback.
+     Invokes the CreateQueue operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateQueueRequest object being passed to this operation.
-         - completion: The CreateQueueResultForCreateQueue object or an error will be passed to this 
-           callback when the operation is complete. The CreateQueueResultForCreateQueue
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateQueueResultForCreateQueue object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: queueDeletedRecently, queueNameExists.
      */
-    public func createQueueAsync(
-            input: SimpleQueueModel.CreateQueueRequest, 
-            completion: @escaping (Result<SimpleQueueModel.CreateQueueResultForCreateQueue, SimpleQueueError>) -> ()) throws {
-        if let createQueueAsyncOverride = createQueueAsyncOverride {
-            return try createQueueAsyncOverride(input, completion)
+    public func createQueue(
+            input: SimpleQueueModel.CreateQueueRequest) -> EventLoopFuture<SimpleQueueModel.CreateQueueResultForCreateQueue> {
+        if let createQueueEventLoopFutureAsyncOverride = createQueueEventLoopFutureAsyncOverride {
+            return createQueueEventLoopFutureAsyncOverride(input)
         }
 
         let result = CreateQueueResultForCreateQueue.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: CreateQueueResultForCreateQueue.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CreateQueue operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateQueueRequest object being passed to this operation.
-     - Returns: The CreateQueueResultForCreateQueue object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: queueDeletedRecently, queueNameExists.
-     */
-    public func createQueueSync(
-            input: SimpleQueueModel.CreateQueueRequest) throws -> SimpleQueueModel.CreateQueueResultForCreateQueue {
-        if let createQueueSyncOverride = createQueueSyncOverride {
-            return try createQueueSyncOverride(input)
-        }
-
-        return CreateQueueResultForCreateQueue.__default
-    }
-
-    /**
-     Invokes the DeleteMessage operation returning immediately and passing the response to a callback.
+     Invokes the DeleteMessage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteMessageRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: invalidIdFormat, receiptHandleIsInvalid.
      */
-    public func deleteMessageAsync(
-            input: SimpleQueueModel.DeleteMessageRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let deleteMessageAsyncOverride = deleteMessageAsyncOverride {
-            return try deleteMessageAsyncOverride(input, completion)
+    public func deleteMessage(
+            input: SimpleQueueModel.DeleteMessageRequest) -> EventLoopFuture<Void> {
+        if let deleteMessageEventLoopFutureAsyncOverride = deleteMessageEventLoopFutureAsyncOverride {
+            return deleteMessageEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DeleteMessage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteMessageRequest object being passed to this operation.
-     - Throws: invalidIdFormat, receiptHandleIsInvalid.
-     */
-    public func deleteMessageSync(
-            input: SimpleQueueModel.DeleteMessageRequest) throws {
-        if let deleteMessageSyncOverride = deleteMessageSyncOverride {
-            return try deleteMessageSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the DeleteMessageBatch operation returning immediately and passing the response to a callback.
+     Invokes the DeleteMessageBatch operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteMessageBatchRequest object being passed to this operation.
-         - completion: The DeleteMessageBatchResultForDeleteMessageBatch object or an error will be passed to this 
-           callback when the operation is complete. The DeleteMessageBatchResultForDeleteMessageBatch
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteMessageBatchResultForDeleteMessageBatch object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: batchEntryIdsNotDistinct, emptyBatchRequest, invalidBatchEntryId, tooManyEntriesInBatchRequest.
      */
-    public func deleteMessageBatchAsync(
-            input: SimpleQueueModel.DeleteMessageBatchRequest, 
-            completion: @escaping (Result<SimpleQueueModel.DeleteMessageBatchResultForDeleteMessageBatch, SimpleQueueError>) -> ()) throws {
-        if let deleteMessageBatchAsyncOverride = deleteMessageBatchAsyncOverride {
-            return try deleteMessageBatchAsyncOverride(input, completion)
+    public func deleteMessageBatch(
+            input: SimpleQueueModel.DeleteMessageBatchRequest) -> EventLoopFuture<SimpleQueueModel.DeleteMessageBatchResultForDeleteMessageBatch> {
+        if let deleteMessageBatchEventLoopFutureAsyncOverride = deleteMessageBatchEventLoopFutureAsyncOverride {
+            return deleteMessageBatchEventLoopFutureAsyncOverride(input)
         }
 
         let result = DeleteMessageBatchResultForDeleteMessageBatch.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DeleteMessageBatchResultForDeleteMessageBatch.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DeleteMessageBatch operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteMessageBatchRequest object being passed to this operation.
-     - Returns: The DeleteMessageBatchResultForDeleteMessageBatch object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: batchEntryIdsNotDistinct, emptyBatchRequest, invalidBatchEntryId, tooManyEntriesInBatchRequest.
-     */
-    public func deleteMessageBatchSync(
-            input: SimpleQueueModel.DeleteMessageBatchRequest) throws -> SimpleQueueModel.DeleteMessageBatchResultForDeleteMessageBatch {
-        if let deleteMessageBatchSyncOverride = deleteMessageBatchSyncOverride {
-            return try deleteMessageBatchSyncOverride(input)
-        }
-
-        return DeleteMessageBatchResultForDeleteMessageBatch.__default
-    }
-
-    /**
-     Invokes the DeleteQueue operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteQueueRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    public func deleteQueueAsync(
-            input: SimpleQueueModel.DeleteQueueRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let deleteQueueAsyncOverride = deleteQueueAsyncOverride {
-            return try deleteQueueAsyncOverride(input, completion)
-        }
-
-        completion(nil)
-    }
-
-    /**
-     Invokes the DeleteQueue operation waiting for the response before returning.
+     Invokes the DeleteQueue operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteQueueRequest object being passed to this operation.
      */
-    public func deleteQueueSync(
-            input: SimpleQueueModel.DeleteQueueRequest) throws {
-        if let deleteQueueSyncOverride = deleteQueueSyncOverride {
-            return try deleteQueueSyncOverride(input)
+    public func deleteQueue(
+            input: SimpleQueueModel.DeleteQueueRequest) -> EventLoopFuture<Void> {
+        if let deleteQueueEventLoopFutureAsyncOverride = deleteQueueEventLoopFutureAsyncOverride {
+            return deleteQueueEventLoopFutureAsyncOverride(input)
         }
 
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetQueueAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetQueueAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetQueueAttributesRequest object being passed to this operation.
-         - completion: The GetQueueAttributesResultForGetQueueAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetQueueAttributesResultForGetQueueAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetQueueAttributesResultForGetQueueAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidAttributeName.
      */
-    public func getQueueAttributesAsync(
-            input: SimpleQueueModel.GetQueueAttributesRequest, 
-            completion: @escaping (Result<SimpleQueueModel.GetQueueAttributesResultForGetQueueAttributes, SimpleQueueError>) -> ()) throws {
-        if let getQueueAttributesAsyncOverride = getQueueAttributesAsyncOverride {
-            return try getQueueAttributesAsyncOverride(input, completion)
+    public func getQueueAttributes(
+            input: SimpleQueueModel.GetQueueAttributesRequest) -> EventLoopFuture<SimpleQueueModel.GetQueueAttributesResultForGetQueueAttributes> {
+        if let getQueueAttributesEventLoopFutureAsyncOverride = getQueueAttributesEventLoopFutureAsyncOverride {
+            return getQueueAttributesEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetQueueAttributesResultForGetQueueAttributes.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetQueueAttributesResultForGetQueueAttributes.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetQueueAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetQueueAttributesRequest object being passed to this operation.
-     - Returns: The GetQueueAttributesResultForGetQueueAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidAttributeName.
-     */
-    public func getQueueAttributesSync(
-            input: SimpleQueueModel.GetQueueAttributesRequest) throws -> SimpleQueueModel.GetQueueAttributesResultForGetQueueAttributes {
-        if let getQueueAttributesSyncOverride = getQueueAttributesSyncOverride {
-            return try getQueueAttributesSyncOverride(input)
-        }
-
-        return GetQueueAttributesResultForGetQueueAttributes.__default
-    }
-
-    /**
-     Invokes the GetQueueUrl operation returning immediately and passing the response to a callback.
+     Invokes the GetQueueUrl operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetQueueUrlRequest object being passed to this operation.
-         - completion: The GetQueueUrlResultForGetQueueUrl object or an error will be passed to this 
-           callback when the operation is complete. The GetQueueUrlResultForGetQueueUrl
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetQueueUrlResultForGetQueueUrl object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: queueDoesNotExist.
      */
-    public func getQueueUrlAsync(
-            input: SimpleQueueModel.GetQueueUrlRequest, 
-            completion: @escaping (Result<SimpleQueueModel.GetQueueUrlResultForGetQueueUrl, SimpleQueueError>) -> ()) throws {
-        if let getQueueUrlAsyncOverride = getQueueUrlAsyncOverride {
-            return try getQueueUrlAsyncOverride(input, completion)
+    public func getQueueUrl(
+            input: SimpleQueueModel.GetQueueUrlRequest) -> EventLoopFuture<SimpleQueueModel.GetQueueUrlResultForGetQueueUrl> {
+        if let getQueueUrlEventLoopFutureAsyncOverride = getQueueUrlEventLoopFutureAsyncOverride {
+            return getQueueUrlEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetQueueUrlResultForGetQueueUrl.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetQueueUrlResultForGetQueueUrl.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetQueueUrl operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetQueueUrlRequest object being passed to this operation.
-     - Returns: The GetQueueUrlResultForGetQueueUrl object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: queueDoesNotExist.
-     */
-    public func getQueueUrlSync(
-            input: SimpleQueueModel.GetQueueUrlRequest) throws -> SimpleQueueModel.GetQueueUrlResultForGetQueueUrl {
-        if let getQueueUrlSyncOverride = getQueueUrlSyncOverride {
-            return try getQueueUrlSyncOverride(input)
-        }
-
-        return GetQueueUrlResultForGetQueueUrl.__default
-    }
-
-    /**
-     Invokes the ListDeadLetterSourceQueues operation returning immediately and passing the response to a callback.
+     Invokes the ListDeadLetterSourceQueues operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListDeadLetterSourceQueuesRequest object being passed to this operation.
-         - completion: The ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues object or an error will be passed to this 
-           callback when the operation is complete. The ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: queueDoesNotExist.
      */
-    public func listDeadLetterSourceQueuesAsync(
-            input: SimpleQueueModel.ListDeadLetterSourceQueuesRequest, 
-            completion: @escaping (Result<SimpleQueueModel.ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues, SimpleQueueError>) -> ()) throws {
-        if let listDeadLetterSourceQueuesAsyncOverride = listDeadLetterSourceQueuesAsyncOverride {
-            return try listDeadLetterSourceQueuesAsyncOverride(input, completion)
+    public func listDeadLetterSourceQueues(
+            input: SimpleQueueModel.ListDeadLetterSourceQueuesRequest) -> EventLoopFuture<SimpleQueueModel.ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues> {
+        if let listDeadLetterSourceQueuesEventLoopFutureAsyncOverride = listDeadLetterSourceQueuesEventLoopFutureAsyncOverride {
+            return listDeadLetterSourceQueuesEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListDeadLetterSourceQueues operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListDeadLetterSourceQueuesRequest object being passed to this operation.
-     - Returns: The ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: queueDoesNotExist.
-     */
-    public func listDeadLetterSourceQueuesSync(
-            input: SimpleQueueModel.ListDeadLetterSourceQueuesRequest) throws -> SimpleQueueModel.ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues {
-        if let listDeadLetterSourceQueuesSyncOverride = listDeadLetterSourceQueuesSyncOverride {
-            return try listDeadLetterSourceQueuesSyncOverride(input)
-        }
-
-        return ListDeadLetterSourceQueuesResultForListDeadLetterSourceQueues.__default
-    }
-
-    /**
-     Invokes the ListQueueTags operation returning immediately and passing the response to a callback.
+     Invokes the ListQueueTags operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListQueueTagsRequest object being passed to this operation.
-         - completion: The ListQueueTagsResultForListQueueTags object or an error will be passed to this 
-           callback when the operation is complete. The ListQueueTagsResultForListQueueTags
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListQueueTagsResultForListQueueTags object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
      */
-    public func listQueueTagsAsync(
-            input: SimpleQueueModel.ListQueueTagsRequest, 
-            completion: @escaping (Result<SimpleQueueModel.ListQueueTagsResultForListQueueTags, SimpleQueueError>) -> ()) throws {
-        if let listQueueTagsAsyncOverride = listQueueTagsAsyncOverride {
-            return try listQueueTagsAsyncOverride(input, completion)
+    public func listQueueTags(
+            input: SimpleQueueModel.ListQueueTagsRequest) -> EventLoopFuture<SimpleQueueModel.ListQueueTagsResultForListQueueTags> {
+        if let listQueueTagsEventLoopFutureAsyncOverride = listQueueTagsEventLoopFutureAsyncOverride {
+            return listQueueTagsEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListQueueTagsResultForListQueueTags.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListQueueTagsResultForListQueueTags.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListQueueTags operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListQueueTagsRequest object being passed to this operation.
-     - Returns: The ListQueueTagsResultForListQueueTags object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     */
-    public func listQueueTagsSync(
-            input: SimpleQueueModel.ListQueueTagsRequest) throws -> SimpleQueueModel.ListQueueTagsResultForListQueueTags {
-        if let listQueueTagsSyncOverride = listQueueTagsSyncOverride {
-            return try listQueueTagsSyncOverride(input)
-        }
-
-        return ListQueueTagsResultForListQueueTags.__default
-    }
-
-    /**
-     Invokes the ListQueues operation returning immediately and passing the response to a callback.
+     Invokes the ListQueues operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListQueuesRequest object being passed to this operation.
-         - completion: The ListQueuesResultForListQueues object or an error will be passed to this 
-           callback when the operation is complete. The ListQueuesResultForListQueues
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListQueuesResultForListQueues object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
      */
-    public func listQueuesAsync(
-            input: SimpleQueueModel.ListQueuesRequest, 
-            completion: @escaping (Result<SimpleQueueModel.ListQueuesResultForListQueues, SimpleQueueError>) -> ()) throws {
-        if let listQueuesAsyncOverride = listQueuesAsyncOverride {
-            return try listQueuesAsyncOverride(input, completion)
+    public func listQueues(
+            input: SimpleQueueModel.ListQueuesRequest) -> EventLoopFuture<SimpleQueueModel.ListQueuesResultForListQueues> {
+        if let listQueuesEventLoopFutureAsyncOverride = listQueuesEventLoopFutureAsyncOverride {
+            return listQueuesEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListQueuesResultForListQueues.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListQueuesResultForListQueues.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListQueues operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListQueuesRequest object being passed to this operation.
-     - Returns: The ListQueuesResultForListQueues object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     */
-    public func listQueuesSync(
-            input: SimpleQueueModel.ListQueuesRequest) throws -> SimpleQueueModel.ListQueuesResultForListQueues {
-        if let listQueuesSyncOverride = listQueuesSyncOverride {
-            return try listQueuesSyncOverride(input)
-        }
-
-        return ListQueuesResultForListQueues.__default
-    }
-
-    /**
-     Invokes the PurgeQueue operation returning immediately and passing the response to a callback.
+     Invokes the PurgeQueue operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PurgeQueueRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: purgeQueueInProgress, queueDoesNotExist.
      */
-    public func purgeQueueAsync(
-            input: SimpleQueueModel.PurgeQueueRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let purgeQueueAsyncOverride = purgeQueueAsyncOverride {
-            return try purgeQueueAsyncOverride(input, completion)
+    public func purgeQueue(
+            input: SimpleQueueModel.PurgeQueueRequest) -> EventLoopFuture<Void> {
+        if let purgeQueueEventLoopFutureAsyncOverride = purgeQueueEventLoopFutureAsyncOverride {
+            return purgeQueueEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the PurgeQueue operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PurgeQueueRequest object being passed to this operation.
-     - Throws: purgeQueueInProgress, queueDoesNotExist.
-     */
-    public func purgeQueueSync(
-            input: SimpleQueueModel.PurgeQueueRequest) throws {
-        if let purgeQueueSyncOverride = purgeQueueSyncOverride {
-            return try purgeQueueSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the ReceiveMessage operation returning immediately and passing the response to a callback.
+     Invokes the ReceiveMessage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ReceiveMessageRequest object being passed to this operation.
-         - completion: The ReceiveMessageResultForReceiveMessage object or an error will be passed to this 
-           callback when the operation is complete. The ReceiveMessageResultForReceiveMessage
-           object will be validated before being returned to caller.
+     - Returns: A future to the ReceiveMessageResultForReceiveMessage object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: overLimit.
      */
-    public func receiveMessageAsync(
-            input: SimpleQueueModel.ReceiveMessageRequest, 
-            completion: @escaping (Result<SimpleQueueModel.ReceiveMessageResultForReceiveMessage, SimpleQueueError>) -> ()) throws {
-        if let receiveMessageAsyncOverride = receiveMessageAsyncOverride {
-            return try receiveMessageAsyncOverride(input, completion)
+    public func receiveMessage(
+            input: SimpleQueueModel.ReceiveMessageRequest) -> EventLoopFuture<SimpleQueueModel.ReceiveMessageResultForReceiveMessage> {
+        if let receiveMessageEventLoopFutureAsyncOverride = receiveMessageEventLoopFutureAsyncOverride {
+            return receiveMessageEventLoopFutureAsyncOverride(input)
         }
 
         let result = ReceiveMessageResultForReceiveMessage.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ReceiveMessageResultForReceiveMessage.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ReceiveMessage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ReceiveMessageRequest object being passed to this operation.
-     - Returns: The ReceiveMessageResultForReceiveMessage object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: overLimit.
-     */
-    public func receiveMessageSync(
-            input: SimpleQueueModel.ReceiveMessageRequest) throws -> SimpleQueueModel.ReceiveMessageResultForReceiveMessage {
-        if let receiveMessageSyncOverride = receiveMessageSyncOverride {
-            return try receiveMessageSyncOverride(input)
-        }
-
-        return ReceiveMessageResultForReceiveMessage.__default
-    }
-
-    /**
-     Invokes the RemovePermission operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated RemovePermissionRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    public func removePermissionAsync(
-            input: SimpleQueueModel.RemovePermissionRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let removePermissionAsyncOverride = removePermissionAsyncOverride {
-            return try removePermissionAsyncOverride(input, completion)
-        }
-
-        completion(nil)
-    }
-
-    /**
-     Invokes the RemovePermission operation waiting for the response before returning.
+     Invokes the RemovePermission operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RemovePermissionRequest object being passed to this operation.
      */
-    public func removePermissionSync(
-            input: SimpleQueueModel.RemovePermissionRequest) throws {
-        if let removePermissionSyncOverride = removePermissionSyncOverride {
-            return try removePermissionSyncOverride(input)
+    public func removePermission(
+            input: SimpleQueueModel.RemovePermissionRequest) -> EventLoopFuture<Void> {
+        if let removePermissionEventLoopFutureAsyncOverride = removePermissionEventLoopFutureAsyncOverride {
+            return removePermissionEventLoopFutureAsyncOverride(input)
         }
 
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SendMessage operation returning immediately and passing the response to a callback.
+     Invokes the SendMessage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SendMessageRequest object being passed to this operation.
-         - completion: The SendMessageResultForSendMessage object or an error will be passed to this 
-           callback when the operation is complete. The SendMessageResultForSendMessage
-           object will be validated before being returned to caller.
+     - Returns: A future to the SendMessageResultForSendMessage object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidMessageContents, unsupportedOperation.
      */
-    public func sendMessageAsync(
-            input: SimpleQueueModel.SendMessageRequest, 
-            completion: @escaping (Result<SimpleQueueModel.SendMessageResultForSendMessage, SimpleQueueError>) -> ()) throws {
-        if let sendMessageAsyncOverride = sendMessageAsyncOverride {
-            return try sendMessageAsyncOverride(input, completion)
+    public func sendMessage(
+            input: SimpleQueueModel.SendMessageRequest) -> EventLoopFuture<SimpleQueueModel.SendMessageResultForSendMessage> {
+        if let sendMessageEventLoopFutureAsyncOverride = sendMessageEventLoopFutureAsyncOverride {
+            return sendMessageEventLoopFutureAsyncOverride(input)
         }
 
         let result = SendMessageResultForSendMessage.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: SendMessageResultForSendMessage.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SendMessage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SendMessageRequest object being passed to this operation.
-     - Returns: The SendMessageResultForSendMessage object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidMessageContents, unsupportedOperation.
-     */
-    public func sendMessageSync(
-            input: SimpleQueueModel.SendMessageRequest) throws -> SimpleQueueModel.SendMessageResultForSendMessage {
-        if let sendMessageSyncOverride = sendMessageSyncOverride {
-            return try sendMessageSyncOverride(input)
-        }
-
-        return SendMessageResultForSendMessage.__default
-    }
-
-    /**
-     Invokes the SendMessageBatch operation returning immediately and passing the response to a callback.
+     Invokes the SendMessageBatch operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SendMessageBatchRequest object being passed to this operation.
-         - completion: The SendMessageBatchResultForSendMessageBatch object or an error will be passed to this 
-           callback when the operation is complete. The SendMessageBatchResultForSendMessageBatch
-           object will be validated before being returned to caller.
+     - Returns: A future to the SendMessageBatchResultForSendMessageBatch object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: batchEntryIdsNotDistinct, batchRequestTooLong, emptyBatchRequest, invalidBatchEntryId, tooManyEntriesInBatchRequest, unsupportedOperation.
      */
-    public func sendMessageBatchAsync(
-            input: SimpleQueueModel.SendMessageBatchRequest, 
-            completion: @escaping (Result<SimpleQueueModel.SendMessageBatchResultForSendMessageBatch, SimpleQueueError>) -> ()) throws {
-        if let sendMessageBatchAsyncOverride = sendMessageBatchAsyncOverride {
-            return try sendMessageBatchAsyncOverride(input, completion)
+    public func sendMessageBatch(
+            input: SimpleQueueModel.SendMessageBatchRequest) -> EventLoopFuture<SimpleQueueModel.SendMessageBatchResultForSendMessageBatch> {
+        if let sendMessageBatchEventLoopFutureAsyncOverride = sendMessageBatchEventLoopFutureAsyncOverride {
+            return sendMessageBatchEventLoopFutureAsyncOverride(input)
         }
 
         let result = SendMessageBatchResultForSendMessageBatch.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: SendMessageBatchResultForSendMessageBatch.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SendMessageBatch operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SendMessageBatchRequest object being passed to this operation.
-     - Returns: The SendMessageBatchResultForSendMessageBatch object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: batchEntryIdsNotDistinct, batchRequestTooLong, emptyBatchRequest, invalidBatchEntryId, tooManyEntriesInBatchRequest, unsupportedOperation.
-     */
-    public func sendMessageBatchSync(
-            input: SimpleQueueModel.SendMessageBatchRequest) throws -> SimpleQueueModel.SendMessageBatchResultForSendMessageBatch {
-        if let sendMessageBatchSyncOverride = sendMessageBatchSyncOverride {
-            return try sendMessageBatchSyncOverride(input)
-        }
-
-        return SendMessageBatchResultForSendMessageBatch.__default
-    }
-
-    /**
-     Invokes the SetQueueAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetQueueAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetQueueAttributesRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: invalidAttributeName.
      */
-    public func setQueueAttributesAsync(
-            input: SimpleQueueModel.SetQueueAttributesRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let setQueueAttributesAsyncOverride = setQueueAttributesAsyncOverride {
-            return try setQueueAttributesAsyncOverride(input, completion)
+    public func setQueueAttributes(
+            input: SimpleQueueModel.SetQueueAttributesRequest) -> EventLoopFuture<Void> {
+        if let setQueueAttributesEventLoopFutureAsyncOverride = setQueueAttributesEventLoopFutureAsyncOverride {
+            return setQueueAttributesEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the SetQueueAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetQueueAttributesRequest object being passed to this operation.
-     - Throws: invalidAttributeName.
-     */
-    public func setQueueAttributesSync(
-            input: SimpleQueueModel.SetQueueAttributesRequest) throws {
-        if let setQueueAttributesSyncOverride = setQueueAttributesSyncOverride {
-            return try setQueueAttributesSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the TagQueue operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated TagQueueRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    public func tagQueueAsync(
-            input: SimpleQueueModel.TagQueueRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let tagQueueAsyncOverride = tagQueueAsyncOverride {
-            return try tagQueueAsyncOverride(input, completion)
-        }
-
-        completion(nil)
-    }
-
-    /**
-     Invokes the TagQueue operation waiting for the response before returning.
+     Invokes the TagQueue operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagQueueRequest object being passed to this operation.
      */
-    public func tagQueueSync(
-            input: SimpleQueueModel.TagQueueRequest) throws {
-        if let tagQueueSyncOverride = tagQueueSyncOverride {
-            return try tagQueueSyncOverride(input)
+    public func tagQueue(
+            input: SimpleQueueModel.TagQueueRequest) -> EventLoopFuture<Void> {
+        if let tagQueueEventLoopFutureAsyncOverride = tagQueueEventLoopFutureAsyncOverride {
+            return tagQueueEventLoopFutureAsyncOverride(input)
         }
 
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UntagQueue operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated UntagQueueRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    public func untagQueueAsync(
-            input: SimpleQueueModel.UntagQueueRequest, 
-            completion: @escaping (SimpleQueueError?) -> ()) throws {
-        if let untagQueueAsyncOverride = untagQueueAsyncOverride {
-            return try untagQueueAsyncOverride(input, completion)
-        }
-
-        completion(nil)
-    }
-
-    /**
-     Invokes the UntagQueue operation waiting for the response before returning.
+     Invokes the UntagQueue operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagQueueRequest object being passed to this operation.
      */
-    public func untagQueueSync(
-            input: SimpleQueueModel.UntagQueueRequest) throws {
-        if let untagQueueSyncOverride = untagQueueSyncOverride {
-            return try untagQueueSyncOverride(input)
+    public func untagQueue(
+            input: SimpleQueueModel.UntagQueueRequest) -> EventLoopFuture<Void> {
+        if let untagQueueEventLoopFutureAsyncOverride = untagQueueEventLoopFutureAsyncOverride {
+            return untagQueueEventLoopFutureAsyncOverride(input)
         }
 
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 }

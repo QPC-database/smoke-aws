@@ -24,2302 +24,1313 @@ import Foundation
 import DynamoDBModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Mock Client for the DynamoDB service by default returns the `__default` property of its return type.
  */
 public struct MockDynamoDBClient: DynamoDBClientProtocol {
-    let batchExecuteStatementAsyncOverride: BatchExecuteStatementAsyncType?
-    let batchExecuteStatementSyncOverride: BatchExecuteStatementSyncType?
-    let batchGetItemAsyncOverride: BatchGetItemAsyncType?
-    let batchGetItemSyncOverride: BatchGetItemSyncType?
-    let batchWriteItemAsyncOverride: BatchWriteItemAsyncType?
-    let batchWriteItemSyncOverride: BatchWriteItemSyncType?
-    let createBackupAsyncOverride: CreateBackupAsyncType?
-    let createBackupSyncOverride: CreateBackupSyncType?
-    let createGlobalTableAsyncOverride: CreateGlobalTableAsyncType?
-    let createGlobalTableSyncOverride: CreateGlobalTableSyncType?
-    let createTableAsyncOverride: CreateTableAsyncType?
-    let createTableSyncOverride: CreateTableSyncType?
-    let deleteBackupAsyncOverride: DeleteBackupAsyncType?
-    let deleteBackupSyncOverride: DeleteBackupSyncType?
-    let deleteItemAsyncOverride: DeleteItemAsyncType?
-    let deleteItemSyncOverride: DeleteItemSyncType?
-    let deleteTableAsyncOverride: DeleteTableAsyncType?
-    let deleteTableSyncOverride: DeleteTableSyncType?
-    let describeBackupAsyncOverride: DescribeBackupAsyncType?
-    let describeBackupSyncOverride: DescribeBackupSyncType?
-    let describeContinuousBackupsAsyncOverride: DescribeContinuousBackupsAsyncType?
-    let describeContinuousBackupsSyncOverride: DescribeContinuousBackupsSyncType?
-    let describeContributorInsightsAsyncOverride: DescribeContributorInsightsAsyncType?
-    let describeContributorInsightsSyncOverride: DescribeContributorInsightsSyncType?
-    let describeEndpointsAsyncOverride: DescribeEndpointsAsyncType?
-    let describeEndpointsSyncOverride: DescribeEndpointsSyncType?
-    let describeExportAsyncOverride: DescribeExportAsyncType?
-    let describeExportSyncOverride: DescribeExportSyncType?
-    let describeGlobalTableAsyncOverride: DescribeGlobalTableAsyncType?
-    let describeGlobalTableSyncOverride: DescribeGlobalTableSyncType?
-    let describeGlobalTableSettingsAsyncOverride: DescribeGlobalTableSettingsAsyncType?
-    let describeGlobalTableSettingsSyncOverride: DescribeGlobalTableSettingsSyncType?
-    let describeKinesisStreamingDestinationAsyncOverride: DescribeKinesisStreamingDestinationAsyncType?
-    let describeKinesisStreamingDestinationSyncOverride: DescribeKinesisStreamingDestinationSyncType?
-    let describeLimitsAsyncOverride: DescribeLimitsAsyncType?
-    let describeLimitsSyncOverride: DescribeLimitsSyncType?
-    let describeTableAsyncOverride: DescribeTableAsyncType?
-    let describeTableSyncOverride: DescribeTableSyncType?
-    let describeTableReplicaAutoScalingAsyncOverride: DescribeTableReplicaAutoScalingAsyncType?
-    let describeTableReplicaAutoScalingSyncOverride: DescribeTableReplicaAutoScalingSyncType?
-    let describeTimeToLiveAsyncOverride: DescribeTimeToLiveAsyncType?
-    let describeTimeToLiveSyncOverride: DescribeTimeToLiveSyncType?
-    let disableKinesisStreamingDestinationAsyncOverride: DisableKinesisStreamingDestinationAsyncType?
-    let disableKinesisStreamingDestinationSyncOverride: DisableKinesisStreamingDestinationSyncType?
-    let enableKinesisStreamingDestinationAsyncOverride: EnableKinesisStreamingDestinationAsyncType?
-    let enableKinesisStreamingDestinationSyncOverride: EnableKinesisStreamingDestinationSyncType?
-    let executeStatementAsyncOverride: ExecuteStatementAsyncType?
-    let executeStatementSyncOverride: ExecuteStatementSyncType?
-    let executeTransactionAsyncOverride: ExecuteTransactionAsyncType?
-    let executeTransactionSyncOverride: ExecuteTransactionSyncType?
-    let exportTableToPointInTimeAsyncOverride: ExportTableToPointInTimeAsyncType?
-    let exportTableToPointInTimeSyncOverride: ExportTableToPointInTimeSyncType?
-    let getItemAsyncOverride: GetItemAsyncType?
-    let getItemSyncOverride: GetItemSyncType?
-    let listBackupsAsyncOverride: ListBackupsAsyncType?
-    let listBackupsSyncOverride: ListBackupsSyncType?
-    let listContributorInsightsAsyncOverride: ListContributorInsightsAsyncType?
-    let listContributorInsightsSyncOverride: ListContributorInsightsSyncType?
-    let listExportsAsyncOverride: ListExportsAsyncType?
-    let listExportsSyncOverride: ListExportsSyncType?
-    let listGlobalTablesAsyncOverride: ListGlobalTablesAsyncType?
-    let listGlobalTablesSyncOverride: ListGlobalTablesSyncType?
-    let listTablesAsyncOverride: ListTablesAsyncType?
-    let listTablesSyncOverride: ListTablesSyncType?
-    let listTagsOfResourceAsyncOverride: ListTagsOfResourceAsyncType?
-    let listTagsOfResourceSyncOverride: ListTagsOfResourceSyncType?
-    let putItemAsyncOverride: PutItemAsyncType?
-    let putItemSyncOverride: PutItemSyncType?
-    let queryAsyncOverride: QueryAsyncType?
-    let querySyncOverride: QuerySyncType?
-    let restoreTableFromBackupAsyncOverride: RestoreTableFromBackupAsyncType?
-    let restoreTableFromBackupSyncOverride: RestoreTableFromBackupSyncType?
-    let restoreTableToPointInTimeAsyncOverride: RestoreTableToPointInTimeAsyncType?
-    let restoreTableToPointInTimeSyncOverride: RestoreTableToPointInTimeSyncType?
-    let scanAsyncOverride: ScanAsyncType?
-    let scanSyncOverride: ScanSyncType?
-    let tagResourceAsyncOverride: TagResourceAsyncType?
-    let tagResourceSyncOverride: TagResourceSyncType?
-    let transactGetItemsAsyncOverride: TransactGetItemsAsyncType?
-    let transactGetItemsSyncOverride: TransactGetItemsSyncType?
-    let transactWriteItemsAsyncOverride: TransactWriteItemsAsyncType?
-    let transactWriteItemsSyncOverride: TransactWriteItemsSyncType?
-    let untagResourceAsyncOverride: UntagResourceAsyncType?
-    let untagResourceSyncOverride: UntagResourceSyncType?
-    let updateContinuousBackupsAsyncOverride: UpdateContinuousBackupsAsyncType?
-    let updateContinuousBackupsSyncOverride: UpdateContinuousBackupsSyncType?
-    let updateContributorInsightsAsyncOverride: UpdateContributorInsightsAsyncType?
-    let updateContributorInsightsSyncOverride: UpdateContributorInsightsSyncType?
-    let updateGlobalTableAsyncOverride: UpdateGlobalTableAsyncType?
-    let updateGlobalTableSyncOverride: UpdateGlobalTableSyncType?
-    let updateGlobalTableSettingsAsyncOverride: UpdateGlobalTableSettingsAsyncType?
-    let updateGlobalTableSettingsSyncOverride: UpdateGlobalTableSettingsSyncType?
-    let updateItemAsyncOverride: UpdateItemAsyncType?
-    let updateItemSyncOverride: UpdateItemSyncType?
-    let updateTableAsyncOverride: UpdateTableAsyncType?
-    let updateTableSyncOverride: UpdateTableSyncType?
-    let updateTableReplicaAutoScalingAsyncOverride: UpdateTableReplicaAutoScalingAsyncType?
-    let updateTableReplicaAutoScalingSyncOverride: UpdateTableReplicaAutoScalingSyncType?
-    let updateTimeToLiveAsyncOverride: UpdateTimeToLiveAsyncType?
-    let updateTimeToLiveSyncOverride: UpdateTimeToLiveSyncType?
+    let eventLoop: EventLoop
+    let typedErrorProvider: (Swift.Error) -> DynamoDBError = { $0.asTypedError() }
+    let batchExecuteStatementEventLoopFutureAsyncOverride: BatchExecuteStatementEventLoopFutureAsyncType?
+    let batchGetItemEventLoopFutureAsyncOverride: BatchGetItemEventLoopFutureAsyncType?
+    let batchWriteItemEventLoopFutureAsyncOverride: BatchWriteItemEventLoopFutureAsyncType?
+    let createBackupEventLoopFutureAsyncOverride: CreateBackupEventLoopFutureAsyncType?
+    let createGlobalTableEventLoopFutureAsyncOverride: CreateGlobalTableEventLoopFutureAsyncType?
+    let createTableEventLoopFutureAsyncOverride: CreateTableEventLoopFutureAsyncType?
+    let deleteBackupEventLoopFutureAsyncOverride: DeleteBackupEventLoopFutureAsyncType?
+    let deleteItemEventLoopFutureAsyncOverride: DeleteItemEventLoopFutureAsyncType?
+    let deleteTableEventLoopFutureAsyncOverride: DeleteTableEventLoopFutureAsyncType?
+    let describeBackupEventLoopFutureAsyncOverride: DescribeBackupEventLoopFutureAsyncType?
+    let describeContinuousBackupsEventLoopFutureAsyncOverride: DescribeContinuousBackupsEventLoopFutureAsyncType?
+    let describeContributorInsightsEventLoopFutureAsyncOverride: DescribeContributorInsightsEventLoopFutureAsyncType?
+    let describeEndpointsEventLoopFutureAsyncOverride: DescribeEndpointsEventLoopFutureAsyncType?
+    let describeExportEventLoopFutureAsyncOverride: DescribeExportEventLoopFutureAsyncType?
+    let describeGlobalTableEventLoopFutureAsyncOverride: DescribeGlobalTableEventLoopFutureAsyncType?
+    let describeGlobalTableSettingsEventLoopFutureAsyncOverride: DescribeGlobalTableSettingsEventLoopFutureAsyncType?
+    let describeKinesisStreamingDestinationEventLoopFutureAsyncOverride: DescribeKinesisStreamingDestinationEventLoopFutureAsyncType?
+    let describeLimitsEventLoopFutureAsyncOverride: DescribeLimitsEventLoopFutureAsyncType?
+    let describeTableEventLoopFutureAsyncOverride: DescribeTableEventLoopFutureAsyncType?
+    let describeTableReplicaAutoScalingEventLoopFutureAsyncOverride: DescribeTableReplicaAutoScalingEventLoopFutureAsyncType?
+    let describeTimeToLiveEventLoopFutureAsyncOverride: DescribeTimeToLiveEventLoopFutureAsyncType?
+    let disableKinesisStreamingDestinationEventLoopFutureAsyncOverride: DisableKinesisStreamingDestinationEventLoopFutureAsyncType?
+    let enableKinesisStreamingDestinationEventLoopFutureAsyncOverride: EnableKinesisStreamingDestinationEventLoopFutureAsyncType?
+    let executeStatementEventLoopFutureAsyncOverride: ExecuteStatementEventLoopFutureAsyncType?
+    let executeTransactionEventLoopFutureAsyncOverride: ExecuteTransactionEventLoopFutureAsyncType?
+    let exportTableToPointInTimeEventLoopFutureAsyncOverride: ExportTableToPointInTimeEventLoopFutureAsyncType?
+    let getItemEventLoopFutureAsyncOverride: GetItemEventLoopFutureAsyncType?
+    let listBackupsEventLoopFutureAsyncOverride: ListBackupsEventLoopFutureAsyncType?
+    let listContributorInsightsEventLoopFutureAsyncOverride: ListContributorInsightsEventLoopFutureAsyncType?
+    let listExportsEventLoopFutureAsyncOverride: ListExportsEventLoopFutureAsyncType?
+    let listGlobalTablesEventLoopFutureAsyncOverride: ListGlobalTablesEventLoopFutureAsyncType?
+    let listTablesEventLoopFutureAsyncOverride: ListTablesEventLoopFutureAsyncType?
+    let listTagsOfResourceEventLoopFutureAsyncOverride: ListTagsOfResourceEventLoopFutureAsyncType?
+    let putItemEventLoopFutureAsyncOverride: PutItemEventLoopFutureAsyncType?
+    let queryEventLoopFutureAsyncOverride: QueryEventLoopFutureAsyncType?
+    let restoreTableFromBackupEventLoopFutureAsyncOverride: RestoreTableFromBackupEventLoopFutureAsyncType?
+    let restoreTableToPointInTimeEventLoopFutureAsyncOverride: RestoreTableToPointInTimeEventLoopFutureAsyncType?
+    let scanEventLoopFutureAsyncOverride: ScanEventLoopFutureAsyncType?
+    let tagResourceEventLoopFutureAsyncOverride: TagResourceEventLoopFutureAsyncType?
+    let transactGetItemsEventLoopFutureAsyncOverride: TransactGetItemsEventLoopFutureAsyncType?
+    let transactWriteItemsEventLoopFutureAsyncOverride: TransactWriteItemsEventLoopFutureAsyncType?
+    let untagResourceEventLoopFutureAsyncOverride: UntagResourceEventLoopFutureAsyncType?
+    let updateContinuousBackupsEventLoopFutureAsyncOverride: UpdateContinuousBackupsEventLoopFutureAsyncType?
+    let updateContributorInsightsEventLoopFutureAsyncOverride: UpdateContributorInsightsEventLoopFutureAsyncType?
+    let updateGlobalTableEventLoopFutureAsyncOverride: UpdateGlobalTableEventLoopFutureAsyncType?
+    let updateGlobalTableSettingsEventLoopFutureAsyncOverride: UpdateGlobalTableSettingsEventLoopFutureAsyncType?
+    let updateItemEventLoopFutureAsyncOverride: UpdateItemEventLoopFutureAsyncType?
+    let updateTableEventLoopFutureAsyncOverride: UpdateTableEventLoopFutureAsyncType?
+    let updateTableReplicaAutoScalingEventLoopFutureAsyncOverride: UpdateTableReplicaAutoScalingEventLoopFutureAsyncType?
+    let updateTimeToLiveEventLoopFutureAsyncOverride: UpdateTimeToLiveEventLoopFutureAsyncType?
 
     /**
      Initializer that creates an instance of this clients. The behavior of individual
      functions can be overridden by passing them to this initializer.
      */
     public init(
-            batchExecuteStatementAsync: BatchExecuteStatementAsyncType? = nil,
-            batchExecuteStatementSync: BatchExecuteStatementSyncType? = nil,
-            batchGetItemAsync: BatchGetItemAsyncType? = nil,
-            batchGetItemSync: BatchGetItemSyncType? = nil,
-            batchWriteItemAsync: BatchWriteItemAsyncType? = nil,
-            batchWriteItemSync: BatchWriteItemSyncType? = nil,
-            createBackupAsync: CreateBackupAsyncType? = nil,
-            createBackupSync: CreateBackupSyncType? = nil,
-            createGlobalTableAsync: CreateGlobalTableAsyncType? = nil,
-            createGlobalTableSync: CreateGlobalTableSyncType? = nil,
-            createTableAsync: CreateTableAsyncType? = nil,
-            createTableSync: CreateTableSyncType? = nil,
-            deleteBackupAsync: DeleteBackupAsyncType? = nil,
-            deleteBackupSync: DeleteBackupSyncType? = nil,
-            deleteItemAsync: DeleteItemAsyncType? = nil,
-            deleteItemSync: DeleteItemSyncType? = nil,
-            deleteTableAsync: DeleteTableAsyncType? = nil,
-            deleteTableSync: DeleteTableSyncType? = nil,
-            describeBackupAsync: DescribeBackupAsyncType? = nil,
-            describeBackupSync: DescribeBackupSyncType? = nil,
-            describeContinuousBackupsAsync: DescribeContinuousBackupsAsyncType? = nil,
-            describeContinuousBackupsSync: DescribeContinuousBackupsSyncType? = nil,
-            describeContributorInsightsAsync: DescribeContributorInsightsAsyncType? = nil,
-            describeContributorInsightsSync: DescribeContributorInsightsSyncType? = nil,
-            describeEndpointsAsync: DescribeEndpointsAsyncType? = nil,
-            describeEndpointsSync: DescribeEndpointsSyncType? = nil,
-            describeExportAsync: DescribeExportAsyncType? = nil,
-            describeExportSync: DescribeExportSyncType? = nil,
-            describeGlobalTableAsync: DescribeGlobalTableAsyncType? = nil,
-            describeGlobalTableSync: DescribeGlobalTableSyncType? = nil,
-            describeGlobalTableSettingsAsync: DescribeGlobalTableSettingsAsyncType? = nil,
-            describeGlobalTableSettingsSync: DescribeGlobalTableSettingsSyncType? = nil,
-            describeKinesisStreamingDestinationAsync: DescribeKinesisStreamingDestinationAsyncType? = nil,
-            describeKinesisStreamingDestinationSync: DescribeKinesisStreamingDestinationSyncType? = nil,
-            describeLimitsAsync: DescribeLimitsAsyncType? = nil,
-            describeLimitsSync: DescribeLimitsSyncType? = nil,
-            describeTableAsync: DescribeTableAsyncType? = nil,
-            describeTableSync: DescribeTableSyncType? = nil,
-            describeTableReplicaAutoScalingAsync: DescribeTableReplicaAutoScalingAsyncType? = nil,
-            describeTableReplicaAutoScalingSync: DescribeTableReplicaAutoScalingSyncType? = nil,
-            describeTimeToLiveAsync: DescribeTimeToLiveAsyncType? = nil,
-            describeTimeToLiveSync: DescribeTimeToLiveSyncType? = nil,
-            disableKinesisStreamingDestinationAsync: DisableKinesisStreamingDestinationAsyncType? = nil,
-            disableKinesisStreamingDestinationSync: DisableKinesisStreamingDestinationSyncType? = nil,
-            enableKinesisStreamingDestinationAsync: EnableKinesisStreamingDestinationAsyncType? = nil,
-            enableKinesisStreamingDestinationSync: EnableKinesisStreamingDestinationSyncType? = nil,
-            executeStatementAsync: ExecuteStatementAsyncType? = nil,
-            executeStatementSync: ExecuteStatementSyncType? = nil,
-            executeTransactionAsync: ExecuteTransactionAsyncType? = nil,
-            executeTransactionSync: ExecuteTransactionSyncType? = nil,
-            exportTableToPointInTimeAsync: ExportTableToPointInTimeAsyncType? = nil,
-            exportTableToPointInTimeSync: ExportTableToPointInTimeSyncType? = nil,
-            getItemAsync: GetItemAsyncType? = nil,
-            getItemSync: GetItemSyncType? = nil,
-            listBackupsAsync: ListBackupsAsyncType? = nil,
-            listBackupsSync: ListBackupsSyncType? = nil,
-            listContributorInsightsAsync: ListContributorInsightsAsyncType? = nil,
-            listContributorInsightsSync: ListContributorInsightsSyncType? = nil,
-            listExportsAsync: ListExportsAsyncType? = nil,
-            listExportsSync: ListExportsSyncType? = nil,
-            listGlobalTablesAsync: ListGlobalTablesAsyncType? = nil,
-            listGlobalTablesSync: ListGlobalTablesSyncType? = nil,
-            listTablesAsync: ListTablesAsyncType? = nil,
-            listTablesSync: ListTablesSyncType? = nil,
-            listTagsOfResourceAsync: ListTagsOfResourceAsyncType? = nil,
-            listTagsOfResourceSync: ListTagsOfResourceSyncType? = nil,
-            putItemAsync: PutItemAsyncType? = nil,
-            putItemSync: PutItemSyncType? = nil,
-            queryAsync: QueryAsyncType? = nil,
-            querySync: QuerySyncType? = nil,
-            restoreTableFromBackupAsync: RestoreTableFromBackupAsyncType? = nil,
-            restoreTableFromBackupSync: RestoreTableFromBackupSyncType? = nil,
-            restoreTableToPointInTimeAsync: RestoreTableToPointInTimeAsyncType? = nil,
-            restoreTableToPointInTimeSync: RestoreTableToPointInTimeSyncType? = nil,
-            scanAsync: ScanAsyncType? = nil,
-            scanSync: ScanSyncType? = nil,
-            tagResourceAsync: TagResourceAsyncType? = nil,
-            tagResourceSync: TagResourceSyncType? = nil,
-            transactGetItemsAsync: TransactGetItemsAsyncType? = nil,
-            transactGetItemsSync: TransactGetItemsSyncType? = nil,
-            transactWriteItemsAsync: TransactWriteItemsAsyncType? = nil,
-            transactWriteItemsSync: TransactWriteItemsSyncType? = nil,
-            untagResourceAsync: UntagResourceAsyncType? = nil,
-            untagResourceSync: UntagResourceSyncType? = nil,
-            updateContinuousBackupsAsync: UpdateContinuousBackupsAsyncType? = nil,
-            updateContinuousBackupsSync: UpdateContinuousBackupsSyncType? = nil,
-            updateContributorInsightsAsync: UpdateContributorInsightsAsyncType? = nil,
-            updateContributorInsightsSync: UpdateContributorInsightsSyncType? = nil,
-            updateGlobalTableAsync: UpdateGlobalTableAsyncType? = nil,
-            updateGlobalTableSync: UpdateGlobalTableSyncType? = nil,
-            updateGlobalTableSettingsAsync: UpdateGlobalTableSettingsAsyncType? = nil,
-            updateGlobalTableSettingsSync: UpdateGlobalTableSettingsSyncType? = nil,
-            updateItemAsync: UpdateItemAsyncType? = nil,
-            updateItemSync: UpdateItemSyncType? = nil,
-            updateTableAsync: UpdateTableAsyncType? = nil,
-            updateTableSync: UpdateTableSyncType? = nil,
-            updateTableReplicaAutoScalingAsync: UpdateTableReplicaAutoScalingAsyncType? = nil,
-            updateTableReplicaAutoScalingSync: UpdateTableReplicaAutoScalingSyncType? = nil,
-            updateTimeToLiveAsync: UpdateTimeToLiveAsyncType? = nil,
-            updateTimeToLiveSync: UpdateTimeToLiveSyncType? = nil) {
-        self.batchExecuteStatementAsyncOverride = batchExecuteStatementAsync
-        self.batchExecuteStatementSyncOverride = batchExecuteStatementSync
-        self.batchGetItemAsyncOverride = batchGetItemAsync
-        self.batchGetItemSyncOverride = batchGetItemSync
-        self.batchWriteItemAsyncOverride = batchWriteItemAsync
-        self.batchWriteItemSyncOverride = batchWriteItemSync
-        self.createBackupAsyncOverride = createBackupAsync
-        self.createBackupSyncOverride = createBackupSync
-        self.createGlobalTableAsyncOverride = createGlobalTableAsync
-        self.createGlobalTableSyncOverride = createGlobalTableSync
-        self.createTableAsyncOverride = createTableAsync
-        self.createTableSyncOverride = createTableSync
-        self.deleteBackupAsyncOverride = deleteBackupAsync
-        self.deleteBackupSyncOverride = deleteBackupSync
-        self.deleteItemAsyncOverride = deleteItemAsync
-        self.deleteItemSyncOverride = deleteItemSync
-        self.deleteTableAsyncOverride = deleteTableAsync
-        self.deleteTableSyncOverride = deleteTableSync
-        self.describeBackupAsyncOverride = describeBackupAsync
-        self.describeBackupSyncOverride = describeBackupSync
-        self.describeContinuousBackupsAsyncOverride = describeContinuousBackupsAsync
-        self.describeContinuousBackupsSyncOverride = describeContinuousBackupsSync
-        self.describeContributorInsightsAsyncOverride = describeContributorInsightsAsync
-        self.describeContributorInsightsSyncOverride = describeContributorInsightsSync
-        self.describeEndpointsAsyncOverride = describeEndpointsAsync
-        self.describeEndpointsSyncOverride = describeEndpointsSync
-        self.describeExportAsyncOverride = describeExportAsync
-        self.describeExportSyncOverride = describeExportSync
-        self.describeGlobalTableAsyncOverride = describeGlobalTableAsync
-        self.describeGlobalTableSyncOverride = describeGlobalTableSync
-        self.describeGlobalTableSettingsAsyncOverride = describeGlobalTableSettingsAsync
-        self.describeGlobalTableSettingsSyncOverride = describeGlobalTableSettingsSync
-        self.describeKinesisStreamingDestinationAsyncOverride = describeKinesisStreamingDestinationAsync
-        self.describeKinesisStreamingDestinationSyncOverride = describeKinesisStreamingDestinationSync
-        self.describeLimitsAsyncOverride = describeLimitsAsync
-        self.describeLimitsSyncOverride = describeLimitsSync
-        self.describeTableAsyncOverride = describeTableAsync
-        self.describeTableSyncOverride = describeTableSync
-        self.describeTableReplicaAutoScalingAsyncOverride = describeTableReplicaAutoScalingAsync
-        self.describeTableReplicaAutoScalingSyncOverride = describeTableReplicaAutoScalingSync
-        self.describeTimeToLiveAsyncOverride = describeTimeToLiveAsync
-        self.describeTimeToLiveSyncOverride = describeTimeToLiveSync
-        self.disableKinesisStreamingDestinationAsyncOverride = disableKinesisStreamingDestinationAsync
-        self.disableKinesisStreamingDestinationSyncOverride = disableKinesisStreamingDestinationSync
-        self.enableKinesisStreamingDestinationAsyncOverride = enableKinesisStreamingDestinationAsync
-        self.enableKinesisStreamingDestinationSyncOverride = enableKinesisStreamingDestinationSync
-        self.executeStatementAsyncOverride = executeStatementAsync
-        self.executeStatementSyncOverride = executeStatementSync
-        self.executeTransactionAsyncOverride = executeTransactionAsync
-        self.executeTransactionSyncOverride = executeTransactionSync
-        self.exportTableToPointInTimeAsyncOverride = exportTableToPointInTimeAsync
-        self.exportTableToPointInTimeSyncOverride = exportTableToPointInTimeSync
-        self.getItemAsyncOverride = getItemAsync
-        self.getItemSyncOverride = getItemSync
-        self.listBackupsAsyncOverride = listBackupsAsync
-        self.listBackupsSyncOverride = listBackupsSync
-        self.listContributorInsightsAsyncOverride = listContributorInsightsAsync
-        self.listContributorInsightsSyncOverride = listContributorInsightsSync
-        self.listExportsAsyncOverride = listExportsAsync
-        self.listExportsSyncOverride = listExportsSync
-        self.listGlobalTablesAsyncOverride = listGlobalTablesAsync
-        self.listGlobalTablesSyncOverride = listGlobalTablesSync
-        self.listTablesAsyncOverride = listTablesAsync
-        self.listTablesSyncOverride = listTablesSync
-        self.listTagsOfResourceAsyncOverride = listTagsOfResourceAsync
-        self.listTagsOfResourceSyncOverride = listTagsOfResourceSync
-        self.putItemAsyncOverride = putItemAsync
-        self.putItemSyncOverride = putItemSync
-        self.queryAsyncOverride = queryAsync
-        self.querySyncOverride = querySync
-        self.restoreTableFromBackupAsyncOverride = restoreTableFromBackupAsync
-        self.restoreTableFromBackupSyncOverride = restoreTableFromBackupSync
-        self.restoreTableToPointInTimeAsyncOverride = restoreTableToPointInTimeAsync
-        self.restoreTableToPointInTimeSyncOverride = restoreTableToPointInTimeSync
-        self.scanAsyncOverride = scanAsync
-        self.scanSyncOverride = scanSync
-        self.tagResourceAsyncOverride = tagResourceAsync
-        self.tagResourceSyncOverride = tagResourceSync
-        self.transactGetItemsAsyncOverride = transactGetItemsAsync
-        self.transactGetItemsSyncOverride = transactGetItemsSync
-        self.transactWriteItemsAsyncOverride = transactWriteItemsAsync
-        self.transactWriteItemsSyncOverride = transactWriteItemsSync
-        self.untagResourceAsyncOverride = untagResourceAsync
-        self.untagResourceSyncOverride = untagResourceSync
-        self.updateContinuousBackupsAsyncOverride = updateContinuousBackupsAsync
-        self.updateContinuousBackupsSyncOverride = updateContinuousBackupsSync
-        self.updateContributorInsightsAsyncOverride = updateContributorInsightsAsync
-        self.updateContributorInsightsSyncOverride = updateContributorInsightsSync
-        self.updateGlobalTableAsyncOverride = updateGlobalTableAsync
-        self.updateGlobalTableSyncOverride = updateGlobalTableSync
-        self.updateGlobalTableSettingsAsyncOverride = updateGlobalTableSettingsAsync
-        self.updateGlobalTableSettingsSyncOverride = updateGlobalTableSettingsSync
-        self.updateItemAsyncOverride = updateItemAsync
-        self.updateItemSyncOverride = updateItemSync
-        self.updateTableAsyncOverride = updateTableAsync
-        self.updateTableSyncOverride = updateTableSync
-        self.updateTableReplicaAutoScalingAsyncOverride = updateTableReplicaAutoScalingAsync
-        self.updateTableReplicaAutoScalingSyncOverride = updateTableReplicaAutoScalingSync
-        self.updateTimeToLiveAsyncOverride = updateTimeToLiveAsync
-        self.updateTimeToLiveSyncOverride = updateTimeToLiveSync
+            eventLoop: EventLoop,
+            batchExecuteStatementEventLoopFutureAsync: BatchExecuteStatementEventLoopFutureAsyncType? = nil,
+            batchGetItemEventLoopFutureAsync: BatchGetItemEventLoopFutureAsyncType? = nil,
+            batchWriteItemEventLoopFutureAsync: BatchWriteItemEventLoopFutureAsyncType? = nil,
+            createBackupEventLoopFutureAsync: CreateBackupEventLoopFutureAsyncType? = nil,
+            createGlobalTableEventLoopFutureAsync: CreateGlobalTableEventLoopFutureAsyncType? = nil,
+            createTableEventLoopFutureAsync: CreateTableEventLoopFutureAsyncType? = nil,
+            deleteBackupEventLoopFutureAsync: DeleteBackupEventLoopFutureAsyncType? = nil,
+            deleteItemEventLoopFutureAsync: DeleteItemEventLoopFutureAsyncType? = nil,
+            deleteTableEventLoopFutureAsync: DeleteTableEventLoopFutureAsyncType? = nil,
+            describeBackupEventLoopFutureAsync: DescribeBackupEventLoopFutureAsyncType? = nil,
+            describeContinuousBackupsEventLoopFutureAsync: DescribeContinuousBackupsEventLoopFutureAsyncType? = nil,
+            describeContributorInsightsEventLoopFutureAsync: DescribeContributorInsightsEventLoopFutureAsyncType? = nil,
+            describeEndpointsEventLoopFutureAsync: DescribeEndpointsEventLoopFutureAsyncType? = nil,
+            describeExportEventLoopFutureAsync: DescribeExportEventLoopFutureAsyncType? = nil,
+            describeGlobalTableEventLoopFutureAsync: DescribeGlobalTableEventLoopFutureAsyncType? = nil,
+            describeGlobalTableSettingsEventLoopFutureAsync: DescribeGlobalTableSettingsEventLoopFutureAsyncType? = nil,
+            describeKinesisStreamingDestinationEventLoopFutureAsync: DescribeKinesisStreamingDestinationEventLoopFutureAsyncType? = nil,
+            describeLimitsEventLoopFutureAsync: DescribeLimitsEventLoopFutureAsyncType? = nil,
+            describeTableEventLoopFutureAsync: DescribeTableEventLoopFutureAsyncType? = nil,
+            describeTableReplicaAutoScalingEventLoopFutureAsync: DescribeTableReplicaAutoScalingEventLoopFutureAsyncType? = nil,
+            describeTimeToLiveEventLoopFutureAsync: DescribeTimeToLiveEventLoopFutureAsyncType? = nil,
+            disableKinesisStreamingDestinationEventLoopFutureAsync: DisableKinesisStreamingDestinationEventLoopFutureAsyncType? = nil,
+            enableKinesisStreamingDestinationEventLoopFutureAsync: EnableKinesisStreamingDestinationEventLoopFutureAsyncType? = nil,
+            executeStatementEventLoopFutureAsync: ExecuteStatementEventLoopFutureAsyncType? = nil,
+            executeTransactionEventLoopFutureAsync: ExecuteTransactionEventLoopFutureAsyncType? = nil,
+            exportTableToPointInTimeEventLoopFutureAsync: ExportTableToPointInTimeEventLoopFutureAsyncType? = nil,
+            getItemEventLoopFutureAsync: GetItemEventLoopFutureAsyncType? = nil,
+            listBackupsEventLoopFutureAsync: ListBackupsEventLoopFutureAsyncType? = nil,
+            listContributorInsightsEventLoopFutureAsync: ListContributorInsightsEventLoopFutureAsyncType? = nil,
+            listExportsEventLoopFutureAsync: ListExportsEventLoopFutureAsyncType? = nil,
+            listGlobalTablesEventLoopFutureAsync: ListGlobalTablesEventLoopFutureAsyncType? = nil,
+            listTablesEventLoopFutureAsync: ListTablesEventLoopFutureAsyncType? = nil,
+            listTagsOfResourceEventLoopFutureAsync: ListTagsOfResourceEventLoopFutureAsyncType? = nil,
+            putItemEventLoopFutureAsync: PutItemEventLoopFutureAsyncType? = nil,
+            queryEventLoopFutureAsync: QueryEventLoopFutureAsyncType? = nil,
+            restoreTableFromBackupEventLoopFutureAsync: RestoreTableFromBackupEventLoopFutureAsyncType? = nil,
+            restoreTableToPointInTimeEventLoopFutureAsync: RestoreTableToPointInTimeEventLoopFutureAsyncType? = nil,
+            scanEventLoopFutureAsync: ScanEventLoopFutureAsyncType? = nil,
+            tagResourceEventLoopFutureAsync: TagResourceEventLoopFutureAsyncType? = nil,
+            transactGetItemsEventLoopFutureAsync: TransactGetItemsEventLoopFutureAsyncType? = nil,
+            transactWriteItemsEventLoopFutureAsync: TransactWriteItemsEventLoopFutureAsyncType? = nil,
+            untagResourceEventLoopFutureAsync: UntagResourceEventLoopFutureAsyncType? = nil,
+            updateContinuousBackupsEventLoopFutureAsync: UpdateContinuousBackupsEventLoopFutureAsyncType? = nil,
+            updateContributorInsightsEventLoopFutureAsync: UpdateContributorInsightsEventLoopFutureAsyncType? = nil,
+            updateGlobalTableEventLoopFutureAsync: UpdateGlobalTableEventLoopFutureAsyncType? = nil,
+            updateGlobalTableSettingsEventLoopFutureAsync: UpdateGlobalTableSettingsEventLoopFutureAsyncType? = nil,
+            updateItemEventLoopFutureAsync: UpdateItemEventLoopFutureAsyncType? = nil,
+            updateTableEventLoopFutureAsync: UpdateTableEventLoopFutureAsyncType? = nil,
+            updateTableReplicaAutoScalingEventLoopFutureAsync: UpdateTableReplicaAutoScalingEventLoopFutureAsyncType? = nil,
+            updateTimeToLiveEventLoopFutureAsync: UpdateTimeToLiveEventLoopFutureAsyncType? = nil) {
+        self.eventLoop = eventLoop
+        
+        self.batchExecuteStatementEventLoopFutureAsyncOverride = batchExecuteStatementEventLoopFutureAsync
+        self.batchGetItemEventLoopFutureAsyncOverride = batchGetItemEventLoopFutureAsync
+        self.batchWriteItemEventLoopFutureAsyncOverride = batchWriteItemEventLoopFutureAsync
+        self.createBackupEventLoopFutureAsyncOverride = createBackupEventLoopFutureAsync
+        self.createGlobalTableEventLoopFutureAsyncOverride = createGlobalTableEventLoopFutureAsync
+        self.createTableEventLoopFutureAsyncOverride = createTableEventLoopFutureAsync
+        self.deleteBackupEventLoopFutureAsyncOverride = deleteBackupEventLoopFutureAsync
+        self.deleteItemEventLoopFutureAsyncOverride = deleteItemEventLoopFutureAsync
+        self.deleteTableEventLoopFutureAsyncOverride = deleteTableEventLoopFutureAsync
+        self.describeBackupEventLoopFutureAsyncOverride = describeBackupEventLoopFutureAsync
+        self.describeContinuousBackupsEventLoopFutureAsyncOverride = describeContinuousBackupsEventLoopFutureAsync
+        self.describeContributorInsightsEventLoopFutureAsyncOverride = describeContributorInsightsEventLoopFutureAsync
+        self.describeEndpointsEventLoopFutureAsyncOverride = describeEndpointsEventLoopFutureAsync
+        self.describeExportEventLoopFutureAsyncOverride = describeExportEventLoopFutureAsync
+        self.describeGlobalTableEventLoopFutureAsyncOverride = describeGlobalTableEventLoopFutureAsync
+        self.describeGlobalTableSettingsEventLoopFutureAsyncOverride = describeGlobalTableSettingsEventLoopFutureAsync
+        self.describeKinesisStreamingDestinationEventLoopFutureAsyncOverride = describeKinesisStreamingDestinationEventLoopFutureAsync
+        self.describeLimitsEventLoopFutureAsyncOverride = describeLimitsEventLoopFutureAsync
+        self.describeTableEventLoopFutureAsyncOverride = describeTableEventLoopFutureAsync
+        self.describeTableReplicaAutoScalingEventLoopFutureAsyncOverride = describeTableReplicaAutoScalingEventLoopFutureAsync
+        self.describeTimeToLiveEventLoopFutureAsyncOverride = describeTimeToLiveEventLoopFutureAsync
+        self.disableKinesisStreamingDestinationEventLoopFutureAsyncOverride = disableKinesisStreamingDestinationEventLoopFutureAsync
+        self.enableKinesisStreamingDestinationEventLoopFutureAsyncOverride = enableKinesisStreamingDestinationEventLoopFutureAsync
+        self.executeStatementEventLoopFutureAsyncOverride = executeStatementEventLoopFutureAsync
+        self.executeTransactionEventLoopFutureAsyncOverride = executeTransactionEventLoopFutureAsync
+        self.exportTableToPointInTimeEventLoopFutureAsyncOverride = exportTableToPointInTimeEventLoopFutureAsync
+        self.getItemEventLoopFutureAsyncOverride = getItemEventLoopFutureAsync
+        self.listBackupsEventLoopFutureAsyncOverride = listBackupsEventLoopFutureAsync
+        self.listContributorInsightsEventLoopFutureAsyncOverride = listContributorInsightsEventLoopFutureAsync
+        self.listExportsEventLoopFutureAsyncOverride = listExportsEventLoopFutureAsync
+        self.listGlobalTablesEventLoopFutureAsyncOverride = listGlobalTablesEventLoopFutureAsync
+        self.listTablesEventLoopFutureAsyncOverride = listTablesEventLoopFutureAsync
+        self.listTagsOfResourceEventLoopFutureAsyncOverride = listTagsOfResourceEventLoopFutureAsync
+        self.putItemEventLoopFutureAsyncOverride = putItemEventLoopFutureAsync
+        self.queryEventLoopFutureAsyncOverride = queryEventLoopFutureAsync
+        self.restoreTableFromBackupEventLoopFutureAsyncOverride = restoreTableFromBackupEventLoopFutureAsync
+        self.restoreTableToPointInTimeEventLoopFutureAsyncOverride = restoreTableToPointInTimeEventLoopFutureAsync
+        self.scanEventLoopFutureAsyncOverride = scanEventLoopFutureAsync
+        self.tagResourceEventLoopFutureAsyncOverride = tagResourceEventLoopFutureAsync
+        self.transactGetItemsEventLoopFutureAsyncOverride = transactGetItemsEventLoopFutureAsync
+        self.transactWriteItemsEventLoopFutureAsyncOverride = transactWriteItemsEventLoopFutureAsync
+        self.untagResourceEventLoopFutureAsyncOverride = untagResourceEventLoopFutureAsync
+        self.updateContinuousBackupsEventLoopFutureAsyncOverride = updateContinuousBackupsEventLoopFutureAsync
+        self.updateContributorInsightsEventLoopFutureAsyncOverride = updateContributorInsightsEventLoopFutureAsync
+        self.updateGlobalTableEventLoopFutureAsyncOverride = updateGlobalTableEventLoopFutureAsync
+        self.updateGlobalTableSettingsEventLoopFutureAsyncOverride = updateGlobalTableSettingsEventLoopFutureAsync
+        self.updateItemEventLoopFutureAsyncOverride = updateItemEventLoopFutureAsync
+        self.updateTableEventLoopFutureAsyncOverride = updateTableEventLoopFutureAsync
+        self.updateTableReplicaAutoScalingEventLoopFutureAsyncOverride = updateTableReplicaAutoScalingEventLoopFutureAsync
+        self.updateTimeToLiveEventLoopFutureAsyncOverride = updateTimeToLiveEventLoopFutureAsync
     }
 
     /**
-     Invokes the BatchExecuteStatement operation returning immediately and passing the response to a callback.
+     Invokes the BatchExecuteStatement operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BatchExecuteStatementInput object being passed to this operation.
-         - completion: The BatchExecuteStatementOutput object or an error will be passed to this 
-           callback when the operation is complete. The BatchExecuteStatementOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the BatchExecuteStatementOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, requestLimitExceeded.
      */
-    public func batchExecuteStatementAsync(
-            input: DynamoDBModel.BatchExecuteStatementInput, 
-            completion: @escaping (Result<DynamoDBModel.BatchExecuteStatementOutput, DynamoDBError>) -> ()) throws {
-        if let batchExecuteStatementAsyncOverride = batchExecuteStatementAsyncOverride {
-            return try batchExecuteStatementAsyncOverride(input, completion)
+    public func batchExecuteStatement(
+            input: DynamoDBModel.BatchExecuteStatementInput) -> EventLoopFuture<DynamoDBModel.BatchExecuteStatementOutput> {
+        if let batchExecuteStatementEventLoopFutureAsyncOverride = batchExecuteStatementEventLoopFutureAsyncOverride {
+            return batchExecuteStatementEventLoopFutureAsyncOverride(input)
         }
 
         let result = BatchExecuteStatementOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: BatchExecuteStatementOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the BatchExecuteStatement operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BatchExecuteStatementInput object being passed to this operation.
-     - Returns: The BatchExecuteStatementOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, requestLimitExceeded.
-     */
-    public func batchExecuteStatementSync(
-            input: DynamoDBModel.BatchExecuteStatementInput) throws -> DynamoDBModel.BatchExecuteStatementOutput {
-        if let batchExecuteStatementSyncOverride = batchExecuteStatementSyncOverride {
-            return try batchExecuteStatementSyncOverride(input)
-        }
-
-        return BatchExecuteStatementOutput.__default
-    }
-
-    /**
-     Invokes the BatchGetItem operation returning immediately and passing the response to a callback.
+     Invokes the BatchGetItem operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BatchGetItemInput object being passed to this operation.
-         - completion: The BatchGetItemOutput object or an error will be passed to this 
-           callback when the operation is complete. The BatchGetItemOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the BatchGetItemOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
      */
-    public func batchGetItemAsync(
-            input: DynamoDBModel.BatchGetItemInput, 
-            completion: @escaping (Result<DynamoDBModel.BatchGetItemOutput, DynamoDBError>) -> ()) throws {
-        if let batchGetItemAsyncOverride = batchGetItemAsyncOverride {
-            return try batchGetItemAsyncOverride(input, completion)
+    public func batchGetItem(
+            input: DynamoDBModel.BatchGetItemInput) -> EventLoopFuture<DynamoDBModel.BatchGetItemOutput> {
+        if let batchGetItemEventLoopFutureAsyncOverride = batchGetItemEventLoopFutureAsyncOverride {
+            return batchGetItemEventLoopFutureAsyncOverride(input)
         }
 
         let result = BatchGetItemOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: BatchGetItemOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the BatchGetItem operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BatchGetItemInput object being passed to this operation.
-     - Returns: The BatchGetItemOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
-     */
-    public func batchGetItemSync(
-            input: DynamoDBModel.BatchGetItemInput) throws -> DynamoDBModel.BatchGetItemOutput {
-        if let batchGetItemSyncOverride = batchGetItemSyncOverride {
-            return try batchGetItemSyncOverride(input)
-        }
-
-        return BatchGetItemOutput.__default
-    }
-
-    /**
-     Invokes the BatchWriteItem operation returning immediately and passing the response to a callback.
+     Invokes the BatchWriteItem operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BatchWriteItemInput object being passed to this operation.
-         - completion: The BatchWriteItemOutput object or an error will be passed to this 
-           callback when the operation is complete. The BatchWriteItemOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the BatchWriteItemOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
      */
-    public func batchWriteItemAsync(
-            input: DynamoDBModel.BatchWriteItemInput, 
-            completion: @escaping (Result<DynamoDBModel.BatchWriteItemOutput, DynamoDBError>) -> ()) throws {
-        if let batchWriteItemAsyncOverride = batchWriteItemAsyncOverride {
-            return try batchWriteItemAsyncOverride(input, completion)
+    public func batchWriteItem(
+            input: DynamoDBModel.BatchWriteItemInput) -> EventLoopFuture<DynamoDBModel.BatchWriteItemOutput> {
+        if let batchWriteItemEventLoopFutureAsyncOverride = batchWriteItemEventLoopFutureAsyncOverride {
+            return batchWriteItemEventLoopFutureAsyncOverride(input)
         }
 
         let result = BatchWriteItemOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: BatchWriteItemOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the BatchWriteItem operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BatchWriteItemInput object being passed to this operation.
-     - Returns: The BatchWriteItemOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
-     */
-    public func batchWriteItemSync(
-            input: DynamoDBModel.BatchWriteItemInput) throws -> DynamoDBModel.BatchWriteItemOutput {
-        if let batchWriteItemSyncOverride = batchWriteItemSyncOverride {
-            return try batchWriteItemSyncOverride(input)
-        }
-
-        return BatchWriteItemOutput.__default
-    }
-
-    /**
-     Invokes the CreateBackup operation returning immediately and passing the response to a callback.
+     Invokes the CreateBackup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateBackupInput object being passed to this operation.
-         - completion: The CreateBackupOutput object or an error will be passed to this 
-           callback when the operation is complete. The CreateBackupOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateBackupOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: backupInUse, continuousBackupsUnavailable, internalServer, limitExceeded, tableInUse, tableNotFound.
      */
-    public func createBackupAsync(
-            input: DynamoDBModel.CreateBackupInput, 
-            completion: @escaping (Result<DynamoDBModel.CreateBackupOutput, DynamoDBError>) -> ()) throws {
-        if let createBackupAsyncOverride = createBackupAsyncOverride {
-            return try createBackupAsyncOverride(input, completion)
+    public func createBackup(
+            input: DynamoDBModel.CreateBackupInput) -> EventLoopFuture<DynamoDBModel.CreateBackupOutput> {
+        if let createBackupEventLoopFutureAsyncOverride = createBackupEventLoopFutureAsyncOverride {
+            return createBackupEventLoopFutureAsyncOverride(input)
         }
 
         let result = CreateBackupOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: CreateBackupOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CreateBackup operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateBackupInput object being passed to this operation.
-     - Returns: The CreateBackupOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: backupInUse, continuousBackupsUnavailable, internalServer, limitExceeded, tableInUse, tableNotFound.
-     */
-    public func createBackupSync(
-            input: DynamoDBModel.CreateBackupInput) throws -> DynamoDBModel.CreateBackupOutput {
-        if let createBackupSyncOverride = createBackupSyncOverride {
-            return try createBackupSyncOverride(input)
-        }
-
-        return CreateBackupOutput.__default
-    }
-
-    /**
-     Invokes the CreateGlobalTable operation returning immediately and passing the response to a callback.
+     Invokes the CreateGlobalTable operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateGlobalTableInput object being passed to this operation.
-         - completion: The CreateGlobalTableOutput object or an error will be passed to this 
-           callback when the operation is complete. The CreateGlobalTableOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateGlobalTableOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: globalTableAlreadyExists, internalServer, limitExceeded, tableNotFound.
      */
-    public func createGlobalTableAsync(
-            input: DynamoDBModel.CreateGlobalTableInput, 
-            completion: @escaping (Result<DynamoDBModel.CreateGlobalTableOutput, DynamoDBError>) -> ()) throws {
-        if let createGlobalTableAsyncOverride = createGlobalTableAsyncOverride {
-            return try createGlobalTableAsyncOverride(input, completion)
+    public func createGlobalTable(
+            input: DynamoDBModel.CreateGlobalTableInput) -> EventLoopFuture<DynamoDBModel.CreateGlobalTableOutput> {
+        if let createGlobalTableEventLoopFutureAsyncOverride = createGlobalTableEventLoopFutureAsyncOverride {
+            return createGlobalTableEventLoopFutureAsyncOverride(input)
         }
 
         let result = CreateGlobalTableOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: CreateGlobalTableOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CreateGlobalTable operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateGlobalTableInput object being passed to this operation.
-     - Returns: The CreateGlobalTableOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: globalTableAlreadyExists, internalServer, limitExceeded, tableNotFound.
-     */
-    public func createGlobalTableSync(
-            input: DynamoDBModel.CreateGlobalTableInput) throws -> DynamoDBModel.CreateGlobalTableOutput {
-        if let createGlobalTableSyncOverride = createGlobalTableSyncOverride {
-            return try createGlobalTableSyncOverride(input)
-        }
-
-        return CreateGlobalTableOutput.__default
-    }
-
-    /**
-     Invokes the CreateTable operation returning immediately and passing the response to a callback.
+     Invokes the CreateTable operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateTableInput object being passed to this operation.
-         - completion: The CreateTableOutput object or an error will be passed to this 
-           callback when the operation is complete. The CreateTableOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateTableOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, limitExceeded, resourceInUse.
      */
-    public func createTableAsync(
-            input: DynamoDBModel.CreateTableInput, 
-            completion: @escaping (Result<DynamoDBModel.CreateTableOutput, DynamoDBError>) -> ()) throws {
-        if let createTableAsyncOverride = createTableAsyncOverride {
-            return try createTableAsyncOverride(input, completion)
+    public func createTable(
+            input: DynamoDBModel.CreateTableInput) -> EventLoopFuture<DynamoDBModel.CreateTableOutput> {
+        if let createTableEventLoopFutureAsyncOverride = createTableEventLoopFutureAsyncOverride {
+            return createTableEventLoopFutureAsyncOverride(input)
         }
 
         let result = CreateTableOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: CreateTableOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the CreateTable operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateTableInput object being passed to this operation.
-     - Returns: The CreateTableOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, limitExceeded, resourceInUse.
-     */
-    public func createTableSync(
-            input: DynamoDBModel.CreateTableInput) throws -> DynamoDBModel.CreateTableOutput {
-        if let createTableSyncOverride = createTableSyncOverride {
-            return try createTableSyncOverride(input)
-        }
-
-        return CreateTableOutput.__default
-    }
-
-    /**
-     Invokes the DeleteBackup operation returning immediately and passing the response to a callback.
+     Invokes the DeleteBackup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBackupInput object being passed to this operation.
-         - completion: The DeleteBackupOutput object or an error will be passed to this 
-           callback when the operation is complete. The DeleteBackupOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteBackupOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: backupInUse, backupNotFound, internalServer, limitExceeded.
      */
-    public func deleteBackupAsync(
-            input: DynamoDBModel.DeleteBackupInput, 
-            completion: @escaping (Result<DynamoDBModel.DeleteBackupOutput, DynamoDBError>) -> ()) throws {
-        if let deleteBackupAsyncOverride = deleteBackupAsyncOverride {
-            return try deleteBackupAsyncOverride(input, completion)
+    public func deleteBackup(
+            input: DynamoDBModel.DeleteBackupInput) -> EventLoopFuture<DynamoDBModel.DeleteBackupOutput> {
+        if let deleteBackupEventLoopFutureAsyncOverride = deleteBackupEventLoopFutureAsyncOverride {
+            return deleteBackupEventLoopFutureAsyncOverride(input)
         }
 
         let result = DeleteBackupOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DeleteBackupOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DeleteBackup operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteBackupInput object being passed to this operation.
-     - Returns: The DeleteBackupOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: backupInUse, backupNotFound, internalServer, limitExceeded.
-     */
-    public func deleteBackupSync(
-            input: DynamoDBModel.DeleteBackupInput) throws -> DynamoDBModel.DeleteBackupOutput {
-        if let deleteBackupSyncOverride = deleteBackupSyncOverride {
-            return try deleteBackupSyncOverride(input)
-        }
-
-        return DeleteBackupOutput.__default
-    }
-
-    /**
-     Invokes the DeleteItem operation returning immediately and passing the response to a callback.
+     Invokes the DeleteItem operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteItemInput object being passed to this operation.
-         - completion: The DeleteItemOutput object or an error will be passed to this 
-           callback when the operation is complete. The DeleteItemOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteItemOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: conditionalCheckFailed, internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionConflict.
      */
-    public func deleteItemAsync(
-            input: DynamoDBModel.DeleteItemInput, 
-            completion: @escaping (Result<DynamoDBModel.DeleteItemOutput, DynamoDBError>) -> ()) throws {
-        if let deleteItemAsyncOverride = deleteItemAsyncOverride {
-            return try deleteItemAsyncOverride(input, completion)
+    public func deleteItem(
+            input: DynamoDBModel.DeleteItemInput) -> EventLoopFuture<DynamoDBModel.DeleteItemOutput> {
+        if let deleteItemEventLoopFutureAsyncOverride = deleteItemEventLoopFutureAsyncOverride {
+            return deleteItemEventLoopFutureAsyncOverride(input)
         }
 
         let result = DeleteItemOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DeleteItemOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DeleteItem operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteItemInput object being passed to this operation.
-     - Returns: The DeleteItemOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: conditionalCheckFailed, internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionConflict.
-     */
-    public func deleteItemSync(
-            input: DynamoDBModel.DeleteItemInput) throws -> DynamoDBModel.DeleteItemOutput {
-        if let deleteItemSyncOverride = deleteItemSyncOverride {
-            return try deleteItemSyncOverride(input)
-        }
-
-        return DeleteItemOutput.__default
-    }
-
-    /**
-     Invokes the DeleteTable operation returning immediately and passing the response to a callback.
+     Invokes the DeleteTable operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteTableInput object being passed to this operation.
-         - completion: The DeleteTableOutput object or an error will be passed to this 
-           callback when the operation is complete. The DeleteTableOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteTableOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, limitExceeded, resourceInUse, resourceNotFound.
      */
-    public func deleteTableAsync(
-            input: DynamoDBModel.DeleteTableInput, 
-            completion: @escaping (Result<DynamoDBModel.DeleteTableOutput, DynamoDBError>) -> ()) throws {
-        if let deleteTableAsyncOverride = deleteTableAsyncOverride {
-            return try deleteTableAsyncOverride(input, completion)
+    public func deleteTable(
+            input: DynamoDBModel.DeleteTableInput) -> EventLoopFuture<DynamoDBModel.DeleteTableOutput> {
+        if let deleteTableEventLoopFutureAsyncOverride = deleteTableEventLoopFutureAsyncOverride {
+            return deleteTableEventLoopFutureAsyncOverride(input)
         }
 
         let result = DeleteTableOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DeleteTableOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DeleteTable operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteTableInput object being passed to this operation.
-     - Returns: The DeleteTableOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, limitExceeded, resourceInUse, resourceNotFound.
-     */
-    public func deleteTableSync(
-            input: DynamoDBModel.DeleteTableInput) throws -> DynamoDBModel.DeleteTableOutput {
-        if let deleteTableSyncOverride = deleteTableSyncOverride {
-            return try deleteTableSyncOverride(input)
-        }
-
-        return DeleteTableOutput.__default
-    }
-
-    /**
-     Invokes the DescribeBackup operation returning immediately and passing the response to a callback.
+     Invokes the DescribeBackup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeBackupInput object being passed to this operation.
-         - completion: The DescribeBackupOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeBackupOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeBackupOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: backupNotFound, internalServer.
      */
-    public func describeBackupAsync(
-            input: DynamoDBModel.DescribeBackupInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeBackupOutput, DynamoDBError>) -> ()) throws {
-        if let describeBackupAsyncOverride = describeBackupAsyncOverride {
-            return try describeBackupAsyncOverride(input, completion)
+    public func describeBackup(
+            input: DynamoDBModel.DescribeBackupInput) -> EventLoopFuture<DynamoDBModel.DescribeBackupOutput> {
+        if let describeBackupEventLoopFutureAsyncOverride = describeBackupEventLoopFutureAsyncOverride {
+            return describeBackupEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeBackupOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeBackupOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeBackup operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeBackupInput object being passed to this operation.
-     - Returns: The DescribeBackupOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: backupNotFound, internalServer.
-     */
-    public func describeBackupSync(
-            input: DynamoDBModel.DescribeBackupInput) throws -> DynamoDBModel.DescribeBackupOutput {
-        if let describeBackupSyncOverride = describeBackupSyncOverride {
-            return try describeBackupSyncOverride(input)
-        }
-
-        return DescribeBackupOutput.__default
-    }
-
-    /**
-     Invokes the DescribeContinuousBackups operation returning immediately and passing the response to a callback.
+     Invokes the DescribeContinuousBackups operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeContinuousBackupsInput object being passed to this operation.
-         - completion: The DescribeContinuousBackupsOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeContinuousBackupsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeContinuousBackupsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, tableNotFound.
      */
-    public func describeContinuousBackupsAsync(
-            input: DynamoDBModel.DescribeContinuousBackupsInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeContinuousBackupsOutput, DynamoDBError>) -> ()) throws {
-        if let describeContinuousBackupsAsyncOverride = describeContinuousBackupsAsyncOverride {
-            return try describeContinuousBackupsAsyncOverride(input, completion)
+    public func describeContinuousBackups(
+            input: DynamoDBModel.DescribeContinuousBackupsInput) -> EventLoopFuture<DynamoDBModel.DescribeContinuousBackupsOutput> {
+        if let describeContinuousBackupsEventLoopFutureAsyncOverride = describeContinuousBackupsEventLoopFutureAsyncOverride {
+            return describeContinuousBackupsEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeContinuousBackupsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeContinuousBackupsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeContinuousBackups operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeContinuousBackupsInput object being passed to this operation.
-     - Returns: The DescribeContinuousBackupsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, tableNotFound.
-     */
-    public func describeContinuousBackupsSync(
-            input: DynamoDBModel.DescribeContinuousBackupsInput) throws -> DynamoDBModel.DescribeContinuousBackupsOutput {
-        if let describeContinuousBackupsSyncOverride = describeContinuousBackupsSyncOverride {
-            return try describeContinuousBackupsSyncOverride(input)
-        }
-
-        return DescribeContinuousBackupsOutput.__default
-    }
-
-    /**
-     Invokes the DescribeContributorInsights operation returning immediately and passing the response to a callback.
+     Invokes the DescribeContributorInsights operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeContributorInsightsInput object being passed to this operation.
-         - completion: The DescribeContributorInsightsOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeContributorInsightsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeContributorInsightsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, resourceNotFound.
      */
-    public func describeContributorInsightsAsync(
-            input: DynamoDBModel.DescribeContributorInsightsInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeContributorInsightsOutput, DynamoDBError>) -> ()) throws {
-        if let describeContributorInsightsAsyncOverride = describeContributorInsightsAsyncOverride {
-            return try describeContributorInsightsAsyncOverride(input, completion)
+    public func describeContributorInsights(
+            input: DynamoDBModel.DescribeContributorInsightsInput) -> EventLoopFuture<DynamoDBModel.DescribeContributorInsightsOutput> {
+        if let describeContributorInsightsEventLoopFutureAsyncOverride = describeContributorInsightsEventLoopFutureAsyncOverride {
+            return describeContributorInsightsEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeContributorInsightsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeContributorInsightsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeContributorInsights operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeContributorInsightsInput object being passed to this operation.
-     - Returns: The DescribeContributorInsightsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, resourceNotFound.
-     */
-    public func describeContributorInsightsSync(
-            input: DynamoDBModel.DescribeContributorInsightsInput) throws -> DynamoDBModel.DescribeContributorInsightsOutput {
-        if let describeContributorInsightsSyncOverride = describeContributorInsightsSyncOverride {
-            return try describeContributorInsightsSyncOverride(input)
-        }
-
-        return DescribeContributorInsightsOutput.__default
-    }
-
-    /**
-     Invokes the DescribeEndpoints operation returning immediately and passing the response to a callback.
+     Invokes the DescribeEndpoints operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeEndpointsRequest object being passed to this operation.
-         - completion: The DescribeEndpointsResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeEndpointsResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeEndpointsResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
      */
-    public func describeEndpointsAsync(
-            input: DynamoDBModel.DescribeEndpointsRequest, 
-            completion: @escaping (Result<DynamoDBModel.DescribeEndpointsResponse, DynamoDBError>) -> ()) throws {
-        if let describeEndpointsAsyncOverride = describeEndpointsAsyncOverride {
-            return try describeEndpointsAsyncOverride(input, completion)
+    public func describeEndpoints(
+            input: DynamoDBModel.DescribeEndpointsRequest) -> EventLoopFuture<DynamoDBModel.DescribeEndpointsResponse> {
+        if let describeEndpointsEventLoopFutureAsyncOverride = describeEndpointsEventLoopFutureAsyncOverride {
+            return describeEndpointsEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeEndpointsResponse.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeEndpointsResponse.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeEndpoints operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeEndpointsRequest object being passed to this operation.
-     - Returns: The DescribeEndpointsResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     */
-    public func describeEndpointsSync(
-            input: DynamoDBModel.DescribeEndpointsRequest) throws -> DynamoDBModel.DescribeEndpointsResponse {
-        if let describeEndpointsSyncOverride = describeEndpointsSyncOverride {
-            return try describeEndpointsSyncOverride(input)
-        }
-
-        return DescribeEndpointsResponse.__default
-    }
-
-    /**
-     Invokes the DescribeExport operation returning immediately and passing the response to a callback.
+     Invokes the DescribeExport operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeExportInput object being passed to this operation.
-         - completion: The DescribeExportOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeExportOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeExportOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: exportNotFound, internalServer, limitExceeded.
      */
-    public func describeExportAsync(
-            input: DynamoDBModel.DescribeExportInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeExportOutput, DynamoDBError>) -> ()) throws {
-        if let describeExportAsyncOverride = describeExportAsyncOverride {
-            return try describeExportAsyncOverride(input, completion)
+    public func describeExport(
+            input: DynamoDBModel.DescribeExportInput) -> EventLoopFuture<DynamoDBModel.DescribeExportOutput> {
+        if let describeExportEventLoopFutureAsyncOverride = describeExportEventLoopFutureAsyncOverride {
+            return describeExportEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeExportOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeExportOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeExport operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeExportInput object being passed to this operation.
-     - Returns: The DescribeExportOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: exportNotFound, internalServer, limitExceeded.
-     */
-    public func describeExportSync(
-            input: DynamoDBModel.DescribeExportInput) throws -> DynamoDBModel.DescribeExportOutput {
-        if let describeExportSyncOverride = describeExportSyncOverride {
-            return try describeExportSyncOverride(input)
-        }
-
-        return DescribeExportOutput.__default
-    }
-
-    /**
-     Invokes the DescribeGlobalTable operation returning immediately and passing the response to a callback.
+     Invokes the DescribeGlobalTable operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeGlobalTableInput object being passed to this operation.
-         - completion: The DescribeGlobalTableOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeGlobalTableOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeGlobalTableOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: globalTableNotFound, internalServer.
      */
-    public func describeGlobalTableAsync(
-            input: DynamoDBModel.DescribeGlobalTableInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeGlobalTableOutput, DynamoDBError>) -> ()) throws {
-        if let describeGlobalTableAsyncOverride = describeGlobalTableAsyncOverride {
-            return try describeGlobalTableAsyncOverride(input, completion)
+    public func describeGlobalTable(
+            input: DynamoDBModel.DescribeGlobalTableInput) -> EventLoopFuture<DynamoDBModel.DescribeGlobalTableOutput> {
+        if let describeGlobalTableEventLoopFutureAsyncOverride = describeGlobalTableEventLoopFutureAsyncOverride {
+            return describeGlobalTableEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeGlobalTableOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeGlobalTableOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeGlobalTable operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeGlobalTableInput object being passed to this operation.
-     - Returns: The DescribeGlobalTableOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: globalTableNotFound, internalServer.
-     */
-    public func describeGlobalTableSync(
-            input: DynamoDBModel.DescribeGlobalTableInput) throws -> DynamoDBModel.DescribeGlobalTableOutput {
-        if let describeGlobalTableSyncOverride = describeGlobalTableSyncOverride {
-            return try describeGlobalTableSyncOverride(input)
-        }
-
-        return DescribeGlobalTableOutput.__default
-    }
-
-    /**
-     Invokes the DescribeGlobalTableSettings operation returning immediately and passing the response to a callback.
+     Invokes the DescribeGlobalTableSettings operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeGlobalTableSettingsInput object being passed to this operation.
-         - completion: The DescribeGlobalTableSettingsOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeGlobalTableSettingsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeGlobalTableSettingsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: globalTableNotFound, internalServer.
      */
-    public func describeGlobalTableSettingsAsync(
-            input: DynamoDBModel.DescribeGlobalTableSettingsInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeGlobalTableSettingsOutput, DynamoDBError>) -> ()) throws {
-        if let describeGlobalTableSettingsAsyncOverride = describeGlobalTableSettingsAsyncOverride {
-            return try describeGlobalTableSettingsAsyncOverride(input, completion)
+    public func describeGlobalTableSettings(
+            input: DynamoDBModel.DescribeGlobalTableSettingsInput) -> EventLoopFuture<DynamoDBModel.DescribeGlobalTableSettingsOutput> {
+        if let describeGlobalTableSettingsEventLoopFutureAsyncOverride = describeGlobalTableSettingsEventLoopFutureAsyncOverride {
+            return describeGlobalTableSettingsEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeGlobalTableSettingsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeGlobalTableSettingsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeGlobalTableSettings operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeGlobalTableSettingsInput object being passed to this operation.
-     - Returns: The DescribeGlobalTableSettingsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: globalTableNotFound, internalServer.
-     */
-    public func describeGlobalTableSettingsSync(
-            input: DynamoDBModel.DescribeGlobalTableSettingsInput) throws -> DynamoDBModel.DescribeGlobalTableSettingsOutput {
-        if let describeGlobalTableSettingsSyncOverride = describeGlobalTableSettingsSyncOverride {
-            return try describeGlobalTableSettingsSyncOverride(input)
-        }
-
-        return DescribeGlobalTableSettingsOutput.__default
-    }
-
-    /**
-     Invokes the DescribeKinesisStreamingDestination operation returning immediately and passing the response to a callback.
+     Invokes the DescribeKinesisStreamingDestination operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeKinesisStreamingDestinationInput object being passed to this operation.
-         - completion: The DescribeKinesisStreamingDestinationOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeKinesisStreamingDestinationOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeKinesisStreamingDestinationOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, resourceNotFound.
      */
-    public func describeKinesisStreamingDestinationAsync(
-            input: DynamoDBModel.DescribeKinesisStreamingDestinationInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeKinesisStreamingDestinationOutput, DynamoDBError>) -> ()) throws {
-        if let describeKinesisStreamingDestinationAsyncOverride = describeKinesisStreamingDestinationAsyncOverride {
-            return try describeKinesisStreamingDestinationAsyncOverride(input, completion)
+    public func describeKinesisStreamingDestination(
+            input: DynamoDBModel.DescribeKinesisStreamingDestinationInput) -> EventLoopFuture<DynamoDBModel.DescribeKinesisStreamingDestinationOutput> {
+        if let describeKinesisStreamingDestinationEventLoopFutureAsyncOverride = describeKinesisStreamingDestinationEventLoopFutureAsyncOverride {
+            return describeKinesisStreamingDestinationEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeKinesisStreamingDestinationOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeKinesisStreamingDestinationOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeKinesisStreamingDestination operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeKinesisStreamingDestinationInput object being passed to this operation.
-     - Returns: The DescribeKinesisStreamingDestinationOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, resourceNotFound.
-     */
-    public func describeKinesisStreamingDestinationSync(
-            input: DynamoDBModel.DescribeKinesisStreamingDestinationInput) throws -> DynamoDBModel.DescribeKinesisStreamingDestinationOutput {
-        if let describeKinesisStreamingDestinationSyncOverride = describeKinesisStreamingDestinationSyncOverride {
-            return try describeKinesisStreamingDestinationSyncOverride(input)
-        }
-
-        return DescribeKinesisStreamingDestinationOutput.__default
-    }
-
-    /**
-     Invokes the DescribeLimits operation returning immediately and passing the response to a callback.
+     Invokes the DescribeLimits operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeLimitsInput object being passed to this operation.
-         - completion: The DescribeLimitsOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeLimitsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeLimitsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer.
      */
-    public func describeLimitsAsync(
-            input: DynamoDBModel.DescribeLimitsInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeLimitsOutput, DynamoDBError>) -> ()) throws {
-        if let describeLimitsAsyncOverride = describeLimitsAsyncOverride {
-            return try describeLimitsAsyncOverride(input, completion)
+    public func describeLimits(
+            input: DynamoDBModel.DescribeLimitsInput) -> EventLoopFuture<DynamoDBModel.DescribeLimitsOutput> {
+        if let describeLimitsEventLoopFutureAsyncOverride = describeLimitsEventLoopFutureAsyncOverride {
+            return describeLimitsEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeLimitsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeLimitsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeLimits operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeLimitsInput object being passed to this operation.
-     - Returns: The DescribeLimitsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer.
-     */
-    public func describeLimitsSync(
-            input: DynamoDBModel.DescribeLimitsInput) throws -> DynamoDBModel.DescribeLimitsOutput {
-        if let describeLimitsSyncOverride = describeLimitsSyncOverride {
-            return try describeLimitsSyncOverride(input)
-        }
-
-        return DescribeLimitsOutput.__default
-    }
-
-    /**
-     Invokes the DescribeTable operation returning immediately and passing the response to a callback.
+     Invokes the DescribeTable operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeTableInput object being passed to this operation.
-         - completion: The DescribeTableOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeTableOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeTableOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, resourceNotFound.
      */
-    public func describeTableAsync(
-            input: DynamoDBModel.DescribeTableInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeTableOutput, DynamoDBError>) -> ()) throws {
-        if let describeTableAsyncOverride = describeTableAsyncOverride {
-            return try describeTableAsyncOverride(input, completion)
+    public func describeTable(
+            input: DynamoDBModel.DescribeTableInput) -> EventLoopFuture<DynamoDBModel.DescribeTableOutput> {
+        if let describeTableEventLoopFutureAsyncOverride = describeTableEventLoopFutureAsyncOverride {
+            return describeTableEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeTableOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeTableOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeTable operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeTableInput object being passed to this operation.
-     - Returns: The DescribeTableOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, resourceNotFound.
-     */
-    public func describeTableSync(
-            input: DynamoDBModel.DescribeTableInput) throws -> DynamoDBModel.DescribeTableOutput {
-        if let describeTableSyncOverride = describeTableSyncOverride {
-            return try describeTableSyncOverride(input)
-        }
-
-        return DescribeTableOutput.__default
-    }
-
-    /**
-     Invokes the DescribeTableReplicaAutoScaling operation returning immediately and passing the response to a callback.
+     Invokes the DescribeTableReplicaAutoScaling operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeTableReplicaAutoScalingInput object being passed to this operation.
-         - completion: The DescribeTableReplicaAutoScalingOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeTableReplicaAutoScalingOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeTableReplicaAutoScalingOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, resourceNotFound.
      */
-    public func describeTableReplicaAutoScalingAsync(
-            input: DynamoDBModel.DescribeTableReplicaAutoScalingInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeTableReplicaAutoScalingOutput, DynamoDBError>) -> ()) throws {
-        if let describeTableReplicaAutoScalingAsyncOverride = describeTableReplicaAutoScalingAsyncOverride {
-            return try describeTableReplicaAutoScalingAsyncOverride(input, completion)
+    public func describeTableReplicaAutoScaling(
+            input: DynamoDBModel.DescribeTableReplicaAutoScalingInput) -> EventLoopFuture<DynamoDBModel.DescribeTableReplicaAutoScalingOutput> {
+        if let describeTableReplicaAutoScalingEventLoopFutureAsyncOverride = describeTableReplicaAutoScalingEventLoopFutureAsyncOverride {
+            return describeTableReplicaAutoScalingEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeTableReplicaAutoScalingOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeTableReplicaAutoScalingOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeTableReplicaAutoScaling operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeTableReplicaAutoScalingInput object being passed to this operation.
-     - Returns: The DescribeTableReplicaAutoScalingOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, resourceNotFound.
-     */
-    public func describeTableReplicaAutoScalingSync(
-            input: DynamoDBModel.DescribeTableReplicaAutoScalingInput) throws -> DynamoDBModel.DescribeTableReplicaAutoScalingOutput {
-        if let describeTableReplicaAutoScalingSyncOverride = describeTableReplicaAutoScalingSyncOverride {
-            return try describeTableReplicaAutoScalingSyncOverride(input)
-        }
-
-        return DescribeTableReplicaAutoScalingOutput.__default
-    }
-
-    /**
-     Invokes the DescribeTimeToLive operation returning immediately and passing the response to a callback.
+     Invokes the DescribeTimeToLive operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeTimeToLiveInput object being passed to this operation.
-         - completion: The DescribeTimeToLiveOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeTimeToLiveOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeTimeToLiveOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, resourceNotFound.
      */
-    public func describeTimeToLiveAsync(
-            input: DynamoDBModel.DescribeTimeToLiveInput, 
-            completion: @escaping (Result<DynamoDBModel.DescribeTimeToLiveOutput, DynamoDBError>) -> ()) throws {
-        if let describeTimeToLiveAsyncOverride = describeTimeToLiveAsyncOverride {
-            return try describeTimeToLiveAsyncOverride(input, completion)
+    public func describeTimeToLive(
+            input: DynamoDBModel.DescribeTimeToLiveInput) -> EventLoopFuture<DynamoDBModel.DescribeTimeToLiveOutput> {
+        if let describeTimeToLiveEventLoopFutureAsyncOverride = describeTimeToLiveEventLoopFutureAsyncOverride {
+            return describeTimeToLiveEventLoopFutureAsyncOverride(input)
         }
 
         let result = DescribeTimeToLiveOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DescribeTimeToLiveOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DescribeTimeToLive operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeTimeToLiveInput object being passed to this operation.
-     - Returns: The DescribeTimeToLiveOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, resourceNotFound.
-     */
-    public func describeTimeToLiveSync(
-            input: DynamoDBModel.DescribeTimeToLiveInput) throws -> DynamoDBModel.DescribeTimeToLiveOutput {
-        if let describeTimeToLiveSyncOverride = describeTimeToLiveSyncOverride {
-            return try describeTimeToLiveSyncOverride(input)
-        }
-
-        return DescribeTimeToLiveOutput.__default
-    }
-
-    /**
-     Invokes the DisableKinesisStreamingDestination operation returning immediately and passing the response to a callback.
+     Invokes the DisableKinesisStreamingDestination operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated KinesisStreamingDestinationInput object being passed to this operation.
-         - completion: The KinesisStreamingDestinationOutput object or an error will be passed to this 
-           callback when the operation is complete. The KinesisStreamingDestinationOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the KinesisStreamingDestinationOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, limitExceeded, resourceInUse, resourceNotFound.
      */
-    public func disableKinesisStreamingDestinationAsync(
-            input: DynamoDBModel.KinesisStreamingDestinationInput, 
-            completion: @escaping (Result<DynamoDBModel.KinesisStreamingDestinationOutput, DynamoDBError>) -> ()) throws {
-        if let disableKinesisStreamingDestinationAsyncOverride = disableKinesisStreamingDestinationAsyncOverride {
-            return try disableKinesisStreamingDestinationAsyncOverride(input, completion)
+    public func disableKinesisStreamingDestination(
+            input: DynamoDBModel.KinesisStreamingDestinationInput) -> EventLoopFuture<DynamoDBModel.KinesisStreamingDestinationOutput> {
+        if let disableKinesisStreamingDestinationEventLoopFutureAsyncOverride = disableKinesisStreamingDestinationEventLoopFutureAsyncOverride {
+            return disableKinesisStreamingDestinationEventLoopFutureAsyncOverride(input)
         }
 
         let result = KinesisStreamingDestinationOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: KinesisStreamingDestinationOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DisableKinesisStreamingDestination operation waiting for the response before returning.
+     Invokes the EnableKinesisStreamingDestination operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated KinesisStreamingDestinationInput object being passed to this operation.
-     - Returns: The KinesisStreamingDestinationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the KinesisStreamingDestinationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
-     - Throws: internalServer, limitExceeded, resourceInUse, resourceNotFound.
-     */
-    public func disableKinesisStreamingDestinationSync(
-            input: DynamoDBModel.KinesisStreamingDestinationInput) throws -> DynamoDBModel.KinesisStreamingDestinationOutput {
-        if let disableKinesisStreamingDestinationSyncOverride = disableKinesisStreamingDestinationSyncOverride {
-            return try disableKinesisStreamingDestinationSyncOverride(input)
-        }
-
-        return KinesisStreamingDestinationOutput.__default
-    }
-
-    /**
-     Invokes the EnableKinesisStreamingDestination operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated KinesisStreamingDestinationInput object being passed to this operation.
-         - completion: The KinesisStreamingDestinationOutput object or an error will be passed to this 
-           callback when the operation is complete. The KinesisStreamingDestinationOutput
-           object will be validated before being returned to caller.
            The possible errors are: internalServer, limitExceeded, resourceInUse, resourceNotFound.
      */
-    public func enableKinesisStreamingDestinationAsync(
-            input: DynamoDBModel.KinesisStreamingDestinationInput, 
-            completion: @escaping (Result<DynamoDBModel.KinesisStreamingDestinationOutput, DynamoDBError>) -> ()) throws {
-        if let enableKinesisStreamingDestinationAsyncOverride = enableKinesisStreamingDestinationAsyncOverride {
-            return try enableKinesisStreamingDestinationAsyncOverride(input, completion)
+    public func enableKinesisStreamingDestination(
+            input: DynamoDBModel.KinesisStreamingDestinationInput) -> EventLoopFuture<DynamoDBModel.KinesisStreamingDestinationOutput> {
+        if let enableKinesisStreamingDestinationEventLoopFutureAsyncOverride = enableKinesisStreamingDestinationEventLoopFutureAsyncOverride {
+            return enableKinesisStreamingDestinationEventLoopFutureAsyncOverride(input)
         }
 
         let result = KinesisStreamingDestinationOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: KinesisStreamingDestinationOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the EnableKinesisStreamingDestination operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated KinesisStreamingDestinationInput object being passed to this operation.
-     - Returns: The KinesisStreamingDestinationOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, limitExceeded, resourceInUse, resourceNotFound.
-     */
-    public func enableKinesisStreamingDestinationSync(
-            input: DynamoDBModel.KinesisStreamingDestinationInput) throws -> DynamoDBModel.KinesisStreamingDestinationOutput {
-        if let enableKinesisStreamingDestinationSyncOverride = enableKinesisStreamingDestinationSyncOverride {
-            return try enableKinesisStreamingDestinationSyncOverride(input)
-        }
-
-        return KinesisStreamingDestinationOutput.__default
-    }
-
-    /**
-     Invokes the ExecuteStatement operation returning immediately and passing the response to a callback.
+     Invokes the ExecuteStatement operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ExecuteStatementInput object being passed to this operation.
-         - completion: The ExecuteStatementOutput object or an error will be passed to this 
-           callback when the operation is complete. The ExecuteStatementOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ExecuteStatementOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: conditionalCheckFailed, duplicateItem, internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionConflict.
      */
-    public func executeStatementAsync(
-            input: DynamoDBModel.ExecuteStatementInput, 
-            completion: @escaping (Result<DynamoDBModel.ExecuteStatementOutput, DynamoDBError>) -> ()) throws {
-        if let executeStatementAsyncOverride = executeStatementAsyncOverride {
-            return try executeStatementAsyncOverride(input, completion)
+    public func executeStatement(
+            input: DynamoDBModel.ExecuteStatementInput) -> EventLoopFuture<DynamoDBModel.ExecuteStatementOutput> {
+        if let executeStatementEventLoopFutureAsyncOverride = executeStatementEventLoopFutureAsyncOverride {
+            return executeStatementEventLoopFutureAsyncOverride(input)
         }
 
         let result = ExecuteStatementOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ExecuteStatementOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ExecuteStatement operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ExecuteStatementInput object being passed to this operation.
-     - Returns: The ExecuteStatementOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: conditionalCheckFailed, duplicateItem, internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionConflict.
-     */
-    public func executeStatementSync(
-            input: DynamoDBModel.ExecuteStatementInput) throws -> DynamoDBModel.ExecuteStatementOutput {
-        if let executeStatementSyncOverride = executeStatementSyncOverride {
-            return try executeStatementSyncOverride(input)
-        }
-
-        return ExecuteStatementOutput.__default
-    }
-
-    /**
-     Invokes the ExecuteTransaction operation returning immediately and passing the response to a callback.
+     Invokes the ExecuteTransaction operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ExecuteTransactionInput object being passed to this operation.
-         - completion: The ExecuteTransactionOutput object or an error will be passed to this 
-           callback when the operation is complete. The ExecuteTransactionOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ExecuteTransactionOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: idempotentParameterMismatch, internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionCanceled, transactionInProgress.
      */
-    public func executeTransactionAsync(
-            input: DynamoDBModel.ExecuteTransactionInput, 
-            completion: @escaping (Result<DynamoDBModel.ExecuteTransactionOutput, DynamoDBError>) -> ()) throws {
-        if let executeTransactionAsyncOverride = executeTransactionAsyncOverride {
-            return try executeTransactionAsyncOverride(input, completion)
+    public func executeTransaction(
+            input: DynamoDBModel.ExecuteTransactionInput) -> EventLoopFuture<DynamoDBModel.ExecuteTransactionOutput> {
+        if let executeTransactionEventLoopFutureAsyncOverride = executeTransactionEventLoopFutureAsyncOverride {
+            return executeTransactionEventLoopFutureAsyncOverride(input)
         }
 
         let result = ExecuteTransactionOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ExecuteTransactionOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ExecuteTransaction operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ExecuteTransactionInput object being passed to this operation.
-     - Returns: The ExecuteTransactionOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: idempotentParameterMismatch, internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionCanceled, transactionInProgress.
-     */
-    public func executeTransactionSync(
-            input: DynamoDBModel.ExecuteTransactionInput) throws -> DynamoDBModel.ExecuteTransactionOutput {
-        if let executeTransactionSyncOverride = executeTransactionSyncOverride {
-            return try executeTransactionSyncOverride(input)
-        }
-
-        return ExecuteTransactionOutput.__default
-    }
-
-    /**
-     Invokes the ExportTableToPointInTime operation returning immediately and passing the response to a callback.
+     Invokes the ExportTableToPointInTime operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ExportTableToPointInTimeInput object being passed to this operation.
-         - completion: The ExportTableToPointInTimeOutput object or an error will be passed to this 
-           callback when the operation is complete. The ExportTableToPointInTimeOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ExportTableToPointInTimeOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: exportConflict, internalServer, invalidExportTime, limitExceeded, pointInTimeRecoveryUnavailable, tableNotFound.
      */
-    public func exportTableToPointInTimeAsync(
-            input: DynamoDBModel.ExportTableToPointInTimeInput, 
-            completion: @escaping (Result<DynamoDBModel.ExportTableToPointInTimeOutput, DynamoDBError>) -> ()) throws {
-        if let exportTableToPointInTimeAsyncOverride = exportTableToPointInTimeAsyncOverride {
-            return try exportTableToPointInTimeAsyncOverride(input, completion)
+    public func exportTableToPointInTime(
+            input: DynamoDBModel.ExportTableToPointInTimeInput) -> EventLoopFuture<DynamoDBModel.ExportTableToPointInTimeOutput> {
+        if let exportTableToPointInTimeEventLoopFutureAsyncOverride = exportTableToPointInTimeEventLoopFutureAsyncOverride {
+            return exportTableToPointInTimeEventLoopFutureAsyncOverride(input)
         }
 
         let result = ExportTableToPointInTimeOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ExportTableToPointInTimeOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ExportTableToPointInTime operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ExportTableToPointInTimeInput object being passed to this operation.
-     - Returns: The ExportTableToPointInTimeOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: exportConflict, internalServer, invalidExportTime, limitExceeded, pointInTimeRecoveryUnavailable, tableNotFound.
-     */
-    public func exportTableToPointInTimeSync(
-            input: DynamoDBModel.ExportTableToPointInTimeInput) throws -> DynamoDBModel.ExportTableToPointInTimeOutput {
-        if let exportTableToPointInTimeSyncOverride = exportTableToPointInTimeSyncOverride {
-            return try exportTableToPointInTimeSyncOverride(input)
-        }
-
-        return ExportTableToPointInTimeOutput.__default
-    }
-
-    /**
-     Invokes the GetItem operation returning immediately and passing the response to a callback.
+     Invokes the GetItem operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetItemInput object being passed to this operation.
-         - completion: The GetItemOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetItemOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetItemOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
      */
-    public func getItemAsync(
-            input: DynamoDBModel.GetItemInput, 
-            completion: @escaping (Result<DynamoDBModel.GetItemOutput, DynamoDBError>) -> ()) throws {
-        if let getItemAsyncOverride = getItemAsyncOverride {
-            return try getItemAsyncOverride(input, completion)
+    public func getItem(
+            input: DynamoDBModel.GetItemInput) -> EventLoopFuture<DynamoDBModel.GetItemOutput> {
+        if let getItemEventLoopFutureAsyncOverride = getItemEventLoopFutureAsyncOverride {
+            return getItemEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetItemOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetItemOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetItem operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetItemInput object being passed to this operation.
-     - Returns: The GetItemOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
-     */
-    public func getItemSync(
-            input: DynamoDBModel.GetItemInput) throws -> DynamoDBModel.GetItemOutput {
-        if let getItemSyncOverride = getItemSyncOverride {
-            return try getItemSyncOverride(input)
-        }
-
-        return GetItemOutput.__default
-    }
-
-    /**
-     Invokes the ListBackups operation returning immediately and passing the response to a callback.
+     Invokes the ListBackups operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListBackupsInput object being passed to this operation.
-         - completion: The ListBackupsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListBackupsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListBackupsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer.
      */
-    public func listBackupsAsync(
-            input: DynamoDBModel.ListBackupsInput, 
-            completion: @escaping (Result<DynamoDBModel.ListBackupsOutput, DynamoDBError>) -> ()) throws {
-        if let listBackupsAsyncOverride = listBackupsAsyncOverride {
-            return try listBackupsAsyncOverride(input, completion)
+    public func listBackups(
+            input: DynamoDBModel.ListBackupsInput) -> EventLoopFuture<DynamoDBModel.ListBackupsOutput> {
+        if let listBackupsEventLoopFutureAsyncOverride = listBackupsEventLoopFutureAsyncOverride {
+            return listBackupsEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListBackupsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListBackupsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListBackups operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListBackupsInput object being passed to this operation.
-     - Returns: The ListBackupsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer.
-     */
-    public func listBackupsSync(
-            input: DynamoDBModel.ListBackupsInput) throws -> DynamoDBModel.ListBackupsOutput {
-        if let listBackupsSyncOverride = listBackupsSyncOverride {
-            return try listBackupsSyncOverride(input)
-        }
-
-        return ListBackupsOutput.__default
-    }
-
-    /**
-     Invokes the ListContributorInsights operation returning immediately and passing the response to a callback.
+     Invokes the ListContributorInsights operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListContributorInsightsInput object being passed to this operation.
-         - completion: The ListContributorInsightsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListContributorInsightsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListContributorInsightsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, resourceNotFound.
      */
-    public func listContributorInsightsAsync(
-            input: DynamoDBModel.ListContributorInsightsInput, 
-            completion: @escaping (Result<DynamoDBModel.ListContributorInsightsOutput, DynamoDBError>) -> ()) throws {
-        if let listContributorInsightsAsyncOverride = listContributorInsightsAsyncOverride {
-            return try listContributorInsightsAsyncOverride(input, completion)
+    public func listContributorInsights(
+            input: DynamoDBModel.ListContributorInsightsInput) -> EventLoopFuture<DynamoDBModel.ListContributorInsightsOutput> {
+        if let listContributorInsightsEventLoopFutureAsyncOverride = listContributorInsightsEventLoopFutureAsyncOverride {
+            return listContributorInsightsEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListContributorInsightsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListContributorInsightsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListContributorInsights operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListContributorInsightsInput object being passed to this operation.
-     - Returns: The ListContributorInsightsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, resourceNotFound.
-     */
-    public func listContributorInsightsSync(
-            input: DynamoDBModel.ListContributorInsightsInput) throws -> DynamoDBModel.ListContributorInsightsOutput {
-        if let listContributorInsightsSyncOverride = listContributorInsightsSyncOverride {
-            return try listContributorInsightsSyncOverride(input)
-        }
-
-        return ListContributorInsightsOutput.__default
-    }
-
-    /**
-     Invokes the ListExports operation returning immediately and passing the response to a callback.
+     Invokes the ListExports operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListExportsInput object being passed to this operation.
-         - completion: The ListExportsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListExportsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListExportsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, limitExceeded.
      */
-    public func listExportsAsync(
-            input: DynamoDBModel.ListExportsInput, 
-            completion: @escaping (Result<DynamoDBModel.ListExportsOutput, DynamoDBError>) -> ()) throws {
-        if let listExportsAsyncOverride = listExportsAsyncOverride {
-            return try listExportsAsyncOverride(input, completion)
+    public func listExports(
+            input: DynamoDBModel.ListExportsInput) -> EventLoopFuture<DynamoDBModel.ListExportsOutput> {
+        if let listExportsEventLoopFutureAsyncOverride = listExportsEventLoopFutureAsyncOverride {
+            return listExportsEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListExportsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListExportsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListExports operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListExportsInput object being passed to this operation.
-     - Returns: The ListExportsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, limitExceeded.
-     */
-    public func listExportsSync(
-            input: DynamoDBModel.ListExportsInput) throws -> DynamoDBModel.ListExportsOutput {
-        if let listExportsSyncOverride = listExportsSyncOverride {
-            return try listExportsSyncOverride(input)
-        }
-
-        return ListExportsOutput.__default
-    }
-
-    /**
-     Invokes the ListGlobalTables operation returning immediately and passing the response to a callback.
+     Invokes the ListGlobalTables operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListGlobalTablesInput object being passed to this operation.
-         - completion: The ListGlobalTablesOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListGlobalTablesOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListGlobalTablesOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer.
      */
-    public func listGlobalTablesAsync(
-            input: DynamoDBModel.ListGlobalTablesInput, 
-            completion: @escaping (Result<DynamoDBModel.ListGlobalTablesOutput, DynamoDBError>) -> ()) throws {
-        if let listGlobalTablesAsyncOverride = listGlobalTablesAsyncOverride {
-            return try listGlobalTablesAsyncOverride(input, completion)
+    public func listGlobalTables(
+            input: DynamoDBModel.ListGlobalTablesInput) -> EventLoopFuture<DynamoDBModel.ListGlobalTablesOutput> {
+        if let listGlobalTablesEventLoopFutureAsyncOverride = listGlobalTablesEventLoopFutureAsyncOverride {
+            return listGlobalTablesEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListGlobalTablesOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListGlobalTablesOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListGlobalTables operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListGlobalTablesInput object being passed to this operation.
-     - Returns: The ListGlobalTablesOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer.
-     */
-    public func listGlobalTablesSync(
-            input: DynamoDBModel.ListGlobalTablesInput) throws -> DynamoDBModel.ListGlobalTablesOutput {
-        if let listGlobalTablesSyncOverride = listGlobalTablesSyncOverride {
-            return try listGlobalTablesSyncOverride(input)
-        }
-
-        return ListGlobalTablesOutput.__default
-    }
-
-    /**
-     Invokes the ListTables operation returning immediately and passing the response to a callback.
+     Invokes the ListTables operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTablesInput object being passed to this operation.
-         - completion: The ListTablesOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListTablesOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTablesOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer.
      */
-    public func listTablesAsync(
-            input: DynamoDBModel.ListTablesInput, 
-            completion: @escaping (Result<DynamoDBModel.ListTablesOutput, DynamoDBError>) -> ()) throws {
-        if let listTablesAsyncOverride = listTablesAsyncOverride {
-            return try listTablesAsyncOverride(input, completion)
+    public func listTables(
+            input: DynamoDBModel.ListTablesInput) -> EventLoopFuture<DynamoDBModel.ListTablesOutput> {
+        if let listTablesEventLoopFutureAsyncOverride = listTablesEventLoopFutureAsyncOverride {
+            return listTablesEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListTablesOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListTablesOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListTables operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTablesInput object being passed to this operation.
-     - Returns: The ListTablesOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer.
-     */
-    public func listTablesSync(
-            input: DynamoDBModel.ListTablesInput) throws -> DynamoDBModel.ListTablesOutput {
-        if let listTablesSyncOverride = listTablesSyncOverride {
-            return try listTablesSyncOverride(input)
-        }
-
-        return ListTablesOutput.__default
-    }
-
-    /**
-     Invokes the ListTagsOfResource operation returning immediately and passing the response to a callback.
+     Invokes the ListTagsOfResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTagsOfResourceInput object being passed to this operation.
-         - completion: The ListTagsOfResourceOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListTagsOfResourceOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTagsOfResourceOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, resourceNotFound.
      */
-    public func listTagsOfResourceAsync(
-            input: DynamoDBModel.ListTagsOfResourceInput, 
-            completion: @escaping (Result<DynamoDBModel.ListTagsOfResourceOutput, DynamoDBError>) -> ()) throws {
-        if let listTagsOfResourceAsyncOverride = listTagsOfResourceAsyncOverride {
-            return try listTagsOfResourceAsyncOverride(input, completion)
+    public func listTagsOfResource(
+            input: DynamoDBModel.ListTagsOfResourceInput) -> EventLoopFuture<DynamoDBModel.ListTagsOfResourceOutput> {
+        if let listTagsOfResourceEventLoopFutureAsyncOverride = listTagsOfResourceEventLoopFutureAsyncOverride {
+            return listTagsOfResourceEventLoopFutureAsyncOverride(input)
         }
 
         let result = ListTagsOfResourceOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ListTagsOfResourceOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the ListTagsOfResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTagsOfResourceInput object being passed to this operation.
-     - Returns: The ListTagsOfResourceOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, resourceNotFound.
-     */
-    public func listTagsOfResourceSync(
-            input: DynamoDBModel.ListTagsOfResourceInput) throws -> DynamoDBModel.ListTagsOfResourceOutput {
-        if let listTagsOfResourceSyncOverride = listTagsOfResourceSyncOverride {
-            return try listTagsOfResourceSyncOverride(input)
-        }
-
-        return ListTagsOfResourceOutput.__default
-    }
-
-    /**
-     Invokes the PutItem operation returning immediately and passing the response to a callback.
+     Invokes the PutItem operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutItemInput object being passed to this operation.
-         - completion: The PutItemOutput object or an error will be passed to this 
-           callback when the operation is complete. The PutItemOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutItemOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: conditionalCheckFailed, internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionConflict.
      */
-    public func putItemAsync(
-            input: DynamoDBModel.PutItemInput, 
-            completion: @escaping (Result<DynamoDBModel.PutItemOutput, DynamoDBError>) -> ()) throws {
-        if let putItemAsyncOverride = putItemAsyncOverride {
-            return try putItemAsyncOverride(input, completion)
+    public func putItem(
+            input: DynamoDBModel.PutItemInput) -> EventLoopFuture<DynamoDBModel.PutItemOutput> {
+        if let putItemEventLoopFutureAsyncOverride = putItemEventLoopFutureAsyncOverride {
+            return putItemEventLoopFutureAsyncOverride(input)
         }
 
         let result = PutItemOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: PutItemOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the PutItem operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutItemInput object being passed to this operation.
-     - Returns: The PutItemOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: conditionalCheckFailed, internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionConflict.
-     */
-    public func putItemSync(
-            input: DynamoDBModel.PutItemInput) throws -> DynamoDBModel.PutItemOutput {
-        if let putItemSyncOverride = putItemSyncOverride {
-            return try putItemSyncOverride(input)
-        }
-
-        return PutItemOutput.__default
-    }
-
-    /**
-     Invokes the Query operation returning immediately and passing the response to a callback.
+     Invokes the Query operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated QueryInput object being passed to this operation.
-         - completion: The QueryOutput object or an error will be passed to this 
-           callback when the operation is complete. The QueryOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the QueryOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
      */
-    public func queryAsync(
-            input: DynamoDBModel.QueryInput, 
-            completion: @escaping (Result<DynamoDBModel.QueryOutput, DynamoDBError>) -> ()) throws {
-        if let queryAsyncOverride = queryAsyncOverride {
-            return try queryAsyncOverride(input, completion)
+    public func query(
+            input: DynamoDBModel.QueryInput) -> EventLoopFuture<DynamoDBModel.QueryOutput> {
+        if let queryEventLoopFutureAsyncOverride = queryEventLoopFutureAsyncOverride {
+            return queryEventLoopFutureAsyncOverride(input)
         }
 
         let result = QueryOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: QueryOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the Query operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated QueryInput object being passed to this operation.
-     - Returns: The QueryOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
-     */
-    public func querySync(
-            input: DynamoDBModel.QueryInput) throws -> DynamoDBModel.QueryOutput {
-        if let querySyncOverride = querySyncOverride {
-            return try querySyncOverride(input)
-        }
-
-        return QueryOutput.__default
-    }
-
-    /**
-     Invokes the RestoreTableFromBackup operation returning immediately and passing the response to a callback.
+     Invokes the RestoreTableFromBackup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RestoreTableFromBackupInput object being passed to this operation.
-         - completion: The RestoreTableFromBackupOutput object or an error will be passed to this 
-           callback when the operation is complete. The RestoreTableFromBackupOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the RestoreTableFromBackupOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: backupInUse, backupNotFound, internalServer, limitExceeded, tableAlreadyExists, tableInUse.
      */
-    public func restoreTableFromBackupAsync(
-            input: DynamoDBModel.RestoreTableFromBackupInput, 
-            completion: @escaping (Result<DynamoDBModel.RestoreTableFromBackupOutput, DynamoDBError>) -> ()) throws {
-        if let restoreTableFromBackupAsyncOverride = restoreTableFromBackupAsyncOverride {
-            return try restoreTableFromBackupAsyncOverride(input, completion)
+    public func restoreTableFromBackup(
+            input: DynamoDBModel.RestoreTableFromBackupInput) -> EventLoopFuture<DynamoDBModel.RestoreTableFromBackupOutput> {
+        if let restoreTableFromBackupEventLoopFutureAsyncOverride = restoreTableFromBackupEventLoopFutureAsyncOverride {
+            return restoreTableFromBackupEventLoopFutureAsyncOverride(input)
         }
 
         let result = RestoreTableFromBackupOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: RestoreTableFromBackupOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the RestoreTableFromBackup operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RestoreTableFromBackupInput object being passed to this operation.
-     - Returns: The RestoreTableFromBackupOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: backupInUse, backupNotFound, internalServer, limitExceeded, tableAlreadyExists, tableInUse.
-     */
-    public func restoreTableFromBackupSync(
-            input: DynamoDBModel.RestoreTableFromBackupInput) throws -> DynamoDBModel.RestoreTableFromBackupOutput {
-        if let restoreTableFromBackupSyncOverride = restoreTableFromBackupSyncOverride {
-            return try restoreTableFromBackupSyncOverride(input)
-        }
-
-        return RestoreTableFromBackupOutput.__default
-    }
-
-    /**
-     Invokes the RestoreTableToPointInTime operation returning immediately and passing the response to a callback.
+     Invokes the RestoreTableToPointInTime operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RestoreTableToPointInTimeInput object being passed to this operation.
-         - completion: The RestoreTableToPointInTimeOutput object or an error will be passed to this 
-           callback when the operation is complete. The RestoreTableToPointInTimeOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the RestoreTableToPointInTimeOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, invalidRestoreTime, limitExceeded, pointInTimeRecoveryUnavailable, tableAlreadyExists, tableInUse, tableNotFound.
      */
-    public func restoreTableToPointInTimeAsync(
-            input: DynamoDBModel.RestoreTableToPointInTimeInput, 
-            completion: @escaping (Result<DynamoDBModel.RestoreTableToPointInTimeOutput, DynamoDBError>) -> ()) throws {
-        if let restoreTableToPointInTimeAsyncOverride = restoreTableToPointInTimeAsyncOverride {
-            return try restoreTableToPointInTimeAsyncOverride(input, completion)
+    public func restoreTableToPointInTime(
+            input: DynamoDBModel.RestoreTableToPointInTimeInput) -> EventLoopFuture<DynamoDBModel.RestoreTableToPointInTimeOutput> {
+        if let restoreTableToPointInTimeEventLoopFutureAsyncOverride = restoreTableToPointInTimeEventLoopFutureAsyncOverride {
+            return restoreTableToPointInTimeEventLoopFutureAsyncOverride(input)
         }
 
         let result = RestoreTableToPointInTimeOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: RestoreTableToPointInTimeOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the RestoreTableToPointInTime operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RestoreTableToPointInTimeInput object being passed to this operation.
-     - Returns: The RestoreTableToPointInTimeOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, invalidRestoreTime, limitExceeded, pointInTimeRecoveryUnavailable, tableAlreadyExists, tableInUse, tableNotFound.
-     */
-    public func restoreTableToPointInTimeSync(
-            input: DynamoDBModel.RestoreTableToPointInTimeInput) throws -> DynamoDBModel.RestoreTableToPointInTimeOutput {
-        if let restoreTableToPointInTimeSyncOverride = restoreTableToPointInTimeSyncOverride {
-            return try restoreTableToPointInTimeSyncOverride(input)
-        }
-
-        return RestoreTableToPointInTimeOutput.__default
-    }
-
-    /**
-     Invokes the Scan operation returning immediately and passing the response to a callback.
+     Invokes the Scan operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ScanInput object being passed to this operation.
-         - completion: The ScanOutput object or an error will be passed to this 
-           callback when the operation is complete. The ScanOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ScanOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
      */
-    public func scanAsync(
-            input: DynamoDBModel.ScanInput, 
-            completion: @escaping (Result<DynamoDBModel.ScanOutput, DynamoDBError>) -> ()) throws {
-        if let scanAsyncOverride = scanAsyncOverride {
-            return try scanAsyncOverride(input, completion)
+    public func scan(
+            input: DynamoDBModel.ScanInput) -> EventLoopFuture<DynamoDBModel.ScanOutput> {
+        if let scanEventLoopFutureAsyncOverride = scanEventLoopFutureAsyncOverride {
+            return scanEventLoopFutureAsyncOverride(input)
         }
 
         let result = ScanOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: ScanOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the Scan operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ScanInput object being passed to this operation.
-     - Returns: The ScanOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound.
-     */
-    public func scanSync(
-            input: DynamoDBModel.ScanInput) throws -> DynamoDBModel.ScanOutput {
-        if let scanSyncOverride = scanSyncOverride {
-            return try scanSyncOverride(input)
-        }
-
-        return ScanOutput.__default
-    }
-
-    /**
-     Invokes the TagResource operation returning immediately and passing the response to a callback.
+     Invokes the TagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagResourceInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: internalServer, limitExceeded, resourceInUse, resourceNotFound.
      */
-    public func tagResourceAsync(
-            input: DynamoDBModel.TagResourceInput, 
-            completion: @escaping (DynamoDBError?) -> ()) throws {
-        if let tagResourceAsyncOverride = tagResourceAsyncOverride {
-            return try tagResourceAsyncOverride(input, completion)
+    public func tagResource(
+            input: DynamoDBModel.TagResourceInput) -> EventLoopFuture<Void> {
+        if let tagResourceEventLoopFutureAsyncOverride = tagResourceEventLoopFutureAsyncOverride {
+            return tagResourceEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the TagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TagResourceInput object being passed to this operation.
-     - Throws: internalServer, limitExceeded, resourceInUse, resourceNotFound.
-     */
-    public func tagResourceSync(
-            input: DynamoDBModel.TagResourceInput) throws {
-        if let tagResourceSyncOverride = tagResourceSyncOverride {
-            return try tagResourceSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the TransactGetItems operation returning immediately and passing the response to a callback.
+     Invokes the TransactGetItems operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TransactGetItemsInput object being passed to this operation.
-         - completion: The TransactGetItemsOutput object or an error will be passed to this 
-           callback when the operation is complete. The TransactGetItemsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the TransactGetItemsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionCanceled.
      */
-    public func transactGetItemsAsync(
-            input: DynamoDBModel.TransactGetItemsInput, 
-            completion: @escaping (Result<DynamoDBModel.TransactGetItemsOutput, DynamoDBError>) -> ()) throws {
-        if let transactGetItemsAsyncOverride = transactGetItemsAsyncOverride {
-            return try transactGetItemsAsyncOverride(input, completion)
+    public func transactGetItems(
+            input: DynamoDBModel.TransactGetItemsInput) -> EventLoopFuture<DynamoDBModel.TransactGetItemsOutput> {
+        if let transactGetItemsEventLoopFutureAsyncOverride = transactGetItemsEventLoopFutureAsyncOverride {
+            return transactGetItemsEventLoopFutureAsyncOverride(input)
         }
 
         let result = TransactGetItemsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: TransactGetItemsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the TransactGetItems operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TransactGetItemsInput object being passed to this operation.
-     - Returns: The TransactGetItemsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionCanceled.
-     */
-    public func transactGetItemsSync(
-            input: DynamoDBModel.TransactGetItemsInput) throws -> DynamoDBModel.TransactGetItemsOutput {
-        if let transactGetItemsSyncOverride = transactGetItemsSyncOverride {
-            return try transactGetItemsSyncOverride(input)
-        }
-
-        return TransactGetItemsOutput.__default
-    }
-
-    /**
-     Invokes the TransactWriteItems operation returning immediately and passing the response to a callback.
+     Invokes the TransactWriteItems operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TransactWriteItemsInput object being passed to this operation.
-         - completion: The TransactWriteItemsOutput object or an error will be passed to this 
-           callback when the operation is complete. The TransactWriteItemsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the TransactWriteItemsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: idempotentParameterMismatch, internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionCanceled, transactionInProgress.
      */
-    public func transactWriteItemsAsync(
-            input: DynamoDBModel.TransactWriteItemsInput, 
-            completion: @escaping (Result<DynamoDBModel.TransactWriteItemsOutput, DynamoDBError>) -> ()) throws {
-        if let transactWriteItemsAsyncOverride = transactWriteItemsAsyncOverride {
-            return try transactWriteItemsAsyncOverride(input, completion)
+    public func transactWriteItems(
+            input: DynamoDBModel.TransactWriteItemsInput) -> EventLoopFuture<DynamoDBModel.TransactWriteItemsOutput> {
+        if let transactWriteItemsEventLoopFutureAsyncOverride = transactWriteItemsEventLoopFutureAsyncOverride {
+            return transactWriteItemsEventLoopFutureAsyncOverride(input)
         }
 
         let result = TransactWriteItemsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: TransactWriteItemsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the TransactWriteItems operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TransactWriteItemsInput object being passed to this operation.
-     - Returns: The TransactWriteItemsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: idempotentParameterMismatch, internalServer, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionCanceled, transactionInProgress.
-     */
-    public func transactWriteItemsSync(
-            input: DynamoDBModel.TransactWriteItemsInput) throws -> DynamoDBModel.TransactWriteItemsOutput {
-        if let transactWriteItemsSyncOverride = transactWriteItemsSyncOverride {
-            return try transactWriteItemsSyncOverride(input)
-        }
-
-        return TransactWriteItemsOutput.__default
-    }
-
-    /**
-     Invokes the UntagResource operation returning immediately and passing the response to a callback.
+     Invokes the UntagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagResourceInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: internalServer, limitExceeded, resourceInUse, resourceNotFound.
      */
-    public func untagResourceAsync(
-            input: DynamoDBModel.UntagResourceInput, 
-            completion: @escaping (DynamoDBError?) -> ()) throws {
-        if let untagResourceAsyncOverride = untagResourceAsyncOverride {
-            return try untagResourceAsyncOverride(input, completion)
+    public func untagResource(
+            input: DynamoDBModel.UntagResourceInput) -> EventLoopFuture<Void> {
+        if let untagResourceEventLoopFutureAsyncOverride = untagResourceEventLoopFutureAsyncOverride {
+            return untagResourceEventLoopFutureAsyncOverride(input)
         }
 
-        completion(nil)
+        let promise = self.eventLoop.makePromise(of: Void.self)
+        promise.succeed(())
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UntagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UntagResourceInput object being passed to this operation.
-     - Throws: internalServer, limitExceeded, resourceInUse, resourceNotFound.
-     */
-    public func untagResourceSync(
-            input: DynamoDBModel.UntagResourceInput) throws {
-        if let untagResourceSyncOverride = untagResourceSyncOverride {
-            return try untagResourceSyncOverride(input)
-        }
-
-    }
-
-    /**
-     Invokes the UpdateContinuousBackups operation returning immediately and passing the response to a callback.
+     Invokes the UpdateContinuousBackups operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateContinuousBackupsInput object being passed to this operation.
-         - completion: The UpdateContinuousBackupsOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateContinuousBackupsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateContinuousBackupsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: continuousBackupsUnavailable, internalServer, tableNotFound.
      */
-    public func updateContinuousBackupsAsync(
-            input: DynamoDBModel.UpdateContinuousBackupsInput, 
-            completion: @escaping (Result<DynamoDBModel.UpdateContinuousBackupsOutput, DynamoDBError>) -> ()) throws {
-        if let updateContinuousBackupsAsyncOverride = updateContinuousBackupsAsyncOverride {
-            return try updateContinuousBackupsAsyncOverride(input, completion)
+    public func updateContinuousBackups(
+            input: DynamoDBModel.UpdateContinuousBackupsInput) -> EventLoopFuture<DynamoDBModel.UpdateContinuousBackupsOutput> {
+        if let updateContinuousBackupsEventLoopFutureAsyncOverride = updateContinuousBackupsEventLoopFutureAsyncOverride {
+            return updateContinuousBackupsEventLoopFutureAsyncOverride(input)
         }
 
         let result = UpdateContinuousBackupsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: UpdateContinuousBackupsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UpdateContinuousBackups operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateContinuousBackupsInput object being passed to this operation.
-     - Returns: The UpdateContinuousBackupsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: continuousBackupsUnavailable, internalServer, tableNotFound.
-     */
-    public func updateContinuousBackupsSync(
-            input: DynamoDBModel.UpdateContinuousBackupsInput) throws -> DynamoDBModel.UpdateContinuousBackupsOutput {
-        if let updateContinuousBackupsSyncOverride = updateContinuousBackupsSyncOverride {
-            return try updateContinuousBackupsSyncOverride(input)
-        }
-
-        return UpdateContinuousBackupsOutput.__default
-    }
-
-    /**
-     Invokes the UpdateContributorInsights operation returning immediately and passing the response to a callback.
+     Invokes the UpdateContributorInsights operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateContributorInsightsInput object being passed to this operation.
-         - completion: The UpdateContributorInsightsOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateContributorInsightsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateContributorInsightsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, resourceNotFound.
      */
-    public func updateContributorInsightsAsync(
-            input: DynamoDBModel.UpdateContributorInsightsInput, 
-            completion: @escaping (Result<DynamoDBModel.UpdateContributorInsightsOutput, DynamoDBError>) -> ()) throws {
-        if let updateContributorInsightsAsyncOverride = updateContributorInsightsAsyncOverride {
-            return try updateContributorInsightsAsyncOverride(input, completion)
+    public func updateContributorInsights(
+            input: DynamoDBModel.UpdateContributorInsightsInput) -> EventLoopFuture<DynamoDBModel.UpdateContributorInsightsOutput> {
+        if let updateContributorInsightsEventLoopFutureAsyncOverride = updateContributorInsightsEventLoopFutureAsyncOverride {
+            return updateContributorInsightsEventLoopFutureAsyncOverride(input)
         }
 
         let result = UpdateContributorInsightsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: UpdateContributorInsightsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UpdateContributorInsights operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateContributorInsightsInput object being passed to this operation.
-     - Returns: The UpdateContributorInsightsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, resourceNotFound.
-     */
-    public func updateContributorInsightsSync(
-            input: DynamoDBModel.UpdateContributorInsightsInput) throws -> DynamoDBModel.UpdateContributorInsightsOutput {
-        if let updateContributorInsightsSyncOverride = updateContributorInsightsSyncOverride {
-            return try updateContributorInsightsSyncOverride(input)
-        }
-
-        return UpdateContributorInsightsOutput.__default
-    }
-
-    /**
-     Invokes the UpdateGlobalTable operation returning immediately and passing the response to a callback.
+     Invokes the UpdateGlobalTable operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateGlobalTableInput object being passed to this operation.
-         - completion: The UpdateGlobalTableOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateGlobalTableOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateGlobalTableOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: globalTableNotFound, internalServer, replicaAlreadyExists, replicaNotFound, tableNotFound.
      */
-    public func updateGlobalTableAsync(
-            input: DynamoDBModel.UpdateGlobalTableInput, 
-            completion: @escaping (Result<DynamoDBModel.UpdateGlobalTableOutput, DynamoDBError>) -> ()) throws {
-        if let updateGlobalTableAsyncOverride = updateGlobalTableAsyncOverride {
-            return try updateGlobalTableAsyncOverride(input, completion)
+    public func updateGlobalTable(
+            input: DynamoDBModel.UpdateGlobalTableInput) -> EventLoopFuture<DynamoDBModel.UpdateGlobalTableOutput> {
+        if let updateGlobalTableEventLoopFutureAsyncOverride = updateGlobalTableEventLoopFutureAsyncOverride {
+            return updateGlobalTableEventLoopFutureAsyncOverride(input)
         }
 
         let result = UpdateGlobalTableOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: UpdateGlobalTableOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UpdateGlobalTable operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateGlobalTableInput object being passed to this operation.
-     - Returns: The UpdateGlobalTableOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: globalTableNotFound, internalServer, replicaAlreadyExists, replicaNotFound, tableNotFound.
-     */
-    public func updateGlobalTableSync(
-            input: DynamoDBModel.UpdateGlobalTableInput) throws -> DynamoDBModel.UpdateGlobalTableOutput {
-        if let updateGlobalTableSyncOverride = updateGlobalTableSyncOverride {
-            return try updateGlobalTableSyncOverride(input)
-        }
-
-        return UpdateGlobalTableOutput.__default
-    }
-
-    /**
-     Invokes the UpdateGlobalTableSettings operation returning immediately and passing the response to a callback.
+     Invokes the UpdateGlobalTableSettings operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateGlobalTableSettingsInput object being passed to this operation.
-         - completion: The UpdateGlobalTableSettingsOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateGlobalTableSettingsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateGlobalTableSettingsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: globalTableNotFound, indexNotFound, internalServer, limitExceeded, replicaNotFound, resourceInUse.
      */
-    public func updateGlobalTableSettingsAsync(
-            input: DynamoDBModel.UpdateGlobalTableSettingsInput, 
-            completion: @escaping (Result<DynamoDBModel.UpdateGlobalTableSettingsOutput, DynamoDBError>) -> ()) throws {
-        if let updateGlobalTableSettingsAsyncOverride = updateGlobalTableSettingsAsyncOverride {
-            return try updateGlobalTableSettingsAsyncOverride(input, completion)
+    public func updateGlobalTableSettings(
+            input: DynamoDBModel.UpdateGlobalTableSettingsInput) -> EventLoopFuture<DynamoDBModel.UpdateGlobalTableSettingsOutput> {
+        if let updateGlobalTableSettingsEventLoopFutureAsyncOverride = updateGlobalTableSettingsEventLoopFutureAsyncOverride {
+            return updateGlobalTableSettingsEventLoopFutureAsyncOverride(input)
         }
 
         let result = UpdateGlobalTableSettingsOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: UpdateGlobalTableSettingsOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UpdateGlobalTableSettings operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateGlobalTableSettingsInput object being passed to this operation.
-     - Returns: The UpdateGlobalTableSettingsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: globalTableNotFound, indexNotFound, internalServer, limitExceeded, replicaNotFound, resourceInUse.
-     */
-    public func updateGlobalTableSettingsSync(
-            input: DynamoDBModel.UpdateGlobalTableSettingsInput) throws -> DynamoDBModel.UpdateGlobalTableSettingsOutput {
-        if let updateGlobalTableSettingsSyncOverride = updateGlobalTableSettingsSyncOverride {
-            return try updateGlobalTableSettingsSyncOverride(input)
-        }
-
-        return UpdateGlobalTableSettingsOutput.__default
-    }
-
-    /**
-     Invokes the UpdateItem operation returning immediately and passing the response to a callback.
+     Invokes the UpdateItem operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateItemInput object being passed to this operation.
-         - completion: The UpdateItemOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateItemOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateItemOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: conditionalCheckFailed, internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionConflict.
      */
-    public func updateItemAsync(
-            input: DynamoDBModel.UpdateItemInput, 
-            completion: @escaping (Result<DynamoDBModel.UpdateItemOutput, DynamoDBError>) -> ()) throws {
-        if let updateItemAsyncOverride = updateItemAsyncOverride {
-            return try updateItemAsyncOverride(input, completion)
+    public func updateItem(
+            input: DynamoDBModel.UpdateItemInput) -> EventLoopFuture<DynamoDBModel.UpdateItemOutput> {
+        if let updateItemEventLoopFutureAsyncOverride = updateItemEventLoopFutureAsyncOverride {
+            return updateItemEventLoopFutureAsyncOverride(input)
         }
 
         let result = UpdateItemOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: UpdateItemOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UpdateItem operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateItemInput object being passed to this operation.
-     - Returns: The UpdateItemOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: conditionalCheckFailed, internalServer, itemCollectionSizeLimitExceeded, provisionedThroughputExceeded, requestLimitExceeded, resourceNotFound, transactionConflict.
-     */
-    public func updateItemSync(
-            input: DynamoDBModel.UpdateItemInput) throws -> DynamoDBModel.UpdateItemOutput {
-        if let updateItemSyncOverride = updateItemSyncOverride {
-            return try updateItemSyncOverride(input)
-        }
-
-        return UpdateItemOutput.__default
-    }
-
-    /**
-     Invokes the UpdateTable operation returning immediately and passing the response to a callback.
+     Invokes the UpdateTable operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateTableInput object being passed to this operation.
-         - completion: The UpdateTableOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateTableOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateTableOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, limitExceeded, resourceInUse, resourceNotFound.
      */
-    public func updateTableAsync(
-            input: DynamoDBModel.UpdateTableInput, 
-            completion: @escaping (Result<DynamoDBModel.UpdateTableOutput, DynamoDBError>) -> ()) throws {
-        if let updateTableAsyncOverride = updateTableAsyncOverride {
-            return try updateTableAsyncOverride(input, completion)
+    public func updateTable(
+            input: DynamoDBModel.UpdateTableInput) -> EventLoopFuture<DynamoDBModel.UpdateTableOutput> {
+        if let updateTableEventLoopFutureAsyncOverride = updateTableEventLoopFutureAsyncOverride {
+            return updateTableEventLoopFutureAsyncOverride(input)
         }
 
         let result = UpdateTableOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: UpdateTableOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UpdateTable operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateTableInput object being passed to this operation.
-     - Returns: The UpdateTableOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, limitExceeded, resourceInUse, resourceNotFound.
-     */
-    public func updateTableSync(
-            input: DynamoDBModel.UpdateTableInput) throws -> DynamoDBModel.UpdateTableOutput {
-        if let updateTableSyncOverride = updateTableSyncOverride {
-            return try updateTableSyncOverride(input)
-        }
-
-        return UpdateTableOutput.__default
-    }
-
-    /**
-     Invokes the UpdateTableReplicaAutoScaling operation returning immediately and passing the response to a callback.
+     Invokes the UpdateTableReplicaAutoScaling operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateTableReplicaAutoScalingInput object being passed to this operation.
-         - completion: The UpdateTableReplicaAutoScalingOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateTableReplicaAutoScalingOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateTableReplicaAutoScalingOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, limitExceeded, resourceInUse, resourceNotFound.
      */
-    public func updateTableReplicaAutoScalingAsync(
-            input: DynamoDBModel.UpdateTableReplicaAutoScalingInput, 
-            completion: @escaping (Result<DynamoDBModel.UpdateTableReplicaAutoScalingOutput, DynamoDBError>) -> ()) throws {
-        if let updateTableReplicaAutoScalingAsyncOverride = updateTableReplicaAutoScalingAsyncOverride {
-            return try updateTableReplicaAutoScalingAsyncOverride(input, completion)
+    public func updateTableReplicaAutoScaling(
+            input: DynamoDBModel.UpdateTableReplicaAutoScalingInput) -> EventLoopFuture<DynamoDBModel.UpdateTableReplicaAutoScalingOutput> {
+        if let updateTableReplicaAutoScalingEventLoopFutureAsyncOverride = updateTableReplicaAutoScalingEventLoopFutureAsyncOverride {
+            return updateTableReplicaAutoScalingEventLoopFutureAsyncOverride(input)
         }
 
         let result = UpdateTableReplicaAutoScalingOutput.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: UpdateTableReplicaAutoScalingOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the UpdateTableReplicaAutoScaling operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateTableReplicaAutoScalingInput object being passed to this operation.
-     - Returns: The UpdateTableReplicaAutoScalingOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, limitExceeded, resourceInUse, resourceNotFound.
-     */
-    public func updateTableReplicaAutoScalingSync(
-            input: DynamoDBModel.UpdateTableReplicaAutoScalingInput) throws -> DynamoDBModel.UpdateTableReplicaAutoScalingOutput {
-        if let updateTableReplicaAutoScalingSyncOverride = updateTableReplicaAutoScalingSyncOverride {
-            return try updateTableReplicaAutoScalingSyncOverride(input)
-        }
-
-        return UpdateTableReplicaAutoScalingOutput.__default
-    }
-
-    /**
-     Invokes the UpdateTimeToLive operation returning immediately and passing the response to a callback.
+     Invokes the UpdateTimeToLive operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateTimeToLiveInput object being passed to this operation.
-         - completion: The UpdateTimeToLiveOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateTimeToLiveOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateTimeToLiveOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalServer, limitExceeded, resourceInUse, resourceNotFound.
      */
-    public func updateTimeToLiveAsync(
-            input: DynamoDBModel.UpdateTimeToLiveInput, 
-            completion: @escaping (Result<DynamoDBModel.UpdateTimeToLiveOutput, DynamoDBError>) -> ()) throws {
-        if let updateTimeToLiveAsyncOverride = updateTimeToLiveAsyncOverride {
-            return try updateTimeToLiveAsyncOverride(input, completion)
+    public func updateTimeToLive(
+            input: DynamoDBModel.UpdateTimeToLiveInput) -> EventLoopFuture<DynamoDBModel.UpdateTimeToLiveOutput> {
+        if let updateTimeToLiveEventLoopFutureAsyncOverride = updateTimeToLiveEventLoopFutureAsyncOverride {
+            return updateTimeToLiveEventLoopFutureAsyncOverride(input)
         }
 
         let result = UpdateTimeToLiveOutput.__default
         
-        completion(.success(result))
-    }
-
-    /**
-     Invokes the UpdateTimeToLive operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateTimeToLiveInput object being passed to this operation.
-     - Returns: The UpdateTimeToLiveOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalServer, limitExceeded, resourceInUse, resourceNotFound.
-     */
-    public func updateTimeToLiveSync(
-            input: DynamoDBModel.UpdateTimeToLiveInput) throws -> DynamoDBModel.UpdateTimeToLiveOutput {
-        if let updateTimeToLiveSyncOverride = updateTimeToLiveSyncOverride {
-            return try updateTimeToLiveSyncOverride(input)
-        }
-
-        return UpdateTimeToLiveOutput.__default
+        let promise = self.eventLoop.makePromise(of: UpdateTimeToLiveOutput.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 }

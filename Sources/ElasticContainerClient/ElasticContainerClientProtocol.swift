@@ -24,1559 +24,710 @@ import Foundation
 import ElasticContainerModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Client Protocol for the ElasticContainer service.
  */
 public protocol ElasticContainerClientProtocol {
-    typealias CreateCapacityProviderSyncType = (
-            _ input: ElasticContainerModel.CreateCapacityProviderRequest) throws -> ElasticContainerModel.CreateCapacityProviderResponse
-    typealias CreateCapacityProviderAsyncType = (
-            _ input: ElasticContainerModel.CreateCapacityProviderRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.CreateCapacityProviderResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias CreateClusterSyncType = (
-            _ input: ElasticContainerModel.CreateClusterRequest) throws -> ElasticContainerModel.CreateClusterResponse
-    typealias CreateClusterAsyncType = (
-            _ input: ElasticContainerModel.CreateClusterRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.CreateClusterResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias CreateServiceSyncType = (
-            _ input: ElasticContainerModel.CreateServiceRequest) throws -> ElasticContainerModel.CreateServiceResponse
-    typealias CreateServiceAsyncType = (
-            _ input: ElasticContainerModel.CreateServiceRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.CreateServiceResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias CreateTaskSetSyncType = (
-            _ input: ElasticContainerModel.CreateTaskSetRequest) throws -> ElasticContainerModel.CreateTaskSetResponse
-    typealias CreateTaskSetAsyncType = (
-            _ input: ElasticContainerModel.CreateTaskSetRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.CreateTaskSetResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DeleteAccountSettingSyncType = (
-            _ input: ElasticContainerModel.DeleteAccountSettingRequest) throws -> ElasticContainerModel.DeleteAccountSettingResponse
-    typealias DeleteAccountSettingAsyncType = (
-            _ input: ElasticContainerModel.DeleteAccountSettingRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DeleteAccountSettingResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DeleteAttributesSyncType = (
-            _ input: ElasticContainerModel.DeleteAttributesRequest) throws -> ElasticContainerModel.DeleteAttributesResponse
-    typealias DeleteAttributesAsyncType = (
-            _ input: ElasticContainerModel.DeleteAttributesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DeleteAttributesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DeleteCapacityProviderSyncType = (
-            _ input: ElasticContainerModel.DeleteCapacityProviderRequest) throws -> ElasticContainerModel.DeleteCapacityProviderResponse
-    typealias DeleteCapacityProviderAsyncType = (
-            _ input: ElasticContainerModel.DeleteCapacityProviderRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DeleteCapacityProviderResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DeleteClusterSyncType = (
-            _ input: ElasticContainerModel.DeleteClusterRequest) throws -> ElasticContainerModel.DeleteClusterResponse
-    typealias DeleteClusterAsyncType = (
-            _ input: ElasticContainerModel.DeleteClusterRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DeleteClusterResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DeleteServiceSyncType = (
-            _ input: ElasticContainerModel.DeleteServiceRequest) throws -> ElasticContainerModel.DeleteServiceResponse
-    typealias DeleteServiceAsyncType = (
-            _ input: ElasticContainerModel.DeleteServiceRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DeleteServiceResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DeleteTaskSetSyncType = (
-            _ input: ElasticContainerModel.DeleteTaskSetRequest) throws -> ElasticContainerModel.DeleteTaskSetResponse
-    typealias DeleteTaskSetAsyncType = (
-            _ input: ElasticContainerModel.DeleteTaskSetRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DeleteTaskSetResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DeregisterContainerInstanceSyncType = (
-            _ input: ElasticContainerModel.DeregisterContainerInstanceRequest) throws -> ElasticContainerModel.DeregisterContainerInstanceResponse
-    typealias DeregisterContainerInstanceAsyncType = (
-            _ input: ElasticContainerModel.DeregisterContainerInstanceRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DeregisterContainerInstanceResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DeregisterTaskDefinitionSyncType = (
-            _ input: ElasticContainerModel.DeregisterTaskDefinitionRequest) throws -> ElasticContainerModel.DeregisterTaskDefinitionResponse
-    typealias DeregisterTaskDefinitionAsyncType = (
-            _ input: ElasticContainerModel.DeregisterTaskDefinitionRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DeregisterTaskDefinitionResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DescribeCapacityProvidersSyncType = (
-            _ input: ElasticContainerModel.DescribeCapacityProvidersRequest) throws -> ElasticContainerModel.DescribeCapacityProvidersResponse
-    typealias DescribeCapacityProvidersAsyncType = (
-            _ input: ElasticContainerModel.DescribeCapacityProvidersRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DescribeCapacityProvidersResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DescribeClustersSyncType = (
-            _ input: ElasticContainerModel.DescribeClustersRequest) throws -> ElasticContainerModel.DescribeClustersResponse
-    typealias DescribeClustersAsyncType = (
-            _ input: ElasticContainerModel.DescribeClustersRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DescribeClustersResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DescribeContainerInstancesSyncType = (
-            _ input: ElasticContainerModel.DescribeContainerInstancesRequest) throws -> ElasticContainerModel.DescribeContainerInstancesResponse
-    typealias DescribeContainerInstancesAsyncType = (
-            _ input: ElasticContainerModel.DescribeContainerInstancesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DescribeContainerInstancesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DescribeServicesSyncType = (
-            _ input: ElasticContainerModel.DescribeServicesRequest) throws -> ElasticContainerModel.DescribeServicesResponse
-    typealias DescribeServicesAsyncType = (
-            _ input: ElasticContainerModel.DescribeServicesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DescribeServicesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DescribeTaskDefinitionSyncType = (
-            _ input: ElasticContainerModel.DescribeTaskDefinitionRequest) throws -> ElasticContainerModel.DescribeTaskDefinitionResponse
-    typealias DescribeTaskDefinitionAsyncType = (
-            _ input: ElasticContainerModel.DescribeTaskDefinitionRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DescribeTaskDefinitionResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DescribeTaskSetsSyncType = (
-            _ input: ElasticContainerModel.DescribeTaskSetsRequest) throws -> ElasticContainerModel.DescribeTaskSetsResponse
-    typealias DescribeTaskSetsAsyncType = (
-            _ input: ElasticContainerModel.DescribeTaskSetsRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DescribeTaskSetsResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DescribeTasksSyncType = (
-            _ input: ElasticContainerModel.DescribeTasksRequest) throws -> ElasticContainerModel.DescribeTasksResponse
-    typealias DescribeTasksAsyncType = (
-            _ input: ElasticContainerModel.DescribeTasksRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DescribeTasksResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias DiscoverPollEndpointSyncType = (
-            _ input: ElasticContainerModel.DiscoverPollEndpointRequest) throws -> ElasticContainerModel.DiscoverPollEndpointResponse
-    typealias DiscoverPollEndpointAsyncType = (
-            _ input: ElasticContainerModel.DiscoverPollEndpointRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.DiscoverPollEndpointResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListAccountSettingsSyncType = (
-            _ input: ElasticContainerModel.ListAccountSettingsRequest) throws -> ElasticContainerModel.ListAccountSettingsResponse
-    typealias ListAccountSettingsAsyncType = (
-            _ input: ElasticContainerModel.ListAccountSettingsRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListAccountSettingsResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListAttributesSyncType = (
-            _ input: ElasticContainerModel.ListAttributesRequest) throws -> ElasticContainerModel.ListAttributesResponse
-    typealias ListAttributesAsyncType = (
-            _ input: ElasticContainerModel.ListAttributesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListAttributesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListClustersSyncType = (
-            _ input: ElasticContainerModel.ListClustersRequest) throws -> ElasticContainerModel.ListClustersResponse
-    typealias ListClustersAsyncType = (
-            _ input: ElasticContainerModel.ListClustersRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListClustersResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListContainerInstancesSyncType = (
-            _ input: ElasticContainerModel.ListContainerInstancesRequest) throws -> ElasticContainerModel.ListContainerInstancesResponse
-    typealias ListContainerInstancesAsyncType = (
-            _ input: ElasticContainerModel.ListContainerInstancesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListContainerInstancesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListServicesSyncType = (
-            _ input: ElasticContainerModel.ListServicesRequest) throws -> ElasticContainerModel.ListServicesResponse
-    typealias ListServicesAsyncType = (
-            _ input: ElasticContainerModel.ListServicesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListServicesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListTagsForResourceSyncType = (
-            _ input: ElasticContainerModel.ListTagsForResourceRequest) throws -> ElasticContainerModel.ListTagsForResourceResponse
-    typealias ListTagsForResourceAsyncType = (
-            _ input: ElasticContainerModel.ListTagsForResourceRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListTagsForResourceResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListTaskDefinitionFamiliesSyncType = (
-            _ input: ElasticContainerModel.ListTaskDefinitionFamiliesRequest) throws -> ElasticContainerModel.ListTaskDefinitionFamiliesResponse
-    typealias ListTaskDefinitionFamiliesAsyncType = (
-            _ input: ElasticContainerModel.ListTaskDefinitionFamiliesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListTaskDefinitionFamiliesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListTaskDefinitionsSyncType = (
-            _ input: ElasticContainerModel.ListTaskDefinitionsRequest) throws -> ElasticContainerModel.ListTaskDefinitionsResponse
-    typealias ListTaskDefinitionsAsyncType = (
-            _ input: ElasticContainerModel.ListTaskDefinitionsRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListTaskDefinitionsResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias ListTasksSyncType = (
-            _ input: ElasticContainerModel.ListTasksRequest) throws -> ElasticContainerModel.ListTasksResponse
-    typealias ListTasksAsyncType = (
-            _ input: ElasticContainerModel.ListTasksRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.ListTasksResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias PutAccountSettingSyncType = (
-            _ input: ElasticContainerModel.PutAccountSettingRequest) throws -> ElasticContainerModel.PutAccountSettingResponse
-    typealias PutAccountSettingAsyncType = (
-            _ input: ElasticContainerModel.PutAccountSettingRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.PutAccountSettingResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias PutAccountSettingDefaultSyncType = (
-            _ input: ElasticContainerModel.PutAccountSettingDefaultRequest) throws -> ElasticContainerModel.PutAccountSettingDefaultResponse
-    typealias PutAccountSettingDefaultAsyncType = (
-            _ input: ElasticContainerModel.PutAccountSettingDefaultRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.PutAccountSettingDefaultResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias PutAttributesSyncType = (
-            _ input: ElasticContainerModel.PutAttributesRequest) throws -> ElasticContainerModel.PutAttributesResponse
-    typealias PutAttributesAsyncType = (
-            _ input: ElasticContainerModel.PutAttributesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.PutAttributesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias PutClusterCapacityProvidersSyncType = (
-            _ input: ElasticContainerModel.PutClusterCapacityProvidersRequest) throws -> ElasticContainerModel.PutClusterCapacityProvidersResponse
-    typealias PutClusterCapacityProvidersAsyncType = (
-            _ input: ElasticContainerModel.PutClusterCapacityProvidersRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.PutClusterCapacityProvidersResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias RegisterContainerInstanceSyncType = (
-            _ input: ElasticContainerModel.RegisterContainerInstanceRequest) throws -> ElasticContainerModel.RegisterContainerInstanceResponse
-    typealias RegisterContainerInstanceAsyncType = (
-            _ input: ElasticContainerModel.RegisterContainerInstanceRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.RegisterContainerInstanceResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias RegisterTaskDefinitionSyncType = (
-            _ input: ElasticContainerModel.RegisterTaskDefinitionRequest) throws -> ElasticContainerModel.RegisterTaskDefinitionResponse
-    typealias RegisterTaskDefinitionAsyncType = (
-            _ input: ElasticContainerModel.RegisterTaskDefinitionRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.RegisterTaskDefinitionResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias RunTaskSyncType = (
-            _ input: ElasticContainerModel.RunTaskRequest) throws -> ElasticContainerModel.RunTaskResponse
-    typealias RunTaskAsyncType = (
-            _ input: ElasticContainerModel.RunTaskRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.RunTaskResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias StartTaskSyncType = (
-            _ input: ElasticContainerModel.StartTaskRequest) throws -> ElasticContainerModel.StartTaskResponse
-    typealias StartTaskAsyncType = (
-            _ input: ElasticContainerModel.StartTaskRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.StartTaskResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias StopTaskSyncType = (
-            _ input: ElasticContainerModel.StopTaskRequest) throws -> ElasticContainerModel.StopTaskResponse
-    typealias StopTaskAsyncType = (
-            _ input: ElasticContainerModel.StopTaskRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.StopTaskResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias SubmitAttachmentStateChangesSyncType = (
-            _ input: ElasticContainerModel.SubmitAttachmentStateChangesRequest) throws -> ElasticContainerModel.SubmitAttachmentStateChangesResponse
-    typealias SubmitAttachmentStateChangesAsyncType = (
-            _ input: ElasticContainerModel.SubmitAttachmentStateChangesRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.SubmitAttachmentStateChangesResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias SubmitContainerStateChangeSyncType = (
-            _ input: ElasticContainerModel.SubmitContainerStateChangeRequest) throws -> ElasticContainerModel.SubmitContainerStateChangeResponse
-    typealias SubmitContainerStateChangeAsyncType = (
-            _ input: ElasticContainerModel.SubmitContainerStateChangeRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.SubmitContainerStateChangeResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias SubmitTaskStateChangeSyncType = (
-            _ input: ElasticContainerModel.SubmitTaskStateChangeRequest) throws -> ElasticContainerModel.SubmitTaskStateChangeResponse
-    typealias SubmitTaskStateChangeAsyncType = (
-            _ input: ElasticContainerModel.SubmitTaskStateChangeRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.SubmitTaskStateChangeResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias TagResourceSyncType = (
-            _ input: ElasticContainerModel.TagResourceRequest) throws -> ElasticContainerModel.TagResourceResponse
-    typealias TagResourceAsyncType = (
-            _ input: ElasticContainerModel.TagResourceRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.TagResourceResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias UntagResourceSyncType = (
-            _ input: ElasticContainerModel.UntagResourceRequest) throws -> ElasticContainerModel.UntagResourceResponse
-    typealias UntagResourceAsyncType = (
-            _ input: ElasticContainerModel.UntagResourceRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.UntagResourceResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias UpdateCapacityProviderSyncType = (
-            _ input: ElasticContainerModel.UpdateCapacityProviderRequest) throws -> ElasticContainerModel.UpdateCapacityProviderResponse
-    typealias UpdateCapacityProviderAsyncType = (
-            _ input: ElasticContainerModel.UpdateCapacityProviderRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.UpdateCapacityProviderResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias UpdateClusterSettingsSyncType = (
-            _ input: ElasticContainerModel.UpdateClusterSettingsRequest) throws -> ElasticContainerModel.UpdateClusterSettingsResponse
-    typealias UpdateClusterSettingsAsyncType = (
-            _ input: ElasticContainerModel.UpdateClusterSettingsRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.UpdateClusterSettingsResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias UpdateContainerAgentSyncType = (
-            _ input: ElasticContainerModel.UpdateContainerAgentRequest) throws -> ElasticContainerModel.UpdateContainerAgentResponse
-    typealias UpdateContainerAgentAsyncType = (
-            _ input: ElasticContainerModel.UpdateContainerAgentRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.UpdateContainerAgentResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias UpdateContainerInstancesStateSyncType = (
-            _ input: ElasticContainerModel.UpdateContainerInstancesStateRequest) throws -> ElasticContainerModel.UpdateContainerInstancesStateResponse
-    typealias UpdateContainerInstancesStateAsyncType = (
-            _ input: ElasticContainerModel.UpdateContainerInstancesStateRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.UpdateContainerInstancesStateResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias UpdateServiceSyncType = (
-            _ input: ElasticContainerModel.UpdateServiceRequest) throws -> ElasticContainerModel.UpdateServiceResponse
-    typealias UpdateServiceAsyncType = (
-            _ input: ElasticContainerModel.UpdateServiceRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.UpdateServiceResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias UpdateServicePrimaryTaskSetSyncType = (
-            _ input: ElasticContainerModel.UpdateServicePrimaryTaskSetRequest) throws -> ElasticContainerModel.UpdateServicePrimaryTaskSetResponse
-    typealias UpdateServicePrimaryTaskSetAsyncType = (
-            _ input: ElasticContainerModel.UpdateServicePrimaryTaskSetRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.UpdateServicePrimaryTaskSetResponse, ElasticContainerError>) -> ()) throws -> ()
-    typealias UpdateTaskSetSyncType = (
-            _ input: ElasticContainerModel.UpdateTaskSetRequest) throws -> ElasticContainerModel.UpdateTaskSetResponse
-    typealias UpdateTaskSetAsyncType = (
-            _ input: ElasticContainerModel.UpdateTaskSetRequest, 
-            _ completion: @escaping (Result<ElasticContainerModel.UpdateTaskSetResponse, ElasticContainerError>) -> ()) throws -> ()
+    typealias CreateCapacityProviderEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.CreateCapacityProviderRequest) -> EventLoopFuture<ElasticContainerModel.CreateCapacityProviderResponse>
+    typealias CreateClusterEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.CreateClusterRequest) -> EventLoopFuture<ElasticContainerModel.CreateClusterResponse>
+    typealias CreateServiceEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.CreateServiceRequest) -> EventLoopFuture<ElasticContainerModel.CreateServiceResponse>
+    typealias CreateTaskSetEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.CreateTaskSetRequest) -> EventLoopFuture<ElasticContainerModel.CreateTaskSetResponse>
+    typealias DeleteAccountSettingEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DeleteAccountSettingRequest) -> EventLoopFuture<ElasticContainerModel.DeleteAccountSettingResponse>
+    typealias DeleteAttributesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DeleteAttributesRequest) -> EventLoopFuture<ElasticContainerModel.DeleteAttributesResponse>
+    typealias DeleteCapacityProviderEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DeleteCapacityProviderRequest) -> EventLoopFuture<ElasticContainerModel.DeleteCapacityProviderResponse>
+    typealias DeleteClusterEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DeleteClusterRequest) -> EventLoopFuture<ElasticContainerModel.DeleteClusterResponse>
+    typealias DeleteServiceEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DeleteServiceRequest) -> EventLoopFuture<ElasticContainerModel.DeleteServiceResponse>
+    typealias DeleteTaskSetEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DeleteTaskSetRequest) -> EventLoopFuture<ElasticContainerModel.DeleteTaskSetResponse>
+    typealias DeregisterContainerInstanceEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DeregisterContainerInstanceRequest) -> EventLoopFuture<ElasticContainerModel.DeregisterContainerInstanceResponse>
+    typealias DeregisterTaskDefinitionEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DeregisterTaskDefinitionRequest) -> EventLoopFuture<ElasticContainerModel.DeregisterTaskDefinitionResponse>
+    typealias DescribeCapacityProvidersEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DescribeCapacityProvidersRequest) -> EventLoopFuture<ElasticContainerModel.DescribeCapacityProvidersResponse>
+    typealias DescribeClustersEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DescribeClustersRequest) -> EventLoopFuture<ElasticContainerModel.DescribeClustersResponse>
+    typealias DescribeContainerInstancesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DescribeContainerInstancesRequest) -> EventLoopFuture<ElasticContainerModel.DescribeContainerInstancesResponse>
+    typealias DescribeServicesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DescribeServicesRequest) -> EventLoopFuture<ElasticContainerModel.DescribeServicesResponse>
+    typealias DescribeTaskDefinitionEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DescribeTaskDefinitionRequest) -> EventLoopFuture<ElasticContainerModel.DescribeTaskDefinitionResponse>
+    typealias DescribeTaskSetsEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DescribeTaskSetsRequest) -> EventLoopFuture<ElasticContainerModel.DescribeTaskSetsResponse>
+    typealias DescribeTasksEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DescribeTasksRequest) -> EventLoopFuture<ElasticContainerModel.DescribeTasksResponse>
+    typealias DiscoverPollEndpointEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.DiscoverPollEndpointRequest) -> EventLoopFuture<ElasticContainerModel.DiscoverPollEndpointResponse>
+    typealias ListAccountSettingsEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListAccountSettingsRequest) -> EventLoopFuture<ElasticContainerModel.ListAccountSettingsResponse>
+    typealias ListAttributesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListAttributesRequest) -> EventLoopFuture<ElasticContainerModel.ListAttributesResponse>
+    typealias ListClustersEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListClustersRequest) -> EventLoopFuture<ElasticContainerModel.ListClustersResponse>
+    typealias ListContainerInstancesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListContainerInstancesRequest) -> EventLoopFuture<ElasticContainerModel.ListContainerInstancesResponse>
+    typealias ListServicesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListServicesRequest) -> EventLoopFuture<ElasticContainerModel.ListServicesResponse>
+    typealias ListTagsForResourceEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListTagsForResourceRequest) -> EventLoopFuture<ElasticContainerModel.ListTagsForResourceResponse>
+    typealias ListTaskDefinitionFamiliesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListTaskDefinitionFamiliesRequest) -> EventLoopFuture<ElasticContainerModel.ListTaskDefinitionFamiliesResponse>
+    typealias ListTaskDefinitionsEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListTaskDefinitionsRequest) -> EventLoopFuture<ElasticContainerModel.ListTaskDefinitionsResponse>
+    typealias ListTasksEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.ListTasksRequest) -> EventLoopFuture<ElasticContainerModel.ListTasksResponse>
+    typealias PutAccountSettingEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.PutAccountSettingRequest) -> EventLoopFuture<ElasticContainerModel.PutAccountSettingResponse>
+    typealias PutAccountSettingDefaultEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.PutAccountSettingDefaultRequest) -> EventLoopFuture<ElasticContainerModel.PutAccountSettingDefaultResponse>
+    typealias PutAttributesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.PutAttributesRequest) -> EventLoopFuture<ElasticContainerModel.PutAttributesResponse>
+    typealias PutClusterCapacityProvidersEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.PutClusterCapacityProvidersRequest) -> EventLoopFuture<ElasticContainerModel.PutClusterCapacityProvidersResponse>
+    typealias RegisterContainerInstanceEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.RegisterContainerInstanceRequest) -> EventLoopFuture<ElasticContainerModel.RegisterContainerInstanceResponse>
+    typealias RegisterTaskDefinitionEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.RegisterTaskDefinitionRequest) -> EventLoopFuture<ElasticContainerModel.RegisterTaskDefinitionResponse>
+    typealias RunTaskEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.RunTaskRequest) -> EventLoopFuture<ElasticContainerModel.RunTaskResponse>
+    typealias StartTaskEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.StartTaskRequest) -> EventLoopFuture<ElasticContainerModel.StartTaskResponse>
+    typealias StopTaskEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.StopTaskRequest) -> EventLoopFuture<ElasticContainerModel.StopTaskResponse>
+    typealias SubmitAttachmentStateChangesEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.SubmitAttachmentStateChangesRequest) -> EventLoopFuture<ElasticContainerModel.SubmitAttachmentStateChangesResponse>
+    typealias SubmitContainerStateChangeEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.SubmitContainerStateChangeRequest) -> EventLoopFuture<ElasticContainerModel.SubmitContainerStateChangeResponse>
+    typealias SubmitTaskStateChangeEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.SubmitTaskStateChangeRequest) -> EventLoopFuture<ElasticContainerModel.SubmitTaskStateChangeResponse>
+    typealias TagResourceEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.TagResourceRequest) -> EventLoopFuture<ElasticContainerModel.TagResourceResponse>
+    typealias UntagResourceEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.UntagResourceRequest) -> EventLoopFuture<ElasticContainerModel.UntagResourceResponse>
+    typealias UpdateCapacityProviderEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.UpdateCapacityProviderRequest) -> EventLoopFuture<ElasticContainerModel.UpdateCapacityProviderResponse>
+    typealias UpdateClusterSettingsEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.UpdateClusterSettingsRequest) -> EventLoopFuture<ElasticContainerModel.UpdateClusterSettingsResponse>
+    typealias UpdateContainerAgentEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.UpdateContainerAgentRequest) -> EventLoopFuture<ElasticContainerModel.UpdateContainerAgentResponse>
+    typealias UpdateContainerInstancesStateEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.UpdateContainerInstancesStateRequest) -> EventLoopFuture<ElasticContainerModel.UpdateContainerInstancesStateResponse>
+    typealias UpdateServiceEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.UpdateServiceRequest) -> EventLoopFuture<ElasticContainerModel.UpdateServiceResponse>
+    typealias UpdateServicePrimaryTaskSetEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.UpdateServicePrimaryTaskSetRequest) -> EventLoopFuture<ElasticContainerModel.UpdateServicePrimaryTaskSetResponse>
+    typealias UpdateTaskSetEventLoopFutureAsyncType = (
+            _ input: ElasticContainerModel.UpdateTaskSetRequest) -> EventLoopFuture<ElasticContainerModel.UpdateTaskSetResponse>
 
     /**
-     Invokes the CreateCapacityProvider operation returning immediately and passing the response to a callback.
+     Invokes the CreateCapacityProvider operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateCapacityProviderRequest object being passed to this operation.
-         - completion: The CreateCapacityProviderResponse object or an error will be passed to this 
-           callback when the operation is complete. The CreateCapacityProviderResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateCapacityProviderResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, limitExceeded, server, updateInProgress.
      */
-    func createCapacityProviderAsync(
-            input: ElasticContainerModel.CreateCapacityProviderRequest, 
-            completion: @escaping (Result<ElasticContainerModel.CreateCapacityProviderResponse, ElasticContainerError>) -> ()) throws
+    func createCapacityProvider(
+            input: ElasticContainerModel.CreateCapacityProviderRequest) -> EventLoopFuture<ElasticContainerModel.CreateCapacityProviderResponse>
 
     /**
-     Invokes the CreateCapacityProvider operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateCapacityProviderRequest object being passed to this operation.
-     - Returns: The CreateCapacityProviderResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, limitExceeded, server, updateInProgress.
-     */
-    func createCapacityProviderSync(
-            input: ElasticContainerModel.CreateCapacityProviderRequest) throws -> ElasticContainerModel.CreateCapacityProviderResponse
-
-    /**
-     Invokes the CreateCluster operation returning immediately and passing the response to a callback.
+     Invokes the CreateCluster operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateClusterRequest object being passed to this operation.
-         - completion: The CreateClusterResponse object or an error will be passed to this 
-           callback when the operation is complete. The CreateClusterResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateClusterResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func createClusterAsync(
-            input: ElasticContainerModel.CreateClusterRequest, 
-            completion: @escaping (Result<ElasticContainerModel.CreateClusterResponse, ElasticContainerError>) -> ()) throws
+    func createCluster(
+            input: ElasticContainerModel.CreateClusterRequest) -> EventLoopFuture<ElasticContainerModel.CreateClusterResponse>
 
     /**
-     Invokes the CreateCluster operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateClusterRequest object being passed to this operation.
-     - Returns: The CreateClusterResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func createClusterSync(
-            input: ElasticContainerModel.CreateClusterRequest) throws -> ElasticContainerModel.CreateClusterResponse
-
-    /**
-     Invokes the CreateService operation returning immediately and passing the response to a callback.
+     Invokes the CreateService operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateServiceRequest object being passed to this operation.
-         - completion: The CreateServiceResponse object or an error will be passed to this 
-           callback when the operation is complete. The CreateServiceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateServiceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, clusterNotFound, invalidParameter, platformTaskDefinitionIncompatibility, platformUnknown, server, unsupportedFeature.
      */
-    func createServiceAsync(
-            input: ElasticContainerModel.CreateServiceRequest, 
-            completion: @escaping (Result<ElasticContainerModel.CreateServiceResponse, ElasticContainerError>) -> ()) throws
+    func createService(
+            input: ElasticContainerModel.CreateServiceRequest) -> EventLoopFuture<ElasticContainerModel.CreateServiceResponse>
 
     /**
-     Invokes the CreateService operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateServiceRequest object being passed to this operation.
-     - Returns: The CreateServiceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, clusterNotFound, invalidParameter, platformTaskDefinitionIncompatibility, platformUnknown, server, unsupportedFeature.
-     */
-    func createServiceSync(
-            input: ElasticContainerModel.CreateServiceRequest) throws -> ElasticContainerModel.CreateServiceResponse
-
-    /**
-     Invokes the CreateTaskSet operation returning immediately and passing the response to a callback.
+     Invokes the CreateTaskSet operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateTaskSetRequest object being passed to this operation.
-         - completion: The CreateTaskSetResponse object or an error will be passed to this 
-           callback when the operation is complete. The CreateTaskSetResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateTaskSetResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, clusterNotFound, invalidParameter, platformTaskDefinitionIncompatibility, platformUnknown, server, serviceNotActive, serviceNotFound, unsupportedFeature.
      */
-    func createTaskSetAsync(
-            input: ElasticContainerModel.CreateTaskSetRequest, 
-            completion: @escaping (Result<ElasticContainerModel.CreateTaskSetResponse, ElasticContainerError>) -> ()) throws
+    func createTaskSet(
+            input: ElasticContainerModel.CreateTaskSetRequest) -> EventLoopFuture<ElasticContainerModel.CreateTaskSetResponse>
 
     /**
-     Invokes the CreateTaskSet operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateTaskSetRequest object being passed to this operation.
-     - Returns: The CreateTaskSetResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, clusterNotFound, invalidParameter, platformTaskDefinitionIncompatibility, platformUnknown, server, serviceNotActive, serviceNotFound, unsupportedFeature.
-     */
-    func createTaskSetSync(
-            input: ElasticContainerModel.CreateTaskSetRequest) throws -> ElasticContainerModel.CreateTaskSetResponse
-
-    /**
-     Invokes the DeleteAccountSetting operation returning immediately and passing the response to a callback.
+     Invokes the DeleteAccountSetting operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteAccountSettingRequest object being passed to this operation.
-         - completion: The DeleteAccountSettingResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteAccountSettingResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteAccountSettingResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func deleteAccountSettingAsync(
-            input: ElasticContainerModel.DeleteAccountSettingRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DeleteAccountSettingResponse, ElasticContainerError>) -> ()) throws
+    func deleteAccountSetting(
+            input: ElasticContainerModel.DeleteAccountSettingRequest) -> EventLoopFuture<ElasticContainerModel.DeleteAccountSettingResponse>
 
     /**
-     Invokes the DeleteAccountSetting operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteAccountSettingRequest object being passed to this operation.
-     - Returns: The DeleteAccountSettingResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func deleteAccountSettingSync(
-            input: ElasticContainerModel.DeleteAccountSettingRequest) throws -> ElasticContainerModel.DeleteAccountSettingResponse
-
-    /**
-     Invokes the DeleteAttributes operation returning immediately and passing the response to a callback.
+     Invokes the DeleteAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteAttributesRequest object being passed to this operation.
-         - completion: The DeleteAttributesResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteAttributesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteAttributesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: clusterNotFound, invalidParameter, targetNotFound.
      */
-    func deleteAttributesAsync(
-            input: ElasticContainerModel.DeleteAttributesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DeleteAttributesResponse, ElasticContainerError>) -> ()) throws
+    func deleteAttributes(
+            input: ElasticContainerModel.DeleteAttributesRequest) -> EventLoopFuture<ElasticContainerModel.DeleteAttributesResponse>
 
     /**
-     Invokes the DeleteAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteAttributesRequest object being passed to this operation.
-     - Returns: The DeleteAttributesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: clusterNotFound, invalidParameter, targetNotFound.
-     */
-    func deleteAttributesSync(
-            input: ElasticContainerModel.DeleteAttributesRequest) throws -> ElasticContainerModel.DeleteAttributesResponse
-
-    /**
-     Invokes the DeleteCapacityProvider operation returning immediately and passing the response to a callback.
+     Invokes the DeleteCapacityProvider operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteCapacityProviderRequest object being passed to this operation.
-         - completion: The DeleteCapacityProviderResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteCapacityProviderResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteCapacityProviderResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func deleteCapacityProviderAsync(
-            input: ElasticContainerModel.DeleteCapacityProviderRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DeleteCapacityProviderResponse, ElasticContainerError>) -> ()) throws
+    func deleteCapacityProvider(
+            input: ElasticContainerModel.DeleteCapacityProviderRequest) -> EventLoopFuture<ElasticContainerModel.DeleteCapacityProviderResponse>
 
     /**
-     Invokes the DeleteCapacityProvider operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteCapacityProviderRequest object being passed to this operation.
-     - Returns: The DeleteCapacityProviderResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func deleteCapacityProviderSync(
-            input: ElasticContainerModel.DeleteCapacityProviderRequest) throws -> ElasticContainerModel.DeleteCapacityProviderResponse
-
-    /**
-     Invokes the DeleteCluster operation returning immediately and passing the response to a callback.
+     Invokes the DeleteCluster operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteClusterRequest object being passed to this operation.
-         - completion: The DeleteClusterResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteClusterResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteClusterResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterContainsContainerInstances, clusterContainsServices, clusterContainsTasks, clusterNotFound, invalidParameter, server, updateInProgress.
      */
-    func deleteClusterAsync(
-            input: ElasticContainerModel.DeleteClusterRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DeleteClusterResponse, ElasticContainerError>) -> ()) throws
+    func deleteCluster(
+            input: ElasticContainerModel.DeleteClusterRequest) -> EventLoopFuture<ElasticContainerModel.DeleteClusterResponse>
 
     /**
-     Invokes the DeleteCluster operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteClusterRequest object being passed to this operation.
-     - Returns: The DeleteClusterResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterContainsContainerInstances, clusterContainsServices, clusterContainsTasks, clusterNotFound, invalidParameter, server, updateInProgress.
-     */
-    func deleteClusterSync(
-            input: ElasticContainerModel.DeleteClusterRequest) throws -> ElasticContainerModel.DeleteClusterResponse
-
-    /**
-     Invokes the DeleteService operation returning immediately and passing the response to a callback.
+     Invokes the DeleteService operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteServiceRequest object being passed to this operation.
-         - completion: The DeleteServiceResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteServiceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteServiceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server, serviceNotFound.
      */
-    func deleteServiceAsync(
-            input: ElasticContainerModel.DeleteServiceRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DeleteServiceResponse, ElasticContainerError>) -> ()) throws
+    func deleteService(
+            input: ElasticContainerModel.DeleteServiceRequest) -> EventLoopFuture<ElasticContainerModel.DeleteServiceResponse>
 
     /**
-     Invokes the DeleteService operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteServiceRequest object being passed to this operation.
-     - Returns: The DeleteServiceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server, serviceNotFound.
-     */
-    func deleteServiceSync(
-            input: ElasticContainerModel.DeleteServiceRequest) throws -> ElasticContainerModel.DeleteServiceResponse
-
-    /**
-     Invokes the DeleteTaskSet operation returning immediately and passing the response to a callback.
+     Invokes the DeleteTaskSet operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteTaskSetRequest object being passed to this operation.
-         - completion: The DeleteTaskSetResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteTaskSetResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteTaskSetResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, clusterNotFound, invalidParameter, server, serviceNotActive, serviceNotFound, taskSetNotFound, unsupportedFeature.
      */
-    func deleteTaskSetAsync(
-            input: ElasticContainerModel.DeleteTaskSetRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DeleteTaskSetResponse, ElasticContainerError>) -> ()) throws
+    func deleteTaskSet(
+            input: ElasticContainerModel.DeleteTaskSetRequest) -> EventLoopFuture<ElasticContainerModel.DeleteTaskSetResponse>
 
     /**
-     Invokes the DeleteTaskSet operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteTaskSetRequest object being passed to this operation.
-     - Returns: The DeleteTaskSetResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, clusterNotFound, invalidParameter, server, serviceNotActive, serviceNotFound, taskSetNotFound, unsupportedFeature.
-     */
-    func deleteTaskSetSync(
-            input: ElasticContainerModel.DeleteTaskSetRequest) throws -> ElasticContainerModel.DeleteTaskSetResponse
-
-    /**
-     Invokes the DeregisterContainerInstance operation returning immediately and passing the response to a callback.
+     Invokes the DeregisterContainerInstance operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeregisterContainerInstanceRequest object being passed to this operation.
-         - completion: The DeregisterContainerInstanceResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeregisterContainerInstanceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeregisterContainerInstanceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func deregisterContainerInstanceAsync(
-            input: ElasticContainerModel.DeregisterContainerInstanceRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DeregisterContainerInstanceResponse, ElasticContainerError>) -> ()) throws
+    func deregisterContainerInstance(
+            input: ElasticContainerModel.DeregisterContainerInstanceRequest) -> EventLoopFuture<ElasticContainerModel.DeregisterContainerInstanceResponse>
 
     /**
-     Invokes the DeregisterContainerInstance operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeregisterContainerInstanceRequest object being passed to this operation.
-     - Returns: The DeregisterContainerInstanceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func deregisterContainerInstanceSync(
-            input: ElasticContainerModel.DeregisterContainerInstanceRequest) throws -> ElasticContainerModel.DeregisterContainerInstanceResponse
-
-    /**
-     Invokes the DeregisterTaskDefinition operation returning immediately and passing the response to a callback.
+     Invokes the DeregisterTaskDefinition operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeregisterTaskDefinitionRequest object being passed to this operation.
-         - completion: The DeregisterTaskDefinitionResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeregisterTaskDefinitionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeregisterTaskDefinitionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func deregisterTaskDefinitionAsync(
-            input: ElasticContainerModel.DeregisterTaskDefinitionRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DeregisterTaskDefinitionResponse, ElasticContainerError>) -> ()) throws
+    func deregisterTaskDefinition(
+            input: ElasticContainerModel.DeregisterTaskDefinitionRequest) -> EventLoopFuture<ElasticContainerModel.DeregisterTaskDefinitionResponse>
 
     /**
-     Invokes the DeregisterTaskDefinition operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeregisterTaskDefinitionRequest object being passed to this operation.
-     - Returns: The DeregisterTaskDefinitionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func deregisterTaskDefinitionSync(
-            input: ElasticContainerModel.DeregisterTaskDefinitionRequest) throws -> ElasticContainerModel.DeregisterTaskDefinitionResponse
-
-    /**
-     Invokes the DescribeCapacityProviders operation returning immediately and passing the response to a callback.
+     Invokes the DescribeCapacityProviders operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeCapacityProvidersRequest object being passed to this operation.
-         - completion: The DescribeCapacityProvidersResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeCapacityProvidersResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeCapacityProvidersResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func describeCapacityProvidersAsync(
-            input: ElasticContainerModel.DescribeCapacityProvidersRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DescribeCapacityProvidersResponse, ElasticContainerError>) -> ()) throws
+    func describeCapacityProviders(
+            input: ElasticContainerModel.DescribeCapacityProvidersRequest) -> EventLoopFuture<ElasticContainerModel.DescribeCapacityProvidersResponse>
 
     /**
-     Invokes the DescribeCapacityProviders operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeCapacityProvidersRequest object being passed to this operation.
-     - Returns: The DescribeCapacityProvidersResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func describeCapacityProvidersSync(
-            input: ElasticContainerModel.DescribeCapacityProvidersRequest) throws -> ElasticContainerModel.DescribeCapacityProvidersResponse
-
-    /**
-     Invokes the DescribeClusters operation returning immediately and passing the response to a callback.
+     Invokes the DescribeClusters operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeClustersRequest object being passed to this operation.
-         - completion: The DescribeClustersResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeClustersResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeClustersResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func describeClustersAsync(
-            input: ElasticContainerModel.DescribeClustersRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DescribeClustersResponse, ElasticContainerError>) -> ()) throws
+    func describeClusters(
+            input: ElasticContainerModel.DescribeClustersRequest) -> EventLoopFuture<ElasticContainerModel.DescribeClustersResponse>
 
     /**
-     Invokes the DescribeClusters operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeClustersRequest object being passed to this operation.
-     - Returns: The DescribeClustersResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func describeClustersSync(
-            input: ElasticContainerModel.DescribeClustersRequest) throws -> ElasticContainerModel.DescribeClustersResponse
-
-    /**
-     Invokes the DescribeContainerInstances operation returning immediately and passing the response to a callback.
+     Invokes the DescribeContainerInstances operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeContainerInstancesRequest object being passed to this operation.
-         - completion: The DescribeContainerInstancesResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeContainerInstancesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeContainerInstancesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func describeContainerInstancesAsync(
-            input: ElasticContainerModel.DescribeContainerInstancesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DescribeContainerInstancesResponse, ElasticContainerError>) -> ()) throws
+    func describeContainerInstances(
+            input: ElasticContainerModel.DescribeContainerInstancesRequest) -> EventLoopFuture<ElasticContainerModel.DescribeContainerInstancesResponse>
 
     /**
-     Invokes the DescribeContainerInstances operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeContainerInstancesRequest object being passed to this operation.
-     - Returns: The DescribeContainerInstancesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func describeContainerInstancesSync(
-            input: ElasticContainerModel.DescribeContainerInstancesRequest) throws -> ElasticContainerModel.DescribeContainerInstancesResponse
-
-    /**
-     Invokes the DescribeServices operation returning immediately and passing the response to a callback.
+     Invokes the DescribeServices operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeServicesRequest object being passed to this operation.
-         - completion: The DescribeServicesResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeServicesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeServicesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func describeServicesAsync(
-            input: ElasticContainerModel.DescribeServicesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DescribeServicesResponse, ElasticContainerError>) -> ()) throws
+    func describeServices(
+            input: ElasticContainerModel.DescribeServicesRequest) -> EventLoopFuture<ElasticContainerModel.DescribeServicesResponse>
 
     /**
-     Invokes the DescribeServices operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeServicesRequest object being passed to this operation.
-     - Returns: The DescribeServicesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func describeServicesSync(
-            input: ElasticContainerModel.DescribeServicesRequest) throws -> ElasticContainerModel.DescribeServicesResponse
-
-    /**
-     Invokes the DescribeTaskDefinition operation returning immediately and passing the response to a callback.
+     Invokes the DescribeTaskDefinition operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeTaskDefinitionRequest object being passed to this operation.
-         - completion: The DescribeTaskDefinitionResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeTaskDefinitionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeTaskDefinitionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func describeTaskDefinitionAsync(
-            input: ElasticContainerModel.DescribeTaskDefinitionRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DescribeTaskDefinitionResponse, ElasticContainerError>) -> ()) throws
+    func describeTaskDefinition(
+            input: ElasticContainerModel.DescribeTaskDefinitionRequest) -> EventLoopFuture<ElasticContainerModel.DescribeTaskDefinitionResponse>
 
     /**
-     Invokes the DescribeTaskDefinition operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeTaskDefinitionRequest object being passed to this operation.
-     - Returns: The DescribeTaskDefinitionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func describeTaskDefinitionSync(
-            input: ElasticContainerModel.DescribeTaskDefinitionRequest) throws -> ElasticContainerModel.DescribeTaskDefinitionResponse
-
-    /**
-     Invokes the DescribeTaskSets operation returning immediately and passing the response to a callback.
+     Invokes the DescribeTaskSets operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeTaskSetsRequest object being passed to this operation.
-         - completion: The DescribeTaskSetsResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeTaskSetsResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeTaskSetsResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, clusterNotFound, invalidParameter, server, serviceNotActive, serviceNotFound, unsupportedFeature.
      */
-    func describeTaskSetsAsync(
-            input: ElasticContainerModel.DescribeTaskSetsRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DescribeTaskSetsResponse, ElasticContainerError>) -> ()) throws
+    func describeTaskSets(
+            input: ElasticContainerModel.DescribeTaskSetsRequest) -> EventLoopFuture<ElasticContainerModel.DescribeTaskSetsResponse>
 
     /**
-     Invokes the DescribeTaskSets operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeTaskSetsRequest object being passed to this operation.
-     - Returns: The DescribeTaskSetsResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, clusterNotFound, invalidParameter, server, serviceNotActive, serviceNotFound, unsupportedFeature.
-     */
-    func describeTaskSetsSync(
-            input: ElasticContainerModel.DescribeTaskSetsRequest) throws -> ElasticContainerModel.DescribeTaskSetsResponse
-
-    /**
-     Invokes the DescribeTasks operation returning immediately and passing the response to a callback.
+     Invokes the DescribeTasks operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeTasksRequest object being passed to this operation.
-         - completion: The DescribeTasksResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeTasksResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeTasksResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func describeTasksAsync(
-            input: ElasticContainerModel.DescribeTasksRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DescribeTasksResponse, ElasticContainerError>) -> ()) throws
+    func describeTasks(
+            input: ElasticContainerModel.DescribeTasksRequest) -> EventLoopFuture<ElasticContainerModel.DescribeTasksResponse>
 
     /**
-     Invokes the DescribeTasks operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeTasksRequest object being passed to this operation.
-     - Returns: The DescribeTasksResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func describeTasksSync(
-            input: ElasticContainerModel.DescribeTasksRequest) throws -> ElasticContainerModel.DescribeTasksResponse
-
-    /**
-     Invokes the DiscoverPollEndpoint operation returning immediately and passing the response to a callback.
+     Invokes the DiscoverPollEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DiscoverPollEndpointRequest object being passed to this operation.
-         - completion: The DiscoverPollEndpointResponse object or an error will be passed to this 
-           callback when the operation is complete. The DiscoverPollEndpointResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DiscoverPollEndpointResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, server.
      */
-    func discoverPollEndpointAsync(
-            input: ElasticContainerModel.DiscoverPollEndpointRequest, 
-            completion: @escaping (Result<ElasticContainerModel.DiscoverPollEndpointResponse, ElasticContainerError>) -> ()) throws
+    func discoverPollEndpoint(
+            input: ElasticContainerModel.DiscoverPollEndpointRequest) -> EventLoopFuture<ElasticContainerModel.DiscoverPollEndpointResponse>
 
     /**
-     Invokes the DiscoverPollEndpoint operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DiscoverPollEndpointRequest object being passed to this operation.
-     - Returns: The DiscoverPollEndpointResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, server.
-     */
-    func discoverPollEndpointSync(
-            input: ElasticContainerModel.DiscoverPollEndpointRequest) throws -> ElasticContainerModel.DiscoverPollEndpointResponse
-
-    /**
-     Invokes the ListAccountSettings operation returning immediately and passing the response to a callback.
+     Invokes the ListAccountSettings operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListAccountSettingsRequest object being passed to this operation.
-         - completion: The ListAccountSettingsResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListAccountSettingsResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListAccountSettingsResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func listAccountSettingsAsync(
-            input: ElasticContainerModel.ListAccountSettingsRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListAccountSettingsResponse, ElasticContainerError>) -> ()) throws
+    func listAccountSettings(
+            input: ElasticContainerModel.ListAccountSettingsRequest) -> EventLoopFuture<ElasticContainerModel.ListAccountSettingsResponse>
 
     /**
-     Invokes the ListAccountSettings operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListAccountSettingsRequest object being passed to this operation.
-     - Returns: The ListAccountSettingsResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func listAccountSettingsSync(
-            input: ElasticContainerModel.ListAccountSettingsRequest) throws -> ElasticContainerModel.ListAccountSettingsResponse
-
-    /**
-     Invokes the ListAttributes operation returning immediately and passing the response to a callback.
+     Invokes the ListAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListAttributesRequest object being passed to this operation.
-         - completion: The ListAttributesResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListAttributesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListAttributesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: clusterNotFound, invalidParameter.
      */
-    func listAttributesAsync(
-            input: ElasticContainerModel.ListAttributesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListAttributesResponse, ElasticContainerError>) -> ()) throws
+    func listAttributes(
+            input: ElasticContainerModel.ListAttributesRequest) -> EventLoopFuture<ElasticContainerModel.ListAttributesResponse>
 
     /**
-     Invokes the ListAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListAttributesRequest object being passed to this operation.
-     - Returns: The ListAttributesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: clusterNotFound, invalidParameter.
-     */
-    func listAttributesSync(
-            input: ElasticContainerModel.ListAttributesRequest) throws -> ElasticContainerModel.ListAttributesResponse
-
-    /**
-     Invokes the ListClusters operation returning immediately and passing the response to a callback.
+     Invokes the ListClusters operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListClustersRequest object being passed to this operation.
-         - completion: The ListClustersResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListClustersResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListClustersResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func listClustersAsync(
-            input: ElasticContainerModel.ListClustersRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListClustersResponse, ElasticContainerError>) -> ()) throws
+    func listClusters(
+            input: ElasticContainerModel.ListClustersRequest) -> EventLoopFuture<ElasticContainerModel.ListClustersResponse>
 
     /**
-     Invokes the ListClusters operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListClustersRequest object being passed to this operation.
-     - Returns: The ListClustersResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func listClustersSync(
-            input: ElasticContainerModel.ListClustersRequest) throws -> ElasticContainerModel.ListClustersResponse
-
-    /**
-     Invokes the ListContainerInstances operation returning immediately and passing the response to a callback.
+     Invokes the ListContainerInstances operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListContainerInstancesRequest object being passed to this operation.
-         - completion: The ListContainerInstancesResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListContainerInstancesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListContainerInstancesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func listContainerInstancesAsync(
-            input: ElasticContainerModel.ListContainerInstancesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListContainerInstancesResponse, ElasticContainerError>) -> ()) throws
+    func listContainerInstances(
+            input: ElasticContainerModel.ListContainerInstancesRequest) -> EventLoopFuture<ElasticContainerModel.ListContainerInstancesResponse>
 
     /**
-     Invokes the ListContainerInstances operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListContainerInstancesRequest object being passed to this operation.
-     - Returns: The ListContainerInstancesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func listContainerInstancesSync(
-            input: ElasticContainerModel.ListContainerInstancesRequest) throws -> ElasticContainerModel.ListContainerInstancesResponse
-
-    /**
-     Invokes the ListServices operation returning immediately and passing the response to a callback.
+     Invokes the ListServices operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListServicesRequest object being passed to this operation.
-         - completion: The ListServicesResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListServicesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListServicesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func listServicesAsync(
-            input: ElasticContainerModel.ListServicesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListServicesResponse, ElasticContainerError>) -> ()) throws
+    func listServices(
+            input: ElasticContainerModel.ListServicesRequest) -> EventLoopFuture<ElasticContainerModel.ListServicesResponse>
 
     /**
-     Invokes the ListServices operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListServicesRequest object being passed to this operation.
-     - Returns: The ListServicesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func listServicesSync(
-            input: ElasticContainerModel.ListServicesRequest) throws -> ElasticContainerModel.ListServicesResponse
-
-    /**
-     Invokes the ListTagsForResource operation returning immediately and passing the response to a callback.
+     Invokes the ListTagsForResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTagsForResourceRequest object being passed to this operation.
-         - completion: The ListTagsForResourceResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListTagsForResourceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTagsForResourceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func listTagsForResourceAsync(
-            input: ElasticContainerModel.ListTagsForResourceRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListTagsForResourceResponse, ElasticContainerError>) -> ()) throws
+    func listTagsForResource(
+            input: ElasticContainerModel.ListTagsForResourceRequest) -> EventLoopFuture<ElasticContainerModel.ListTagsForResourceResponse>
 
     /**
-     Invokes the ListTagsForResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTagsForResourceRequest object being passed to this operation.
-     - Returns: The ListTagsForResourceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func listTagsForResourceSync(
-            input: ElasticContainerModel.ListTagsForResourceRequest) throws -> ElasticContainerModel.ListTagsForResourceResponse
-
-    /**
-     Invokes the ListTaskDefinitionFamilies operation returning immediately and passing the response to a callback.
+     Invokes the ListTaskDefinitionFamilies operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTaskDefinitionFamiliesRequest object being passed to this operation.
-         - completion: The ListTaskDefinitionFamiliesResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListTaskDefinitionFamiliesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTaskDefinitionFamiliesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func listTaskDefinitionFamiliesAsync(
-            input: ElasticContainerModel.ListTaskDefinitionFamiliesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListTaskDefinitionFamiliesResponse, ElasticContainerError>) -> ()) throws
+    func listTaskDefinitionFamilies(
+            input: ElasticContainerModel.ListTaskDefinitionFamiliesRequest) -> EventLoopFuture<ElasticContainerModel.ListTaskDefinitionFamiliesResponse>
 
     /**
-     Invokes the ListTaskDefinitionFamilies operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTaskDefinitionFamiliesRequest object being passed to this operation.
-     - Returns: The ListTaskDefinitionFamiliesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func listTaskDefinitionFamiliesSync(
-            input: ElasticContainerModel.ListTaskDefinitionFamiliesRequest) throws -> ElasticContainerModel.ListTaskDefinitionFamiliesResponse
-
-    /**
-     Invokes the ListTaskDefinitions operation returning immediately and passing the response to a callback.
+     Invokes the ListTaskDefinitions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTaskDefinitionsRequest object being passed to this operation.
-         - completion: The ListTaskDefinitionsResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListTaskDefinitionsResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTaskDefinitionsResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func listTaskDefinitionsAsync(
-            input: ElasticContainerModel.ListTaskDefinitionsRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListTaskDefinitionsResponse, ElasticContainerError>) -> ()) throws
+    func listTaskDefinitions(
+            input: ElasticContainerModel.ListTaskDefinitionsRequest) -> EventLoopFuture<ElasticContainerModel.ListTaskDefinitionsResponse>
 
     /**
-     Invokes the ListTaskDefinitions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTaskDefinitionsRequest object being passed to this operation.
-     - Returns: The ListTaskDefinitionsResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func listTaskDefinitionsSync(
-            input: ElasticContainerModel.ListTaskDefinitionsRequest) throws -> ElasticContainerModel.ListTaskDefinitionsResponse
-
-    /**
-     Invokes the ListTasks operation returning immediately and passing the response to a callback.
+     Invokes the ListTasks operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTasksRequest object being passed to this operation.
-         - completion: The ListTasksResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListTasksResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTasksResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server, serviceNotFound.
      */
-    func listTasksAsync(
-            input: ElasticContainerModel.ListTasksRequest, 
-            completion: @escaping (Result<ElasticContainerModel.ListTasksResponse, ElasticContainerError>) -> ()) throws
+    func listTasks(
+            input: ElasticContainerModel.ListTasksRequest) -> EventLoopFuture<ElasticContainerModel.ListTasksResponse>
 
     /**
-     Invokes the ListTasks operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTasksRequest object being passed to this operation.
-     - Returns: The ListTasksResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server, serviceNotFound.
-     */
-    func listTasksSync(
-            input: ElasticContainerModel.ListTasksRequest) throws -> ElasticContainerModel.ListTasksResponse
-
-    /**
-     Invokes the PutAccountSetting operation returning immediately and passing the response to a callback.
+     Invokes the PutAccountSetting operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutAccountSettingRequest object being passed to this operation.
-         - completion: The PutAccountSettingResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutAccountSettingResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutAccountSettingResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func putAccountSettingAsync(
-            input: ElasticContainerModel.PutAccountSettingRequest, 
-            completion: @escaping (Result<ElasticContainerModel.PutAccountSettingResponse, ElasticContainerError>) -> ()) throws
+    func putAccountSetting(
+            input: ElasticContainerModel.PutAccountSettingRequest) -> EventLoopFuture<ElasticContainerModel.PutAccountSettingResponse>
 
     /**
-     Invokes the PutAccountSetting operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutAccountSettingRequest object being passed to this operation.
-     - Returns: The PutAccountSettingResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func putAccountSettingSync(
-            input: ElasticContainerModel.PutAccountSettingRequest) throws -> ElasticContainerModel.PutAccountSettingResponse
-
-    /**
-     Invokes the PutAccountSettingDefault operation returning immediately and passing the response to a callback.
+     Invokes the PutAccountSettingDefault operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutAccountSettingDefaultRequest object being passed to this operation.
-         - completion: The PutAccountSettingDefaultResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutAccountSettingDefaultResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutAccountSettingDefaultResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func putAccountSettingDefaultAsync(
-            input: ElasticContainerModel.PutAccountSettingDefaultRequest, 
-            completion: @escaping (Result<ElasticContainerModel.PutAccountSettingDefaultResponse, ElasticContainerError>) -> ()) throws
+    func putAccountSettingDefault(
+            input: ElasticContainerModel.PutAccountSettingDefaultRequest) -> EventLoopFuture<ElasticContainerModel.PutAccountSettingDefaultResponse>
 
     /**
-     Invokes the PutAccountSettingDefault operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutAccountSettingDefaultRequest object being passed to this operation.
-     - Returns: The PutAccountSettingDefaultResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func putAccountSettingDefaultSync(
-            input: ElasticContainerModel.PutAccountSettingDefaultRequest) throws -> ElasticContainerModel.PutAccountSettingDefaultResponse
-
-    /**
-     Invokes the PutAttributes operation returning immediately and passing the response to a callback.
+     Invokes the PutAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutAttributesRequest object being passed to this operation.
-         - completion: The PutAttributesResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutAttributesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutAttributesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: attributeLimitExceeded, clusterNotFound, invalidParameter, targetNotFound.
      */
-    func putAttributesAsync(
-            input: ElasticContainerModel.PutAttributesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.PutAttributesResponse, ElasticContainerError>) -> ()) throws
+    func putAttributes(
+            input: ElasticContainerModel.PutAttributesRequest) -> EventLoopFuture<ElasticContainerModel.PutAttributesResponse>
 
     /**
-     Invokes the PutAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutAttributesRequest object being passed to this operation.
-     - Returns: The PutAttributesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: attributeLimitExceeded, clusterNotFound, invalidParameter, targetNotFound.
-     */
-    func putAttributesSync(
-            input: ElasticContainerModel.PutAttributesRequest) throws -> ElasticContainerModel.PutAttributesResponse
-
-    /**
-     Invokes the PutClusterCapacityProviders operation returning immediately and passing the response to a callback.
+     Invokes the PutClusterCapacityProviders operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutClusterCapacityProvidersRequest object being passed to this operation.
-         - completion: The PutClusterCapacityProvidersResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutClusterCapacityProvidersResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutClusterCapacityProvidersResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, resourceInUse, server, updateInProgress.
      */
-    func putClusterCapacityProvidersAsync(
-            input: ElasticContainerModel.PutClusterCapacityProvidersRequest, 
-            completion: @escaping (Result<ElasticContainerModel.PutClusterCapacityProvidersResponse, ElasticContainerError>) -> ()) throws
+    func putClusterCapacityProviders(
+            input: ElasticContainerModel.PutClusterCapacityProvidersRequest) -> EventLoopFuture<ElasticContainerModel.PutClusterCapacityProvidersResponse>
 
     /**
-     Invokes the PutClusterCapacityProviders operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutClusterCapacityProvidersRequest object being passed to this operation.
-     - Returns: The PutClusterCapacityProvidersResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, resourceInUse, server, updateInProgress.
-     */
-    func putClusterCapacityProvidersSync(
-            input: ElasticContainerModel.PutClusterCapacityProvidersRequest) throws -> ElasticContainerModel.PutClusterCapacityProvidersResponse
-
-    /**
-     Invokes the RegisterContainerInstance operation returning immediately and passing the response to a callback.
+     Invokes the RegisterContainerInstance operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RegisterContainerInstanceRequest object being passed to this operation.
-         - completion: The RegisterContainerInstanceResponse object or an error will be passed to this 
-           callback when the operation is complete. The RegisterContainerInstanceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the RegisterContainerInstanceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func registerContainerInstanceAsync(
-            input: ElasticContainerModel.RegisterContainerInstanceRequest, 
-            completion: @escaping (Result<ElasticContainerModel.RegisterContainerInstanceResponse, ElasticContainerError>) -> ()) throws
+    func registerContainerInstance(
+            input: ElasticContainerModel.RegisterContainerInstanceRequest) -> EventLoopFuture<ElasticContainerModel.RegisterContainerInstanceResponse>
 
     /**
-     Invokes the RegisterContainerInstance operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RegisterContainerInstanceRequest object being passed to this operation.
-     - Returns: The RegisterContainerInstanceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func registerContainerInstanceSync(
-            input: ElasticContainerModel.RegisterContainerInstanceRequest) throws -> ElasticContainerModel.RegisterContainerInstanceResponse
-
-    /**
-     Invokes the RegisterTaskDefinition operation returning immediately and passing the response to a callback.
+     Invokes the RegisterTaskDefinition operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RegisterTaskDefinitionRequest object being passed to this operation.
-         - completion: The RegisterTaskDefinitionResponse object or an error will be passed to this 
-           callback when the operation is complete. The RegisterTaskDefinitionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the RegisterTaskDefinitionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func registerTaskDefinitionAsync(
-            input: ElasticContainerModel.RegisterTaskDefinitionRequest, 
-            completion: @escaping (Result<ElasticContainerModel.RegisterTaskDefinitionResponse, ElasticContainerError>) -> ()) throws
+    func registerTaskDefinition(
+            input: ElasticContainerModel.RegisterTaskDefinitionRequest) -> EventLoopFuture<ElasticContainerModel.RegisterTaskDefinitionResponse>
 
     /**
-     Invokes the RegisterTaskDefinition operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RegisterTaskDefinitionRequest object being passed to this operation.
-     - Returns: The RegisterTaskDefinitionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func registerTaskDefinitionSync(
-            input: ElasticContainerModel.RegisterTaskDefinitionRequest) throws -> ElasticContainerModel.RegisterTaskDefinitionResponse
-
-    /**
-     Invokes the RunTask operation returning immediately and passing the response to a callback.
+     Invokes the RunTask operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RunTaskRequest object being passed to this operation.
-         - completion: The RunTaskResponse object or an error will be passed to this 
-           callback when the operation is complete. The RunTaskResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the RunTaskResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, blocked, client, clusterNotFound, invalidParameter, platformTaskDefinitionIncompatibility, platformUnknown, server, unsupportedFeature.
      */
-    func runTaskAsync(
-            input: ElasticContainerModel.RunTaskRequest, 
-            completion: @escaping (Result<ElasticContainerModel.RunTaskResponse, ElasticContainerError>) -> ()) throws
+    func runTask(
+            input: ElasticContainerModel.RunTaskRequest) -> EventLoopFuture<ElasticContainerModel.RunTaskResponse>
 
     /**
-     Invokes the RunTask operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RunTaskRequest object being passed to this operation.
-     - Returns: The RunTaskResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, blocked, client, clusterNotFound, invalidParameter, platformTaskDefinitionIncompatibility, platformUnknown, server, unsupportedFeature.
-     */
-    func runTaskSync(
-            input: ElasticContainerModel.RunTaskRequest) throws -> ElasticContainerModel.RunTaskResponse
-
-    /**
-     Invokes the StartTask operation returning immediately and passing the response to a callback.
+     Invokes the StartTask operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated StartTaskRequest object being passed to this operation.
-         - completion: The StartTaskResponse object or an error will be passed to this 
-           callback when the operation is complete. The StartTaskResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the StartTaskResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func startTaskAsync(
-            input: ElasticContainerModel.StartTaskRequest, 
-            completion: @escaping (Result<ElasticContainerModel.StartTaskResponse, ElasticContainerError>) -> ()) throws
+    func startTask(
+            input: ElasticContainerModel.StartTaskRequest) -> EventLoopFuture<ElasticContainerModel.StartTaskResponse>
 
     /**
-     Invokes the StartTask operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated StartTaskRequest object being passed to this operation.
-     - Returns: The StartTaskResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func startTaskSync(
-            input: ElasticContainerModel.StartTaskRequest) throws -> ElasticContainerModel.StartTaskResponse
-
-    /**
-     Invokes the StopTask operation returning immediately and passing the response to a callback.
+     Invokes the StopTask operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated StopTaskRequest object being passed to this operation.
-         - completion: The StopTaskResponse object or an error will be passed to this 
-           callback when the operation is complete. The StopTaskResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the StopTaskResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func stopTaskAsync(
-            input: ElasticContainerModel.StopTaskRequest, 
-            completion: @escaping (Result<ElasticContainerModel.StopTaskResponse, ElasticContainerError>) -> ()) throws
+    func stopTask(
+            input: ElasticContainerModel.StopTaskRequest) -> EventLoopFuture<ElasticContainerModel.StopTaskResponse>
 
     /**
-     Invokes the StopTask operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated StopTaskRequest object being passed to this operation.
-     - Returns: The StopTaskResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func stopTaskSync(
-            input: ElasticContainerModel.StopTaskRequest) throws -> ElasticContainerModel.StopTaskResponse
-
-    /**
-     Invokes the SubmitAttachmentStateChanges operation returning immediately and passing the response to a callback.
+     Invokes the SubmitAttachmentStateChanges operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SubmitAttachmentStateChangesRequest object being passed to this operation.
-         - completion: The SubmitAttachmentStateChangesResponse object or an error will be passed to this 
-           callback when the operation is complete. The SubmitAttachmentStateChangesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the SubmitAttachmentStateChangesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, invalidParameter, server.
      */
-    func submitAttachmentStateChangesAsync(
-            input: ElasticContainerModel.SubmitAttachmentStateChangesRequest, 
-            completion: @escaping (Result<ElasticContainerModel.SubmitAttachmentStateChangesResponse, ElasticContainerError>) -> ()) throws
+    func submitAttachmentStateChanges(
+            input: ElasticContainerModel.SubmitAttachmentStateChangesRequest) -> EventLoopFuture<ElasticContainerModel.SubmitAttachmentStateChangesResponse>
 
     /**
-     Invokes the SubmitAttachmentStateChanges operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SubmitAttachmentStateChangesRequest object being passed to this operation.
-     - Returns: The SubmitAttachmentStateChangesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, invalidParameter, server.
-     */
-    func submitAttachmentStateChangesSync(
-            input: ElasticContainerModel.SubmitAttachmentStateChangesRequest) throws -> ElasticContainerModel.SubmitAttachmentStateChangesResponse
-
-    /**
-     Invokes the SubmitContainerStateChange operation returning immediately and passing the response to a callback.
+     Invokes the SubmitContainerStateChange operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SubmitContainerStateChangeRequest object being passed to this operation.
-         - completion: The SubmitContainerStateChangeResponse object or an error will be passed to this 
-           callback when the operation is complete. The SubmitContainerStateChangeResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the SubmitContainerStateChangeResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, server.
      */
-    func submitContainerStateChangeAsync(
-            input: ElasticContainerModel.SubmitContainerStateChangeRequest, 
-            completion: @escaping (Result<ElasticContainerModel.SubmitContainerStateChangeResponse, ElasticContainerError>) -> ()) throws
+    func submitContainerStateChange(
+            input: ElasticContainerModel.SubmitContainerStateChangeRequest) -> EventLoopFuture<ElasticContainerModel.SubmitContainerStateChangeResponse>
 
     /**
-     Invokes the SubmitContainerStateChange operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SubmitContainerStateChangeRequest object being passed to this operation.
-     - Returns: The SubmitContainerStateChangeResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, server.
-     */
-    func submitContainerStateChangeSync(
-            input: ElasticContainerModel.SubmitContainerStateChangeRequest) throws -> ElasticContainerModel.SubmitContainerStateChangeResponse
-
-    /**
-     Invokes the SubmitTaskStateChange operation returning immediately and passing the response to a callback.
+     Invokes the SubmitTaskStateChange operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SubmitTaskStateChangeRequest object being passed to this operation.
-         - completion: The SubmitTaskStateChangeResponse object or an error will be passed to this 
-           callback when the operation is complete. The SubmitTaskStateChangeResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the SubmitTaskStateChangeResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, invalidParameter, server.
      */
-    func submitTaskStateChangeAsync(
-            input: ElasticContainerModel.SubmitTaskStateChangeRequest, 
-            completion: @escaping (Result<ElasticContainerModel.SubmitTaskStateChangeResponse, ElasticContainerError>) -> ()) throws
+    func submitTaskStateChange(
+            input: ElasticContainerModel.SubmitTaskStateChangeRequest) -> EventLoopFuture<ElasticContainerModel.SubmitTaskStateChangeResponse>
 
     /**
-     Invokes the SubmitTaskStateChange operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SubmitTaskStateChangeRequest object being passed to this operation.
-     - Returns: The SubmitTaskStateChangeResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, invalidParameter, server.
-     */
-    func submitTaskStateChangeSync(
-            input: ElasticContainerModel.SubmitTaskStateChangeRequest) throws -> ElasticContainerModel.SubmitTaskStateChangeResponse
-
-    /**
-     Invokes the TagResource operation returning immediately and passing the response to a callback.
+     Invokes the TagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagResourceRequest object being passed to this operation.
-         - completion: The TagResourceResponse object or an error will be passed to this 
-           callback when the operation is complete. The TagResourceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the TagResourceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, resourceNotFound, server.
      */
-    func tagResourceAsync(
-            input: ElasticContainerModel.TagResourceRequest, 
-            completion: @escaping (Result<ElasticContainerModel.TagResourceResponse, ElasticContainerError>) -> ()) throws
+    func tagResource(
+            input: ElasticContainerModel.TagResourceRequest) -> EventLoopFuture<ElasticContainerModel.TagResourceResponse>
 
     /**
-     Invokes the TagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TagResourceRequest object being passed to this operation.
-     - Returns: The TagResourceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, resourceNotFound, server.
-     */
-    func tagResourceSync(
-            input: ElasticContainerModel.TagResourceRequest) throws -> ElasticContainerModel.TagResourceResponse
-
-    /**
-     Invokes the UntagResource operation returning immediately and passing the response to a callback.
+     Invokes the UntagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagResourceRequest object being passed to this operation.
-         - completion: The UntagResourceResponse object or an error will be passed to this 
-           callback when the operation is complete. The UntagResourceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UntagResourceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, resourceNotFound, server.
      */
-    func untagResourceAsync(
-            input: ElasticContainerModel.UntagResourceRequest, 
-            completion: @escaping (Result<ElasticContainerModel.UntagResourceResponse, ElasticContainerError>) -> ()) throws
+    func untagResource(
+            input: ElasticContainerModel.UntagResourceRequest) -> EventLoopFuture<ElasticContainerModel.UntagResourceResponse>
 
     /**
-     Invokes the UntagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UntagResourceRequest object being passed to this operation.
-     - Returns: The UntagResourceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, resourceNotFound, server.
-     */
-    func untagResourceSync(
-            input: ElasticContainerModel.UntagResourceRequest) throws -> ElasticContainerModel.UntagResourceResponse
-
-    /**
-     Invokes the UpdateCapacityProvider operation returning immediately and passing the response to a callback.
+     Invokes the UpdateCapacityProvider operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateCapacityProviderRequest object being passed to this operation.
-         - completion: The UpdateCapacityProviderResponse object or an error will be passed to this 
-           callback when the operation is complete. The UpdateCapacityProviderResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateCapacityProviderResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, invalidParameter, server.
      */
-    func updateCapacityProviderAsync(
-            input: ElasticContainerModel.UpdateCapacityProviderRequest, 
-            completion: @escaping (Result<ElasticContainerModel.UpdateCapacityProviderResponse, ElasticContainerError>) -> ()) throws
+    func updateCapacityProvider(
+            input: ElasticContainerModel.UpdateCapacityProviderRequest) -> EventLoopFuture<ElasticContainerModel.UpdateCapacityProviderResponse>
 
     /**
-     Invokes the UpdateCapacityProvider operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateCapacityProviderRequest object being passed to this operation.
-     - Returns: The UpdateCapacityProviderResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, invalidParameter, server.
-     */
-    func updateCapacityProviderSync(
-            input: ElasticContainerModel.UpdateCapacityProviderRequest) throws -> ElasticContainerModel.UpdateCapacityProviderResponse
-
-    /**
-     Invokes the UpdateClusterSettings operation returning immediately and passing the response to a callback.
+     Invokes the UpdateClusterSettings operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateClusterSettingsRequest object being passed to this operation.
-         - completion: The UpdateClusterSettingsResponse object or an error will be passed to this 
-           callback when the operation is complete. The UpdateClusterSettingsResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateClusterSettingsResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func updateClusterSettingsAsync(
-            input: ElasticContainerModel.UpdateClusterSettingsRequest, 
-            completion: @escaping (Result<ElasticContainerModel.UpdateClusterSettingsResponse, ElasticContainerError>) -> ()) throws
+    func updateClusterSettings(
+            input: ElasticContainerModel.UpdateClusterSettingsRequest) -> EventLoopFuture<ElasticContainerModel.UpdateClusterSettingsResponse>
 
     /**
-     Invokes the UpdateClusterSettings operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateClusterSettingsRequest object being passed to this operation.
-     - Returns: The UpdateClusterSettingsResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func updateClusterSettingsSync(
-            input: ElasticContainerModel.UpdateClusterSettingsRequest) throws -> ElasticContainerModel.UpdateClusterSettingsResponse
-
-    /**
-     Invokes the UpdateContainerAgent operation returning immediately and passing the response to a callback.
+     Invokes the UpdateContainerAgent operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateContainerAgentRequest object being passed to this operation.
-         - completion: The UpdateContainerAgentResponse object or an error will be passed to this 
-           callback when the operation is complete. The UpdateContainerAgentResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateContainerAgentResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, missingVersion, noUpdateAvailable, server, updateInProgress.
      */
-    func updateContainerAgentAsync(
-            input: ElasticContainerModel.UpdateContainerAgentRequest, 
-            completion: @escaping (Result<ElasticContainerModel.UpdateContainerAgentResponse, ElasticContainerError>) -> ()) throws
+    func updateContainerAgent(
+            input: ElasticContainerModel.UpdateContainerAgentRequest) -> EventLoopFuture<ElasticContainerModel.UpdateContainerAgentResponse>
 
     /**
-     Invokes the UpdateContainerAgent operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateContainerAgentRequest object being passed to this operation.
-     - Returns: The UpdateContainerAgentResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, missingVersion, noUpdateAvailable, server, updateInProgress.
-     */
-    func updateContainerAgentSync(
-            input: ElasticContainerModel.UpdateContainerAgentRequest) throws -> ElasticContainerModel.UpdateContainerAgentResponse
-
-    /**
-     Invokes the UpdateContainerInstancesState operation returning immediately and passing the response to a callback.
+     Invokes the UpdateContainerInstancesState operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateContainerInstancesStateRequest object being passed to this operation.
-         - completion: The UpdateContainerInstancesStateResponse object or an error will be passed to this 
-           callback when the operation is complete. The UpdateContainerInstancesStateResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateContainerInstancesStateResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: client, clusterNotFound, invalidParameter, server.
      */
-    func updateContainerInstancesStateAsync(
-            input: ElasticContainerModel.UpdateContainerInstancesStateRequest, 
-            completion: @escaping (Result<ElasticContainerModel.UpdateContainerInstancesStateResponse, ElasticContainerError>) -> ()) throws
+    func updateContainerInstancesState(
+            input: ElasticContainerModel.UpdateContainerInstancesStateRequest) -> EventLoopFuture<ElasticContainerModel.UpdateContainerInstancesStateResponse>
 
     /**
-     Invokes the UpdateContainerInstancesState operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateContainerInstancesStateRequest object being passed to this operation.
-     - Returns: The UpdateContainerInstancesStateResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: client, clusterNotFound, invalidParameter, server.
-     */
-    func updateContainerInstancesStateSync(
-            input: ElasticContainerModel.UpdateContainerInstancesStateRequest) throws -> ElasticContainerModel.UpdateContainerInstancesStateResponse
-
-    /**
-     Invokes the UpdateService operation returning immediately and passing the response to a callback.
+     Invokes the UpdateService operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateServiceRequest object being passed to this operation.
-         - completion: The UpdateServiceResponse object or an error will be passed to this 
-           callback when the operation is complete. The UpdateServiceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateServiceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, clusterNotFound, invalidParameter, platformTaskDefinitionIncompatibility, platformUnknown, server, serviceNotActive, serviceNotFound.
      */
-    func updateServiceAsync(
-            input: ElasticContainerModel.UpdateServiceRequest, 
-            completion: @escaping (Result<ElasticContainerModel.UpdateServiceResponse, ElasticContainerError>) -> ()) throws
+    func updateService(
+            input: ElasticContainerModel.UpdateServiceRequest) -> EventLoopFuture<ElasticContainerModel.UpdateServiceResponse>
 
     /**
-     Invokes the UpdateService operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateServiceRequest object being passed to this operation.
-     - Returns: The UpdateServiceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, clusterNotFound, invalidParameter, platformTaskDefinitionIncompatibility, platformUnknown, server, serviceNotActive, serviceNotFound.
-     */
-    func updateServiceSync(
-            input: ElasticContainerModel.UpdateServiceRequest) throws -> ElasticContainerModel.UpdateServiceResponse
-
-    /**
-     Invokes the UpdateServicePrimaryTaskSet operation returning immediately and passing the response to a callback.
+     Invokes the UpdateServicePrimaryTaskSet operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateServicePrimaryTaskSetRequest object being passed to this operation.
-         - completion: The UpdateServicePrimaryTaskSetResponse object or an error will be passed to this 
-           callback when the operation is complete. The UpdateServicePrimaryTaskSetResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateServicePrimaryTaskSetResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, clusterNotFound, invalidParameter, server, serviceNotActive, serviceNotFound, taskSetNotFound, unsupportedFeature.
      */
-    func updateServicePrimaryTaskSetAsync(
-            input: ElasticContainerModel.UpdateServicePrimaryTaskSetRequest, 
-            completion: @escaping (Result<ElasticContainerModel.UpdateServicePrimaryTaskSetResponse, ElasticContainerError>) -> ()) throws
+    func updateServicePrimaryTaskSet(
+            input: ElasticContainerModel.UpdateServicePrimaryTaskSetRequest) -> EventLoopFuture<ElasticContainerModel.UpdateServicePrimaryTaskSetResponse>
 
     /**
-     Invokes the UpdateServicePrimaryTaskSet operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateServicePrimaryTaskSetRequest object being passed to this operation.
-     - Returns: The UpdateServicePrimaryTaskSetResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, clusterNotFound, invalidParameter, server, serviceNotActive, serviceNotFound, taskSetNotFound, unsupportedFeature.
-     */
-    func updateServicePrimaryTaskSetSync(
-            input: ElasticContainerModel.UpdateServicePrimaryTaskSetRequest) throws -> ElasticContainerModel.UpdateServicePrimaryTaskSetResponse
-
-    /**
-     Invokes the UpdateTaskSet operation returning immediately and passing the response to a callback.
+     Invokes the UpdateTaskSet operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateTaskSetRequest object being passed to this operation.
-         - completion: The UpdateTaskSetResponse object or an error will be passed to this 
-           callback when the operation is complete. The UpdateTaskSetResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateTaskSetResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: accessDenied, client, clusterNotFound, invalidParameter, server, serviceNotActive, serviceNotFound, taskSetNotFound, unsupportedFeature.
      */
-    func updateTaskSetAsync(
-            input: ElasticContainerModel.UpdateTaskSetRequest, 
-            completion: @escaping (Result<ElasticContainerModel.UpdateTaskSetResponse, ElasticContainerError>) -> ()) throws
-
-    /**
-     Invokes the UpdateTaskSet operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateTaskSetRequest object being passed to this operation.
-     - Returns: The UpdateTaskSetResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: accessDenied, client, clusterNotFound, invalidParameter, server, serviceNotActive, serviceNotFound, taskSetNotFound, unsupportedFeature.
-     */
-    func updateTaskSetSync(
-            input: ElasticContainerModel.UpdateTaskSetRequest) throws -> ElasticContainerModel.UpdateTaskSetResponse
+    func updateTaskSet(
+            input: ElasticContainerModel.UpdateTaskSetRequest) -> EventLoopFuture<ElasticContainerModel.UpdateTaskSetResponse>
 }

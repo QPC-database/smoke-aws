@@ -24,2668 +24,1179 @@ import Foundation
 import S3Model
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Client Protocol for the S3 service.
  */
 public protocol S3ClientProtocol {
-    typealias AbortMultipartUploadSyncType = (
-            _ input: S3Model.AbortMultipartUploadRequest) throws -> S3Model.AbortMultipartUploadOutput
-    typealias AbortMultipartUploadAsyncType = (
-            _ input: S3Model.AbortMultipartUploadRequest, 
-            _ completion: @escaping (Result<S3Model.AbortMultipartUploadOutput, S3Error>) -> ()) throws -> ()
-    typealias CompleteMultipartUploadSyncType = (
-            _ input: S3Model.CompleteMultipartUploadRequest) throws -> S3Model.CompleteMultipartUploadOutput
-    typealias CompleteMultipartUploadAsyncType = (
-            _ input: S3Model.CompleteMultipartUploadRequest, 
-            _ completion: @escaping (Result<S3Model.CompleteMultipartUploadOutput, S3Error>) -> ()) throws -> ()
-    typealias CopyObjectSyncType = (
-            _ input: S3Model.CopyObjectRequest) throws -> S3Model.CopyObjectOutput
-    typealias CopyObjectAsyncType = (
-            _ input: S3Model.CopyObjectRequest, 
-            _ completion: @escaping (Result<S3Model.CopyObjectOutput, S3Error>) -> ()) throws -> ()
-    typealias CreateBucketSyncType = (
-            _ input: S3Model.CreateBucketRequest) throws -> S3Model.CreateBucketOutput
-    typealias CreateBucketAsyncType = (
-            _ input: S3Model.CreateBucketRequest, 
-            _ completion: @escaping (Result<S3Model.CreateBucketOutput, S3Error>) -> ()) throws -> ()
-    typealias CreateMultipartUploadSyncType = (
-            _ input: S3Model.CreateMultipartUploadRequest) throws -> S3Model.CreateMultipartUploadOutput
-    typealias CreateMultipartUploadAsyncType = (
-            _ input: S3Model.CreateMultipartUploadRequest, 
-            _ completion: @escaping (Result<S3Model.CreateMultipartUploadOutput, S3Error>) -> ()) throws -> ()
-    typealias DeleteBucketSyncType = (
-            _ input: S3Model.DeleteBucketRequest) throws -> ()
-    typealias DeleteBucketAsyncType = (
-            _ input: S3Model.DeleteBucketRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketAnalyticsConfigurationSyncType = (
-            _ input: S3Model.DeleteBucketAnalyticsConfigurationRequest) throws -> ()
-    typealias DeleteBucketAnalyticsConfigurationAsyncType = (
-            _ input: S3Model.DeleteBucketAnalyticsConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketCorsSyncType = (
-            _ input: S3Model.DeleteBucketCorsRequest) throws -> ()
-    typealias DeleteBucketCorsAsyncType = (
-            _ input: S3Model.DeleteBucketCorsRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketEncryptionSyncType = (
-            _ input: S3Model.DeleteBucketEncryptionRequest) throws -> ()
-    typealias DeleteBucketEncryptionAsyncType = (
-            _ input: S3Model.DeleteBucketEncryptionRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketIntelligentTieringConfigurationSyncType = (
-            _ input: S3Model.DeleteBucketIntelligentTieringConfigurationRequest) throws -> ()
-    typealias DeleteBucketIntelligentTieringConfigurationAsyncType = (
-            _ input: S3Model.DeleteBucketIntelligentTieringConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketInventoryConfigurationSyncType = (
-            _ input: S3Model.DeleteBucketInventoryConfigurationRequest) throws -> ()
-    typealias DeleteBucketInventoryConfigurationAsyncType = (
-            _ input: S3Model.DeleteBucketInventoryConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketLifecycleSyncType = (
-            _ input: S3Model.DeleteBucketLifecycleRequest) throws -> ()
-    typealias DeleteBucketLifecycleAsyncType = (
-            _ input: S3Model.DeleteBucketLifecycleRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketMetricsConfigurationSyncType = (
-            _ input: S3Model.DeleteBucketMetricsConfigurationRequest) throws -> ()
-    typealias DeleteBucketMetricsConfigurationAsyncType = (
-            _ input: S3Model.DeleteBucketMetricsConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketOwnershipControlsSyncType = (
-            _ input: S3Model.DeleteBucketOwnershipControlsRequest) throws -> ()
-    typealias DeleteBucketOwnershipControlsAsyncType = (
-            _ input: S3Model.DeleteBucketOwnershipControlsRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketPolicySyncType = (
-            _ input: S3Model.DeleteBucketPolicyRequest) throws -> ()
-    typealias DeleteBucketPolicyAsyncType = (
-            _ input: S3Model.DeleteBucketPolicyRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketReplicationSyncType = (
-            _ input: S3Model.DeleteBucketReplicationRequest) throws -> ()
-    typealias DeleteBucketReplicationAsyncType = (
-            _ input: S3Model.DeleteBucketReplicationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketTaggingSyncType = (
-            _ input: S3Model.DeleteBucketTaggingRequest) throws -> ()
-    typealias DeleteBucketTaggingAsyncType = (
-            _ input: S3Model.DeleteBucketTaggingRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteBucketWebsiteSyncType = (
-            _ input: S3Model.DeleteBucketWebsiteRequest) throws -> ()
-    typealias DeleteBucketWebsiteAsyncType = (
-            _ input: S3Model.DeleteBucketWebsiteRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias DeleteObjectSyncType = (
-            _ input: S3Model.DeleteObjectRequest) throws -> S3Model.DeleteObjectOutput
-    typealias DeleteObjectAsyncType = (
-            _ input: S3Model.DeleteObjectRequest, 
-            _ completion: @escaping (Result<S3Model.DeleteObjectOutput, S3Error>) -> ()) throws -> ()
-    typealias DeleteObjectTaggingSyncType = (
-            _ input: S3Model.DeleteObjectTaggingRequest) throws -> S3Model.DeleteObjectTaggingOutput
-    typealias DeleteObjectTaggingAsyncType = (
-            _ input: S3Model.DeleteObjectTaggingRequest, 
-            _ completion: @escaping (Result<S3Model.DeleteObjectTaggingOutput, S3Error>) -> ()) throws -> ()
-    typealias DeleteObjectsSyncType = (
-            _ input: S3Model.DeleteObjectsRequest) throws -> S3Model.DeleteObjectsOutput
-    typealias DeleteObjectsAsyncType = (
-            _ input: S3Model.DeleteObjectsRequest, 
-            _ completion: @escaping (Result<S3Model.DeleteObjectsOutput, S3Error>) -> ()) throws -> ()
-    typealias DeletePublicAccessBlockSyncType = (
-            _ input: S3Model.DeletePublicAccessBlockRequest) throws -> ()
-    typealias DeletePublicAccessBlockAsyncType = (
-            _ input: S3Model.DeletePublicAccessBlockRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias GetBucketAccelerateConfigurationSyncType = (
-            _ input: S3Model.GetBucketAccelerateConfigurationRequest) throws -> S3Model.GetBucketAccelerateConfigurationOutput
-    typealias GetBucketAccelerateConfigurationAsyncType = (
-            _ input: S3Model.GetBucketAccelerateConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketAccelerateConfigurationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketAclSyncType = (
-            _ input: S3Model.GetBucketAclRequest) throws -> S3Model.GetBucketAclOutput
-    typealias GetBucketAclAsyncType = (
-            _ input: S3Model.GetBucketAclRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketAclOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketAnalyticsConfigurationSyncType = (
-            _ input: S3Model.GetBucketAnalyticsConfigurationRequest) throws -> S3Model.GetBucketAnalyticsConfigurationOutput
-    typealias GetBucketAnalyticsConfigurationAsyncType = (
-            _ input: S3Model.GetBucketAnalyticsConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketAnalyticsConfigurationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketCorsSyncType = (
-            _ input: S3Model.GetBucketCorsRequest) throws -> S3Model.GetBucketCorsOutput
-    typealias GetBucketCorsAsyncType = (
-            _ input: S3Model.GetBucketCorsRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketCorsOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketEncryptionSyncType = (
-            _ input: S3Model.GetBucketEncryptionRequest) throws -> S3Model.GetBucketEncryptionOutput
-    typealias GetBucketEncryptionAsyncType = (
-            _ input: S3Model.GetBucketEncryptionRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketEncryptionOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketIntelligentTieringConfigurationSyncType = (
-            _ input: S3Model.GetBucketIntelligentTieringConfigurationRequest) throws -> S3Model.GetBucketIntelligentTieringConfigurationOutput
-    typealias GetBucketIntelligentTieringConfigurationAsyncType = (
-            _ input: S3Model.GetBucketIntelligentTieringConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketIntelligentTieringConfigurationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketInventoryConfigurationSyncType = (
-            _ input: S3Model.GetBucketInventoryConfigurationRequest) throws -> S3Model.GetBucketInventoryConfigurationOutput
-    typealias GetBucketInventoryConfigurationAsyncType = (
-            _ input: S3Model.GetBucketInventoryConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketInventoryConfigurationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketLifecycleSyncType = (
-            _ input: S3Model.GetBucketLifecycleRequest) throws -> S3Model.GetBucketLifecycleOutput
-    typealias GetBucketLifecycleAsyncType = (
-            _ input: S3Model.GetBucketLifecycleRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketLifecycleOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketLifecycleConfigurationSyncType = (
-            _ input: S3Model.GetBucketLifecycleConfigurationRequest) throws -> S3Model.GetBucketLifecycleConfigurationOutput
-    typealias GetBucketLifecycleConfigurationAsyncType = (
-            _ input: S3Model.GetBucketLifecycleConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketLifecycleConfigurationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketLocationSyncType = (
-            _ input: S3Model.GetBucketLocationRequest) throws -> S3Model.GetBucketLocationOutput
-    typealias GetBucketLocationAsyncType = (
-            _ input: S3Model.GetBucketLocationRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketLocationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketLoggingSyncType = (
-            _ input: S3Model.GetBucketLoggingRequest) throws -> S3Model.GetBucketLoggingOutput
-    typealias GetBucketLoggingAsyncType = (
-            _ input: S3Model.GetBucketLoggingRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketLoggingOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketMetricsConfigurationSyncType = (
-            _ input: S3Model.GetBucketMetricsConfigurationRequest) throws -> S3Model.GetBucketMetricsConfigurationOutput
-    typealias GetBucketMetricsConfigurationAsyncType = (
-            _ input: S3Model.GetBucketMetricsConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketMetricsConfigurationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketNotificationSyncType = (
-            _ input: S3Model.GetBucketNotificationConfigurationRequest) throws -> S3Model.NotificationConfigurationDeprecated
-    typealias GetBucketNotificationAsyncType = (
-            _ input: S3Model.GetBucketNotificationConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.NotificationConfigurationDeprecated, S3Error>) -> ()) throws -> ()
-    typealias GetBucketNotificationConfigurationSyncType = (
-            _ input: S3Model.GetBucketNotificationConfigurationRequest) throws -> S3Model.NotificationConfiguration
-    typealias GetBucketNotificationConfigurationAsyncType = (
-            _ input: S3Model.GetBucketNotificationConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.NotificationConfiguration, S3Error>) -> ()) throws -> ()
-    typealias GetBucketOwnershipControlsSyncType = (
-            _ input: S3Model.GetBucketOwnershipControlsRequest) throws -> S3Model.GetBucketOwnershipControlsOutput
-    typealias GetBucketOwnershipControlsAsyncType = (
-            _ input: S3Model.GetBucketOwnershipControlsRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketOwnershipControlsOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketPolicySyncType = (
-            _ input: S3Model.GetBucketPolicyRequest) throws -> S3Model.GetBucketPolicyOutput
-    typealias GetBucketPolicyAsyncType = (
-            _ input: S3Model.GetBucketPolicyRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketPolicyOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketPolicyStatusSyncType = (
-            _ input: S3Model.GetBucketPolicyStatusRequest) throws -> S3Model.GetBucketPolicyStatusOutput
-    typealias GetBucketPolicyStatusAsyncType = (
-            _ input: S3Model.GetBucketPolicyStatusRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketPolicyStatusOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketReplicationSyncType = (
-            _ input: S3Model.GetBucketReplicationRequest) throws -> S3Model.GetBucketReplicationOutput
-    typealias GetBucketReplicationAsyncType = (
-            _ input: S3Model.GetBucketReplicationRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketReplicationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketRequestPaymentSyncType = (
-            _ input: S3Model.GetBucketRequestPaymentRequest) throws -> S3Model.GetBucketRequestPaymentOutput
-    typealias GetBucketRequestPaymentAsyncType = (
-            _ input: S3Model.GetBucketRequestPaymentRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketRequestPaymentOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketTaggingSyncType = (
-            _ input: S3Model.GetBucketTaggingRequest) throws -> S3Model.GetBucketTaggingOutput
-    typealias GetBucketTaggingAsyncType = (
-            _ input: S3Model.GetBucketTaggingRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketTaggingOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketVersioningSyncType = (
-            _ input: S3Model.GetBucketVersioningRequest) throws -> S3Model.GetBucketVersioningOutput
-    typealias GetBucketVersioningAsyncType = (
-            _ input: S3Model.GetBucketVersioningRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketVersioningOutput, S3Error>) -> ()) throws -> ()
-    typealias GetBucketWebsiteSyncType = (
-            _ input: S3Model.GetBucketWebsiteRequest) throws -> S3Model.GetBucketWebsiteOutput
-    typealias GetBucketWebsiteAsyncType = (
-            _ input: S3Model.GetBucketWebsiteRequest, 
-            _ completion: @escaping (Result<S3Model.GetBucketWebsiteOutput, S3Error>) -> ()) throws -> ()
-    typealias GetObjectSyncType = (
-            _ input: S3Model.GetObjectRequest) throws -> S3Model.GetObjectOutput
-    typealias GetObjectAsyncType = (
-            _ input: S3Model.GetObjectRequest, 
-            _ completion: @escaping (Result<S3Model.GetObjectOutput, S3Error>) -> ()) throws -> ()
-    typealias GetObjectAclSyncType = (
-            _ input: S3Model.GetObjectAclRequest) throws -> S3Model.GetObjectAclOutput
-    typealias GetObjectAclAsyncType = (
-            _ input: S3Model.GetObjectAclRequest, 
-            _ completion: @escaping (Result<S3Model.GetObjectAclOutput, S3Error>) -> ()) throws -> ()
-    typealias GetObjectLegalHoldSyncType = (
-            _ input: S3Model.GetObjectLegalHoldRequest) throws -> S3Model.GetObjectLegalHoldOutput
-    typealias GetObjectLegalHoldAsyncType = (
-            _ input: S3Model.GetObjectLegalHoldRequest, 
-            _ completion: @escaping (Result<S3Model.GetObjectLegalHoldOutput, S3Error>) -> ()) throws -> ()
-    typealias GetObjectLockConfigurationSyncType = (
-            _ input: S3Model.GetObjectLockConfigurationRequest) throws -> S3Model.GetObjectLockConfigurationOutput
-    typealias GetObjectLockConfigurationAsyncType = (
-            _ input: S3Model.GetObjectLockConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.GetObjectLockConfigurationOutput, S3Error>) -> ()) throws -> ()
-    typealias GetObjectRetentionSyncType = (
-            _ input: S3Model.GetObjectRetentionRequest) throws -> S3Model.GetObjectRetentionOutput
-    typealias GetObjectRetentionAsyncType = (
-            _ input: S3Model.GetObjectRetentionRequest, 
-            _ completion: @escaping (Result<S3Model.GetObjectRetentionOutput, S3Error>) -> ()) throws -> ()
-    typealias GetObjectTaggingSyncType = (
-            _ input: S3Model.GetObjectTaggingRequest) throws -> S3Model.GetObjectTaggingOutput
-    typealias GetObjectTaggingAsyncType = (
-            _ input: S3Model.GetObjectTaggingRequest, 
-            _ completion: @escaping (Result<S3Model.GetObjectTaggingOutput, S3Error>) -> ()) throws -> ()
-    typealias GetObjectTorrentSyncType = (
-            _ input: S3Model.GetObjectTorrentRequest) throws -> S3Model.GetObjectTorrentOutput
-    typealias GetObjectTorrentAsyncType = (
-            _ input: S3Model.GetObjectTorrentRequest, 
-            _ completion: @escaping (Result<S3Model.GetObjectTorrentOutput, S3Error>) -> ()) throws -> ()
-    typealias GetPublicAccessBlockSyncType = (
-            _ input: S3Model.GetPublicAccessBlockRequest) throws -> S3Model.GetPublicAccessBlockOutput
-    typealias GetPublicAccessBlockAsyncType = (
-            _ input: S3Model.GetPublicAccessBlockRequest, 
-            _ completion: @escaping (Result<S3Model.GetPublicAccessBlockOutput, S3Error>) -> ()) throws -> ()
-    typealias HeadBucketSyncType = (
-            _ input: S3Model.HeadBucketRequest) throws -> ()
-    typealias HeadBucketAsyncType = (
-            _ input: S3Model.HeadBucketRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias HeadObjectSyncType = (
-            _ input: S3Model.HeadObjectRequest) throws -> S3Model.HeadObjectOutput
-    typealias HeadObjectAsyncType = (
-            _ input: S3Model.HeadObjectRequest, 
-            _ completion: @escaping (Result<S3Model.HeadObjectOutput, S3Error>) -> ()) throws -> ()
-    typealias ListBucketAnalyticsConfigurationsSyncType = (
-            _ input: S3Model.ListBucketAnalyticsConfigurationsRequest) throws -> S3Model.ListBucketAnalyticsConfigurationsOutput
-    typealias ListBucketAnalyticsConfigurationsAsyncType = (
-            _ input: S3Model.ListBucketAnalyticsConfigurationsRequest, 
-            _ completion: @escaping (Result<S3Model.ListBucketAnalyticsConfigurationsOutput, S3Error>) -> ()) throws -> ()
-    typealias ListBucketIntelligentTieringConfigurationsSyncType = (
-            _ input: S3Model.ListBucketIntelligentTieringConfigurationsRequest) throws -> S3Model.ListBucketIntelligentTieringConfigurationsOutput
-    typealias ListBucketIntelligentTieringConfigurationsAsyncType = (
-            _ input: S3Model.ListBucketIntelligentTieringConfigurationsRequest, 
-            _ completion: @escaping (Result<S3Model.ListBucketIntelligentTieringConfigurationsOutput, S3Error>) -> ()) throws -> ()
-    typealias ListBucketInventoryConfigurationsSyncType = (
-            _ input: S3Model.ListBucketInventoryConfigurationsRequest) throws -> S3Model.ListBucketInventoryConfigurationsOutput
-    typealias ListBucketInventoryConfigurationsAsyncType = (
-            _ input: S3Model.ListBucketInventoryConfigurationsRequest, 
-            _ completion: @escaping (Result<S3Model.ListBucketInventoryConfigurationsOutput, S3Error>) -> ()) throws -> ()
-    typealias ListBucketMetricsConfigurationsSyncType = (
-            _ input: S3Model.ListBucketMetricsConfigurationsRequest) throws -> S3Model.ListBucketMetricsConfigurationsOutput
-    typealias ListBucketMetricsConfigurationsAsyncType = (
-            _ input: S3Model.ListBucketMetricsConfigurationsRequest, 
-            _ completion: @escaping (Result<S3Model.ListBucketMetricsConfigurationsOutput, S3Error>) -> ()) throws -> ()
-    typealias ListBucketsSyncType = () throws -> S3Model.ListBucketsOutput
-    typealias ListBucketsAsyncType = (
-            _ completion: @escaping (Result<S3Model.ListBucketsOutput, S3Error>) -> ()) throws -> ()
-    typealias ListMultipartUploadsSyncType = (
-            _ input: S3Model.ListMultipartUploadsRequest) throws -> S3Model.ListMultipartUploadsOutput
-    typealias ListMultipartUploadsAsyncType = (
-            _ input: S3Model.ListMultipartUploadsRequest, 
-            _ completion: @escaping (Result<S3Model.ListMultipartUploadsOutput, S3Error>) -> ()) throws -> ()
-    typealias ListObjectVersionsSyncType = (
-            _ input: S3Model.ListObjectVersionsRequest) throws -> S3Model.ListObjectVersionsOutput
-    typealias ListObjectVersionsAsyncType = (
-            _ input: S3Model.ListObjectVersionsRequest, 
-            _ completion: @escaping (Result<S3Model.ListObjectVersionsOutput, S3Error>) -> ()) throws -> ()
-    typealias ListObjectsSyncType = (
-            _ input: S3Model.ListObjectsRequest) throws -> S3Model.ListObjectsOutput
-    typealias ListObjectsAsyncType = (
-            _ input: S3Model.ListObjectsRequest, 
-            _ completion: @escaping (Result<S3Model.ListObjectsOutput, S3Error>) -> ()) throws -> ()
-    typealias ListObjectsV2SyncType = (
-            _ input: S3Model.ListObjectsV2Request) throws -> S3Model.ListObjectsV2Output
-    typealias ListObjectsV2AsyncType = (
-            _ input: S3Model.ListObjectsV2Request, 
-            _ completion: @escaping (Result<S3Model.ListObjectsV2Output, S3Error>) -> ()) throws -> ()
-    typealias ListPartsSyncType = (
-            _ input: S3Model.ListPartsRequest) throws -> S3Model.ListPartsOutput
-    typealias ListPartsAsyncType = (
-            _ input: S3Model.ListPartsRequest, 
-            _ completion: @escaping (Result<S3Model.ListPartsOutput, S3Error>) -> ()) throws -> ()
-    typealias PutBucketAccelerateConfigurationSyncType = (
-            _ input: S3Model.PutBucketAccelerateConfigurationRequest) throws -> ()
-    typealias PutBucketAccelerateConfigurationAsyncType = (
-            _ input: S3Model.PutBucketAccelerateConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketAclSyncType = (
-            _ input: S3Model.PutBucketAclRequest) throws -> ()
-    typealias PutBucketAclAsyncType = (
-            _ input: S3Model.PutBucketAclRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketAnalyticsConfigurationSyncType = (
-            _ input: S3Model.PutBucketAnalyticsConfigurationRequest) throws -> ()
-    typealias PutBucketAnalyticsConfigurationAsyncType = (
-            _ input: S3Model.PutBucketAnalyticsConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketCorsSyncType = (
-            _ input: S3Model.PutBucketCorsRequest) throws -> ()
-    typealias PutBucketCorsAsyncType = (
-            _ input: S3Model.PutBucketCorsRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketEncryptionSyncType = (
-            _ input: S3Model.PutBucketEncryptionRequest) throws -> ()
-    typealias PutBucketEncryptionAsyncType = (
-            _ input: S3Model.PutBucketEncryptionRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketIntelligentTieringConfigurationSyncType = (
-            _ input: S3Model.PutBucketIntelligentTieringConfigurationRequest) throws -> ()
-    typealias PutBucketIntelligentTieringConfigurationAsyncType = (
-            _ input: S3Model.PutBucketIntelligentTieringConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketInventoryConfigurationSyncType = (
-            _ input: S3Model.PutBucketInventoryConfigurationRequest) throws -> ()
-    typealias PutBucketInventoryConfigurationAsyncType = (
-            _ input: S3Model.PutBucketInventoryConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketLifecycleSyncType = (
-            _ input: S3Model.PutBucketLifecycleRequest) throws -> ()
-    typealias PutBucketLifecycleAsyncType = (
-            _ input: S3Model.PutBucketLifecycleRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketLifecycleConfigurationSyncType = (
-            _ input: S3Model.PutBucketLifecycleConfigurationRequest) throws -> ()
-    typealias PutBucketLifecycleConfigurationAsyncType = (
-            _ input: S3Model.PutBucketLifecycleConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketLoggingSyncType = (
-            _ input: S3Model.PutBucketLoggingRequest) throws -> ()
-    typealias PutBucketLoggingAsyncType = (
-            _ input: S3Model.PutBucketLoggingRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketMetricsConfigurationSyncType = (
-            _ input: S3Model.PutBucketMetricsConfigurationRequest) throws -> ()
-    typealias PutBucketMetricsConfigurationAsyncType = (
-            _ input: S3Model.PutBucketMetricsConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketNotificationSyncType = (
-            _ input: S3Model.PutBucketNotificationRequest) throws -> ()
-    typealias PutBucketNotificationAsyncType = (
-            _ input: S3Model.PutBucketNotificationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketNotificationConfigurationSyncType = (
-            _ input: S3Model.PutBucketNotificationConfigurationRequest) throws -> ()
-    typealias PutBucketNotificationConfigurationAsyncType = (
-            _ input: S3Model.PutBucketNotificationConfigurationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketOwnershipControlsSyncType = (
-            _ input: S3Model.PutBucketOwnershipControlsRequest) throws -> ()
-    typealias PutBucketOwnershipControlsAsyncType = (
-            _ input: S3Model.PutBucketOwnershipControlsRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketPolicySyncType = (
-            _ input: S3Model.PutBucketPolicyRequest) throws -> ()
-    typealias PutBucketPolicyAsyncType = (
-            _ input: S3Model.PutBucketPolicyRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketReplicationSyncType = (
-            _ input: S3Model.PutBucketReplicationRequest) throws -> ()
-    typealias PutBucketReplicationAsyncType = (
-            _ input: S3Model.PutBucketReplicationRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketRequestPaymentSyncType = (
-            _ input: S3Model.PutBucketRequestPaymentRequest) throws -> ()
-    typealias PutBucketRequestPaymentAsyncType = (
-            _ input: S3Model.PutBucketRequestPaymentRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketTaggingSyncType = (
-            _ input: S3Model.PutBucketTaggingRequest) throws -> ()
-    typealias PutBucketTaggingAsyncType = (
-            _ input: S3Model.PutBucketTaggingRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketVersioningSyncType = (
-            _ input: S3Model.PutBucketVersioningRequest) throws -> ()
-    typealias PutBucketVersioningAsyncType = (
-            _ input: S3Model.PutBucketVersioningRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutBucketWebsiteSyncType = (
-            _ input: S3Model.PutBucketWebsiteRequest) throws -> ()
-    typealias PutBucketWebsiteAsyncType = (
-            _ input: S3Model.PutBucketWebsiteRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias PutObjectSyncType = (
-            _ input: S3Model.PutObjectRequest) throws -> S3Model.PutObjectOutput
-    typealias PutObjectAsyncType = (
-            _ input: S3Model.PutObjectRequest, 
-            _ completion: @escaping (Result<S3Model.PutObjectOutput, S3Error>) -> ()) throws -> ()
-    typealias PutObjectAclSyncType = (
-            _ input: S3Model.PutObjectAclRequest) throws -> S3Model.PutObjectAclOutput
-    typealias PutObjectAclAsyncType = (
-            _ input: S3Model.PutObjectAclRequest, 
-            _ completion: @escaping (Result<S3Model.PutObjectAclOutput, S3Error>) -> ()) throws -> ()
-    typealias PutObjectLegalHoldSyncType = (
-            _ input: S3Model.PutObjectLegalHoldRequest) throws -> S3Model.PutObjectLegalHoldOutput
-    typealias PutObjectLegalHoldAsyncType = (
-            _ input: S3Model.PutObjectLegalHoldRequest, 
-            _ completion: @escaping (Result<S3Model.PutObjectLegalHoldOutput, S3Error>) -> ()) throws -> ()
-    typealias PutObjectLockConfigurationSyncType = (
-            _ input: S3Model.PutObjectLockConfigurationRequest) throws -> S3Model.PutObjectLockConfigurationOutput
-    typealias PutObjectLockConfigurationAsyncType = (
-            _ input: S3Model.PutObjectLockConfigurationRequest, 
-            _ completion: @escaping (Result<S3Model.PutObjectLockConfigurationOutput, S3Error>) -> ()) throws -> ()
-    typealias PutObjectRetentionSyncType = (
-            _ input: S3Model.PutObjectRetentionRequest) throws -> S3Model.PutObjectRetentionOutput
-    typealias PutObjectRetentionAsyncType = (
-            _ input: S3Model.PutObjectRetentionRequest, 
-            _ completion: @escaping (Result<S3Model.PutObjectRetentionOutput, S3Error>) -> ()) throws -> ()
-    typealias PutObjectTaggingSyncType = (
-            _ input: S3Model.PutObjectTaggingRequest) throws -> S3Model.PutObjectTaggingOutput
-    typealias PutObjectTaggingAsyncType = (
-            _ input: S3Model.PutObjectTaggingRequest, 
-            _ completion: @escaping (Result<S3Model.PutObjectTaggingOutput, S3Error>) -> ()) throws -> ()
-    typealias PutPublicAccessBlockSyncType = (
-            _ input: S3Model.PutPublicAccessBlockRequest) throws -> ()
-    typealias PutPublicAccessBlockAsyncType = (
-            _ input: S3Model.PutPublicAccessBlockRequest, 
-            _ completion: @escaping (S3Error?) -> ()) throws -> ()
-    typealias RestoreObjectSyncType = (
-            _ input: S3Model.RestoreObjectRequest) throws -> S3Model.RestoreObjectOutput
-    typealias RestoreObjectAsyncType = (
-            _ input: S3Model.RestoreObjectRequest, 
-            _ completion: @escaping (Result<S3Model.RestoreObjectOutput, S3Error>) -> ()) throws -> ()
-    typealias SelectObjectContentSyncType = (
-            _ input: S3Model.SelectObjectContentRequest) throws -> S3Model.SelectObjectContentOutput
-    typealias SelectObjectContentAsyncType = (
-            _ input: S3Model.SelectObjectContentRequest, 
-            _ completion: @escaping (Result<S3Model.SelectObjectContentOutput, S3Error>) -> ()) throws -> ()
-    typealias UploadPartSyncType = (
-            _ input: S3Model.UploadPartRequest) throws -> S3Model.UploadPartOutput
-    typealias UploadPartAsyncType = (
-            _ input: S3Model.UploadPartRequest, 
-            _ completion: @escaping (Result<S3Model.UploadPartOutput, S3Error>) -> ()) throws -> ()
-    typealias UploadPartCopySyncType = (
-            _ input: S3Model.UploadPartCopyRequest) throws -> S3Model.UploadPartCopyOutput
-    typealias UploadPartCopyAsyncType = (
-            _ input: S3Model.UploadPartCopyRequest, 
-            _ completion: @escaping (Result<S3Model.UploadPartCopyOutput, S3Error>) -> ()) throws -> ()
+    typealias AbortMultipartUploadEventLoopFutureAsyncType = (
+            _ input: S3Model.AbortMultipartUploadRequest) -> EventLoopFuture<S3Model.AbortMultipartUploadOutput>
+    typealias CompleteMultipartUploadEventLoopFutureAsyncType = (
+            _ input: S3Model.CompleteMultipartUploadRequest) -> EventLoopFuture<S3Model.CompleteMultipartUploadOutput>
+    typealias CopyObjectEventLoopFutureAsyncType = (
+            _ input: S3Model.CopyObjectRequest) -> EventLoopFuture<S3Model.CopyObjectOutput>
+    typealias CreateBucketEventLoopFutureAsyncType = (
+            _ input: S3Model.CreateBucketRequest) -> EventLoopFuture<S3Model.CreateBucketOutput>
+    typealias CreateMultipartUploadEventLoopFutureAsyncType = (
+            _ input: S3Model.CreateMultipartUploadRequest) -> EventLoopFuture<S3Model.CreateMultipartUploadOutput>
+    typealias DeleteBucketEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketAnalyticsConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketAnalyticsConfigurationRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketCorsEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketCorsRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketEncryptionEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketEncryptionRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketIntelligentTieringConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketIntelligentTieringConfigurationRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketInventoryConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketInventoryConfigurationRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketLifecycleEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketLifecycleRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketMetricsConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketMetricsConfigurationRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketOwnershipControlsEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketOwnershipControlsRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketPolicyEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketPolicyRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketReplicationEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketReplicationRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketTaggingEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketTaggingRequest) -> EventLoopFuture<Void>
+    typealias DeleteBucketWebsiteEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteBucketWebsiteRequest) -> EventLoopFuture<Void>
+    typealias DeleteObjectEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteObjectRequest) -> EventLoopFuture<S3Model.DeleteObjectOutput>
+    typealias DeleteObjectTaggingEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteObjectTaggingRequest) -> EventLoopFuture<S3Model.DeleteObjectTaggingOutput>
+    typealias DeleteObjectsEventLoopFutureAsyncType = (
+            _ input: S3Model.DeleteObjectsRequest) -> EventLoopFuture<S3Model.DeleteObjectsOutput>
+    typealias DeletePublicAccessBlockEventLoopFutureAsyncType = (
+            _ input: S3Model.DeletePublicAccessBlockRequest) -> EventLoopFuture<Void>
+    typealias GetBucketAccelerateConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketAccelerateConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketAccelerateConfigurationOutput>
+    typealias GetBucketAclEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketAclRequest) -> EventLoopFuture<S3Model.GetBucketAclOutput>
+    typealias GetBucketAnalyticsConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketAnalyticsConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketAnalyticsConfigurationOutput>
+    typealias GetBucketCorsEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketCorsRequest) -> EventLoopFuture<S3Model.GetBucketCorsOutput>
+    typealias GetBucketEncryptionEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketEncryptionRequest) -> EventLoopFuture<S3Model.GetBucketEncryptionOutput>
+    typealias GetBucketIntelligentTieringConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketIntelligentTieringConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketIntelligentTieringConfigurationOutput>
+    typealias GetBucketInventoryConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketInventoryConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketInventoryConfigurationOutput>
+    typealias GetBucketLifecycleEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketLifecycleRequest) -> EventLoopFuture<S3Model.GetBucketLifecycleOutput>
+    typealias GetBucketLifecycleConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketLifecycleConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketLifecycleConfigurationOutput>
+    typealias GetBucketLocationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketLocationRequest) -> EventLoopFuture<S3Model.GetBucketLocationOutput>
+    typealias GetBucketLoggingEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketLoggingRequest) -> EventLoopFuture<S3Model.GetBucketLoggingOutput>
+    typealias GetBucketMetricsConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketMetricsConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketMetricsConfigurationOutput>
+    typealias GetBucketNotificationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketNotificationConfigurationRequest) -> EventLoopFuture<S3Model.NotificationConfigurationDeprecated>
+    typealias GetBucketNotificationConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketNotificationConfigurationRequest) -> EventLoopFuture<S3Model.NotificationConfiguration>
+    typealias GetBucketOwnershipControlsEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketOwnershipControlsRequest) -> EventLoopFuture<S3Model.GetBucketOwnershipControlsOutput>
+    typealias GetBucketPolicyEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketPolicyRequest) -> EventLoopFuture<S3Model.GetBucketPolicyOutput>
+    typealias GetBucketPolicyStatusEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketPolicyStatusRequest) -> EventLoopFuture<S3Model.GetBucketPolicyStatusOutput>
+    typealias GetBucketReplicationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketReplicationRequest) -> EventLoopFuture<S3Model.GetBucketReplicationOutput>
+    typealias GetBucketRequestPaymentEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketRequestPaymentRequest) -> EventLoopFuture<S3Model.GetBucketRequestPaymentOutput>
+    typealias GetBucketTaggingEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketTaggingRequest) -> EventLoopFuture<S3Model.GetBucketTaggingOutput>
+    typealias GetBucketVersioningEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketVersioningRequest) -> EventLoopFuture<S3Model.GetBucketVersioningOutput>
+    typealias GetBucketWebsiteEventLoopFutureAsyncType = (
+            _ input: S3Model.GetBucketWebsiteRequest) -> EventLoopFuture<S3Model.GetBucketWebsiteOutput>
+    typealias GetObjectEventLoopFutureAsyncType = (
+            _ input: S3Model.GetObjectRequest) -> EventLoopFuture<S3Model.GetObjectOutput>
+    typealias GetObjectAclEventLoopFutureAsyncType = (
+            _ input: S3Model.GetObjectAclRequest) -> EventLoopFuture<S3Model.GetObjectAclOutput>
+    typealias GetObjectLegalHoldEventLoopFutureAsyncType = (
+            _ input: S3Model.GetObjectLegalHoldRequest) -> EventLoopFuture<S3Model.GetObjectLegalHoldOutput>
+    typealias GetObjectLockConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.GetObjectLockConfigurationRequest) -> EventLoopFuture<S3Model.GetObjectLockConfigurationOutput>
+    typealias GetObjectRetentionEventLoopFutureAsyncType = (
+            _ input: S3Model.GetObjectRetentionRequest) -> EventLoopFuture<S3Model.GetObjectRetentionOutput>
+    typealias GetObjectTaggingEventLoopFutureAsyncType = (
+            _ input: S3Model.GetObjectTaggingRequest) -> EventLoopFuture<S3Model.GetObjectTaggingOutput>
+    typealias GetObjectTorrentEventLoopFutureAsyncType = (
+            _ input: S3Model.GetObjectTorrentRequest) -> EventLoopFuture<S3Model.GetObjectTorrentOutput>
+    typealias GetPublicAccessBlockEventLoopFutureAsyncType = (
+            _ input: S3Model.GetPublicAccessBlockRequest) -> EventLoopFuture<S3Model.GetPublicAccessBlockOutput>
+    typealias HeadBucketEventLoopFutureAsyncType = (
+            _ input: S3Model.HeadBucketRequest) -> EventLoopFuture<Void>
+    typealias HeadObjectEventLoopFutureAsyncType = (
+            _ input: S3Model.HeadObjectRequest) -> EventLoopFuture<S3Model.HeadObjectOutput>
+    typealias ListBucketAnalyticsConfigurationsEventLoopFutureAsyncType = (
+            _ input: S3Model.ListBucketAnalyticsConfigurationsRequest) -> EventLoopFuture<S3Model.ListBucketAnalyticsConfigurationsOutput>
+    typealias ListBucketIntelligentTieringConfigurationsEventLoopFutureAsyncType = (
+            _ input: S3Model.ListBucketIntelligentTieringConfigurationsRequest) -> EventLoopFuture<S3Model.ListBucketIntelligentTieringConfigurationsOutput>
+    typealias ListBucketInventoryConfigurationsEventLoopFutureAsyncType = (
+            _ input: S3Model.ListBucketInventoryConfigurationsRequest) -> EventLoopFuture<S3Model.ListBucketInventoryConfigurationsOutput>
+    typealias ListBucketMetricsConfigurationsEventLoopFutureAsyncType = (
+            _ input: S3Model.ListBucketMetricsConfigurationsRequest) -> EventLoopFuture<S3Model.ListBucketMetricsConfigurationsOutput>
+    typealias ListBucketsEventLoopFutureAsyncType = () -> EventLoopFuture<S3Model.ListBucketsOutput>
+    typealias ListMultipartUploadsEventLoopFutureAsyncType = (
+            _ input: S3Model.ListMultipartUploadsRequest) -> EventLoopFuture<S3Model.ListMultipartUploadsOutput>
+    typealias ListObjectVersionsEventLoopFutureAsyncType = (
+            _ input: S3Model.ListObjectVersionsRequest) -> EventLoopFuture<S3Model.ListObjectVersionsOutput>
+    typealias ListObjectsEventLoopFutureAsyncType = (
+            _ input: S3Model.ListObjectsRequest) -> EventLoopFuture<S3Model.ListObjectsOutput>
+    typealias ListObjectsV2EventLoopFutureAsyncType = (
+            _ input: S3Model.ListObjectsV2Request) -> EventLoopFuture<S3Model.ListObjectsV2Output>
+    typealias ListPartsEventLoopFutureAsyncType = (
+            _ input: S3Model.ListPartsRequest) -> EventLoopFuture<S3Model.ListPartsOutput>
+    typealias PutBucketAccelerateConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketAccelerateConfigurationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketAclEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketAclRequest) -> EventLoopFuture<Void>
+    typealias PutBucketAnalyticsConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketAnalyticsConfigurationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketCorsEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketCorsRequest) -> EventLoopFuture<Void>
+    typealias PutBucketEncryptionEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketEncryptionRequest) -> EventLoopFuture<Void>
+    typealias PutBucketIntelligentTieringConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketIntelligentTieringConfigurationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketInventoryConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketInventoryConfigurationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketLifecycleEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketLifecycleRequest) -> EventLoopFuture<Void>
+    typealias PutBucketLifecycleConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketLifecycleConfigurationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketLoggingEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketLoggingRequest) -> EventLoopFuture<Void>
+    typealias PutBucketMetricsConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketMetricsConfigurationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketNotificationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketNotificationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketNotificationConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketNotificationConfigurationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketOwnershipControlsEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketOwnershipControlsRequest) -> EventLoopFuture<Void>
+    typealias PutBucketPolicyEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketPolicyRequest) -> EventLoopFuture<Void>
+    typealias PutBucketReplicationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketReplicationRequest) -> EventLoopFuture<Void>
+    typealias PutBucketRequestPaymentEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketRequestPaymentRequest) -> EventLoopFuture<Void>
+    typealias PutBucketTaggingEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketTaggingRequest) -> EventLoopFuture<Void>
+    typealias PutBucketVersioningEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketVersioningRequest) -> EventLoopFuture<Void>
+    typealias PutBucketWebsiteEventLoopFutureAsyncType = (
+            _ input: S3Model.PutBucketWebsiteRequest) -> EventLoopFuture<Void>
+    typealias PutObjectEventLoopFutureAsyncType = (
+            _ input: S3Model.PutObjectRequest) -> EventLoopFuture<S3Model.PutObjectOutput>
+    typealias PutObjectAclEventLoopFutureAsyncType = (
+            _ input: S3Model.PutObjectAclRequest) -> EventLoopFuture<S3Model.PutObjectAclOutput>
+    typealias PutObjectLegalHoldEventLoopFutureAsyncType = (
+            _ input: S3Model.PutObjectLegalHoldRequest) -> EventLoopFuture<S3Model.PutObjectLegalHoldOutput>
+    typealias PutObjectLockConfigurationEventLoopFutureAsyncType = (
+            _ input: S3Model.PutObjectLockConfigurationRequest) -> EventLoopFuture<S3Model.PutObjectLockConfigurationOutput>
+    typealias PutObjectRetentionEventLoopFutureAsyncType = (
+            _ input: S3Model.PutObjectRetentionRequest) -> EventLoopFuture<S3Model.PutObjectRetentionOutput>
+    typealias PutObjectTaggingEventLoopFutureAsyncType = (
+            _ input: S3Model.PutObjectTaggingRequest) -> EventLoopFuture<S3Model.PutObjectTaggingOutput>
+    typealias PutPublicAccessBlockEventLoopFutureAsyncType = (
+            _ input: S3Model.PutPublicAccessBlockRequest) -> EventLoopFuture<Void>
+    typealias RestoreObjectEventLoopFutureAsyncType = (
+            _ input: S3Model.RestoreObjectRequest) -> EventLoopFuture<S3Model.RestoreObjectOutput>
+    typealias SelectObjectContentEventLoopFutureAsyncType = (
+            _ input: S3Model.SelectObjectContentRequest) -> EventLoopFuture<S3Model.SelectObjectContentOutput>
+    typealias UploadPartEventLoopFutureAsyncType = (
+            _ input: S3Model.UploadPartRequest) -> EventLoopFuture<S3Model.UploadPartOutput>
+    typealias UploadPartCopyEventLoopFutureAsyncType = (
+            _ input: S3Model.UploadPartCopyRequest) -> EventLoopFuture<S3Model.UploadPartCopyOutput>
 
     /**
-     Invokes the AbortMultipartUpload operation returning immediately and passing the response to a callback.
+     Invokes the AbortMultipartUpload operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AbortMultipartUploadRequest object being passed to this operation.
-         - completion: The AbortMultipartUploadOutput object or an error will be passed to this 
-           callback when the operation is complete. The AbortMultipartUploadOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the AbortMultipartUploadOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: noSuchUpload.
      */
-    func abortMultipartUploadAsync(
-            input: S3Model.AbortMultipartUploadRequest, 
-            completion: @escaping (Result<S3Model.AbortMultipartUploadOutput, S3Error>) -> ()) throws
+    func abortMultipartUpload(
+            input: S3Model.AbortMultipartUploadRequest) -> EventLoopFuture<S3Model.AbortMultipartUploadOutput>
 
     /**
-     Invokes the AbortMultipartUpload operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AbortMultipartUploadRequest object being passed to this operation.
-     - Returns: The AbortMultipartUploadOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: noSuchUpload.
-     */
-    func abortMultipartUploadSync(
-            input: S3Model.AbortMultipartUploadRequest) throws -> S3Model.AbortMultipartUploadOutput
-
-    /**
-     Invokes the CompleteMultipartUpload operation returning immediately and passing the response to a callback.
+     Invokes the CompleteMultipartUpload operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CompleteMultipartUploadRequest object being passed to this operation.
-         - completion: The CompleteMultipartUploadOutput object or an error will be passed to this 
-           callback when the operation is complete. The CompleteMultipartUploadOutput
-           object will be validated before being returned to caller.
-     */
-    func completeMultipartUploadAsync(
-            input: S3Model.CompleteMultipartUploadRequest, 
-            completion: @escaping (Result<S3Model.CompleteMultipartUploadOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the CompleteMultipartUpload operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CompleteMultipartUploadRequest object being passed to this operation.
-     - Returns: The CompleteMultipartUploadOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the CompleteMultipartUploadOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func completeMultipartUploadSync(
-            input: S3Model.CompleteMultipartUploadRequest) throws -> S3Model.CompleteMultipartUploadOutput
+    func completeMultipartUpload(
+            input: S3Model.CompleteMultipartUploadRequest) -> EventLoopFuture<S3Model.CompleteMultipartUploadOutput>
 
     /**
-     Invokes the CopyObject operation returning immediately and passing the response to a callback.
+     Invokes the CopyObject operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CopyObjectRequest object being passed to this operation.
-         - completion: The CopyObjectOutput object or an error will be passed to this 
-           callback when the operation is complete. The CopyObjectOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the CopyObjectOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: objectNotInActiveTier.
      */
-    func copyObjectAsync(
-            input: S3Model.CopyObjectRequest, 
-            completion: @escaping (Result<S3Model.CopyObjectOutput, S3Error>) -> ()) throws
+    func copyObject(
+            input: S3Model.CopyObjectRequest) -> EventLoopFuture<S3Model.CopyObjectOutput>
 
     /**
-     Invokes the CopyObject operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CopyObjectRequest object being passed to this operation.
-     - Returns: The CopyObjectOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: objectNotInActiveTier.
-     */
-    func copyObjectSync(
-            input: S3Model.CopyObjectRequest) throws -> S3Model.CopyObjectOutput
-
-    /**
-     Invokes the CreateBucket operation returning immediately and passing the response to a callback.
+     Invokes the CreateBucket operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateBucketRequest object being passed to this operation.
-         - completion: The CreateBucketOutput object or an error will be passed to this 
-           callback when the operation is complete. The CreateBucketOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateBucketOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: bucketAlreadyExists, bucketAlreadyOwnedByYou.
      */
-    func createBucketAsync(
-            input: S3Model.CreateBucketRequest, 
-            completion: @escaping (Result<S3Model.CreateBucketOutput, S3Error>) -> ()) throws
+    func createBucket(
+            input: S3Model.CreateBucketRequest) -> EventLoopFuture<S3Model.CreateBucketOutput>
 
     /**
-     Invokes the CreateBucket operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateBucketRequest object being passed to this operation.
-     - Returns: The CreateBucketOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: bucketAlreadyExists, bucketAlreadyOwnedByYou.
-     */
-    func createBucketSync(
-            input: S3Model.CreateBucketRequest) throws -> S3Model.CreateBucketOutput
-
-    /**
-     Invokes the CreateMultipartUpload operation returning immediately and passing the response to a callback.
+     Invokes the CreateMultipartUpload operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateMultipartUploadRequest object being passed to this operation.
-         - completion: The CreateMultipartUploadOutput object or an error will be passed to this 
-           callback when the operation is complete. The CreateMultipartUploadOutput
-           object will be validated before being returned to caller.
-     */
-    func createMultipartUploadAsync(
-            input: S3Model.CreateMultipartUploadRequest, 
-            completion: @escaping (Result<S3Model.CreateMultipartUploadOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the CreateMultipartUpload operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateMultipartUploadRequest object being passed to this operation.
-     - Returns: The CreateMultipartUploadOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the CreateMultipartUploadOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func createMultipartUploadSync(
-            input: S3Model.CreateMultipartUploadRequest) throws -> S3Model.CreateMultipartUploadOutput
+    func createMultipartUpload(
+            input: S3Model.CreateMultipartUploadRequest) -> EventLoopFuture<S3Model.CreateMultipartUploadOutput>
 
     /**
-     Invokes the DeleteBucket operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketAsync(
-            input: S3Model.DeleteBucketRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucket operation waiting for the response before returning.
+     Invokes the DeleteBucket operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketRequest object being passed to this operation.
      */
-    func deleteBucketSync(
-            input: S3Model.DeleteBucketRequest) throws
+    func deleteBucket(
+            input: S3Model.DeleteBucketRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketAnalyticsConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketAnalyticsConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketAnalyticsConfigurationAsync(
-            input: S3Model.DeleteBucketAnalyticsConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketAnalyticsConfiguration operation waiting for the response before returning.
+     Invokes the DeleteBucketAnalyticsConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketAnalyticsConfigurationRequest object being passed to this operation.
      */
-    func deleteBucketAnalyticsConfigurationSync(
-            input: S3Model.DeleteBucketAnalyticsConfigurationRequest) throws
+    func deleteBucketAnalyticsConfiguration(
+            input: S3Model.DeleteBucketAnalyticsConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketCors operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketCorsRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketCorsAsync(
-            input: S3Model.DeleteBucketCorsRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketCors operation waiting for the response before returning.
+     Invokes the DeleteBucketCors operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketCorsRequest object being passed to this operation.
      */
-    func deleteBucketCorsSync(
-            input: S3Model.DeleteBucketCorsRequest) throws
+    func deleteBucketCors(
+            input: S3Model.DeleteBucketCorsRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketEncryption operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketEncryptionRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketEncryptionAsync(
-            input: S3Model.DeleteBucketEncryptionRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketEncryption operation waiting for the response before returning.
+     Invokes the DeleteBucketEncryption operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketEncryptionRequest object being passed to this operation.
      */
-    func deleteBucketEncryptionSync(
-            input: S3Model.DeleteBucketEncryptionRequest) throws
+    func deleteBucketEncryption(
+            input: S3Model.DeleteBucketEncryptionRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketIntelligentTieringConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketIntelligentTieringConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketIntelligentTieringConfigurationAsync(
-            input: S3Model.DeleteBucketIntelligentTieringConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketIntelligentTieringConfiguration operation waiting for the response before returning.
+     Invokes the DeleteBucketIntelligentTieringConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketIntelligentTieringConfigurationRequest object being passed to this operation.
      */
-    func deleteBucketIntelligentTieringConfigurationSync(
-            input: S3Model.DeleteBucketIntelligentTieringConfigurationRequest) throws
+    func deleteBucketIntelligentTieringConfiguration(
+            input: S3Model.DeleteBucketIntelligentTieringConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketInventoryConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketInventoryConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketInventoryConfigurationAsync(
-            input: S3Model.DeleteBucketInventoryConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketInventoryConfiguration operation waiting for the response before returning.
+     Invokes the DeleteBucketInventoryConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketInventoryConfigurationRequest object being passed to this operation.
      */
-    func deleteBucketInventoryConfigurationSync(
-            input: S3Model.DeleteBucketInventoryConfigurationRequest) throws
+    func deleteBucketInventoryConfiguration(
+            input: S3Model.DeleteBucketInventoryConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketLifecycle operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketLifecycleRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketLifecycleAsync(
-            input: S3Model.DeleteBucketLifecycleRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketLifecycle operation waiting for the response before returning.
+     Invokes the DeleteBucketLifecycle operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketLifecycleRequest object being passed to this operation.
      */
-    func deleteBucketLifecycleSync(
-            input: S3Model.DeleteBucketLifecycleRequest) throws
+    func deleteBucketLifecycle(
+            input: S3Model.DeleteBucketLifecycleRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketMetricsConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketMetricsConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketMetricsConfigurationAsync(
-            input: S3Model.DeleteBucketMetricsConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketMetricsConfiguration operation waiting for the response before returning.
+     Invokes the DeleteBucketMetricsConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketMetricsConfigurationRequest object being passed to this operation.
      */
-    func deleteBucketMetricsConfigurationSync(
-            input: S3Model.DeleteBucketMetricsConfigurationRequest) throws
+    func deleteBucketMetricsConfiguration(
+            input: S3Model.DeleteBucketMetricsConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketOwnershipControls operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketOwnershipControlsRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketOwnershipControlsAsync(
-            input: S3Model.DeleteBucketOwnershipControlsRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketOwnershipControls operation waiting for the response before returning.
+     Invokes the DeleteBucketOwnershipControls operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketOwnershipControlsRequest object being passed to this operation.
      */
-    func deleteBucketOwnershipControlsSync(
-            input: S3Model.DeleteBucketOwnershipControlsRequest) throws
+    func deleteBucketOwnershipControls(
+            input: S3Model.DeleteBucketOwnershipControlsRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketPolicy operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketPolicyRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketPolicyAsync(
-            input: S3Model.DeleteBucketPolicyRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketPolicy operation waiting for the response before returning.
+     Invokes the DeleteBucketPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketPolicyRequest object being passed to this operation.
      */
-    func deleteBucketPolicySync(
-            input: S3Model.DeleteBucketPolicyRequest) throws
+    func deleteBucketPolicy(
+            input: S3Model.DeleteBucketPolicyRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketReplication operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketReplicationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketReplicationAsync(
-            input: S3Model.DeleteBucketReplicationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketReplication operation waiting for the response before returning.
+     Invokes the DeleteBucketReplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketReplicationRequest object being passed to this operation.
      */
-    func deleteBucketReplicationSync(
-            input: S3Model.DeleteBucketReplicationRequest) throws
+    func deleteBucketReplication(
+            input: S3Model.DeleteBucketReplicationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketTagging operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketTaggingRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketTaggingAsync(
-            input: S3Model.DeleteBucketTaggingRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketTagging operation waiting for the response before returning.
+     Invokes the DeleteBucketTagging operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketTaggingRequest object being passed to this operation.
      */
-    func deleteBucketTaggingSync(
-            input: S3Model.DeleteBucketTaggingRequest) throws
+    func deleteBucketTagging(
+            input: S3Model.DeleteBucketTaggingRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteBucketWebsite operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeleteBucketWebsiteRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deleteBucketWebsiteAsync(
-            input: S3Model.DeleteBucketWebsiteRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeleteBucketWebsite operation waiting for the response before returning.
+     Invokes the DeleteBucketWebsite operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteBucketWebsiteRequest object being passed to this operation.
      */
-    func deleteBucketWebsiteSync(
-            input: S3Model.DeleteBucketWebsiteRequest) throws
+    func deleteBucketWebsite(
+            input: S3Model.DeleteBucketWebsiteRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteObject operation returning immediately and passing the response to a callback.
+     Invokes the DeleteObject operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteObjectRequest object being passed to this operation.
-         - completion: The DeleteObjectOutput object or an error will be passed to this 
-           callback when the operation is complete. The DeleteObjectOutput
-           object will be validated before being returned to caller.
-     */
-    func deleteObjectAsync(
-            input: S3Model.DeleteObjectRequest, 
-            completion: @escaping (Result<S3Model.DeleteObjectOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the DeleteObject operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteObjectRequest object being passed to this operation.
-     - Returns: The DeleteObjectOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the DeleteObjectOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func deleteObjectSync(
-            input: S3Model.DeleteObjectRequest) throws -> S3Model.DeleteObjectOutput
+    func deleteObject(
+            input: S3Model.DeleteObjectRequest) -> EventLoopFuture<S3Model.DeleteObjectOutput>
 
     /**
-     Invokes the DeleteObjectTagging operation returning immediately and passing the response to a callback.
+     Invokes the DeleteObjectTagging operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteObjectTaggingRequest object being passed to this operation.
-         - completion: The DeleteObjectTaggingOutput object or an error will be passed to this 
-           callback when the operation is complete. The DeleteObjectTaggingOutput
-           object will be validated before being returned to caller.
-     */
-    func deleteObjectTaggingAsync(
-            input: S3Model.DeleteObjectTaggingRequest, 
-            completion: @escaping (Result<S3Model.DeleteObjectTaggingOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the DeleteObjectTagging operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteObjectTaggingRequest object being passed to this operation.
-     - Returns: The DeleteObjectTaggingOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the DeleteObjectTaggingOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func deleteObjectTaggingSync(
-            input: S3Model.DeleteObjectTaggingRequest) throws -> S3Model.DeleteObjectTaggingOutput
+    func deleteObjectTagging(
+            input: S3Model.DeleteObjectTaggingRequest) -> EventLoopFuture<S3Model.DeleteObjectTaggingOutput>
 
     /**
-     Invokes the DeleteObjects operation returning immediately and passing the response to a callback.
+     Invokes the DeleteObjects operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteObjectsRequest object being passed to this operation.
-         - completion: The DeleteObjectsOutput object or an error will be passed to this 
-           callback when the operation is complete. The DeleteObjectsOutput
-           object will be validated before being returned to caller.
-     */
-    func deleteObjectsAsync(
-            input: S3Model.DeleteObjectsRequest, 
-            completion: @escaping (Result<S3Model.DeleteObjectsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the DeleteObjects operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteObjectsRequest object being passed to this operation.
-     - Returns: The DeleteObjectsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the DeleteObjectsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func deleteObjectsSync(
-            input: S3Model.DeleteObjectsRequest) throws -> S3Model.DeleteObjectsOutput
+    func deleteObjects(
+            input: S3Model.DeleteObjectsRequest) -> EventLoopFuture<S3Model.DeleteObjectsOutput>
 
     /**
-     Invokes the DeletePublicAccessBlock operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DeletePublicAccessBlockRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func deletePublicAccessBlockAsync(
-            input: S3Model.DeletePublicAccessBlockRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the DeletePublicAccessBlock operation waiting for the response before returning.
+     Invokes the DeletePublicAccessBlock operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeletePublicAccessBlockRequest object being passed to this operation.
      */
-    func deletePublicAccessBlockSync(
-            input: S3Model.DeletePublicAccessBlockRequest) throws
+    func deletePublicAccessBlock(
+            input: S3Model.DeletePublicAccessBlockRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the GetBucketAccelerateConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketAccelerateConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketAccelerateConfigurationRequest object being passed to this operation.
-         - completion: The GetBucketAccelerateConfigurationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketAccelerateConfigurationOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketAccelerateConfigurationAsync(
-            input: S3Model.GetBucketAccelerateConfigurationRequest, 
-            completion: @escaping (Result<S3Model.GetBucketAccelerateConfigurationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketAccelerateConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketAccelerateConfigurationRequest object being passed to this operation.
-     - Returns: The GetBucketAccelerateConfigurationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketAccelerateConfigurationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketAccelerateConfigurationSync(
-            input: S3Model.GetBucketAccelerateConfigurationRequest) throws -> S3Model.GetBucketAccelerateConfigurationOutput
+    func getBucketAccelerateConfiguration(
+            input: S3Model.GetBucketAccelerateConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketAccelerateConfigurationOutput>
 
     /**
-     Invokes the GetBucketAcl operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketAcl operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketAclRequest object being passed to this operation.
-         - completion: The GetBucketAclOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketAclOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketAclAsync(
-            input: S3Model.GetBucketAclRequest, 
-            completion: @escaping (Result<S3Model.GetBucketAclOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketAcl operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketAclRequest object being passed to this operation.
-     - Returns: The GetBucketAclOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketAclOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketAclSync(
-            input: S3Model.GetBucketAclRequest) throws -> S3Model.GetBucketAclOutput
+    func getBucketAcl(
+            input: S3Model.GetBucketAclRequest) -> EventLoopFuture<S3Model.GetBucketAclOutput>
 
     /**
-     Invokes the GetBucketAnalyticsConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketAnalyticsConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketAnalyticsConfigurationRequest object being passed to this operation.
-         - completion: The GetBucketAnalyticsConfigurationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketAnalyticsConfigurationOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketAnalyticsConfigurationAsync(
-            input: S3Model.GetBucketAnalyticsConfigurationRequest, 
-            completion: @escaping (Result<S3Model.GetBucketAnalyticsConfigurationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketAnalyticsConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketAnalyticsConfigurationRequest object being passed to this operation.
-     - Returns: The GetBucketAnalyticsConfigurationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketAnalyticsConfigurationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketAnalyticsConfigurationSync(
-            input: S3Model.GetBucketAnalyticsConfigurationRequest) throws -> S3Model.GetBucketAnalyticsConfigurationOutput
+    func getBucketAnalyticsConfiguration(
+            input: S3Model.GetBucketAnalyticsConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketAnalyticsConfigurationOutput>
 
     /**
-     Invokes the GetBucketCors operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketCors operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketCorsRequest object being passed to this operation.
-         - completion: The GetBucketCorsOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketCorsOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketCorsAsync(
-            input: S3Model.GetBucketCorsRequest, 
-            completion: @escaping (Result<S3Model.GetBucketCorsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketCors operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketCorsRequest object being passed to this operation.
-     - Returns: The GetBucketCorsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketCorsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketCorsSync(
-            input: S3Model.GetBucketCorsRequest) throws -> S3Model.GetBucketCorsOutput
+    func getBucketCors(
+            input: S3Model.GetBucketCorsRequest) -> EventLoopFuture<S3Model.GetBucketCorsOutput>
 
     /**
-     Invokes the GetBucketEncryption operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketEncryption operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketEncryptionRequest object being passed to this operation.
-         - completion: The GetBucketEncryptionOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketEncryptionOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketEncryptionAsync(
-            input: S3Model.GetBucketEncryptionRequest, 
-            completion: @escaping (Result<S3Model.GetBucketEncryptionOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketEncryption operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketEncryptionRequest object being passed to this operation.
-     - Returns: The GetBucketEncryptionOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketEncryptionOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketEncryptionSync(
-            input: S3Model.GetBucketEncryptionRequest) throws -> S3Model.GetBucketEncryptionOutput
+    func getBucketEncryption(
+            input: S3Model.GetBucketEncryptionRequest) -> EventLoopFuture<S3Model.GetBucketEncryptionOutput>
 
     /**
-     Invokes the GetBucketIntelligentTieringConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketIntelligentTieringConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketIntelligentTieringConfigurationRequest object being passed to this operation.
-         - completion: The GetBucketIntelligentTieringConfigurationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketIntelligentTieringConfigurationOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketIntelligentTieringConfigurationAsync(
-            input: S3Model.GetBucketIntelligentTieringConfigurationRequest, 
-            completion: @escaping (Result<S3Model.GetBucketIntelligentTieringConfigurationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketIntelligentTieringConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketIntelligentTieringConfigurationRequest object being passed to this operation.
-     - Returns: The GetBucketIntelligentTieringConfigurationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketIntelligentTieringConfigurationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketIntelligentTieringConfigurationSync(
-            input: S3Model.GetBucketIntelligentTieringConfigurationRequest) throws -> S3Model.GetBucketIntelligentTieringConfigurationOutput
+    func getBucketIntelligentTieringConfiguration(
+            input: S3Model.GetBucketIntelligentTieringConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketIntelligentTieringConfigurationOutput>
 
     /**
-     Invokes the GetBucketInventoryConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketInventoryConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketInventoryConfigurationRequest object being passed to this operation.
-         - completion: The GetBucketInventoryConfigurationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketInventoryConfigurationOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketInventoryConfigurationAsync(
-            input: S3Model.GetBucketInventoryConfigurationRequest, 
-            completion: @escaping (Result<S3Model.GetBucketInventoryConfigurationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketInventoryConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketInventoryConfigurationRequest object being passed to this operation.
-     - Returns: The GetBucketInventoryConfigurationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketInventoryConfigurationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketInventoryConfigurationSync(
-            input: S3Model.GetBucketInventoryConfigurationRequest) throws -> S3Model.GetBucketInventoryConfigurationOutput
+    func getBucketInventoryConfiguration(
+            input: S3Model.GetBucketInventoryConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketInventoryConfigurationOutput>
 
     /**
-     Invokes the GetBucketLifecycle operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketLifecycle operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketLifecycleRequest object being passed to this operation.
-         - completion: The GetBucketLifecycleOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketLifecycleOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketLifecycleAsync(
-            input: S3Model.GetBucketLifecycleRequest, 
-            completion: @escaping (Result<S3Model.GetBucketLifecycleOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketLifecycle operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketLifecycleRequest object being passed to this operation.
-     - Returns: The GetBucketLifecycleOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketLifecycleOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketLifecycleSync(
-            input: S3Model.GetBucketLifecycleRequest) throws -> S3Model.GetBucketLifecycleOutput
+    func getBucketLifecycle(
+            input: S3Model.GetBucketLifecycleRequest) -> EventLoopFuture<S3Model.GetBucketLifecycleOutput>
 
     /**
-     Invokes the GetBucketLifecycleConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketLifecycleConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketLifecycleConfigurationRequest object being passed to this operation.
-         - completion: The GetBucketLifecycleConfigurationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketLifecycleConfigurationOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketLifecycleConfigurationAsync(
-            input: S3Model.GetBucketLifecycleConfigurationRequest, 
-            completion: @escaping (Result<S3Model.GetBucketLifecycleConfigurationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketLifecycleConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketLifecycleConfigurationRequest object being passed to this operation.
-     - Returns: The GetBucketLifecycleConfigurationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketLifecycleConfigurationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketLifecycleConfigurationSync(
-            input: S3Model.GetBucketLifecycleConfigurationRequest) throws -> S3Model.GetBucketLifecycleConfigurationOutput
+    func getBucketLifecycleConfiguration(
+            input: S3Model.GetBucketLifecycleConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketLifecycleConfigurationOutput>
 
     /**
-     Invokes the GetBucketLocation operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketLocation operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketLocationRequest object being passed to this operation.
-         - completion: The GetBucketLocationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketLocationOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketLocationAsync(
-            input: S3Model.GetBucketLocationRequest, 
-            completion: @escaping (Result<S3Model.GetBucketLocationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketLocation operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketLocationRequest object being passed to this operation.
-     - Returns: The GetBucketLocationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketLocationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketLocationSync(
-            input: S3Model.GetBucketLocationRequest) throws -> S3Model.GetBucketLocationOutput
+    func getBucketLocation(
+            input: S3Model.GetBucketLocationRequest) -> EventLoopFuture<S3Model.GetBucketLocationOutput>
 
     /**
-     Invokes the GetBucketLogging operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketLogging operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketLoggingRequest object being passed to this operation.
-         - completion: The GetBucketLoggingOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketLoggingOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketLoggingAsync(
-            input: S3Model.GetBucketLoggingRequest, 
-            completion: @escaping (Result<S3Model.GetBucketLoggingOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketLogging operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketLoggingRequest object being passed to this operation.
-     - Returns: The GetBucketLoggingOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketLoggingOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketLoggingSync(
-            input: S3Model.GetBucketLoggingRequest) throws -> S3Model.GetBucketLoggingOutput
+    func getBucketLogging(
+            input: S3Model.GetBucketLoggingRequest) -> EventLoopFuture<S3Model.GetBucketLoggingOutput>
 
     /**
-     Invokes the GetBucketMetricsConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketMetricsConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketMetricsConfigurationRequest object being passed to this operation.
-         - completion: The GetBucketMetricsConfigurationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketMetricsConfigurationOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketMetricsConfigurationAsync(
-            input: S3Model.GetBucketMetricsConfigurationRequest, 
-            completion: @escaping (Result<S3Model.GetBucketMetricsConfigurationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketMetricsConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketMetricsConfigurationRequest object being passed to this operation.
-     - Returns: The GetBucketMetricsConfigurationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketMetricsConfigurationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketMetricsConfigurationSync(
-            input: S3Model.GetBucketMetricsConfigurationRequest) throws -> S3Model.GetBucketMetricsConfigurationOutput
+    func getBucketMetricsConfiguration(
+            input: S3Model.GetBucketMetricsConfigurationRequest) -> EventLoopFuture<S3Model.GetBucketMetricsConfigurationOutput>
 
     /**
-     Invokes the GetBucketNotification operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketNotification operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketNotificationConfigurationRequest object being passed to this operation.
-         - completion: The NotificationConfigurationDeprecated object or an error will be passed to this 
-           callback when the operation is complete. The NotificationConfigurationDeprecated
-           object will be validated before being returned to caller.
-     */
-    func getBucketNotificationAsync(
-            input: S3Model.GetBucketNotificationConfigurationRequest, 
-            completion: @escaping (Result<S3Model.NotificationConfigurationDeprecated, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketNotification operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketNotificationConfigurationRequest object being passed to this operation.
-     - Returns: The NotificationConfigurationDeprecated object to be passed back from the caller of this operation.
+     - Returns: A future to the NotificationConfigurationDeprecated object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketNotificationSync(
-            input: S3Model.GetBucketNotificationConfigurationRequest) throws -> S3Model.NotificationConfigurationDeprecated
+    func getBucketNotification(
+            input: S3Model.GetBucketNotificationConfigurationRequest) -> EventLoopFuture<S3Model.NotificationConfigurationDeprecated>
 
     /**
-     Invokes the GetBucketNotificationConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketNotificationConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketNotificationConfigurationRequest object being passed to this operation.
-         - completion: The NotificationConfiguration object or an error will be passed to this 
-           callback when the operation is complete. The NotificationConfiguration
-           object will be validated before being returned to caller.
-     */
-    func getBucketNotificationConfigurationAsync(
-            input: S3Model.GetBucketNotificationConfigurationRequest, 
-            completion: @escaping (Result<S3Model.NotificationConfiguration, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketNotificationConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketNotificationConfigurationRequest object being passed to this operation.
-     - Returns: The NotificationConfiguration object to be passed back from the caller of this operation.
+     - Returns: A future to the NotificationConfiguration object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketNotificationConfigurationSync(
-            input: S3Model.GetBucketNotificationConfigurationRequest) throws -> S3Model.NotificationConfiguration
+    func getBucketNotificationConfiguration(
+            input: S3Model.GetBucketNotificationConfigurationRequest) -> EventLoopFuture<S3Model.NotificationConfiguration>
 
     /**
-     Invokes the GetBucketOwnershipControls operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketOwnershipControls operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketOwnershipControlsRequest object being passed to this operation.
-         - completion: The GetBucketOwnershipControlsOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketOwnershipControlsOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketOwnershipControlsAsync(
-            input: S3Model.GetBucketOwnershipControlsRequest, 
-            completion: @escaping (Result<S3Model.GetBucketOwnershipControlsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketOwnershipControls operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketOwnershipControlsRequest object being passed to this operation.
-     - Returns: The GetBucketOwnershipControlsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketOwnershipControlsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketOwnershipControlsSync(
-            input: S3Model.GetBucketOwnershipControlsRequest) throws -> S3Model.GetBucketOwnershipControlsOutput
+    func getBucketOwnershipControls(
+            input: S3Model.GetBucketOwnershipControlsRequest) -> EventLoopFuture<S3Model.GetBucketOwnershipControlsOutput>
 
     /**
-     Invokes the GetBucketPolicy operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketPolicyRequest object being passed to this operation.
-         - completion: The GetBucketPolicyOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketPolicyOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketPolicyAsync(
-            input: S3Model.GetBucketPolicyRequest, 
-            completion: @escaping (Result<S3Model.GetBucketPolicyOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketPolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketPolicyRequest object being passed to this operation.
-     - Returns: The GetBucketPolicyOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketPolicyOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketPolicySync(
-            input: S3Model.GetBucketPolicyRequest) throws -> S3Model.GetBucketPolicyOutput
+    func getBucketPolicy(
+            input: S3Model.GetBucketPolicyRequest) -> EventLoopFuture<S3Model.GetBucketPolicyOutput>
 
     /**
-     Invokes the GetBucketPolicyStatus operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketPolicyStatus operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketPolicyStatusRequest object being passed to this operation.
-         - completion: The GetBucketPolicyStatusOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketPolicyStatusOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketPolicyStatusAsync(
-            input: S3Model.GetBucketPolicyStatusRequest, 
-            completion: @escaping (Result<S3Model.GetBucketPolicyStatusOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketPolicyStatus operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketPolicyStatusRequest object being passed to this operation.
-     - Returns: The GetBucketPolicyStatusOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketPolicyStatusOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketPolicyStatusSync(
-            input: S3Model.GetBucketPolicyStatusRequest) throws -> S3Model.GetBucketPolicyStatusOutput
+    func getBucketPolicyStatus(
+            input: S3Model.GetBucketPolicyStatusRequest) -> EventLoopFuture<S3Model.GetBucketPolicyStatusOutput>
 
     /**
-     Invokes the GetBucketReplication operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketReplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketReplicationRequest object being passed to this operation.
-         - completion: The GetBucketReplicationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketReplicationOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketReplicationAsync(
-            input: S3Model.GetBucketReplicationRequest, 
-            completion: @escaping (Result<S3Model.GetBucketReplicationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketReplication operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketReplicationRequest object being passed to this operation.
-     - Returns: The GetBucketReplicationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketReplicationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketReplicationSync(
-            input: S3Model.GetBucketReplicationRequest) throws -> S3Model.GetBucketReplicationOutput
+    func getBucketReplication(
+            input: S3Model.GetBucketReplicationRequest) -> EventLoopFuture<S3Model.GetBucketReplicationOutput>
 
     /**
-     Invokes the GetBucketRequestPayment operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketRequestPayment operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketRequestPaymentRequest object being passed to this operation.
-         - completion: The GetBucketRequestPaymentOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketRequestPaymentOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketRequestPaymentAsync(
-            input: S3Model.GetBucketRequestPaymentRequest, 
-            completion: @escaping (Result<S3Model.GetBucketRequestPaymentOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketRequestPayment operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketRequestPaymentRequest object being passed to this operation.
-     - Returns: The GetBucketRequestPaymentOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketRequestPaymentOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketRequestPaymentSync(
-            input: S3Model.GetBucketRequestPaymentRequest) throws -> S3Model.GetBucketRequestPaymentOutput
+    func getBucketRequestPayment(
+            input: S3Model.GetBucketRequestPaymentRequest) -> EventLoopFuture<S3Model.GetBucketRequestPaymentOutput>
 
     /**
-     Invokes the GetBucketTagging operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketTagging operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketTaggingRequest object being passed to this operation.
-         - completion: The GetBucketTaggingOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketTaggingOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketTaggingAsync(
-            input: S3Model.GetBucketTaggingRequest, 
-            completion: @escaping (Result<S3Model.GetBucketTaggingOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketTagging operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketTaggingRequest object being passed to this operation.
-     - Returns: The GetBucketTaggingOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketTaggingOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketTaggingSync(
-            input: S3Model.GetBucketTaggingRequest) throws -> S3Model.GetBucketTaggingOutput
+    func getBucketTagging(
+            input: S3Model.GetBucketTaggingRequest) -> EventLoopFuture<S3Model.GetBucketTaggingOutput>
 
     /**
-     Invokes the GetBucketVersioning operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketVersioning operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketVersioningRequest object being passed to this operation.
-         - completion: The GetBucketVersioningOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketVersioningOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketVersioningAsync(
-            input: S3Model.GetBucketVersioningRequest, 
-            completion: @escaping (Result<S3Model.GetBucketVersioningOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketVersioning operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketVersioningRequest object being passed to this operation.
-     - Returns: The GetBucketVersioningOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketVersioningOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketVersioningSync(
-            input: S3Model.GetBucketVersioningRequest) throws -> S3Model.GetBucketVersioningOutput
+    func getBucketVersioning(
+            input: S3Model.GetBucketVersioningRequest) -> EventLoopFuture<S3Model.GetBucketVersioningOutput>
 
     /**
-     Invokes the GetBucketWebsite operation returning immediately and passing the response to a callback.
+     Invokes the GetBucketWebsite operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetBucketWebsiteRequest object being passed to this operation.
-         - completion: The GetBucketWebsiteOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetBucketWebsiteOutput
-           object will be validated before being returned to caller.
-     */
-    func getBucketWebsiteAsync(
-            input: S3Model.GetBucketWebsiteRequest, 
-            completion: @escaping (Result<S3Model.GetBucketWebsiteOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetBucketWebsite operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetBucketWebsiteRequest object being passed to this operation.
-     - Returns: The GetBucketWebsiteOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetBucketWebsiteOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getBucketWebsiteSync(
-            input: S3Model.GetBucketWebsiteRequest) throws -> S3Model.GetBucketWebsiteOutput
+    func getBucketWebsite(
+            input: S3Model.GetBucketWebsiteRequest) -> EventLoopFuture<S3Model.GetBucketWebsiteOutput>
 
     /**
-     Invokes the GetObject operation returning immediately and passing the response to a callback.
+     Invokes the GetObject operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetObjectRequest object being passed to this operation.
-         - completion: The GetObjectOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetObjectOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetObjectOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidObjectState, noSuchKey.
      */
-    func getObjectAsync(
-            input: S3Model.GetObjectRequest, 
-            completion: @escaping (Result<S3Model.GetObjectOutput, S3Error>) -> ()) throws
+    func getObject(
+            input: S3Model.GetObjectRequest) -> EventLoopFuture<S3Model.GetObjectOutput>
 
     /**
-     Invokes the GetObject operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetObjectRequest object being passed to this operation.
-     - Returns: The GetObjectOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidObjectState, noSuchKey.
-     */
-    func getObjectSync(
-            input: S3Model.GetObjectRequest) throws -> S3Model.GetObjectOutput
-
-    /**
-     Invokes the GetObjectAcl operation returning immediately and passing the response to a callback.
+     Invokes the GetObjectAcl operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetObjectAclRequest object being passed to this operation.
-         - completion: The GetObjectAclOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetObjectAclOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetObjectAclOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: noSuchKey.
      */
-    func getObjectAclAsync(
-            input: S3Model.GetObjectAclRequest, 
-            completion: @escaping (Result<S3Model.GetObjectAclOutput, S3Error>) -> ()) throws
+    func getObjectAcl(
+            input: S3Model.GetObjectAclRequest) -> EventLoopFuture<S3Model.GetObjectAclOutput>
 
     /**
-     Invokes the GetObjectAcl operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetObjectAclRequest object being passed to this operation.
-     - Returns: The GetObjectAclOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: noSuchKey.
-     */
-    func getObjectAclSync(
-            input: S3Model.GetObjectAclRequest) throws -> S3Model.GetObjectAclOutput
-
-    /**
-     Invokes the GetObjectLegalHold operation returning immediately and passing the response to a callback.
+     Invokes the GetObjectLegalHold operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetObjectLegalHoldRequest object being passed to this operation.
-         - completion: The GetObjectLegalHoldOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetObjectLegalHoldOutput
-           object will be validated before being returned to caller.
-     */
-    func getObjectLegalHoldAsync(
-            input: S3Model.GetObjectLegalHoldRequest, 
-            completion: @escaping (Result<S3Model.GetObjectLegalHoldOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetObjectLegalHold operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetObjectLegalHoldRequest object being passed to this operation.
-     - Returns: The GetObjectLegalHoldOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetObjectLegalHoldOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getObjectLegalHoldSync(
-            input: S3Model.GetObjectLegalHoldRequest) throws -> S3Model.GetObjectLegalHoldOutput
+    func getObjectLegalHold(
+            input: S3Model.GetObjectLegalHoldRequest) -> EventLoopFuture<S3Model.GetObjectLegalHoldOutput>
 
     /**
-     Invokes the GetObjectLockConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the GetObjectLockConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetObjectLockConfigurationRequest object being passed to this operation.
-         - completion: The GetObjectLockConfigurationOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetObjectLockConfigurationOutput
-           object will be validated before being returned to caller.
-     */
-    func getObjectLockConfigurationAsync(
-            input: S3Model.GetObjectLockConfigurationRequest, 
-            completion: @escaping (Result<S3Model.GetObjectLockConfigurationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetObjectLockConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetObjectLockConfigurationRequest object being passed to this operation.
-     - Returns: The GetObjectLockConfigurationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetObjectLockConfigurationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getObjectLockConfigurationSync(
-            input: S3Model.GetObjectLockConfigurationRequest) throws -> S3Model.GetObjectLockConfigurationOutput
+    func getObjectLockConfiguration(
+            input: S3Model.GetObjectLockConfigurationRequest) -> EventLoopFuture<S3Model.GetObjectLockConfigurationOutput>
 
     /**
-     Invokes the GetObjectRetention operation returning immediately and passing the response to a callback.
+     Invokes the GetObjectRetention operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetObjectRetentionRequest object being passed to this operation.
-         - completion: The GetObjectRetentionOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetObjectRetentionOutput
-           object will be validated before being returned to caller.
-     */
-    func getObjectRetentionAsync(
-            input: S3Model.GetObjectRetentionRequest, 
-            completion: @escaping (Result<S3Model.GetObjectRetentionOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetObjectRetention operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetObjectRetentionRequest object being passed to this operation.
-     - Returns: The GetObjectRetentionOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetObjectRetentionOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getObjectRetentionSync(
-            input: S3Model.GetObjectRetentionRequest) throws -> S3Model.GetObjectRetentionOutput
+    func getObjectRetention(
+            input: S3Model.GetObjectRetentionRequest) -> EventLoopFuture<S3Model.GetObjectRetentionOutput>
 
     /**
-     Invokes the GetObjectTagging operation returning immediately and passing the response to a callback.
+     Invokes the GetObjectTagging operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetObjectTaggingRequest object being passed to this operation.
-         - completion: The GetObjectTaggingOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetObjectTaggingOutput
-           object will be validated before being returned to caller.
-     */
-    func getObjectTaggingAsync(
-            input: S3Model.GetObjectTaggingRequest, 
-            completion: @escaping (Result<S3Model.GetObjectTaggingOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetObjectTagging operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetObjectTaggingRequest object being passed to this operation.
-     - Returns: The GetObjectTaggingOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetObjectTaggingOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getObjectTaggingSync(
-            input: S3Model.GetObjectTaggingRequest) throws -> S3Model.GetObjectTaggingOutput
+    func getObjectTagging(
+            input: S3Model.GetObjectTaggingRequest) -> EventLoopFuture<S3Model.GetObjectTaggingOutput>
 
     /**
-     Invokes the GetObjectTorrent operation returning immediately and passing the response to a callback.
+     Invokes the GetObjectTorrent operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetObjectTorrentRequest object being passed to this operation.
-         - completion: The GetObjectTorrentOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetObjectTorrentOutput
-           object will be validated before being returned to caller.
-     */
-    func getObjectTorrentAsync(
-            input: S3Model.GetObjectTorrentRequest, 
-            completion: @escaping (Result<S3Model.GetObjectTorrentOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetObjectTorrent operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetObjectTorrentRequest object being passed to this operation.
-     - Returns: The GetObjectTorrentOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetObjectTorrentOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getObjectTorrentSync(
-            input: S3Model.GetObjectTorrentRequest) throws -> S3Model.GetObjectTorrentOutput
+    func getObjectTorrent(
+            input: S3Model.GetObjectTorrentRequest) -> EventLoopFuture<S3Model.GetObjectTorrentOutput>
 
     /**
-     Invokes the GetPublicAccessBlock operation returning immediately and passing the response to a callback.
+     Invokes the GetPublicAccessBlock operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetPublicAccessBlockRequest object being passed to this operation.
-         - completion: The GetPublicAccessBlockOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetPublicAccessBlockOutput
-           object will be validated before being returned to caller.
-     */
-    func getPublicAccessBlockAsync(
-            input: S3Model.GetPublicAccessBlockRequest, 
-            completion: @escaping (Result<S3Model.GetPublicAccessBlockOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the GetPublicAccessBlock operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetPublicAccessBlockRequest object being passed to this operation.
-     - Returns: The GetPublicAccessBlockOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the GetPublicAccessBlockOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func getPublicAccessBlockSync(
-            input: S3Model.GetPublicAccessBlockRequest) throws -> S3Model.GetPublicAccessBlockOutput
+    func getPublicAccessBlock(
+            input: S3Model.GetPublicAccessBlockRequest) -> EventLoopFuture<S3Model.GetPublicAccessBlockOutput>
 
     /**
-     Invokes the HeadBucket operation returning immediately and passing the response to a callback.
+     Invokes the HeadBucket operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated HeadBucketRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: noSuchBucket.
      */
-    func headBucketAsync(
-            input: S3Model.HeadBucketRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
+    func headBucket(
+            input: S3Model.HeadBucketRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the HeadBucket operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated HeadBucketRequest object being passed to this operation.
-     - Throws: noSuchBucket.
-     */
-    func headBucketSync(
-            input: S3Model.HeadBucketRequest) throws
-
-    /**
-     Invokes the HeadObject operation returning immediately and passing the response to a callback.
+     Invokes the HeadObject operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated HeadObjectRequest object being passed to this operation.
-         - completion: The HeadObjectOutput object or an error will be passed to this 
-           callback when the operation is complete. The HeadObjectOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the HeadObjectOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: noSuchKey.
      */
-    func headObjectAsync(
-            input: S3Model.HeadObjectRequest, 
-            completion: @escaping (Result<S3Model.HeadObjectOutput, S3Error>) -> ()) throws
+    func headObject(
+            input: S3Model.HeadObjectRequest) -> EventLoopFuture<S3Model.HeadObjectOutput>
 
     /**
-     Invokes the HeadObject operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated HeadObjectRequest object being passed to this operation.
-     - Returns: The HeadObjectOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: noSuchKey.
-     */
-    func headObjectSync(
-            input: S3Model.HeadObjectRequest) throws -> S3Model.HeadObjectOutput
-
-    /**
-     Invokes the ListBucketAnalyticsConfigurations operation returning immediately and passing the response to a callback.
+     Invokes the ListBucketAnalyticsConfigurations operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListBucketAnalyticsConfigurationsRequest object being passed to this operation.
-         - completion: The ListBucketAnalyticsConfigurationsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListBucketAnalyticsConfigurationsOutput
-           object will be validated before being returned to caller.
-     */
-    func listBucketAnalyticsConfigurationsAsync(
-            input: S3Model.ListBucketAnalyticsConfigurationsRequest, 
-            completion: @escaping (Result<S3Model.ListBucketAnalyticsConfigurationsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the ListBucketAnalyticsConfigurations operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListBucketAnalyticsConfigurationsRequest object being passed to this operation.
-     - Returns: The ListBucketAnalyticsConfigurationsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the ListBucketAnalyticsConfigurationsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func listBucketAnalyticsConfigurationsSync(
-            input: S3Model.ListBucketAnalyticsConfigurationsRequest) throws -> S3Model.ListBucketAnalyticsConfigurationsOutput
+    func listBucketAnalyticsConfigurations(
+            input: S3Model.ListBucketAnalyticsConfigurationsRequest) -> EventLoopFuture<S3Model.ListBucketAnalyticsConfigurationsOutput>
 
     /**
-     Invokes the ListBucketIntelligentTieringConfigurations operation returning immediately and passing the response to a callback.
+     Invokes the ListBucketIntelligentTieringConfigurations operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListBucketIntelligentTieringConfigurationsRequest object being passed to this operation.
-         - completion: The ListBucketIntelligentTieringConfigurationsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListBucketIntelligentTieringConfigurationsOutput
-           object will be validated before being returned to caller.
-     */
-    func listBucketIntelligentTieringConfigurationsAsync(
-            input: S3Model.ListBucketIntelligentTieringConfigurationsRequest, 
-            completion: @escaping (Result<S3Model.ListBucketIntelligentTieringConfigurationsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the ListBucketIntelligentTieringConfigurations operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListBucketIntelligentTieringConfigurationsRequest object being passed to this operation.
-     - Returns: The ListBucketIntelligentTieringConfigurationsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the ListBucketIntelligentTieringConfigurationsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func listBucketIntelligentTieringConfigurationsSync(
-            input: S3Model.ListBucketIntelligentTieringConfigurationsRequest) throws -> S3Model.ListBucketIntelligentTieringConfigurationsOutput
+    func listBucketIntelligentTieringConfigurations(
+            input: S3Model.ListBucketIntelligentTieringConfigurationsRequest) -> EventLoopFuture<S3Model.ListBucketIntelligentTieringConfigurationsOutput>
 
     /**
-     Invokes the ListBucketInventoryConfigurations operation returning immediately and passing the response to a callback.
+     Invokes the ListBucketInventoryConfigurations operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListBucketInventoryConfigurationsRequest object being passed to this operation.
-         - completion: The ListBucketInventoryConfigurationsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListBucketInventoryConfigurationsOutput
-           object will be validated before being returned to caller.
-     */
-    func listBucketInventoryConfigurationsAsync(
-            input: S3Model.ListBucketInventoryConfigurationsRequest, 
-            completion: @escaping (Result<S3Model.ListBucketInventoryConfigurationsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the ListBucketInventoryConfigurations operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListBucketInventoryConfigurationsRequest object being passed to this operation.
-     - Returns: The ListBucketInventoryConfigurationsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the ListBucketInventoryConfigurationsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func listBucketInventoryConfigurationsSync(
-            input: S3Model.ListBucketInventoryConfigurationsRequest) throws -> S3Model.ListBucketInventoryConfigurationsOutput
+    func listBucketInventoryConfigurations(
+            input: S3Model.ListBucketInventoryConfigurationsRequest) -> EventLoopFuture<S3Model.ListBucketInventoryConfigurationsOutput>
 
     /**
-     Invokes the ListBucketMetricsConfigurations operation returning immediately and passing the response to a callback.
+     Invokes the ListBucketMetricsConfigurations operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListBucketMetricsConfigurationsRequest object being passed to this operation.
-         - completion: The ListBucketMetricsConfigurationsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListBucketMetricsConfigurationsOutput
-           object will be validated before being returned to caller.
-     */
-    func listBucketMetricsConfigurationsAsync(
-            input: S3Model.ListBucketMetricsConfigurationsRequest, 
-            completion: @escaping (Result<S3Model.ListBucketMetricsConfigurationsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the ListBucketMetricsConfigurations operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListBucketMetricsConfigurationsRequest object being passed to this operation.
-     - Returns: The ListBucketMetricsConfigurationsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the ListBucketMetricsConfigurationsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func listBucketMetricsConfigurationsSync(
-            input: S3Model.ListBucketMetricsConfigurationsRequest) throws -> S3Model.ListBucketMetricsConfigurationsOutput
+    func listBucketMetricsConfigurations(
+            input: S3Model.ListBucketMetricsConfigurationsRequest) -> EventLoopFuture<S3Model.ListBucketMetricsConfigurationsOutput>
 
     /**
-     Invokes the ListBuckets operation returning immediately and passing the response to a callback.
-         - completion: The ListBucketsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListBucketsOutput
-           object will be validated before being returned to caller.
-     */
-    func listBucketsAsync(
-            completion: @escaping (Result<S3Model.ListBucketsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the ListBuckets operation waiting for the response before returning.
-     - Returns: The ListBucketsOutput object to be passed back from the caller of this operation.
+     Invokes the ListBuckets operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+     - Returns: A future to the ListBucketsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func listBucketsSync() throws -> S3Model.ListBucketsOutput
+    func listBuckets() -> EventLoopFuture<S3Model.ListBucketsOutput>
 
     /**
-     Invokes the ListMultipartUploads operation returning immediately and passing the response to a callback.
+     Invokes the ListMultipartUploads operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListMultipartUploadsRequest object being passed to this operation.
-         - completion: The ListMultipartUploadsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListMultipartUploadsOutput
-           object will be validated before being returned to caller.
-     */
-    func listMultipartUploadsAsync(
-            input: S3Model.ListMultipartUploadsRequest, 
-            completion: @escaping (Result<S3Model.ListMultipartUploadsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the ListMultipartUploads operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListMultipartUploadsRequest object being passed to this operation.
-     - Returns: The ListMultipartUploadsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the ListMultipartUploadsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func listMultipartUploadsSync(
-            input: S3Model.ListMultipartUploadsRequest) throws -> S3Model.ListMultipartUploadsOutput
+    func listMultipartUploads(
+            input: S3Model.ListMultipartUploadsRequest) -> EventLoopFuture<S3Model.ListMultipartUploadsOutput>
 
     /**
-     Invokes the ListObjectVersions operation returning immediately and passing the response to a callback.
+     Invokes the ListObjectVersions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListObjectVersionsRequest object being passed to this operation.
-         - completion: The ListObjectVersionsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListObjectVersionsOutput
-           object will be validated before being returned to caller.
-     */
-    func listObjectVersionsAsync(
-            input: S3Model.ListObjectVersionsRequest, 
-            completion: @escaping (Result<S3Model.ListObjectVersionsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the ListObjectVersions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListObjectVersionsRequest object being passed to this operation.
-     - Returns: The ListObjectVersionsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the ListObjectVersionsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func listObjectVersionsSync(
-            input: S3Model.ListObjectVersionsRequest) throws -> S3Model.ListObjectVersionsOutput
+    func listObjectVersions(
+            input: S3Model.ListObjectVersionsRequest) -> EventLoopFuture<S3Model.ListObjectVersionsOutput>
 
     /**
-     Invokes the ListObjects operation returning immediately and passing the response to a callback.
+     Invokes the ListObjects operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListObjectsRequest object being passed to this operation.
-         - completion: The ListObjectsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListObjectsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListObjectsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: noSuchBucket.
      */
-    func listObjectsAsync(
-            input: S3Model.ListObjectsRequest, 
-            completion: @escaping (Result<S3Model.ListObjectsOutput, S3Error>) -> ()) throws
+    func listObjects(
+            input: S3Model.ListObjectsRequest) -> EventLoopFuture<S3Model.ListObjectsOutput>
 
     /**
-     Invokes the ListObjects operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListObjectsRequest object being passed to this operation.
-     - Returns: The ListObjectsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: noSuchBucket.
-     */
-    func listObjectsSync(
-            input: S3Model.ListObjectsRequest) throws -> S3Model.ListObjectsOutput
-
-    /**
-     Invokes the ListObjectsV2 operation returning immediately and passing the response to a callback.
+     Invokes the ListObjectsV2 operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListObjectsV2Request object being passed to this operation.
-         - completion: The ListObjectsV2Output object or an error will be passed to this 
-           callback when the operation is complete. The ListObjectsV2Output
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListObjectsV2Output object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: noSuchBucket.
      */
-    func listObjectsV2Async(
-            input: S3Model.ListObjectsV2Request, 
-            completion: @escaping (Result<S3Model.ListObjectsV2Output, S3Error>) -> ()) throws
+    func listObjectsV2(
+            input: S3Model.ListObjectsV2Request) -> EventLoopFuture<S3Model.ListObjectsV2Output>
 
     /**
-     Invokes the ListObjectsV2 operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListObjectsV2Request object being passed to this operation.
-     - Returns: The ListObjectsV2Output object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: noSuchBucket.
-     */
-    func listObjectsV2Sync(
-            input: S3Model.ListObjectsV2Request) throws -> S3Model.ListObjectsV2Output
-
-    /**
-     Invokes the ListParts operation returning immediately and passing the response to a callback.
+     Invokes the ListParts operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListPartsRequest object being passed to this operation.
-         - completion: The ListPartsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListPartsOutput
-           object will be validated before being returned to caller.
-     */
-    func listPartsAsync(
-            input: S3Model.ListPartsRequest, 
-            completion: @escaping (Result<S3Model.ListPartsOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the ListParts operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListPartsRequest object being passed to this operation.
-     - Returns: The ListPartsOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the ListPartsOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func listPartsSync(
-            input: S3Model.ListPartsRequest) throws -> S3Model.ListPartsOutput
+    func listParts(
+            input: S3Model.ListPartsRequest) -> EventLoopFuture<S3Model.ListPartsOutput>
 
     /**
-     Invokes the PutBucketAccelerateConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketAccelerateConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketAccelerateConfigurationAsync(
-            input: S3Model.PutBucketAccelerateConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketAccelerateConfiguration operation waiting for the response before returning.
+     Invokes the PutBucketAccelerateConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketAccelerateConfigurationRequest object being passed to this operation.
      */
-    func putBucketAccelerateConfigurationSync(
-            input: S3Model.PutBucketAccelerateConfigurationRequest) throws
+    func putBucketAccelerateConfiguration(
+            input: S3Model.PutBucketAccelerateConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketAcl operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketAclRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketAclAsync(
-            input: S3Model.PutBucketAclRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketAcl operation waiting for the response before returning.
+     Invokes the PutBucketAcl operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketAclRequest object being passed to this operation.
      */
-    func putBucketAclSync(
-            input: S3Model.PutBucketAclRequest) throws
+    func putBucketAcl(
+            input: S3Model.PutBucketAclRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketAnalyticsConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketAnalyticsConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketAnalyticsConfigurationAsync(
-            input: S3Model.PutBucketAnalyticsConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketAnalyticsConfiguration operation waiting for the response before returning.
+     Invokes the PutBucketAnalyticsConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketAnalyticsConfigurationRequest object being passed to this operation.
      */
-    func putBucketAnalyticsConfigurationSync(
-            input: S3Model.PutBucketAnalyticsConfigurationRequest) throws
+    func putBucketAnalyticsConfiguration(
+            input: S3Model.PutBucketAnalyticsConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketCors operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketCorsRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketCorsAsync(
-            input: S3Model.PutBucketCorsRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketCors operation waiting for the response before returning.
+     Invokes the PutBucketCors operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketCorsRequest object being passed to this operation.
      */
-    func putBucketCorsSync(
-            input: S3Model.PutBucketCorsRequest) throws
+    func putBucketCors(
+            input: S3Model.PutBucketCorsRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketEncryption operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketEncryptionRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketEncryptionAsync(
-            input: S3Model.PutBucketEncryptionRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketEncryption operation waiting for the response before returning.
+     Invokes the PutBucketEncryption operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketEncryptionRequest object being passed to this operation.
      */
-    func putBucketEncryptionSync(
-            input: S3Model.PutBucketEncryptionRequest) throws
+    func putBucketEncryption(
+            input: S3Model.PutBucketEncryptionRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketIntelligentTieringConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketIntelligentTieringConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketIntelligentTieringConfigurationAsync(
-            input: S3Model.PutBucketIntelligentTieringConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketIntelligentTieringConfiguration operation waiting for the response before returning.
+     Invokes the PutBucketIntelligentTieringConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketIntelligentTieringConfigurationRequest object being passed to this operation.
      */
-    func putBucketIntelligentTieringConfigurationSync(
-            input: S3Model.PutBucketIntelligentTieringConfigurationRequest) throws
+    func putBucketIntelligentTieringConfiguration(
+            input: S3Model.PutBucketIntelligentTieringConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketInventoryConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketInventoryConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketInventoryConfigurationAsync(
-            input: S3Model.PutBucketInventoryConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketInventoryConfiguration operation waiting for the response before returning.
+     Invokes the PutBucketInventoryConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketInventoryConfigurationRequest object being passed to this operation.
      */
-    func putBucketInventoryConfigurationSync(
-            input: S3Model.PutBucketInventoryConfigurationRequest) throws
+    func putBucketInventoryConfiguration(
+            input: S3Model.PutBucketInventoryConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketLifecycle operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketLifecycleRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketLifecycleAsync(
-            input: S3Model.PutBucketLifecycleRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketLifecycle operation waiting for the response before returning.
+     Invokes the PutBucketLifecycle operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketLifecycleRequest object being passed to this operation.
      */
-    func putBucketLifecycleSync(
-            input: S3Model.PutBucketLifecycleRequest) throws
+    func putBucketLifecycle(
+            input: S3Model.PutBucketLifecycleRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketLifecycleConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketLifecycleConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketLifecycleConfigurationAsync(
-            input: S3Model.PutBucketLifecycleConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketLifecycleConfiguration operation waiting for the response before returning.
+     Invokes the PutBucketLifecycleConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketLifecycleConfigurationRequest object being passed to this operation.
      */
-    func putBucketLifecycleConfigurationSync(
-            input: S3Model.PutBucketLifecycleConfigurationRequest) throws
+    func putBucketLifecycleConfiguration(
+            input: S3Model.PutBucketLifecycleConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketLogging operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketLoggingRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketLoggingAsync(
-            input: S3Model.PutBucketLoggingRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketLogging operation waiting for the response before returning.
+     Invokes the PutBucketLogging operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketLoggingRequest object being passed to this operation.
      */
-    func putBucketLoggingSync(
-            input: S3Model.PutBucketLoggingRequest) throws
+    func putBucketLogging(
+            input: S3Model.PutBucketLoggingRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketMetricsConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketMetricsConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketMetricsConfigurationAsync(
-            input: S3Model.PutBucketMetricsConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketMetricsConfiguration operation waiting for the response before returning.
+     Invokes the PutBucketMetricsConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketMetricsConfigurationRequest object being passed to this operation.
      */
-    func putBucketMetricsConfigurationSync(
-            input: S3Model.PutBucketMetricsConfigurationRequest) throws
+    func putBucketMetricsConfiguration(
+            input: S3Model.PutBucketMetricsConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketNotification operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketNotificationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketNotificationAsync(
-            input: S3Model.PutBucketNotificationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketNotification operation waiting for the response before returning.
+     Invokes the PutBucketNotification operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketNotificationRequest object being passed to this operation.
      */
-    func putBucketNotificationSync(
-            input: S3Model.PutBucketNotificationRequest) throws
+    func putBucketNotification(
+            input: S3Model.PutBucketNotificationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketNotificationConfiguration operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketNotificationConfigurationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketNotificationConfigurationAsync(
-            input: S3Model.PutBucketNotificationConfigurationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketNotificationConfiguration operation waiting for the response before returning.
+     Invokes the PutBucketNotificationConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketNotificationConfigurationRequest object being passed to this operation.
      */
-    func putBucketNotificationConfigurationSync(
-            input: S3Model.PutBucketNotificationConfigurationRequest) throws
+    func putBucketNotificationConfiguration(
+            input: S3Model.PutBucketNotificationConfigurationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketOwnershipControls operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketOwnershipControlsRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketOwnershipControlsAsync(
-            input: S3Model.PutBucketOwnershipControlsRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketOwnershipControls operation waiting for the response before returning.
+     Invokes the PutBucketOwnershipControls operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketOwnershipControlsRequest object being passed to this operation.
      */
-    func putBucketOwnershipControlsSync(
-            input: S3Model.PutBucketOwnershipControlsRequest) throws
+    func putBucketOwnershipControls(
+            input: S3Model.PutBucketOwnershipControlsRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketPolicy operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketPolicyRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketPolicyAsync(
-            input: S3Model.PutBucketPolicyRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketPolicy operation waiting for the response before returning.
+     Invokes the PutBucketPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketPolicyRequest object being passed to this operation.
      */
-    func putBucketPolicySync(
-            input: S3Model.PutBucketPolicyRequest) throws
+    func putBucketPolicy(
+            input: S3Model.PutBucketPolicyRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketReplication operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketReplicationRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketReplicationAsync(
-            input: S3Model.PutBucketReplicationRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketReplication operation waiting for the response before returning.
+     Invokes the PutBucketReplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketReplicationRequest object being passed to this operation.
      */
-    func putBucketReplicationSync(
-            input: S3Model.PutBucketReplicationRequest) throws
+    func putBucketReplication(
+            input: S3Model.PutBucketReplicationRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketRequestPayment operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketRequestPaymentRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketRequestPaymentAsync(
-            input: S3Model.PutBucketRequestPaymentRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketRequestPayment operation waiting for the response before returning.
+     Invokes the PutBucketRequestPayment operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketRequestPaymentRequest object being passed to this operation.
      */
-    func putBucketRequestPaymentSync(
-            input: S3Model.PutBucketRequestPaymentRequest) throws
+    func putBucketRequestPayment(
+            input: S3Model.PutBucketRequestPaymentRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketTagging operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketTaggingRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketTaggingAsync(
-            input: S3Model.PutBucketTaggingRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketTagging operation waiting for the response before returning.
+     Invokes the PutBucketTagging operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketTaggingRequest object being passed to this operation.
      */
-    func putBucketTaggingSync(
-            input: S3Model.PutBucketTaggingRequest) throws
+    func putBucketTagging(
+            input: S3Model.PutBucketTaggingRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketVersioning operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketVersioningRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketVersioningAsync(
-            input: S3Model.PutBucketVersioningRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketVersioning operation waiting for the response before returning.
+     Invokes the PutBucketVersioning operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketVersioningRequest object being passed to this operation.
      */
-    func putBucketVersioningSync(
-            input: S3Model.PutBucketVersioningRequest) throws
+    func putBucketVersioning(
+            input: S3Model.PutBucketVersioningRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutBucketWebsite operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutBucketWebsiteRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putBucketWebsiteAsync(
-            input: S3Model.PutBucketWebsiteRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutBucketWebsite operation waiting for the response before returning.
+     Invokes the PutBucketWebsite operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutBucketWebsiteRequest object being passed to this operation.
      */
-    func putBucketWebsiteSync(
-            input: S3Model.PutBucketWebsiteRequest) throws
+    func putBucketWebsite(
+            input: S3Model.PutBucketWebsiteRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the PutObject operation returning immediately and passing the response to a callback.
+     Invokes the PutObject operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutObjectRequest object being passed to this operation.
-         - completion: The PutObjectOutput object or an error will be passed to this 
-           callback when the operation is complete. The PutObjectOutput
-           object will be validated before being returned to caller.
-     */
-    func putObjectAsync(
-            input: S3Model.PutObjectRequest, 
-            completion: @escaping (Result<S3Model.PutObjectOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the PutObject operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutObjectRequest object being passed to this operation.
-     - Returns: The PutObjectOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the PutObjectOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func putObjectSync(
-            input: S3Model.PutObjectRequest) throws -> S3Model.PutObjectOutput
+    func putObject(
+            input: S3Model.PutObjectRequest) -> EventLoopFuture<S3Model.PutObjectOutput>
 
     /**
-     Invokes the PutObjectAcl operation returning immediately and passing the response to a callback.
+     Invokes the PutObjectAcl operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutObjectAclRequest object being passed to this operation.
-         - completion: The PutObjectAclOutput object or an error will be passed to this 
-           callback when the operation is complete. The PutObjectAclOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutObjectAclOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: noSuchKey.
      */
-    func putObjectAclAsync(
-            input: S3Model.PutObjectAclRequest, 
-            completion: @escaping (Result<S3Model.PutObjectAclOutput, S3Error>) -> ()) throws
+    func putObjectAcl(
+            input: S3Model.PutObjectAclRequest) -> EventLoopFuture<S3Model.PutObjectAclOutput>
 
     /**
-     Invokes the PutObjectAcl operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutObjectAclRequest object being passed to this operation.
-     - Returns: The PutObjectAclOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: noSuchKey.
-     */
-    func putObjectAclSync(
-            input: S3Model.PutObjectAclRequest) throws -> S3Model.PutObjectAclOutput
-
-    /**
-     Invokes the PutObjectLegalHold operation returning immediately and passing the response to a callback.
+     Invokes the PutObjectLegalHold operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutObjectLegalHoldRequest object being passed to this operation.
-         - completion: The PutObjectLegalHoldOutput object or an error will be passed to this 
-           callback when the operation is complete. The PutObjectLegalHoldOutput
-           object will be validated before being returned to caller.
-     */
-    func putObjectLegalHoldAsync(
-            input: S3Model.PutObjectLegalHoldRequest, 
-            completion: @escaping (Result<S3Model.PutObjectLegalHoldOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the PutObjectLegalHold operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutObjectLegalHoldRequest object being passed to this operation.
-     - Returns: The PutObjectLegalHoldOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the PutObjectLegalHoldOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func putObjectLegalHoldSync(
-            input: S3Model.PutObjectLegalHoldRequest) throws -> S3Model.PutObjectLegalHoldOutput
+    func putObjectLegalHold(
+            input: S3Model.PutObjectLegalHoldRequest) -> EventLoopFuture<S3Model.PutObjectLegalHoldOutput>
 
     /**
-     Invokes the PutObjectLockConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the PutObjectLockConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutObjectLockConfigurationRequest object being passed to this operation.
-         - completion: The PutObjectLockConfigurationOutput object or an error will be passed to this 
-           callback when the operation is complete. The PutObjectLockConfigurationOutput
-           object will be validated before being returned to caller.
-     */
-    func putObjectLockConfigurationAsync(
-            input: S3Model.PutObjectLockConfigurationRequest, 
-            completion: @escaping (Result<S3Model.PutObjectLockConfigurationOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the PutObjectLockConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutObjectLockConfigurationRequest object being passed to this operation.
-     - Returns: The PutObjectLockConfigurationOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the PutObjectLockConfigurationOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func putObjectLockConfigurationSync(
-            input: S3Model.PutObjectLockConfigurationRequest) throws -> S3Model.PutObjectLockConfigurationOutput
+    func putObjectLockConfiguration(
+            input: S3Model.PutObjectLockConfigurationRequest) -> EventLoopFuture<S3Model.PutObjectLockConfigurationOutput>
 
     /**
-     Invokes the PutObjectRetention operation returning immediately and passing the response to a callback.
+     Invokes the PutObjectRetention operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutObjectRetentionRequest object being passed to this operation.
-         - completion: The PutObjectRetentionOutput object or an error will be passed to this 
-           callback when the operation is complete. The PutObjectRetentionOutput
-           object will be validated before being returned to caller.
-     */
-    func putObjectRetentionAsync(
-            input: S3Model.PutObjectRetentionRequest, 
-            completion: @escaping (Result<S3Model.PutObjectRetentionOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the PutObjectRetention operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutObjectRetentionRequest object being passed to this operation.
-     - Returns: The PutObjectRetentionOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the PutObjectRetentionOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func putObjectRetentionSync(
-            input: S3Model.PutObjectRetentionRequest) throws -> S3Model.PutObjectRetentionOutput
+    func putObjectRetention(
+            input: S3Model.PutObjectRetentionRequest) -> EventLoopFuture<S3Model.PutObjectRetentionOutput>
 
     /**
-     Invokes the PutObjectTagging operation returning immediately and passing the response to a callback.
+     Invokes the PutObjectTagging operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutObjectTaggingRequest object being passed to this operation.
-         - completion: The PutObjectTaggingOutput object or an error will be passed to this 
-           callback when the operation is complete. The PutObjectTaggingOutput
-           object will be validated before being returned to caller.
-     */
-    func putObjectTaggingAsync(
-            input: S3Model.PutObjectTaggingRequest, 
-            completion: @escaping (Result<S3Model.PutObjectTaggingOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the PutObjectTagging operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutObjectTaggingRequest object being passed to this operation.
-     - Returns: The PutObjectTaggingOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the PutObjectTaggingOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func putObjectTaggingSync(
-            input: S3Model.PutObjectTaggingRequest) throws -> S3Model.PutObjectTaggingOutput
+    func putObjectTagging(
+            input: S3Model.PutObjectTaggingRequest) -> EventLoopFuture<S3Model.PutObjectTaggingOutput>
 
     /**
-     Invokes the PutPublicAccessBlock operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated PutPublicAccessBlockRequest object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    func putPublicAccessBlockAsync(
-            input: S3Model.PutPublicAccessBlockRequest, 
-            completion: @escaping (S3Error?) -> ()) throws
-
-    /**
-     Invokes the PutPublicAccessBlock operation waiting for the response before returning.
+     Invokes the PutPublicAccessBlock operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutPublicAccessBlockRequest object being passed to this operation.
      */
-    func putPublicAccessBlockSync(
-            input: S3Model.PutPublicAccessBlockRequest) throws
+    func putPublicAccessBlock(
+            input: S3Model.PutPublicAccessBlockRequest) -> EventLoopFuture<Void>
 
     /**
-     Invokes the RestoreObject operation returning immediately and passing the response to a callback.
+     Invokes the RestoreObject operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RestoreObjectRequest object being passed to this operation.
-         - completion: The RestoreObjectOutput object or an error will be passed to this 
-           callback when the operation is complete. The RestoreObjectOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the RestoreObjectOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: objectAlreadyInActiveTier.
      */
-    func restoreObjectAsync(
-            input: S3Model.RestoreObjectRequest, 
-            completion: @escaping (Result<S3Model.RestoreObjectOutput, S3Error>) -> ()) throws
+    func restoreObject(
+            input: S3Model.RestoreObjectRequest) -> EventLoopFuture<S3Model.RestoreObjectOutput>
 
     /**
-     Invokes the RestoreObject operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RestoreObjectRequest object being passed to this operation.
-     - Returns: The RestoreObjectOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: objectAlreadyInActiveTier.
-     */
-    func restoreObjectSync(
-            input: S3Model.RestoreObjectRequest) throws -> S3Model.RestoreObjectOutput
-
-    /**
-     Invokes the SelectObjectContent operation returning immediately and passing the response to a callback.
+     Invokes the SelectObjectContent operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SelectObjectContentRequest object being passed to this operation.
-         - completion: The SelectObjectContentOutput object or an error will be passed to this 
-           callback when the operation is complete. The SelectObjectContentOutput
-           object will be validated before being returned to caller.
-     */
-    func selectObjectContentAsync(
-            input: S3Model.SelectObjectContentRequest, 
-            completion: @escaping (Result<S3Model.SelectObjectContentOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the SelectObjectContent operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SelectObjectContentRequest object being passed to this operation.
-     - Returns: The SelectObjectContentOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the SelectObjectContentOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func selectObjectContentSync(
-            input: S3Model.SelectObjectContentRequest) throws -> S3Model.SelectObjectContentOutput
+    func selectObjectContent(
+            input: S3Model.SelectObjectContentRequest) -> EventLoopFuture<S3Model.SelectObjectContentOutput>
 
     /**
-     Invokes the UploadPart operation returning immediately and passing the response to a callback.
+     Invokes the UploadPart operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UploadPartRequest object being passed to this operation.
-         - completion: The UploadPartOutput object or an error will be passed to this 
-           callback when the operation is complete. The UploadPartOutput
-           object will be validated before being returned to caller.
-     */
-    func uploadPartAsync(
-            input: S3Model.UploadPartRequest, 
-            completion: @escaping (Result<S3Model.UploadPartOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the UploadPart operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UploadPartRequest object being passed to this operation.
-     - Returns: The UploadPartOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the UploadPartOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func uploadPartSync(
-            input: S3Model.UploadPartRequest) throws -> S3Model.UploadPartOutput
+    func uploadPart(
+            input: S3Model.UploadPartRequest) -> EventLoopFuture<S3Model.UploadPartOutput>
 
     /**
-     Invokes the UploadPartCopy operation returning immediately and passing the response to a callback.
+     Invokes the UploadPartCopy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UploadPartCopyRequest object being passed to this operation.
-         - completion: The UploadPartCopyOutput object or an error will be passed to this 
-           callback when the operation is complete. The UploadPartCopyOutput
-           object will be validated before being returned to caller.
-     */
-    func uploadPartCopyAsync(
-            input: S3Model.UploadPartCopyRequest, 
-            completion: @escaping (Result<S3Model.UploadPartCopyOutput, S3Error>) -> ()) throws
-
-    /**
-     Invokes the UploadPartCopy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UploadPartCopyRequest object being passed to this operation.
-     - Returns: The UploadPartCopyOutput object to be passed back from the caller of this operation.
+     - Returns: A future to the UploadPartCopyOutput object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    func uploadPartCopySync(
-            input: S3Model.UploadPartCopyRequest) throws -> S3Model.UploadPartCopyOutput
+    func uploadPartCopy(
+            input: S3Model.UploadPartCopyRequest) -> EventLoopFuture<S3Model.UploadPartCopyOutput>
 }

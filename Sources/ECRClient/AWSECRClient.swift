@@ -24,6 +24,7 @@ import Foundation
 import ECRModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 import SmokeAWSHttp
 import NIO
 import NIOHTTP1
@@ -45,15 +46,15 @@ public enum ECRClientError: Swift.Error {
 /**
  AWS Client for the ECR service.
  */
-public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationReporting>: ECRClientProtocol {
+public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationReporting>: ECRClientProtocol, AWSClientProtocol {
     let httpClient: HTTPOperationsClient
     let ownsHttpClients: Bool
-    let awsRegion: AWSRegion
-    let service: String
-    let target: String?
-    let retryConfiguration: HTTPClientRetryConfiguration
-    let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
-    let credentialsProvider: CredentialsProvider
+    public let awsRegion: AWSRegion
+    public let service: String
+    public let target: String?
+    public let retryConfiguration: HTTPClientRetryConfiguration
+    public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
+    public let credentialsProvider: CredentialsProvider
     
     public let reporting: InvocationReportingType
 
@@ -127,2382 +128,580 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
     }
 
     /**
-     Invokes the BatchCheckLayerAvailability operation returning immediately and passing the response to a callback.
+     Invokes the BatchCheckLayerAvailability operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BatchCheckLayerAvailabilityRequest object being passed to this operation.
-         - completion: The BatchCheckLayerAvailabilityResponse object or an error will be passed to this 
-           callback when the operation is complete. The BatchCheckLayerAvailabilityResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the BatchCheckLayerAvailabilityResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func batchCheckLayerAvailabilityAsync(
-            input: ECRModel.BatchCheckLayerAvailabilityRequest, 
-            completion: @escaping (Result<ECRModel.BatchCheckLayerAvailabilityResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.batchCheckLayerAvailability.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.batchCheckLayerAvailability,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = BatchCheckLayerAvailabilityOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func batchCheckLayerAvailability(
+            input: ECRModel.BatchCheckLayerAvailabilityRequest) -> EventLoopFuture<ECRModel.BatchCheckLayerAvailabilityResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: BatchCheckLayerAvailabilityOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.batchCheckLayerAvailability.rawValue,
+                                 reporting: self.invocationsReporting.batchCheckLayerAvailability)
     }
 
     /**
-     Invokes the BatchCheckLayerAvailability operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BatchCheckLayerAvailabilityRequest object being passed to this operation.
-     - Returns: The BatchCheckLayerAvailabilityResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func batchCheckLayerAvailabilitySync(
-            input: ECRModel.BatchCheckLayerAvailabilityRequest) throws -> ECRModel.BatchCheckLayerAvailabilityResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.batchCheckLayerAvailability.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.batchCheckLayerAvailability,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = BatchCheckLayerAvailabilityOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the BatchDeleteImage operation returning immediately and passing the response to a callback.
+     Invokes the BatchDeleteImage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BatchDeleteImageRequest object being passed to this operation.
-         - completion: The BatchDeleteImageResponse object or an error will be passed to this 
-           callback when the operation is complete. The BatchDeleteImageResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the BatchDeleteImageResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func batchDeleteImageAsync(
-            input: ECRModel.BatchDeleteImageRequest, 
-            completion: @escaping (Result<ECRModel.BatchDeleteImageResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.batchDeleteImage.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.batchDeleteImage,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = BatchDeleteImageOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func batchDeleteImage(
+            input: ECRModel.BatchDeleteImageRequest) -> EventLoopFuture<ECRModel.BatchDeleteImageResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: BatchDeleteImageOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.batchDeleteImage.rawValue,
+                                 reporting: self.invocationsReporting.batchDeleteImage)
     }
 
     /**
-     Invokes the BatchDeleteImage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BatchDeleteImageRequest object being passed to this operation.
-     - Returns: The BatchDeleteImageResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func batchDeleteImageSync(
-            input: ECRModel.BatchDeleteImageRequest) throws -> ECRModel.BatchDeleteImageResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.batchDeleteImage.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.batchDeleteImage,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = BatchDeleteImageOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the BatchGetImage operation returning immediately and passing the response to a callback.
+     Invokes the BatchGetImage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BatchGetImageRequest object being passed to this operation.
-         - completion: The BatchGetImageResponse object or an error will be passed to this 
-           callback when the operation is complete. The BatchGetImageResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the BatchGetImageResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func batchGetImageAsync(
-            input: ECRModel.BatchGetImageRequest, 
-            completion: @escaping (Result<ECRModel.BatchGetImageResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.batchGetImage.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.batchGetImage,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = BatchGetImageOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func batchGetImage(
+            input: ECRModel.BatchGetImageRequest) -> EventLoopFuture<ECRModel.BatchGetImageResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: BatchGetImageOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.batchGetImage.rawValue,
+                                 reporting: self.invocationsReporting.batchGetImage)
     }
 
     /**
-     Invokes the BatchGetImage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BatchGetImageRequest object being passed to this operation.
-     - Returns: The BatchGetImageResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func batchGetImageSync(
-            input: ECRModel.BatchGetImageRequest) throws -> ECRModel.BatchGetImageResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.batchGetImage.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.batchGetImage,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = BatchGetImageOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the CompleteLayerUpload operation returning immediately and passing the response to a callback.
+     Invokes the CompleteLayerUpload operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CompleteLayerUploadRequest object being passed to this operation.
-         - completion: The CompleteLayerUploadResponse object or an error will be passed to this 
-           callback when the operation is complete. The CompleteLayerUploadResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the CompleteLayerUploadResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: emptyUpload, invalidLayer, invalidParameter, kms, layerAlreadyExists, layerPartTooSmall, repositoryNotFound, server, uploadNotFound.
      */
-    public func completeLayerUploadAsync(
-            input: ECRModel.CompleteLayerUploadRequest, 
-            completion: @escaping (Result<ECRModel.CompleteLayerUploadResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.completeLayerUpload.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.completeLayerUpload,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CompleteLayerUploadOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func completeLayerUpload(
+            input: ECRModel.CompleteLayerUploadRequest) -> EventLoopFuture<ECRModel.CompleteLayerUploadResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: CompleteLayerUploadOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.completeLayerUpload.rawValue,
+                                 reporting: self.invocationsReporting.completeLayerUpload)
     }
 
     /**
-     Invokes the CompleteLayerUpload operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CompleteLayerUploadRequest object being passed to this operation.
-     - Returns: The CompleteLayerUploadResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: emptyUpload, invalidLayer, invalidParameter, kms, layerAlreadyExists, layerPartTooSmall, repositoryNotFound, server, uploadNotFound.
-     */
-    public func completeLayerUploadSync(
-            input: ECRModel.CompleteLayerUploadRequest) throws -> ECRModel.CompleteLayerUploadResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.completeLayerUpload.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.completeLayerUpload,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CompleteLayerUploadOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the CreateRepository operation returning immediately and passing the response to a callback.
+     Invokes the CreateRepository operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateRepositoryRequest object being passed to this operation.
-         - completion: The CreateRepositoryResponse object or an error will be passed to this 
-           callback when the operation is complete. The CreateRepositoryResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateRepositoryResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, invalidTagParameter, kms, limitExceeded, repositoryAlreadyExists, server, tooManyTags.
      */
-    public func createRepositoryAsync(
-            input: ECRModel.CreateRepositoryRequest, 
-            completion: @escaping (Result<ECRModel.CreateRepositoryResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.createRepository.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.createRepository,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CreateRepositoryOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func createRepository(
+            input: ECRModel.CreateRepositoryRequest) -> EventLoopFuture<ECRModel.CreateRepositoryResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: CreateRepositoryOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.createRepository.rawValue,
+                                 reporting: self.invocationsReporting.createRepository)
     }
 
     /**
-     Invokes the CreateRepository operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateRepositoryRequest object being passed to this operation.
-     - Returns: The CreateRepositoryResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, invalidTagParameter, kms, limitExceeded, repositoryAlreadyExists, server, tooManyTags.
-     */
-    public func createRepositorySync(
-            input: ECRModel.CreateRepositoryRequest) throws -> ECRModel.CreateRepositoryResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.createRepository.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.createRepository,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CreateRepositoryOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeleteLifecyclePolicy operation returning immediately and passing the response to a callback.
+     Invokes the DeleteLifecyclePolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteLifecyclePolicyRequest object being passed to this operation.
-         - completion: The DeleteLifecyclePolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteLifecyclePolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteLifecyclePolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, lifecyclePolicyNotFound, repositoryNotFound, server.
      */
-    public func deleteLifecyclePolicyAsync(
-            input: ECRModel.DeleteLifecyclePolicyRequest, 
-            completion: @escaping (Result<ECRModel.DeleteLifecyclePolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.deleteLifecyclePolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteLifecyclePolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeleteLifecyclePolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deleteLifecyclePolicy(
+            input: ECRModel.DeleteLifecyclePolicyRequest) -> EventLoopFuture<ECRModel.DeleteLifecyclePolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DeleteLifecyclePolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.deleteLifecyclePolicy.rawValue,
+                                 reporting: self.invocationsReporting.deleteLifecyclePolicy)
     }
 
     /**
-     Invokes the DeleteLifecyclePolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteLifecyclePolicyRequest object being passed to this operation.
-     - Returns: The DeleteLifecyclePolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, lifecyclePolicyNotFound, repositoryNotFound, server.
-     */
-    public func deleteLifecyclePolicySync(
-            input: ECRModel.DeleteLifecyclePolicyRequest) throws -> ECRModel.DeleteLifecyclePolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.deleteLifecyclePolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteLifecyclePolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeleteLifecyclePolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeleteRegistryPolicy operation returning immediately and passing the response to a callback.
+     Invokes the DeleteRegistryPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteRegistryPolicyRequest object being passed to this operation.
-         - completion: The DeleteRegistryPolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteRegistryPolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteRegistryPolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, registryPolicyNotFound, server.
      */
-    public func deleteRegistryPolicyAsync(
-            input: ECRModel.DeleteRegistryPolicyRequest, 
-            completion: @escaping (Result<ECRModel.DeleteRegistryPolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.deleteRegistryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteRegistryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeleteRegistryPolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deleteRegistryPolicy(
+            input: ECRModel.DeleteRegistryPolicyRequest) -> EventLoopFuture<ECRModel.DeleteRegistryPolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DeleteRegistryPolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.deleteRegistryPolicy.rawValue,
+                                 reporting: self.invocationsReporting.deleteRegistryPolicy)
     }
 
     /**
-     Invokes the DeleteRegistryPolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteRegistryPolicyRequest object being passed to this operation.
-     - Returns: The DeleteRegistryPolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, registryPolicyNotFound, server.
-     */
-    public func deleteRegistryPolicySync(
-            input: ECRModel.DeleteRegistryPolicyRequest) throws -> ECRModel.DeleteRegistryPolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.deleteRegistryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteRegistryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeleteRegistryPolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeleteRepository operation returning immediately and passing the response to a callback.
+     Invokes the DeleteRepository operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteRepositoryRequest object being passed to this operation.
-         - completion: The DeleteRepositoryResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteRepositoryResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteRepositoryResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, kms, repositoryNotEmpty, repositoryNotFound, server.
      */
-    public func deleteRepositoryAsync(
-            input: ECRModel.DeleteRepositoryRequest, 
-            completion: @escaping (Result<ECRModel.DeleteRepositoryResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.deleteRepository.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteRepository,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeleteRepositoryOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deleteRepository(
+            input: ECRModel.DeleteRepositoryRequest) -> EventLoopFuture<ECRModel.DeleteRepositoryResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DeleteRepositoryOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.deleteRepository.rawValue,
+                                 reporting: self.invocationsReporting.deleteRepository)
     }
 
     /**
-     Invokes the DeleteRepository operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteRepositoryRequest object being passed to this operation.
-     - Returns: The DeleteRepositoryResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, kms, repositoryNotEmpty, repositoryNotFound, server.
-     */
-    public func deleteRepositorySync(
-            input: ECRModel.DeleteRepositoryRequest) throws -> ECRModel.DeleteRepositoryResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.deleteRepository.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteRepository,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeleteRepositoryOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeleteRepositoryPolicy operation returning immediately and passing the response to a callback.
+     Invokes the DeleteRepositoryPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteRepositoryPolicyRequest object being passed to this operation.
-         - completion: The DeleteRepositoryPolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The DeleteRepositoryPolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteRepositoryPolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, repositoryPolicyNotFound, server.
      */
-    public func deleteRepositoryPolicyAsync(
-            input: ECRModel.DeleteRepositoryPolicyRequest, 
-            completion: @escaping (Result<ECRModel.DeleteRepositoryPolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.deleteRepositoryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteRepositoryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeleteRepositoryPolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deleteRepositoryPolicy(
+            input: ECRModel.DeleteRepositoryPolicyRequest) -> EventLoopFuture<ECRModel.DeleteRepositoryPolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DeleteRepositoryPolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.deleteRepositoryPolicy.rawValue,
+                                 reporting: self.invocationsReporting.deleteRepositoryPolicy)
     }
 
     /**
-     Invokes the DeleteRepositoryPolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteRepositoryPolicyRequest object being passed to this operation.
-     - Returns: The DeleteRepositoryPolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, repositoryPolicyNotFound, server.
-     */
-    public func deleteRepositoryPolicySync(
-            input: ECRModel.DeleteRepositoryPolicyRequest) throws -> ECRModel.DeleteRepositoryPolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.deleteRepositoryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteRepositoryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeleteRepositoryPolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeImageScanFindings operation returning immediately and passing the response to a callback.
+     Invokes the DescribeImageScanFindings operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeImageScanFindingsRequest object being passed to this operation.
-         - completion: The DescribeImageScanFindingsResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeImageScanFindingsResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeImageScanFindingsResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: imageNotFound, invalidParameter, repositoryNotFound, scanNotFound, server.
      */
-    public func describeImageScanFindingsAsync(
-            input: ECRModel.DescribeImageScanFindingsRequest, 
-            completion: @escaping (Result<ECRModel.DescribeImageScanFindingsResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.describeImageScanFindings.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeImageScanFindings,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeImageScanFindingsOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeImageScanFindings(
+            input: ECRModel.DescribeImageScanFindingsRequest) -> EventLoopFuture<ECRModel.DescribeImageScanFindingsResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DescribeImageScanFindingsOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.describeImageScanFindings.rawValue,
+                                 reporting: self.invocationsReporting.describeImageScanFindings)
     }
 
     /**
-     Invokes the DescribeImageScanFindings operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeImageScanFindingsRequest object being passed to this operation.
-     - Returns: The DescribeImageScanFindingsResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: imageNotFound, invalidParameter, repositoryNotFound, scanNotFound, server.
-     */
-    public func describeImageScanFindingsSync(
-            input: ECRModel.DescribeImageScanFindingsRequest) throws -> ECRModel.DescribeImageScanFindingsResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.describeImageScanFindings.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeImageScanFindings,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeImageScanFindingsOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeImages operation returning immediately and passing the response to a callback.
+     Invokes the DescribeImages operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeImagesRequest object being passed to this operation.
-         - completion: The DescribeImagesResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeImagesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeImagesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: imageNotFound, invalidParameter, repositoryNotFound, server.
      */
-    public func describeImagesAsync(
-            input: ECRModel.DescribeImagesRequest, 
-            completion: @escaping (Result<ECRModel.DescribeImagesResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.describeImages.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeImages,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeImagesOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeImages(
+            input: ECRModel.DescribeImagesRequest) -> EventLoopFuture<ECRModel.DescribeImagesResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DescribeImagesOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.describeImages.rawValue,
+                                 reporting: self.invocationsReporting.describeImages)
     }
 
     /**
-     Invokes the DescribeImages operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeImagesRequest object being passed to this operation.
-     - Returns: The DescribeImagesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: imageNotFound, invalidParameter, repositoryNotFound, server.
-     */
-    public func describeImagesSync(
-            input: ECRModel.DescribeImagesRequest) throws -> ECRModel.DescribeImagesResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.describeImages.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeImages,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeImagesOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeRegistry operation returning immediately and passing the response to a callback.
+     Invokes the DescribeRegistry operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeRegistryRequest object being passed to this operation.
-         - completion: The DescribeRegistryResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeRegistryResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeRegistryResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, server, validation.
      */
-    public func describeRegistryAsync(
-            input: ECRModel.DescribeRegistryRequest, 
-            completion: @escaping (Result<ECRModel.DescribeRegistryResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.describeRegistry.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeRegistry,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeRegistryOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeRegistry(
+            input: ECRModel.DescribeRegistryRequest) -> EventLoopFuture<ECRModel.DescribeRegistryResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DescribeRegistryOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.describeRegistry.rawValue,
+                                 reporting: self.invocationsReporting.describeRegistry)
     }
 
     /**
-     Invokes the DescribeRegistry operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeRegistryRequest object being passed to this operation.
-     - Returns: The DescribeRegistryResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, server, validation.
-     */
-    public func describeRegistrySync(
-            input: ECRModel.DescribeRegistryRequest) throws -> ECRModel.DescribeRegistryResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.describeRegistry.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeRegistry,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeRegistryOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeRepositories operation returning immediately and passing the response to a callback.
+     Invokes the DescribeRepositories operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeRepositoriesRequest object being passed to this operation.
-         - completion: The DescribeRepositoriesResponse object or an error will be passed to this 
-           callback when the operation is complete. The DescribeRepositoriesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeRepositoriesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func describeRepositoriesAsync(
-            input: ECRModel.DescribeRepositoriesRequest, 
-            completion: @escaping (Result<ECRModel.DescribeRepositoriesResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.describeRepositories.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeRepositories,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeRepositoriesOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeRepositories(
+            input: ECRModel.DescribeRepositoriesRequest) -> EventLoopFuture<ECRModel.DescribeRepositoriesResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DescribeRepositoriesOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.describeRepositories.rawValue,
+                                 reporting: self.invocationsReporting.describeRepositories)
     }
 
     /**
-     Invokes the DescribeRepositories operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeRepositoriesRequest object being passed to this operation.
-     - Returns: The DescribeRepositoriesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func describeRepositoriesSync(
-            input: ECRModel.DescribeRepositoriesRequest) throws -> ECRModel.DescribeRepositoriesResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.describeRepositories.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeRepositories,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeRepositoriesOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetAuthorizationToken operation returning immediately and passing the response to a callback.
+     Invokes the GetAuthorizationToken operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetAuthorizationTokenRequest object being passed to this operation.
-         - completion: The GetAuthorizationTokenResponse object or an error will be passed to this 
-           callback when the operation is complete. The GetAuthorizationTokenResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetAuthorizationTokenResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, server.
      */
-    public func getAuthorizationTokenAsync(
-            input: ECRModel.GetAuthorizationTokenRequest, 
-            completion: @escaping (Result<ECRModel.GetAuthorizationTokenResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getAuthorizationToken.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getAuthorizationToken,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetAuthorizationTokenOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getAuthorizationToken(
+            input: ECRModel.GetAuthorizationTokenRequest) -> EventLoopFuture<ECRModel.GetAuthorizationTokenResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: GetAuthorizationTokenOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.getAuthorizationToken.rawValue,
+                                 reporting: self.invocationsReporting.getAuthorizationToken)
     }
 
     /**
-     Invokes the GetAuthorizationToken operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetAuthorizationTokenRequest object being passed to this operation.
-     - Returns: The GetAuthorizationTokenResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, server.
-     */
-    public func getAuthorizationTokenSync(
-            input: ECRModel.GetAuthorizationTokenRequest) throws -> ECRModel.GetAuthorizationTokenResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getAuthorizationToken.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getAuthorizationToken,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetAuthorizationTokenOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetDownloadUrlForLayer operation returning immediately and passing the response to a callback.
+     Invokes the GetDownloadUrlForLayer operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetDownloadUrlForLayerRequest object being passed to this operation.
-         - completion: The GetDownloadUrlForLayerResponse object or an error will be passed to this 
-           callback when the operation is complete. The GetDownloadUrlForLayerResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetDownloadUrlForLayerResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, layerInaccessible, layersNotFound, repositoryNotFound, server.
      */
-    public func getDownloadUrlForLayerAsync(
-            input: ECRModel.GetDownloadUrlForLayerRequest, 
-            completion: @escaping (Result<ECRModel.GetDownloadUrlForLayerResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getDownloadUrlForLayer.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getDownloadUrlForLayer,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetDownloadUrlForLayerOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getDownloadUrlForLayer(
+            input: ECRModel.GetDownloadUrlForLayerRequest) -> EventLoopFuture<ECRModel.GetDownloadUrlForLayerResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: GetDownloadUrlForLayerOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.getDownloadUrlForLayer.rawValue,
+                                 reporting: self.invocationsReporting.getDownloadUrlForLayer)
     }
 
     /**
-     Invokes the GetDownloadUrlForLayer operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetDownloadUrlForLayerRequest object being passed to this operation.
-     - Returns: The GetDownloadUrlForLayerResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, layerInaccessible, layersNotFound, repositoryNotFound, server.
-     */
-    public func getDownloadUrlForLayerSync(
-            input: ECRModel.GetDownloadUrlForLayerRequest) throws -> ECRModel.GetDownloadUrlForLayerResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getDownloadUrlForLayer.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getDownloadUrlForLayer,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetDownloadUrlForLayerOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetLifecyclePolicy operation returning immediately and passing the response to a callback.
+     Invokes the GetLifecyclePolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetLifecyclePolicyRequest object being passed to this operation.
-         - completion: The GetLifecyclePolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The GetLifecyclePolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetLifecyclePolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, lifecyclePolicyNotFound, repositoryNotFound, server.
      */
-    public func getLifecyclePolicyAsync(
-            input: ECRModel.GetLifecyclePolicyRequest, 
-            completion: @escaping (Result<ECRModel.GetLifecyclePolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getLifecyclePolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getLifecyclePolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetLifecyclePolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getLifecyclePolicy(
+            input: ECRModel.GetLifecyclePolicyRequest) -> EventLoopFuture<ECRModel.GetLifecyclePolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: GetLifecyclePolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.getLifecyclePolicy.rawValue,
+                                 reporting: self.invocationsReporting.getLifecyclePolicy)
     }
 
     /**
-     Invokes the GetLifecyclePolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetLifecyclePolicyRequest object being passed to this operation.
-     - Returns: The GetLifecyclePolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, lifecyclePolicyNotFound, repositoryNotFound, server.
-     */
-    public func getLifecyclePolicySync(
-            input: ECRModel.GetLifecyclePolicyRequest) throws -> ECRModel.GetLifecyclePolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getLifecyclePolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getLifecyclePolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetLifecyclePolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetLifecyclePolicyPreview operation returning immediately and passing the response to a callback.
+     Invokes the GetLifecyclePolicyPreview operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetLifecyclePolicyPreviewRequest object being passed to this operation.
-         - completion: The GetLifecyclePolicyPreviewResponse object or an error will be passed to this 
-           callback when the operation is complete. The GetLifecyclePolicyPreviewResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetLifecyclePolicyPreviewResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, lifecyclePolicyPreviewNotFound, repositoryNotFound, server.
      */
-    public func getLifecyclePolicyPreviewAsync(
-            input: ECRModel.GetLifecyclePolicyPreviewRequest, 
-            completion: @escaping (Result<ECRModel.GetLifecyclePolicyPreviewResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getLifecyclePolicyPreview.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getLifecyclePolicyPreview,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetLifecyclePolicyPreviewOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getLifecyclePolicyPreview(
+            input: ECRModel.GetLifecyclePolicyPreviewRequest) -> EventLoopFuture<ECRModel.GetLifecyclePolicyPreviewResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: GetLifecyclePolicyPreviewOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.getLifecyclePolicyPreview.rawValue,
+                                 reporting: self.invocationsReporting.getLifecyclePolicyPreview)
     }
 
     /**
-     Invokes the GetLifecyclePolicyPreview operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetLifecyclePolicyPreviewRequest object being passed to this operation.
-     - Returns: The GetLifecyclePolicyPreviewResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, lifecyclePolicyPreviewNotFound, repositoryNotFound, server.
-     */
-    public func getLifecyclePolicyPreviewSync(
-            input: ECRModel.GetLifecyclePolicyPreviewRequest) throws -> ECRModel.GetLifecyclePolicyPreviewResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getLifecyclePolicyPreview.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getLifecyclePolicyPreview,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetLifecyclePolicyPreviewOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetRegistryPolicy operation returning immediately and passing the response to a callback.
+     Invokes the GetRegistryPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetRegistryPolicyRequest object being passed to this operation.
-         - completion: The GetRegistryPolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The GetRegistryPolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetRegistryPolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, registryPolicyNotFound, server.
      */
-    public func getRegistryPolicyAsync(
-            input: ECRModel.GetRegistryPolicyRequest, 
-            completion: @escaping (Result<ECRModel.GetRegistryPolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getRegistryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getRegistryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetRegistryPolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getRegistryPolicy(
+            input: ECRModel.GetRegistryPolicyRequest) -> EventLoopFuture<ECRModel.GetRegistryPolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: GetRegistryPolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.getRegistryPolicy.rawValue,
+                                 reporting: self.invocationsReporting.getRegistryPolicy)
     }
 
     /**
-     Invokes the GetRegistryPolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetRegistryPolicyRequest object being passed to this operation.
-     - Returns: The GetRegistryPolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, registryPolicyNotFound, server.
-     */
-    public func getRegistryPolicySync(
-            input: ECRModel.GetRegistryPolicyRequest) throws -> ECRModel.GetRegistryPolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getRegistryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getRegistryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetRegistryPolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetRepositoryPolicy operation returning immediately and passing the response to a callback.
+     Invokes the GetRepositoryPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetRepositoryPolicyRequest object being passed to this operation.
-         - completion: The GetRepositoryPolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The GetRepositoryPolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetRepositoryPolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, repositoryPolicyNotFound, server.
      */
-    public func getRepositoryPolicyAsync(
-            input: ECRModel.GetRepositoryPolicyRequest, 
-            completion: @escaping (Result<ECRModel.GetRepositoryPolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getRepositoryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getRepositoryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetRepositoryPolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getRepositoryPolicy(
+            input: ECRModel.GetRepositoryPolicyRequest) -> EventLoopFuture<ECRModel.GetRepositoryPolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: GetRepositoryPolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.getRepositoryPolicy.rawValue,
+                                 reporting: self.invocationsReporting.getRepositoryPolicy)
     }
 
     /**
-     Invokes the GetRepositoryPolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetRepositoryPolicyRequest object being passed to this operation.
-     - Returns: The GetRepositoryPolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, repositoryPolicyNotFound, server.
-     */
-    public func getRepositoryPolicySync(
-            input: ECRModel.GetRepositoryPolicyRequest) throws -> ECRModel.GetRepositoryPolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.getRepositoryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getRepositoryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetRepositoryPolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the InitiateLayerUpload operation returning immediately and passing the response to a callback.
+     Invokes the InitiateLayerUpload operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated InitiateLayerUploadRequest object being passed to this operation.
-         - completion: The InitiateLayerUploadResponse object or an error will be passed to this 
-           callback when the operation is complete. The InitiateLayerUploadResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the InitiateLayerUploadResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, kms, repositoryNotFound, server.
      */
-    public func initiateLayerUploadAsync(
-            input: ECRModel.InitiateLayerUploadRequest, 
-            completion: @escaping (Result<ECRModel.InitiateLayerUploadResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.initiateLayerUpload.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.initiateLayerUpload,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = InitiateLayerUploadOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func initiateLayerUpload(
+            input: ECRModel.InitiateLayerUploadRequest) -> EventLoopFuture<ECRModel.InitiateLayerUploadResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: InitiateLayerUploadOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.initiateLayerUpload.rawValue,
+                                 reporting: self.invocationsReporting.initiateLayerUpload)
     }
 
     /**
-     Invokes the InitiateLayerUpload operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated InitiateLayerUploadRequest object being passed to this operation.
-     - Returns: The InitiateLayerUploadResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, kms, repositoryNotFound, server.
-     */
-    public func initiateLayerUploadSync(
-            input: ECRModel.InitiateLayerUploadRequest) throws -> ECRModel.InitiateLayerUploadResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.initiateLayerUpload.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.initiateLayerUpload,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = InitiateLayerUploadOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListImages operation returning immediately and passing the response to a callback.
+     Invokes the ListImages operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListImagesRequest object being passed to this operation.
-         - completion: The ListImagesResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListImagesResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListImagesResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func listImagesAsync(
-            input: ECRModel.ListImagesRequest, 
-            completion: @escaping (Result<ECRModel.ListImagesResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.listImages.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listImages,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListImagesOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listImages(
+            input: ECRModel.ListImagesRequest) -> EventLoopFuture<ECRModel.ListImagesResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: ListImagesOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.listImages.rawValue,
+                                 reporting: self.invocationsReporting.listImages)
     }
 
     /**
-     Invokes the ListImages operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListImagesRequest object being passed to this operation.
-     - Returns: The ListImagesResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func listImagesSync(
-            input: ECRModel.ListImagesRequest) throws -> ECRModel.ListImagesResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.listImages.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listImages,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListImagesOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListTagsForResource operation returning immediately and passing the response to a callback.
+     Invokes the ListTagsForResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTagsForResourceRequest object being passed to this operation.
-         - completion: The ListTagsForResourceResponse object or an error will be passed to this 
-           callback when the operation is complete. The ListTagsForResourceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTagsForResourceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func listTagsForResourceAsync(
-            input: ECRModel.ListTagsForResourceRequest, 
-            completion: @escaping (Result<ECRModel.ListTagsForResourceResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.listTagsForResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listTagsForResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListTagsForResourceOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listTagsForResource(
+            input: ECRModel.ListTagsForResourceRequest) -> EventLoopFuture<ECRModel.ListTagsForResourceResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.listTagsForResource.rawValue,
+                                 reporting: self.invocationsReporting.listTagsForResource)
     }
 
     /**
-     Invokes the ListTagsForResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTagsForResourceRequest object being passed to this operation.
-     - Returns: The ListTagsForResourceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func listTagsForResourceSync(
-            input: ECRModel.ListTagsForResourceRequest) throws -> ECRModel.ListTagsForResourceResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.listTagsForResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listTagsForResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListTagsForResourceOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutImage operation returning immediately and passing the response to a callback.
+     Invokes the PutImage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutImageRequest object being passed to this operation.
-         - completion: The PutImageResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutImageResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutImageResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: imageAlreadyExists, imageDigestDoesNotMatch, imageTagAlreadyExists, invalidParameter, kms, layersNotFound, limitExceeded, referencedImagesNotFound, repositoryNotFound, server.
      */
-    public func putImageAsync(
-            input: ECRModel.PutImageRequest, 
-            completion: @escaping (Result<ECRModel.PutImageResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putImage.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putImage,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutImageOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putImage(
+            input: ECRModel.PutImageRequest) -> EventLoopFuture<ECRModel.PutImageResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: PutImageOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.putImage.rawValue,
+                                 reporting: self.invocationsReporting.putImage)
     }
 
     /**
-     Invokes the PutImage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutImageRequest object being passed to this operation.
-     - Returns: The PutImageResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: imageAlreadyExists, imageDigestDoesNotMatch, imageTagAlreadyExists, invalidParameter, kms, layersNotFound, limitExceeded, referencedImagesNotFound, repositoryNotFound, server.
-     */
-    public func putImageSync(
-            input: ECRModel.PutImageRequest) throws -> ECRModel.PutImageResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putImage.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putImage,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutImageOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutImageScanningConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the PutImageScanningConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutImageScanningConfigurationRequest object being passed to this operation.
-         - completion: The PutImageScanningConfigurationResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutImageScanningConfigurationResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutImageScanningConfigurationResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func putImageScanningConfigurationAsync(
-            input: ECRModel.PutImageScanningConfigurationRequest, 
-            completion: @escaping (Result<ECRModel.PutImageScanningConfigurationResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putImageScanningConfiguration.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putImageScanningConfiguration,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutImageScanningConfigurationOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putImageScanningConfiguration(
+            input: ECRModel.PutImageScanningConfigurationRequest) -> EventLoopFuture<ECRModel.PutImageScanningConfigurationResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: PutImageScanningConfigurationOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.putImageScanningConfiguration.rawValue,
+                                 reporting: self.invocationsReporting.putImageScanningConfiguration)
     }
 
     /**
-     Invokes the PutImageScanningConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutImageScanningConfigurationRequest object being passed to this operation.
-     - Returns: The PutImageScanningConfigurationResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func putImageScanningConfigurationSync(
-            input: ECRModel.PutImageScanningConfigurationRequest) throws -> ECRModel.PutImageScanningConfigurationResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putImageScanningConfiguration.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putImageScanningConfiguration,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutImageScanningConfigurationOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutImageTagMutability operation returning immediately and passing the response to a callback.
+     Invokes the PutImageTagMutability operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutImageTagMutabilityRequest object being passed to this operation.
-         - completion: The PutImageTagMutabilityResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutImageTagMutabilityResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutImageTagMutabilityResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func putImageTagMutabilityAsync(
-            input: ECRModel.PutImageTagMutabilityRequest, 
-            completion: @escaping (Result<ECRModel.PutImageTagMutabilityResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putImageTagMutability.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putImageTagMutability,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutImageTagMutabilityOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putImageTagMutability(
+            input: ECRModel.PutImageTagMutabilityRequest) -> EventLoopFuture<ECRModel.PutImageTagMutabilityResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: PutImageTagMutabilityOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.putImageTagMutability.rawValue,
+                                 reporting: self.invocationsReporting.putImageTagMutability)
     }
 
     /**
-     Invokes the PutImageTagMutability operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutImageTagMutabilityRequest object being passed to this operation.
-     - Returns: The PutImageTagMutabilityResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func putImageTagMutabilitySync(
-            input: ECRModel.PutImageTagMutabilityRequest) throws -> ECRModel.PutImageTagMutabilityResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putImageTagMutability.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putImageTagMutability,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutImageTagMutabilityOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutLifecyclePolicy operation returning immediately and passing the response to a callback.
+     Invokes the PutLifecyclePolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutLifecyclePolicyRequest object being passed to this operation.
-         - completion: The PutLifecyclePolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutLifecyclePolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutLifecyclePolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func putLifecyclePolicyAsync(
-            input: ECRModel.PutLifecyclePolicyRequest, 
-            completion: @escaping (Result<ECRModel.PutLifecyclePolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putLifecyclePolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putLifecyclePolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutLifecyclePolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putLifecyclePolicy(
+            input: ECRModel.PutLifecyclePolicyRequest) -> EventLoopFuture<ECRModel.PutLifecyclePolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: PutLifecyclePolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.putLifecyclePolicy.rawValue,
+                                 reporting: self.invocationsReporting.putLifecyclePolicy)
     }
 
     /**
-     Invokes the PutLifecyclePolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutLifecyclePolicyRequest object being passed to this operation.
-     - Returns: The PutLifecyclePolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func putLifecyclePolicySync(
-            input: ECRModel.PutLifecyclePolicyRequest) throws -> ECRModel.PutLifecyclePolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putLifecyclePolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putLifecyclePolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutLifecyclePolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutRegistryPolicy operation returning immediately and passing the response to a callback.
+     Invokes the PutRegistryPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutRegistryPolicyRequest object being passed to this operation.
-         - completion: The PutRegistryPolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutRegistryPolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutRegistryPolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, server.
      */
-    public func putRegistryPolicyAsync(
-            input: ECRModel.PutRegistryPolicyRequest, 
-            completion: @escaping (Result<ECRModel.PutRegistryPolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putRegistryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putRegistryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutRegistryPolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putRegistryPolicy(
+            input: ECRModel.PutRegistryPolicyRequest) -> EventLoopFuture<ECRModel.PutRegistryPolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: PutRegistryPolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.putRegistryPolicy.rawValue,
+                                 reporting: self.invocationsReporting.putRegistryPolicy)
     }
 
     /**
-     Invokes the PutRegistryPolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutRegistryPolicyRequest object being passed to this operation.
-     - Returns: The PutRegistryPolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, server.
-     */
-    public func putRegistryPolicySync(
-            input: ECRModel.PutRegistryPolicyRequest) throws -> ECRModel.PutRegistryPolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putRegistryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putRegistryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutRegistryPolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutReplicationConfiguration operation returning immediately and passing the response to a callback.
+     Invokes the PutReplicationConfiguration operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutReplicationConfigurationRequest object being passed to this operation.
-         - completion: The PutReplicationConfigurationResponse object or an error will be passed to this 
-           callback when the operation is complete. The PutReplicationConfigurationResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutReplicationConfigurationResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, server, validation.
      */
-    public func putReplicationConfigurationAsync(
-            input: ECRModel.PutReplicationConfigurationRequest, 
-            completion: @escaping (Result<ECRModel.PutReplicationConfigurationResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putReplicationConfiguration.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putReplicationConfiguration,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutReplicationConfigurationOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putReplicationConfiguration(
+            input: ECRModel.PutReplicationConfigurationRequest) -> EventLoopFuture<ECRModel.PutReplicationConfigurationResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: PutReplicationConfigurationOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.putReplicationConfiguration.rawValue,
+                                 reporting: self.invocationsReporting.putReplicationConfiguration)
     }
 
     /**
-     Invokes the PutReplicationConfiguration operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutReplicationConfigurationRequest object being passed to this operation.
-     - Returns: The PutReplicationConfigurationResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, server, validation.
-     */
-    public func putReplicationConfigurationSync(
-            input: ECRModel.PutReplicationConfigurationRequest) throws -> ECRModel.PutReplicationConfigurationResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.putReplicationConfiguration.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putReplicationConfiguration,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PutReplicationConfigurationOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the SetRepositoryPolicy operation returning immediately and passing the response to a callback.
+     Invokes the SetRepositoryPolicy operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetRepositoryPolicyRequest object being passed to this operation.
-         - completion: The SetRepositoryPolicyResponse object or an error will be passed to this 
-           callback when the operation is complete. The SetRepositoryPolicyResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the SetRepositoryPolicyResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, repositoryNotFound, server.
      */
-    public func setRepositoryPolicyAsync(
-            input: ECRModel.SetRepositoryPolicyRequest, 
-            completion: @escaping (Result<ECRModel.SetRepositoryPolicyResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.setRepositoryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.setRepositoryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = SetRepositoryPolicyOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func setRepositoryPolicy(
+            input: ECRModel.SetRepositoryPolicyRequest) -> EventLoopFuture<ECRModel.SetRepositoryPolicyResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: SetRepositoryPolicyOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.setRepositoryPolicy.rawValue,
+                                 reporting: self.invocationsReporting.setRepositoryPolicy)
     }
 
     /**
-     Invokes the SetRepositoryPolicy operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetRepositoryPolicyRequest object being passed to this operation.
-     - Returns: The SetRepositoryPolicyResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, repositoryNotFound, server.
-     */
-    public func setRepositoryPolicySync(
-            input: ECRModel.SetRepositoryPolicyRequest) throws -> ECRModel.SetRepositoryPolicyResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.setRepositoryPolicy.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.setRepositoryPolicy,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = SetRepositoryPolicyOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the StartImageScan operation returning immediately and passing the response to a callback.
+     Invokes the StartImageScan operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated StartImageScanRequest object being passed to this operation.
-         - completion: The StartImageScanResponse object or an error will be passed to this 
-           callback when the operation is complete. The StartImageScanResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the StartImageScanResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: imageNotFound, invalidParameter, limitExceeded, repositoryNotFound, server, unsupportedImageType.
      */
-    public func startImageScanAsync(
-            input: ECRModel.StartImageScanRequest, 
-            completion: @escaping (Result<ECRModel.StartImageScanResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.startImageScan.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.startImageScan,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = StartImageScanOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func startImageScan(
+            input: ECRModel.StartImageScanRequest) -> EventLoopFuture<ECRModel.StartImageScanResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: StartImageScanOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.startImageScan.rawValue,
+                                 reporting: self.invocationsReporting.startImageScan)
     }
 
     /**
-     Invokes the StartImageScan operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated StartImageScanRequest object being passed to this operation.
-     - Returns: The StartImageScanResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: imageNotFound, invalidParameter, limitExceeded, repositoryNotFound, server, unsupportedImageType.
-     */
-    public func startImageScanSync(
-            input: ECRModel.StartImageScanRequest) throws -> ECRModel.StartImageScanResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.startImageScan.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.startImageScan,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = StartImageScanOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the StartLifecyclePolicyPreview operation returning immediately and passing the response to a callback.
+     Invokes the StartLifecyclePolicyPreview operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated StartLifecyclePolicyPreviewRequest object being passed to this operation.
-         - completion: The StartLifecyclePolicyPreviewResponse object or an error will be passed to this 
-           callback when the operation is complete. The StartLifecyclePolicyPreviewResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the StartLifecyclePolicyPreviewResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, lifecyclePolicyNotFound, lifecyclePolicyPreviewInProgress, repositoryNotFound, server.
      */
-    public func startLifecyclePolicyPreviewAsync(
-            input: ECRModel.StartLifecyclePolicyPreviewRequest, 
-            completion: @escaping (Result<ECRModel.StartLifecyclePolicyPreviewResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.startLifecyclePolicyPreview.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.startLifecyclePolicyPreview,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = StartLifecyclePolicyPreviewOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func startLifecyclePolicyPreview(
+            input: ECRModel.StartLifecyclePolicyPreviewRequest) -> EventLoopFuture<ECRModel.StartLifecyclePolicyPreviewResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: StartLifecyclePolicyPreviewOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.startLifecyclePolicyPreview.rawValue,
+                                 reporting: self.invocationsReporting.startLifecyclePolicyPreview)
     }
 
     /**
-     Invokes the StartLifecyclePolicyPreview operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated StartLifecyclePolicyPreviewRequest object being passed to this operation.
-     - Returns: The StartLifecyclePolicyPreviewResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, lifecyclePolicyNotFound, lifecyclePolicyPreviewInProgress, repositoryNotFound, server.
-     */
-    public func startLifecyclePolicyPreviewSync(
-            input: ECRModel.StartLifecyclePolicyPreviewRequest) throws -> ECRModel.StartLifecyclePolicyPreviewResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.startLifecyclePolicyPreview.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.startLifecyclePolicyPreview,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = StartLifecyclePolicyPreviewOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the TagResource operation returning immediately and passing the response to a callback.
+     Invokes the TagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagResourceRequest object being passed to this operation.
-         - completion: The TagResourceResponse object or an error will be passed to this 
-           callback when the operation is complete. The TagResourceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the TagResourceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, invalidTagParameter, repositoryNotFound, server, tooManyTags.
      */
-    public func tagResourceAsync(
-            input: ECRModel.TagResourceRequest, 
-            completion: @escaping (Result<ECRModel.TagResourceResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.tagResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.tagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = TagResourceOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func tagResource(
+            input: ECRModel.TagResourceRequest) -> EventLoopFuture<ECRModel.TagResourceResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: TagResourceOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.tagResource.rawValue,
+                                 reporting: self.invocationsReporting.tagResource)
     }
 
     /**
-     Invokes the TagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TagResourceRequest object being passed to this operation.
-     - Returns: The TagResourceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, invalidTagParameter, repositoryNotFound, server, tooManyTags.
-     */
-    public func tagResourceSync(
-            input: ECRModel.TagResourceRequest) throws -> ECRModel.TagResourceResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.tagResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.tagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = TagResourceOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the UntagResource operation returning immediately and passing the response to a callback.
+     Invokes the UntagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagResourceRequest object being passed to this operation.
-         - completion: The UntagResourceResponse object or an error will be passed to this 
-           callback when the operation is complete. The UntagResourceResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UntagResourceResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameter, invalidTagParameter, repositoryNotFound, server, tooManyTags.
      */
-    public func untagResourceAsync(
-            input: ECRModel.UntagResourceRequest, 
-            completion: @escaping (Result<ECRModel.UntagResourceResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.untagResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.untagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UntagResourceOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func untagResource(
+            input: ECRModel.UntagResourceRequest) -> EventLoopFuture<ECRModel.UntagResourceResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: UntagResourceOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.untagResource.rawValue,
+                                 reporting: self.invocationsReporting.untagResource)
     }
 
     /**
-     Invokes the UntagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UntagResourceRequest object being passed to this operation.
-     - Returns: The UntagResourceResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameter, invalidTagParameter, repositoryNotFound, server, tooManyTags.
-     */
-    public func untagResourceSync(
-            input: ECRModel.UntagResourceRequest) throws -> ECRModel.UntagResourceResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.untagResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.untagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UntagResourceOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the UploadLayerPart operation returning immediately and passing the response to a callback.
+     Invokes the UploadLayerPart operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UploadLayerPartRequest object being passed to this operation.
-         - completion: The UploadLayerPartResponse object or an error will be passed to this 
-           callback when the operation is complete. The UploadLayerPartResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the UploadLayerPartResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidLayerPart, invalidParameter, kms, limitExceeded, repositoryNotFound, server, uploadNotFound.
      */
-    public func uploadLayerPartAsync(
-            input: ECRModel.UploadLayerPartRequest, 
-            completion: @escaping (Result<ECRModel.UploadLayerPartResponse, ECRError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.uploadLayerPart.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.uploadLayerPart,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UploadLayerPartOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the UploadLayerPart operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UploadLayerPartRequest object being passed to this operation.
-     - Returns: The UploadLayerPartResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidLayerPart, invalidParameter, kms, limitExceeded, repositoryNotFound, server, uploadNotFound.
-     */
-    public func uploadLayerPartSync(
-            input: ECRModel.UploadLayerPartRequest) throws -> ECRModel.UploadLayerPartResponse {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: ECRModelOperations.uploadLayerPart.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.uploadLayerPart,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UploadLayerPartOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: ECRError = error.asTypedError()
-            throw typedError
-        }
+    public func uploadLayerPart(
+            input: ECRModel.UploadLayerPartRequest) -> EventLoopFuture<ECRModel.UploadLayerPartResponse> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: UploadLayerPartOperationHTTPRequestInput(encodable: input),
+                                 operation: ECRModelOperations.uploadLayerPart.rawValue,
+                                 reporting: self.invocationsReporting.uploadLayerPart)
     }
 }

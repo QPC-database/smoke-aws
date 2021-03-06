@@ -24,195 +24,94 @@ import Foundation
 import RDSDataModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Client Protocol for the RDSData service.
  */
 public protocol RDSDataClientProtocol {
-    typealias BatchExecuteStatementSyncType = (
-            _ input: RDSDataModel.BatchExecuteStatementRequest) throws -> RDSDataModel.BatchExecuteStatementResponse
-    typealias BatchExecuteStatementAsyncType = (
-            _ input: RDSDataModel.BatchExecuteStatementRequest, 
-            _ completion: @escaping (Result<RDSDataModel.BatchExecuteStatementResponse, RDSDataError>) -> ()) throws -> ()
-    typealias BeginTransactionSyncType = (
-            _ input: RDSDataModel.BeginTransactionRequest) throws -> RDSDataModel.BeginTransactionResponse
-    typealias BeginTransactionAsyncType = (
-            _ input: RDSDataModel.BeginTransactionRequest, 
-            _ completion: @escaping (Result<RDSDataModel.BeginTransactionResponse, RDSDataError>) -> ()) throws -> ()
-    typealias CommitTransactionSyncType = (
-            _ input: RDSDataModel.CommitTransactionRequest) throws -> RDSDataModel.CommitTransactionResponse
-    typealias CommitTransactionAsyncType = (
-            _ input: RDSDataModel.CommitTransactionRequest, 
-            _ completion: @escaping (Result<RDSDataModel.CommitTransactionResponse, RDSDataError>) -> ()) throws -> ()
-    typealias ExecuteSqlSyncType = (
-            _ input: RDSDataModel.ExecuteSqlRequest) throws -> RDSDataModel.ExecuteSqlResponse
-    typealias ExecuteSqlAsyncType = (
-            _ input: RDSDataModel.ExecuteSqlRequest, 
-            _ completion: @escaping (Result<RDSDataModel.ExecuteSqlResponse, RDSDataError>) -> ()) throws -> ()
-    typealias ExecuteStatementSyncType = (
-            _ input: RDSDataModel.ExecuteStatementRequest) throws -> RDSDataModel.ExecuteStatementResponse
-    typealias ExecuteStatementAsyncType = (
-            _ input: RDSDataModel.ExecuteStatementRequest, 
-            _ completion: @escaping (Result<RDSDataModel.ExecuteStatementResponse, RDSDataError>) -> ()) throws -> ()
-    typealias RollbackTransactionSyncType = (
-            _ input: RDSDataModel.RollbackTransactionRequest) throws -> RDSDataModel.RollbackTransactionResponse
-    typealias RollbackTransactionAsyncType = (
-            _ input: RDSDataModel.RollbackTransactionRequest, 
-            _ completion: @escaping (Result<RDSDataModel.RollbackTransactionResponse, RDSDataError>) -> ()) throws -> ()
+    typealias BatchExecuteStatementEventLoopFutureAsyncType = (
+            _ input: RDSDataModel.BatchExecuteStatementRequest) -> EventLoopFuture<RDSDataModel.BatchExecuteStatementResponse>
+    typealias BeginTransactionEventLoopFutureAsyncType = (
+            _ input: RDSDataModel.BeginTransactionRequest) -> EventLoopFuture<RDSDataModel.BeginTransactionResponse>
+    typealias CommitTransactionEventLoopFutureAsyncType = (
+            _ input: RDSDataModel.CommitTransactionRequest) -> EventLoopFuture<RDSDataModel.CommitTransactionResponse>
+    typealias ExecuteSqlEventLoopFutureAsyncType = (
+            _ input: RDSDataModel.ExecuteSqlRequest) -> EventLoopFuture<RDSDataModel.ExecuteSqlResponse>
+    typealias ExecuteStatementEventLoopFutureAsyncType = (
+            _ input: RDSDataModel.ExecuteStatementRequest) -> EventLoopFuture<RDSDataModel.ExecuteStatementResponse>
+    typealias RollbackTransactionEventLoopFutureAsyncType = (
+            _ input: RDSDataModel.RollbackTransactionRequest) -> EventLoopFuture<RDSDataModel.RollbackTransactionResponse>
 
     /**
-     Invokes the BatchExecuteStatement operation returning immediately and passing the response to a callback.
+     Invokes the BatchExecuteStatement operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BatchExecuteStatementRequest object being passed to this operation.
-         - completion: The BatchExecuteStatementResponse object or an error will be passed to this 
-           callback when the operation is complete. The BatchExecuteStatementResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the BatchExecuteStatementResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
      */
-    func batchExecuteStatementAsync(
-            input: RDSDataModel.BatchExecuteStatementRequest, 
-            completion: @escaping (Result<RDSDataModel.BatchExecuteStatementResponse, RDSDataError>) -> ()) throws
+    func batchExecuteStatement(
+            input: RDSDataModel.BatchExecuteStatementRequest) -> EventLoopFuture<RDSDataModel.BatchExecuteStatementResponse>
 
     /**
-     Invokes the BatchExecuteStatement operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BatchExecuteStatementRequest object being passed to this operation.
-     - Returns: The BatchExecuteStatementResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
-     */
-    func batchExecuteStatementSync(
-            input: RDSDataModel.BatchExecuteStatementRequest) throws -> RDSDataModel.BatchExecuteStatementResponse
-
-    /**
-     Invokes the BeginTransaction operation returning immediately and passing the response to a callback.
+     Invokes the BeginTransaction operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated BeginTransactionRequest object being passed to this operation.
-         - completion: The BeginTransactionResponse object or an error will be passed to this 
-           callback when the operation is complete. The BeginTransactionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the BeginTransactionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
      */
-    func beginTransactionAsync(
-            input: RDSDataModel.BeginTransactionRequest, 
-            completion: @escaping (Result<RDSDataModel.BeginTransactionResponse, RDSDataError>) -> ()) throws
+    func beginTransaction(
+            input: RDSDataModel.BeginTransactionRequest) -> EventLoopFuture<RDSDataModel.BeginTransactionResponse>
 
     /**
-     Invokes the BeginTransaction operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated BeginTransactionRequest object being passed to this operation.
-     - Returns: The BeginTransactionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
-     */
-    func beginTransactionSync(
-            input: RDSDataModel.BeginTransactionRequest) throws -> RDSDataModel.BeginTransactionResponse
-
-    /**
-     Invokes the CommitTransaction operation returning immediately and passing the response to a callback.
+     Invokes the CommitTransaction operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CommitTransactionRequest object being passed to this operation.
-         - completion: The CommitTransactionResponse object or an error will be passed to this 
-           callback when the operation is complete. The CommitTransactionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the CommitTransactionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, notFound, serviceUnavailable, statementTimeout.
      */
-    func commitTransactionAsync(
-            input: RDSDataModel.CommitTransactionRequest, 
-            completion: @escaping (Result<RDSDataModel.CommitTransactionResponse, RDSDataError>) -> ()) throws
+    func commitTransaction(
+            input: RDSDataModel.CommitTransactionRequest) -> EventLoopFuture<RDSDataModel.CommitTransactionResponse>
 
     /**
-     Invokes the CommitTransaction operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CommitTransactionRequest object being passed to this operation.
-     - Returns: The CommitTransactionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, notFound, serviceUnavailable, statementTimeout.
-     */
-    func commitTransactionSync(
-            input: RDSDataModel.CommitTransactionRequest) throws -> RDSDataModel.CommitTransactionResponse
-
-    /**
-     Invokes the ExecuteSql operation returning immediately and passing the response to a callback.
+     Invokes the ExecuteSql operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ExecuteSqlRequest object being passed to this operation.
-         - completion: The ExecuteSqlResponse object or an error will be passed to this 
-           callback when the operation is complete. The ExecuteSqlResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ExecuteSqlResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, serviceUnavailable.
      */
-    func executeSqlAsync(
-            input: RDSDataModel.ExecuteSqlRequest, 
-            completion: @escaping (Result<RDSDataModel.ExecuteSqlResponse, RDSDataError>) -> ()) throws
+    func executeSql(
+            input: RDSDataModel.ExecuteSqlRequest) -> EventLoopFuture<RDSDataModel.ExecuteSqlResponse>
 
     /**
-     Invokes the ExecuteSql operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ExecuteSqlRequest object being passed to this operation.
-     - Returns: The ExecuteSqlResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, serviceUnavailable.
-     */
-    func executeSqlSync(
-            input: RDSDataModel.ExecuteSqlRequest) throws -> RDSDataModel.ExecuteSqlResponse
-
-    /**
-     Invokes the ExecuteStatement operation returning immediately and passing the response to a callback.
+     Invokes the ExecuteStatement operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ExecuteStatementRequest object being passed to this operation.
-         - completion: The ExecuteStatementResponse object or an error will be passed to this 
-           callback when the operation is complete. The ExecuteStatementResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the ExecuteStatementResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
      */
-    func executeStatementAsync(
-            input: RDSDataModel.ExecuteStatementRequest, 
-            completion: @escaping (Result<RDSDataModel.ExecuteStatementResponse, RDSDataError>) -> ()) throws
+    func executeStatement(
+            input: RDSDataModel.ExecuteStatementRequest) -> EventLoopFuture<RDSDataModel.ExecuteStatementResponse>
 
     /**
-     Invokes the ExecuteStatement operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ExecuteStatementRequest object being passed to this operation.
-     - Returns: The ExecuteStatementResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, serviceUnavailable, statementTimeout.
-     */
-    func executeStatementSync(
-            input: RDSDataModel.ExecuteStatementRequest) throws -> RDSDataModel.ExecuteStatementResponse
-
-    /**
-     Invokes the RollbackTransaction operation returning immediately and passing the response to a callback.
+     Invokes the RollbackTransaction operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RollbackTransactionRequest object being passed to this operation.
-         - completion: The RollbackTransactionResponse object or an error will be passed to this 
-           callback when the operation is complete. The RollbackTransactionResponse
-           object will be validated before being returned to caller.
+     - Returns: A future to the RollbackTransactionResponse object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: badRequest, forbidden, internalServerError, notFound, serviceUnavailable, statementTimeout.
      */
-    func rollbackTransactionAsync(
-            input: RDSDataModel.RollbackTransactionRequest, 
-            completion: @escaping (Result<RDSDataModel.RollbackTransactionResponse, RDSDataError>) -> ()) throws
-
-    /**
-     Invokes the RollbackTransaction operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RollbackTransactionRequest object being passed to this operation.
-     - Returns: The RollbackTransactionResponse object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: badRequest, forbidden, internalServerError, notFound, serviceUnavailable, statementTimeout.
-     */
-    func rollbackTransactionSync(
-            input: RDSDataModel.RollbackTransactionRequest) throws -> RDSDataModel.RollbackTransactionResponse
+    func rollbackTransaction(
+            input: RDSDataModel.RollbackTransactionRequest) -> EventLoopFuture<RDSDataModel.RollbackTransactionResponse>
 }

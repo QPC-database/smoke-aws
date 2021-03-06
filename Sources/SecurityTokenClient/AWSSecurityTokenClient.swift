@@ -24,6 +24,7 @@ import Foundation
 import SecurityTokenModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 import SmokeAWSHttp
 import NIO
 import NIOHTTP1
@@ -45,16 +46,16 @@ public enum SecurityTokenClientError: Swift.Error {
 /**
  AWS Client for the SecurityToken service.
  */
-public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvocationReporting>: SecurityTokenClientProtocol {
+public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvocationReporting>: SecurityTokenClientProtocol, AWSQueryClientProtocol {
     let httpClient: HTTPOperationsClient
     let ownsHttpClients: Bool
-    let awsRegion: AWSRegion
-    let service: String
-    let apiVersion: String
-    let target: String?
-    let retryConfiguration: HTTPClientRetryConfiguration
-    let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
-    let credentialsProvider: CredentialsProvider
+    public let awsRegion: AWSRegion
+    public let service: String
+    public let apiVersion: String
+    public let target: String?
+    public let retryConfiguration: HTTPClientRetryConfiguration
+    public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
+    public let credentialsProvider: CredentialsProvider
     
     public let reporting: InvocationReportingType
 
@@ -130,622 +131,136 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
     }
 
     /**
-     Invokes the AssumeRole operation returning immediately and passing the response to a callback.
+     Invokes the AssumeRole operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AssumeRoleRequest object being passed to this operation.
-         - completion: The AssumeRoleResponseForAssumeRole object or an error will be passed to this 
-           callback when the operation is complete. The AssumeRoleResponseForAssumeRole
-           object will be validated before being returned to caller.
+     - Returns: A future to the AssumeRoleResponseForAssumeRole object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: expiredToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
      */
-    public func assumeRoleAsync(
-            input: SecurityTokenModel.AssumeRoleRequest, 
-            completion: @escaping (Result<SecurityTokenModel.AssumeRoleResponseForAssumeRole, SecurityTokenError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.assumeRole,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = AssumeRoleOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.assumeRole.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func assumeRole(
+            input: SecurityTokenModel.AssumeRoleRequest) -> EventLoopFuture<SecurityTokenModel.AssumeRoleResponseForAssumeRole> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: AssumeRoleOperationHTTPRequestInput(encodable: input),
+                                 action: SecurityTokenModelOperations.assumeRole.rawValue,
+                                 reporting: self.invocationsReporting.assumeRole)
     }
 
     /**
-     Invokes the AssumeRole operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AssumeRoleRequest object being passed to this operation.
-     - Returns: The AssumeRoleResponseForAssumeRole object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: expiredToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
-     */
-    public func assumeRoleSync(
-            input: SecurityTokenModel.AssumeRoleRequest) throws -> SecurityTokenModel.AssumeRoleResponseForAssumeRole {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.assumeRole,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = AssumeRoleOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.assumeRole.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SecurityTokenError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the AssumeRoleWithSAML operation returning immediately and passing the response to a callback.
+     Invokes the AssumeRoleWithSAML operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AssumeRoleWithSAMLRequest object being passed to this operation.
-         - completion: The AssumeRoleWithSAMLResponseForAssumeRoleWithSAML object or an error will be passed to this 
-           callback when the operation is complete. The AssumeRoleWithSAMLResponseForAssumeRoleWithSAML
-           object will be validated before being returned to caller.
+     - Returns: A future to the AssumeRoleWithSAMLResponseForAssumeRoleWithSAML object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: expiredToken, iDPRejectedClaim, invalidIdentityToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
      */
-    public func assumeRoleWithSAMLAsync(
-            input: SecurityTokenModel.AssumeRoleWithSAMLRequest, 
-            completion: @escaping (Result<SecurityTokenModel.AssumeRoleWithSAMLResponseForAssumeRoleWithSAML, SecurityTokenError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.assumeRoleWithSAML,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = AssumeRoleWithSAMLOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.assumeRoleWithSAML.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func assumeRoleWithSAML(
+            input: SecurityTokenModel.AssumeRoleWithSAMLRequest) -> EventLoopFuture<SecurityTokenModel.AssumeRoleWithSAMLResponseForAssumeRoleWithSAML> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: AssumeRoleWithSAMLOperationHTTPRequestInput(encodable: input),
+                                 action: SecurityTokenModelOperations.assumeRoleWithSAML.rawValue,
+                                 reporting: self.invocationsReporting.assumeRoleWithSAML)
     }
 
     /**
-     Invokes the AssumeRoleWithSAML operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AssumeRoleWithSAMLRequest object being passed to this operation.
-     - Returns: The AssumeRoleWithSAMLResponseForAssumeRoleWithSAML object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: expiredToken, iDPRejectedClaim, invalidIdentityToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
-     */
-    public func assumeRoleWithSAMLSync(
-            input: SecurityTokenModel.AssumeRoleWithSAMLRequest) throws -> SecurityTokenModel.AssumeRoleWithSAMLResponseForAssumeRoleWithSAML {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.assumeRoleWithSAML,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = AssumeRoleWithSAMLOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.assumeRoleWithSAML.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SecurityTokenError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the AssumeRoleWithWebIdentity operation returning immediately and passing the response to a callback.
+     Invokes the AssumeRoleWithWebIdentity operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AssumeRoleWithWebIdentityRequest object being passed to this operation.
-         - completion: The AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity object or an error will be passed to this 
-           callback when the operation is complete. The AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity
-           object will be validated before being returned to caller.
+     - Returns: A future to the AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: expiredToken, iDPCommunicationError, iDPRejectedClaim, invalidIdentityToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
      */
-    public func assumeRoleWithWebIdentityAsync(
-            input: SecurityTokenModel.AssumeRoleWithWebIdentityRequest, 
-            completion: @escaping (Result<SecurityTokenModel.AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity, SecurityTokenError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.assumeRoleWithWebIdentity,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = AssumeRoleWithWebIdentityOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.assumeRoleWithWebIdentity.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func assumeRoleWithWebIdentity(
+            input: SecurityTokenModel.AssumeRoleWithWebIdentityRequest) -> EventLoopFuture<SecurityTokenModel.AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: AssumeRoleWithWebIdentityOperationHTTPRequestInput(encodable: input),
+                                 action: SecurityTokenModelOperations.assumeRoleWithWebIdentity.rawValue,
+                                 reporting: self.invocationsReporting.assumeRoleWithWebIdentity)
     }
 
     /**
-     Invokes the AssumeRoleWithWebIdentity operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AssumeRoleWithWebIdentityRequest object being passed to this operation.
-     - Returns: The AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: expiredToken, iDPCommunicationError, iDPRejectedClaim, invalidIdentityToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
-     */
-    public func assumeRoleWithWebIdentitySync(
-            input: SecurityTokenModel.AssumeRoleWithWebIdentityRequest) throws -> SecurityTokenModel.AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.assumeRoleWithWebIdentity,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = AssumeRoleWithWebIdentityOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.assumeRoleWithWebIdentity.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SecurityTokenError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DecodeAuthorizationMessage operation returning immediately and passing the response to a callback.
+     Invokes the DecodeAuthorizationMessage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DecodeAuthorizationMessageRequest object being passed to this operation.
-         - completion: The DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage object or an error will be passed to this 
-           callback when the operation is complete. The DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage
-           object will be validated before being returned to caller.
+     - Returns: A future to the DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidAuthorizationMessage.
      */
-    public func decodeAuthorizationMessageAsync(
-            input: SecurityTokenModel.DecodeAuthorizationMessageRequest, 
-            completion: @escaping (Result<SecurityTokenModel.DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage, SecurityTokenError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.decodeAuthorizationMessage,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DecodeAuthorizationMessageOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.decodeAuthorizationMessage.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func decodeAuthorizationMessage(
+            input: SecurityTokenModel.DecodeAuthorizationMessageRequest) -> EventLoopFuture<SecurityTokenModel.DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DecodeAuthorizationMessageOperationHTTPRequestInput(encodable: input),
+                                 action: SecurityTokenModelOperations.decodeAuthorizationMessage.rawValue,
+                                 reporting: self.invocationsReporting.decodeAuthorizationMessage)
     }
 
     /**
-     Invokes the DecodeAuthorizationMessage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DecodeAuthorizationMessageRequest object being passed to this operation.
-     - Returns: The DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidAuthorizationMessage.
-     */
-    public func decodeAuthorizationMessageSync(
-            input: SecurityTokenModel.DecodeAuthorizationMessageRequest) throws -> SecurityTokenModel.DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.decodeAuthorizationMessage,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DecodeAuthorizationMessageOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.decodeAuthorizationMessage.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SecurityTokenError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetAccessKeyInfo operation returning immediately and passing the response to a callback.
+     Invokes the GetAccessKeyInfo operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetAccessKeyInfoRequest object being passed to this operation.
-         - completion: The GetAccessKeyInfoResponseForGetAccessKeyInfo object or an error will be passed to this 
-           callback when the operation is complete. The GetAccessKeyInfoResponseForGetAccessKeyInfo
-           object will be validated before being returned to caller.
-     */
-    public func getAccessKeyInfoAsync(
-            input: SecurityTokenModel.GetAccessKeyInfoRequest, 
-            completion: @escaping (Result<SecurityTokenModel.GetAccessKeyInfoResponseForGetAccessKeyInfo, SecurityTokenError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getAccessKeyInfo,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetAccessKeyInfoOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.getAccessKeyInfo.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the GetAccessKeyInfo operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetAccessKeyInfoRequest object being passed to this operation.
-     - Returns: The GetAccessKeyInfoResponseForGetAccessKeyInfo object to be passed back from the caller of this operation.
+     - Returns: A future to the GetAccessKeyInfoResponseForGetAccessKeyInfo object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    public func getAccessKeyInfoSync(
-            input: SecurityTokenModel.GetAccessKeyInfoRequest) throws -> SecurityTokenModel.GetAccessKeyInfoResponseForGetAccessKeyInfo {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getAccessKeyInfo,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetAccessKeyInfoOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.getAccessKeyInfo.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SecurityTokenError = error.asTypedError()
-            throw typedError
-        }
+    public func getAccessKeyInfo(
+            input: SecurityTokenModel.GetAccessKeyInfoRequest) -> EventLoopFuture<SecurityTokenModel.GetAccessKeyInfoResponseForGetAccessKeyInfo> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetAccessKeyInfoOperationHTTPRequestInput(encodable: input),
+                                 action: SecurityTokenModelOperations.getAccessKeyInfo.rawValue,
+                                 reporting: self.invocationsReporting.getAccessKeyInfo)
     }
 
     /**
-     Invokes the GetCallerIdentity operation returning immediately and passing the response to a callback.
+     Invokes the GetCallerIdentity operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetCallerIdentityRequest object being passed to this operation.
-         - completion: The GetCallerIdentityResponseForGetCallerIdentity object or an error will be passed to this 
-           callback when the operation is complete. The GetCallerIdentityResponseForGetCallerIdentity
-           object will be validated before being returned to caller.
-     */
-    public func getCallerIdentityAsync(
-            input: SecurityTokenModel.GetCallerIdentityRequest, 
-            completion: @escaping (Result<SecurityTokenModel.GetCallerIdentityResponseForGetCallerIdentity, SecurityTokenError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getCallerIdentity,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetCallerIdentityOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.getCallerIdentity.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the GetCallerIdentity operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetCallerIdentityRequest object being passed to this operation.
-     - Returns: The GetCallerIdentityResponseForGetCallerIdentity object to be passed back from the caller of this operation.
+     - Returns: A future to the GetCallerIdentityResponseForGetCallerIdentity object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    public func getCallerIdentitySync(
-            input: SecurityTokenModel.GetCallerIdentityRequest) throws -> SecurityTokenModel.GetCallerIdentityResponseForGetCallerIdentity {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getCallerIdentity,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetCallerIdentityOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.getCallerIdentity.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SecurityTokenError = error.asTypedError()
-            throw typedError
-        }
+    public func getCallerIdentity(
+            input: SecurityTokenModel.GetCallerIdentityRequest) -> EventLoopFuture<SecurityTokenModel.GetCallerIdentityResponseForGetCallerIdentity> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetCallerIdentityOperationHTTPRequestInput(encodable: input),
+                                 action: SecurityTokenModelOperations.getCallerIdentity.rawValue,
+                                 reporting: self.invocationsReporting.getCallerIdentity)
     }
 
     /**
-     Invokes the GetFederationToken operation returning immediately and passing the response to a callback.
+     Invokes the GetFederationToken operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetFederationTokenRequest object being passed to this operation.
-         - completion: The GetFederationTokenResponseForGetFederationToken object or an error will be passed to this 
-           callback when the operation is complete. The GetFederationTokenResponseForGetFederationToken
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetFederationTokenResponseForGetFederationToken object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
      */
-    public func getFederationTokenAsync(
-            input: SecurityTokenModel.GetFederationTokenRequest, 
-            completion: @escaping (Result<SecurityTokenModel.GetFederationTokenResponseForGetFederationToken, SecurityTokenError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getFederationToken,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetFederationTokenOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.getFederationToken.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getFederationToken(
+            input: SecurityTokenModel.GetFederationTokenRequest) -> EventLoopFuture<SecurityTokenModel.GetFederationTokenResponseForGetFederationToken> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetFederationTokenOperationHTTPRequestInput(encodable: input),
+                                 action: SecurityTokenModelOperations.getFederationToken.rawValue,
+                                 reporting: self.invocationsReporting.getFederationToken)
     }
 
     /**
-     Invokes the GetFederationToken operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetFederationTokenRequest object being passed to this operation.
-     - Returns: The GetFederationTokenResponseForGetFederationToken object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
-     */
-    public func getFederationTokenSync(
-            input: SecurityTokenModel.GetFederationTokenRequest) throws -> SecurityTokenModel.GetFederationTokenResponseForGetFederationToken {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getFederationToken,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetFederationTokenOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.getFederationToken.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SecurityTokenError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetSessionToken operation returning immediately and passing the response to a callback.
+     Invokes the GetSessionToken operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetSessionTokenRequest object being passed to this operation.
-         - completion: The GetSessionTokenResponseForGetSessionToken object or an error will be passed to this 
-           callback when the operation is complete. The GetSessionTokenResponseForGetSessionToken
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetSessionTokenResponseForGetSessionToken object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: regionDisabled.
      */
-    public func getSessionTokenAsync(
-            input: SecurityTokenModel.GetSessionTokenRequest, 
-            completion: @escaping (Result<SecurityTokenModel.GetSessionTokenResponseForGetSessionToken, SecurityTokenError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getSessionToken,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetSessionTokenOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.getSessionToken.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the GetSessionToken operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetSessionTokenRequest object being passed to this operation.
-     - Returns: The GetSessionTokenResponseForGetSessionToken object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: regionDisabled.
-     */
-    public func getSessionTokenSync(
-            input: SecurityTokenModel.GetSessionTokenRequest) throws -> SecurityTokenModel.GetSessionTokenResponseForGetSessionToken {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getSessionToken,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetSessionTokenOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: SecurityTokenModelOperations.getSessionToken.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SecurityTokenError = error.asTypedError()
-            throw typedError
-        }
+    public func getSessionToken(
+            input: SecurityTokenModel.GetSessionTokenRequest) -> EventLoopFuture<SecurityTokenModel.GetSessionTokenResponseForGetSessionToken> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetSessionTokenOperationHTTPRequestInput(encodable: input),
+                                 action: SecurityTokenModelOperations.getSessionToken.rawValue,
+                                 reporting: self.invocationsReporting.getSessionToken)
     }
 }

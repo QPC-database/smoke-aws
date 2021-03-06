@@ -24,380 +24,228 @@ import Foundation
 import SecurityTokenModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Mock Client for the SecurityToken service by default returns the `__default` property of its return type.
  */
 public struct MockSecurityTokenClient: SecurityTokenClientProtocol {
-    let assumeRoleAsyncOverride: AssumeRoleAsyncType?
-    let assumeRoleSyncOverride: AssumeRoleSyncType?
-    let assumeRoleWithSAMLAsyncOverride: AssumeRoleWithSAMLAsyncType?
-    let assumeRoleWithSAMLSyncOverride: AssumeRoleWithSAMLSyncType?
-    let assumeRoleWithWebIdentityAsyncOverride: AssumeRoleWithWebIdentityAsyncType?
-    let assumeRoleWithWebIdentitySyncOverride: AssumeRoleWithWebIdentitySyncType?
-    let decodeAuthorizationMessageAsyncOverride: DecodeAuthorizationMessageAsyncType?
-    let decodeAuthorizationMessageSyncOverride: DecodeAuthorizationMessageSyncType?
-    let getAccessKeyInfoAsyncOverride: GetAccessKeyInfoAsyncType?
-    let getAccessKeyInfoSyncOverride: GetAccessKeyInfoSyncType?
-    let getCallerIdentityAsyncOverride: GetCallerIdentityAsyncType?
-    let getCallerIdentitySyncOverride: GetCallerIdentitySyncType?
-    let getFederationTokenAsyncOverride: GetFederationTokenAsyncType?
-    let getFederationTokenSyncOverride: GetFederationTokenSyncType?
-    let getSessionTokenAsyncOverride: GetSessionTokenAsyncType?
-    let getSessionTokenSyncOverride: GetSessionTokenSyncType?
+    let eventLoop: EventLoop
+    let typedErrorProvider: (Swift.Error) -> SecurityTokenError = { $0.asTypedError() }
+    let assumeRoleEventLoopFutureAsyncOverride: AssumeRoleEventLoopFutureAsyncType?
+    let assumeRoleWithSAMLEventLoopFutureAsyncOverride: AssumeRoleWithSAMLEventLoopFutureAsyncType?
+    let assumeRoleWithWebIdentityEventLoopFutureAsyncOverride: AssumeRoleWithWebIdentityEventLoopFutureAsyncType?
+    let decodeAuthorizationMessageEventLoopFutureAsyncOverride: DecodeAuthorizationMessageEventLoopFutureAsyncType?
+    let getAccessKeyInfoEventLoopFutureAsyncOverride: GetAccessKeyInfoEventLoopFutureAsyncType?
+    let getCallerIdentityEventLoopFutureAsyncOverride: GetCallerIdentityEventLoopFutureAsyncType?
+    let getFederationTokenEventLoopFutureAsyncOverride: GetFederationTokenEventLoopFutureAsyncType?
+    let getSessionTokenEventLoopFutureAsyncOverride: GetSessionTokenEventLoopFutureAsyncType?
 
     /**
      Initializer that creates an instance of this clients. The behavior of individual
      functions can be overridden by passing them to this initializer.
      */
     public init(
-            assumeRoleAsync: AssumeRoleAsyncType? = nil,
-            assumeRoleSync: AssumeRoleSyncType? = nil,
-            assumeRoleWithSAMLAsync: AssumeRoleWithSAMLAsyncType? = nil,
-            assumeRoleWithSAMLSync: AssumeRoleWithSAMLSyncType? = nil,
-            assumeRoleWithWebIdentityAsync: AssumeRoleWithWebIdentityAsyncType? = nil,
-            assumeRoleWithWebIdentitySync: AssumeRoleWithWebIdentitySyncType? = nil,
-            decodeAuthorizationMessageAsync: DecodeAuthorizationMessageAsyncType? = nil,
-            decodeAuthorizationMessageSync: DecodeAuthorizationMessageSyncType? = nil,
-            getAccessKeyInfoAsync: GetAccessKeyInfoAsyncType? = nil,
-            getAccessKeyInfoSync: GetAccessKeyInfoSyncType? = nil,
-            getCallerIdentityAsync: GetCallerIdentityAsyncType? = nil,
-            getCallerIdentitySync: GetCallerIdentitySyncType? = nil,
-            getFederationTokenAsync: GetFederationTokenAsyncType? = nil,
-            getFederationTokenSync: GetFederationTokenSyncType? = nil,
-            getSessionTokenAsync: GetSessionTokenAsyncType? = nil,
-            getSessionTokenSync: GetSessionTokenSyncType? = nil) {
-        self.assumeRoleAsyncOverride = assumeRoleAsync
-        self.assumeRoleSyncOverride = assumeRoleSync
-        self.assumeRoleWithSAMLAsyncOverride = assumeRoleWithSAMLAsync
-        self.assumeRoleWithSAMLSyncOverride = assumeRoleWithSAMLSync
-        self.assumeRoleWithWebIdentityAsyncOverride = assumeRoleWithWebIdentityAsync
-        self.assumeRoleWithWebIdentitySyncOverride = assumeRoleWithWebIdentitySync
-        self.decodeAuthorizationMessageAsyncOverride = decodeAuthorizationMessageAsync
-        self.decodeAuthorizationMessageSyncOverride = decodeAuthorizationMessageSync
-        self.getAccessKeyInfoAsyncOverride = getAccessKeyInfoAsync
-        self.getAccessKeyInfoSyncOverride = getAccessKeyInfoSync
-        self.getCallerIdentityAsyncOverride = getCallerIdentityAsync
-        self.getCallerIdentitySyncOverride = getCallerIdentitySync
-        self.getFederationTokenAsyncOverride = getFederationTokenAsync
-        self.getFederationTokenSyncOverride = getFederationTokenSync
-        self.getSessionTokenAsyncOverride = getSessionTokenAsync
-        self.getSessionTokenSyncOverride = getSessionTokenSync
+            eventLoop: EventLoop,
+            assumeRoleEventLoopFutureAsync: AssumeRoleEventLoopFutureAsyncType? = nil,
+            assumeRoleWithSAMLEventLoopFutureAsync: AssumeRoleWithSAMLEventLoopFutureAsyncType? = nil,
+            assumeRoleWithWebIdentityEventLoopFutureAsync: AssumeRoleWithWebIdentityEventLoopFutureAsyncType? = nil,
+            decodeAuthorizationMessageEventLoopFutureAsync: DecodeAuthorizationMessageEventLoopFutureAsyncType? = nil,
+            getAccessKeyInfoEventLoopFutureAsync: GetAccessKeyInfoEventLoopFutureAsyncType? = nil,
+            getCallerIdentityEventLoopFutureAsync: GetCallerIdentityEventLoopFutureAsyncType? = nil,
+            getFederationTokenEventLoopFutureAsync: GetFederationTokenEventLoopFutureAsyncType? = nil,
+            getSessionTokenEventLoopFutureAsync: GetSessionTokenEventLoopFutureAsyncType? = nil) {
+        self.eventLoop = eventLoop
+        
+        self.assumeRoleEventLoopFutureAsyncOverride = assumeRoleEventLoopFutureAsync
+        self.assumeRoleWithSAMLEventLoopFutureAsyncOverride = assumeRoleWithSAMLEventLoopFutureAsync
+        self.assumeRoleWithWebIdentityEventLoopFutureAsyncOverride = assumeRoleWithWebIdentityEventLoopFutureAsync
+        self.decodeAuthorizationMessageEventLoopFutureAsyncOverride = decodeAuthorizationMessageEventLoopFutureAsync
+        self.getAccessKeyInfoEventLoopFutureAsyncOverride = getAccessKeyInfoEventLoopFutureAsync
+        self.getCallerIdentityEventLoopFutureAsyncOverride = getCallerIdentityEventLoopFutureAsync
+        self.getFederationTokenEventLoopFutureAsyncOverride = getFederationTokenEventLoopFutureAsync
+        self.getSessionTokenEventLoopFutureAsyncOverride = getSessionTokenEventLoopFutureAsync
     }
 
     /**
-     Invokes the AssumeRole operation returning immediately and passing the response to a callback.
+     Invokes the AssumeRole operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AssumeRoleRequest object being passed to this operation.
-         - completion: The AssumeRoleResponseForAssumeRole object or an error will be passed to this 
-           callback when the operation is complete. The AssumeRoleResponseForAssumeRole
-           object will be validated before being returned to caller.
+     - Returns: A future to the AssumeRoleResponseForAssumeRole object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: expiredToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
      */
-    public func assumeRoleAsync(
-            input: SecurityTokenModel.AssumeRoleRequest, 
-            completion: @escaping (Result<SecurityTokenModel.AssumeRoleResponseForAssumeRole, SecurityTokenError>) -> ()) throws {
-        if let assumeRoleAsyncOverride = assumeRoleAsyncOverride {
-            return try assumeRoleAsyncOverride(input, completion)
+    public func assumeRole(
+            input: SecurityTokenModel.AssumeRoleRequest) -> EventLoopFuture<SecurityTokenModel.AssumeRoleResponseForAssumeRole> {
+        if let assumeRoleEventLoopFutureAsyncOverride = assumeRoleEventLoopFutureAsyncOverride {
+            return assumeRoleEventLoopFutureAsyncOverride(input)
         }
 
         let result = AssumeRoleResponseForAssumeRole.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: AssumeRoleResponseForAssumeRole.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the AssumeRole operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AssumeRoleRequest object being passed to this operation.
-     - Returns: The AssumeRoleResponseForAssumeRole object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: expiredToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
-     */
-    public func assumeRoleSync(
-            input: SecurityTokenModel.AssumeRoleRequest) throws -> SecurityTokenModel.AssumeRoleResponseForAssumeRole {
-        if let assumeRoleSyncOverride = assumeRoleSyncOverride {
-            return try assumeRoleSyncOverride(input)
-        }
-
-        return AssumeRoleResponseForAssumeRole.__default
-    }
-
-    /**
-     Invokes the AssumeRoleWithSAML operation returning immediately and passing the response to a callback.
+     Invokes the AssumeRoleWithSAML operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AssumeRoleWithSAMLRequest object being passed to this operation.
-         - completion: The AssumeRoleWithSAMLResponseForAssumeRoleWithSAML object or an error will be passed to this 
-           callback when the operation is complete. The AssumeRoleWithSAMLResponseForAssumeRoleWithSAML
-           object will be validated before being returned to caller.
+     - Returns: A future to the AssumeRoleWithSAMLResponseForAssumeRoleWithSAML object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: expiredToken, iDPRejectedClaim, invalidIdentityToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
      */
-    public func assumeRoleWithSAMLAsync(
-            input: SecurityTokenModel.AssumeRoleWithSAMLRequest, 
-            completion: @escaping (Result<SecurityTokenModel.AssumeRoleWithSAMLResponseForAssumeRoleWithSAML, SecurityTokenError>) -> ()) throws {
-        if let assumeRoleWithSAMLAsyncOverride = assumeRoleWithSAMLAsyncOverride {
-            return try assumeRoleWithSAMLAsyncOverride(input, completion)
+    public func assumeRoleWithSAML(
+            input: SecurityTokenModel.AssumeRoleWithSAMLRequest) -> EventLoopFuture<SecurityTokenModel.AssumeRoleWithSAMLResponseForAssumeRoleWithSAML> {
+        if let assumeRoleWithSAMLEventLoopFutureAsyncOverride = assumeRoleWithSAMLEventLoopFutureAsyncOverride {
+            return assumeRoleWithSAMLEventLoopFutureAsyncOverride(input)
         }
 
         let result = AssumeRoleWithSAMLResponseForAssumeRoleWithSAML.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: AssumeRoleWithSAMLResponseForAssumeRoleWithSAML.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the AssumeRoleWithSAML operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AssumeRoleWithSAMLRequest object being passed to this operation.
-     - Returns: The AssumeRoleWithSAMLResponseForAssumeRoleWithSAML object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: expiredToken, iDPRejectedClaim, invalidIdentityToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
-     */
-    public func assumeRoleWithSAMLSync(
-            input: SecurityTokenModel.AssumeRoleWithSAMLRequest) throws -> SecurityTokenModel.AssumeRoleWithSAMLResponseForAssumeRoleWithSAML {
-        if let assumeRoleWithSAMLSyncOverride = assumeRoleWithSAMLSyncOverride {
-            return try assumeRoleWithSAMLSyncOverride(input)
-        }
-
-        return AssumeRoleWithSAMLResponseForAssumeRoleWithSAML.__default
-    }
-
-    /**
-     Invokes the AssumeRoleWithWebIdentity operation returning immediately and passing the response to a callback.
+     Invokes the AssumeRoleWithWebIdentity operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AssumeRoleWithWebIdentityRequest object being passed to this operation.
-         - completion: The AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity object or an error will be passed to this 
-           callback when the operation is complete. The AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity
-           object will be validated before being returned to caller.
+     - Returns: A future to the AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: expiredToken, iDPCommunicationError, iDPRejectedClaim, invalidIdentityToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
      */
-    public func assumeRoleWithWebIdentityAsync(
-            input: SecurityTokenModel.AssumeRoleWithWebIdentityRequest, 
-            completion: @escaping (Result<SecurityTokenModel.AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity, SecurityTokenError>) -> ()) throws {
-        if let assumeRoleWithWebIdentityAsyncOverride = assumeRoleWithWebIdentityAsyncOverride {
-            return try assumeRoleWithWebIdentityAsyncOverride(input, completion)
+    public func assumeRoleWithWebIdentity(
+            input: SecurityTokenModel.AssumeRoleWithWebIdentityRequest) -> EventLoopFuture<SecurityTokenModel.AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity> {
+        if let assumeRoleWithWebIdentityEventLoopFutureAsyncOverride = assumeRoleWithWebIdentityEventLoopFutureAsyncOverride {
+            return assumeRoleWithWebIdentityEventLoopFutureAsyncOverride(input)
         }
 
         let result = AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the AssumeRoleWithWebIdentity operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AssumeRoleWithWebIdentityRequest object being passed to this operation.
-     - Returns: The AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: expiredToken, iDPCommunicationError, iDPRejectedClaim, invalidIdentityToken, malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
-     */
-    public func assumeRoleWithWebIdentitySync(
-            input: SecurityTokenModel.AssumeRoleWithWebIdentityRequest) throws -> SecurityTokenModel.AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity {
-        if let assumeRoleWithWebIdentitySyncOverride = assumeRoleWithWebIdentitySyncOverride {
-            return try assumeRoleWithWebIdentitySyncOverride(input)
-        }
-
-        return AssumeRoleWithWebIdentityResponseForAssumeRoleWithWebIdentity.__default
-    }
-
-    /**
-     Invokes the DecodeAuthorizationMessage operation returning immediately and passing the response to a callback.
+     Invokes the DecodeAuthorizationMessage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DecodeAuthorizationMessageRequest object being passed to this operation.
-         - completion: The DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage object or an error will be passed to this 
-           callback when the operation is complete. The DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage
-           object will be validated before being returned to caller.
+     - Returns: A future to the DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidAuthorizationMessage.
      */
-    public func decodeAuthorizationMessageAsync(
-            input: SecurityTokenModel.DecodeAuthorizationMessageRequest, 
-            completion: @escaping (Result<SecurityTokenModel.DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage, SecurityTokenError>) -> ()) throws {
-        if let decodeAuthorizationMessageAsyncOverride = decodeAuthorizationMessageAsyncOverride {
-            return try decodeAuthorizationMessageAsyncOverride(input, completion)
+    public func decodeAuthorizationMessage(
+            input: SecurityTokenModel.DecodeAuthorizationMessageRequest) -> EventLoopFuture<SecurityTokenModel.DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage> {
+        if let decodeAuthorizationMessageEventLoopFutureAsyncOverride = decodeAuthorizationMessageEventLoopFutureAsyncOverride {
+            return decodeAuthorizationMessageEventLoopFutureAsyncOverride(input)
         }
 
         let result = DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the DecodeAuthorizationMessage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DecodeAuthorizationMessageRequest object being passed to this operation.
-     - Returns: The DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidAuthorizationMessage.
-     */
-    public func decodeAuthorizationMessageSync(
-            input: SecurityTokenModel.DecodeAuthorizationMessageRequest) throws -> SecurityTokenModel.DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage {
-        if let decodeAuthorizationMessageSyncOverride = decodeAuthorizationMessageSyncOverride {
-            return try decodeAuthorizationMessageSyncOverride(input)
-        }
-
-        return DecodeAuthorizationMessageResponseForDecodeAuthorizationMessage.__default
-    }
-
-    /**
-     Invokes the GetAccessKeyInfo operation returning immediately and passing the response to a callback.
+     Invokes the GetAccessKeyInfo operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetAccessKeyInfoRequest object being passed to this operation.
-         - completion: The GetAccessKeyInfoResponseForGetAccessKeyInfo object or an error will be passed to this 
-           callback when the operation is complete. The GetAccessKeyInfoResponseForGetAccessKeyInfo
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetAccessKeyInfoResponseForGetAccessKeyInfo object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
      */
-    public func getAccessKeyInfoAsync(
-            input: SecurityTokenModel.GetAccessKeyInfoRequest, 
-            completion: @escaping (Result<SecurityTokenModel.GetAccessKeyInfoResponseForGetAccessKeyInfo, SecurityTokenError>) -> ()) throws {
-        if let getAccessKeyInfoAsyncOverride = getAccessKeyInfoAsyncOverride {
-            return try getAccessKeyInfoAsyncOverride(input, completion)
+    public func getAccessKeyInfo(
+            input: SecurityTokenModel.GetAccessKeyInfoRequest) -> EventLoopFuture<SecurityTokenModel.GetAccessKeyInfoResponseForGetAccessKeyInfo> {
+        if let getAccessKeyInfoEventLoopFutureAsyncOverride = getAccessKeyInfoEventLoopFutureAsyncOverride {
+            return getAccessKeyInfoEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetAccessKeyInfoResponseForGetAccessKeyInfo.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetAccessKeyInfoResponseForGetAccessKeyInfo.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetAccessKeyInfo operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetAccessKeyInfoRequest object being passed to this operation.
-     - Returns: The GetAccessKeyInfoResponseForGetAccessKeyInfo object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     */
-    public func getAccessKeyInfoSync(
-            input: SecurityTokenModel.GetAccessKeyInfoRequest) throws -> SecurityTokenModel.GetAccessKeyInfoResponseForGetAccessKeyInfo {
-        if let getAccessKeyInfoSyncOverride = getAccessKeyInfoSyncOverride {
-            return try getAccessKeyInfoSyncOverride(input)
-        }
-
-        return GetAccessKeyInfoResponseForGetAccessKeyInfo.__default
-    }
-
-    /**
-     Invokes the GetCallerIdentity operation returning immediately and passing the response to a callback.
+     Invokes the GetCallerIdentity operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetCallerIdentityRequest object being passed to this operation.
-         - completion: The GetCallerIdentityResponseForGetCallerIdentity object or an error will be passed to this 
-           callback when the operation is complete. The GetCallerIdentityResponseForGetCallerIdentity
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetCallerIdentityResponseForGetCallerIdentity object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
      */
-    public func getCallerIdentityAsync(
-            input: SecurityTokenModel.GetCallerIdentityRequest, 
-            completion: @escaping (Result<SecurityTokenModel.GetCallerIdentityResponseForGetCallerIdentity, SecurityTokenError>) -> ()) throws {
-        if let getCallerIdentityAsyncOverride = getCallerIdentityAsyncOverride {
-            return try getCallerIdentityAsyncOverride(input, completion)
+    public func getCallerIdentity(
+            input: SecurityTokenModel.GetCallerIdentityRequest) -> EventLoopFuture<SecurityTokenModel.GetCallerIdentityResponseForGetCallerIdentity> {
+        if let getCallerIdentityEventLoopFutureAsyncOverride = getCallerIdentityEventLoopFutureAsyncOverride {
+            return getCallerIdentityEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetCallerIdentityResponseForGetCallerIdentity.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetCallerIdentityResponseForGetCallerIdentity.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetCallerIdentity operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetCallerIdentityRequest object being passed to this operation.
-     - Returns: The GetCallerIdentityResponseForGetCallerIdentity object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     */
-    public func getCallerIdentitySync(
-            input: SecurityTokenModel.GetCallerIdentityRequest) throws -> SecurityTokenModel.GetCallerIdentityResponseForGetCallerIdentity {
-        if let getCallerIdentitySyncOverride = getCallerIdentitySyncOverride {
-            return try getCallerIdentitySyncOverride(input)
-        }
-
-        return GetCallerIdentityResponseForGetCallerIdentity.__default
-    }
-
-    /**
-     Invokes the GetFederationToken operation returning immediately and passing the response to a callback.
+     Invokes the GetFederationToken operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetFederationTokenRequest object being passed to this operation.
-         - completion: The GetFederationTokenResponseForGetFederationToken object or an error will be passed to this 
-           callback when the operation is complete. The GetFederationTokenResponseForGetFederationToken
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetFederationTokenResponseForGetFederationToken object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
      */
-    public func getFederationTokenAsync(
-            input: SecurityTokenModel.GetFederationTokenRequest, 
-            completion: @escaping (Result<SecurityTokenModel.GetFederationTokenResponseForGetFederationToken, SecurityTokenError>) -> ()) throws {
-        if let getFederationTokenAsyncOverride = getFederationTokenAsyncOverride {
-            return try getFederationTokenAsyncOverride(input, completion)
+    public func getFederationToken(
+            input: SecurityTokenModel.GetFederationTokenRequest) -> EventLoopFuture<SecurityTokenModel.GetFederationTokenResponseForGetFederationToken> {
+        if let getFederationTokenEventLoopFutureAsyncOverride = getFederationTokenEventLoopFutureAsyncOverride {
+            return getFederationTokenEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetFederationTokenResponseForGetFederationToken.__default
         
-        completion(.success(result))
+        let promise = self.eventLoop.makePromise(of: GetFederationTokenResponseForGetFederationToken.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 
     /**
-     Invokes the GetFederationToken operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetFederationTokenRequest object being passed to this operation.
-     - Returns: The GetFederationTokenResponseForGetFederationToken object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: malformedPolicyDocument, packedPolicyTooLarge, regionDisabled.
-     */
-    public func getFederationTokenSync(
-            input: SecurityTokenModel.GetFederationTokenRequest) throws -> SecurityTokenModel.GetFederationTokenResponseForGetFederationToken {
-        if let getFederationTokenSyncOverride = getFederationTokenSyncOverride {
-            return try getFederationTokenSyncOverride(input)
-        }
-
-        return GetFederationTokenResponseForGetFederationToken.__default
-    }
-
-    /**
-     Invokes the GetSessionToken operation returning immediately and passing the response to a callback.
+     Invokes the GetSessionToken operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetSessionTokenRequest object being passed to this operation.
-         - completion: The GetSessionTokenResponseForGetSessionToken object or an error will be passed to this 
-           callback when the operation is complete. The GetSessionTokenResponseForGetSessionToken
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetSessionTokenResponseForGetSessionToken object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: regionDisabled.
      */
-    public func getSessionTokenAsync(
-            input: SecurityTokenModel.GetSessionTokenRequest, 
-            completion: @escaping (Result<SecurityTokenModel.GetSessionTokenResponseForGetSessionToken, SecurityTokenError>) -> ()) throws {
-        if let getSessionTokenAsyncOverride = getSessionTokenAsyncOverride {
-            return try getSessionTokenAsyncOverride(input, completion)
+    public func getSessionToken(
+            input: SecurityTokenModel.GetSessionTokenRequest) -> EventLoopFuture<SecurityTokenModel.GetSessionTokenResponseForGetSessionToken> {
+        if let getSessionTokenEventLoopFutureAsyncOverride = getSessionTokenEventLoopFutureAsyncOverride {
+            return getSessionTokenEventLoopFutureAsyncOverride(input)
         }
 
         let result = GetSessionTokenResponseForGetSessionToken.__default
         
-        completion(.success(result))
-    }
-
-    /**
-     Invokes the GetSessionToken operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetSessionTokenRequest object being passed to this operation.
-     - Returns: The GetSessionTokenResponseForGetSessionToken object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: regionDisabled.
-     */
-    public func getSessionTokenSync(
-            input: SecurityTokenModel.GetSessionTokenRequest) throws -> SecurityTokenModel.GetSessionTokenResponseForGetSessionToken {
-        if let getSessionTokenSyncOverride = getSessionTokenSyncOverride {
-            return try getSessionTokenSyncOverride(input)
-        }
-
-        return GetSessionTokenResponseForGetSessionToken.__default
+        let promise = self.eventLoop.makePromise(of: GetSessionTokenResponseForGetSessionToken.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
     }
 }

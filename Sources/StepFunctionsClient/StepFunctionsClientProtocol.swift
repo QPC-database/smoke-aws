@@ -24,722 +24,332 @@ import Foundation
 import StepFunctionsModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Client Protocol for the StepFunctions service.
  */
 public protocol StepFunctionsClientProtocol {
-    typealias CreateActivitySyncType = (
-            _ input: StepFunctionsModel.CreateActivityInput) throws -> StepFunctionsModel.CreateActivityOutput
-    typealias CreateActivityAsyncType = (
-            _ input: StepFunctionsModel.CreateActivityInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.CreateActivityOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias CreateStateMachineSyncType = (
-            _ input: StepFunctionsModel.CreateStateMachineInput) throws -> StepFunctionsModel.CreateStateMachineOutput
-    typealias CreateStateMachineAsyncType = (
-            _ input: StepFunctionsModel.CreateStateMachineInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.CreateStateMachineOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias DeleteActivitySyncType = (
-            _ input: StepFunctionsModel.DeleteActivityInput) throws -> StepFunctionsModel.DeleteActivityOutput
-    typealias DeleteActivityAsyncType = (
-            _ input: StepFunctionsModel.DeleteActivityInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.DeleteActivityOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias DeleteStateMachineSyncType = (
-            _ input: StepFunctionsModel.DeleteStateMachineInput) throws -> StepFunctionsModel.DeleteStateMachineOutput
-    typealias DeleteStateMachineAsyncType = (
-            _ input: StepFunctionsModel.DeleteStateMachineInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.DeleteStateMachineOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias DescribeActivitySyncType = (
-            _ input: StepFunctionsModel.DescribeActivityInput) throws -> StepFunctionsModel.DescribeActivityOutput
-    typealias DescribeActivityAsyncType = (
-            _ input: StepFunctionsModel.DescribeActivityInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.DescribeActivityOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias DescribeExecutionSyncType = (
-            _ input: StepFunctionsModel.DescribeExecutionInput) throws -> StepFunctionsModel.DescribeExecutionOutput
-    typealias DescribeExecutionAsyncType = (
-            _ input: StepFunctionsModel.DescribeExecutionInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.DescribeExecutionOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias DescribeStateMachineSyncType = (
-            _ input: StepFunctionsModel.DescribeStateMachineInput) throws -> StepFunctionsModel.DescribeStateMachineOutput
-    typealias DescribeStateMachineAsyncType = (
-            _ input: StepFunctionsModel.DescribeStateMachineInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.DescribeStateMachineOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias DescribeStateMachineForExecutionSyncType = (
-            _ input: StepFunctionsModel.DescribeStateMachineForExecutionInput) throws -> StepFunctionsModel.DescribeStateMachineForExecutionOutput
-    typealias DescribeStateMachineForExecutionAsyncType = (
-            _ input: StepFunctionsModel.DescribeStateMachineForExecutionInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.DescribeStateMachineForExecutionOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias GetActivityTaskSyncType = (
-            _ input: StepFunctionsModel.GetActivityTaskInput) throws -> StepFunctionsModel.GetActivityTaskOutput
-    typealias GetActivityTaskAsyncType = (
-            _ input: StepFunctionsModel.GetActivityTaskInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.GetActivityTaskOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias GetExecutionHistorySyncType = (
-            _ input: StepFunctionsModel.GetExecutionHistoryInput) throws -> StepFunctionsModel.GetExecutionHistoryOutput
-    typealias GetExecutionHistoryAsyncType = (
-            _ input: StepFunctionsModel.GetExecutionHistoryInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.GetExecutionHistoryOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias ListActivitiesSyncType = (
-            _ input: StepFunctionsModel.ListActivitiesInput) throws -> StepFunctionsModel.ListActivitiesOutput
-    typealias ListActivitiesAsyncType = (
-            _ input: StepFunctionsModel.ListActivitiesInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.ListActivitiesOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias ListExecutionsSyncType = (
-            _ input: StepFunctionsModel.ListExecutionsInput) throws -> StepFunctionsModel.ListExecutionsOutput
-    typealias ListExecutionsAsyncType = (
-            _ input: StepFunctionsModel.ListExecutionsInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.ListExecutionsOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias ListStateMachinesSyncType = (
-            _ input: StepFunctionsModel.ListStateMachinesInput) throws -> StepFunctionsModel.ListStateMachinesOutput
-    typealias ListStateMachinesAsyncType = (
-            _ input: StepFunctionsModel.ListStateMachinesInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.ListStateMachinesOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias ListTagsForResourceSyncType = (
-            _ input: StepFunctionsModel.ListTagsForResourceInput) throws -> StepFunctionsModel.ListTagsForResourceOutput
-    typealias ListTagsForResourceAsyncType = (
-            _ input: StepFunctionsModel.ListTagsForResourceInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.ListTagsForResourceOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias SendTaskFailureSyncType = (
-            _ input: StepFunctionsModel.SendTaskFailureInput) throws -> StepFunctionsModel.SendTaskFailureOutput
-    typealias SendTaskFailureAsyncType = (
-            _ input: StepFunctionsModel.SendTaskFailureInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.SendTaskFailureOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias SendTaskHeartbeatSyncType = (
-            _ input: StepFunctionsModel.SendTaskHeartbeatInput) throws -> StepFunctionsModel.SendTaskHeartbeatOutput
-    typealias SendTaskHeartbeatAsyncType = (
-            _ input: StepFunctionsModel.SendTaskHeartbeatInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.SendTaskHeartbeatOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias SendTaskSuccessSyncType = (
-            _ input: StepFunctionsModel.SendTaskSuccessInput) throws -> StepFunctionsModel.SendTaskSuccessOutput
-    typealias SendTaskSuccessAsyncType = (
-            _ input: StepFunctionsModel.SendTaskSuccessInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.SendTaskSuccessOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias StartExecutionSyncType = (
-            _ input: StepFunctionsModel.StartExecutionInput) throws -> StepFunctionsModel.StartExecutionOutput
-    typealias StartExecutionAsyncType = (
-            _ input: StepFunctionsModel.StartExecutionInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.StartExecutionOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias StartSyncExecutionSyncType = (
-            _ input: StepFunctionsModel.StartSyncExecutionInput) throws -> StepFunctionsModel.StartSyncExecutionOutput
-    typealias StartSyncExecutionAsyncType = (
-            _ input: StepFunctionsModel.StartSyncExecutionInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.StartSyncExecutionOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias StopExecutionSyncType = (
-            _ input: StepFunctionsModel.StopExecutionInput) throws -> StepFunctionsModel.StopExecutionOutput
-    typealias StopExecutionAsyncType = (
-            _ input: StepFunctionsModel.StopExecutionInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.StopExecutionOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias TagResourceSyncType = (
-            _ input: StepFunctionsModel.TagResourceInput) throws -> StepFunctionsModel.TagResourceOutput
-    typealias TagResourceAsyncType = (
-            _ input: StepFunctionsModel.TagResourceInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.TagResourceOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias UntagResourceSyncType = (
-            _ input: StepFunctionsModel.UntagResourceInput) throws -> StepFunctionsModel.UntagResourceOutput
-    typealias UntagResourceAsyncType = (
-            _ input: StepFunctionsModel.UntagResourceInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.UntagResourceOutput, StepFunctionsError>) -> ()) throws -> ()
-    typealias UpdateStateMachineSyncType = (
-            _ input: StepFunctionsModel.UpdateStateMachineInput) throws -> StepFunctionsModel.UpdateStateMachineOutput
-    typealias UpdateStateMachineAsyncType = (
-            _ input: StepFunctionsModel.UpdateStateMachineInput, 
-            _ completion: @escaping (Result<StepFunctionsModel.UpdateStateMachineOutput, StepFunctionsError>) -> ()) throws -> ()
+    typealias CreateActivityEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.CreateActivityInput) -> EventLoopFuture<StepFunctionsModel.CreateActivityOutput>
+    typealias CreateStateMachineEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.CreateStateMachineInput) -> EventLoopFuture<StepFunctionsModel.CreateStateMachineOutput>
+    typealias DeleteActivityEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.DeleteActivityInput) -> EventLoopFuture<StepFunctionsModel.DeleteActivityOutput>
+    typealias DeleteStateMachineEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.DeleteStateMachineInput) -> EventLoopFuture<StepFunctionsModel.DeleteStateMachineOutput>
+    typealias DescribeActivityEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.DescribeActivityInput) -> EventLoopFuture<StepFunctionsModel.DescribeActivityOutput>
+    typealias DescribeExecutionEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.DescribeExecutionInput) -> EventLoopFuture<StepFunctionsModel.DescribeExecutionOutput>
+    typealias DescribeStateMachineEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.DescribeStateMachineInput) -> EventLoopFuture<StepFunctionsModel.DescribeStateMachineOutput>
+    typealias DescribeStateMachineForExecutionEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.DescribeStateMachineForExecutionInput) -> EventLoopFuture<StepFunctionsModel.DescribeStateMachineForExecutionOutput>
+    typealias GetActivityTaskEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.GetActivityTaskInput) -> EventLoopFuture<StepFunctionsModel.GetActivityTaskOutput>
+    typealias GetExecutionHistoryEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.GetExecutionHistoryInput) -> EventLoopFuture<StepFunctionsModel.GetExecutionHistoryOutput>
+    typealias ListActivitiesEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.ListActivitiesInput) -> EventLoopFuture<StepFunctionsModel.ListActivitiesOutput>
+    typealias ListExecutionsEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.ListExecutionsInput) -> EventLoopFuture<StepFunctionsModel.ListExecutionsOutput>
+    typealias ListStateMachinesEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.ListStateMachinesInput) -> EventLoopFuture<StepFunctionsModel.ListStateMachinesOutput>
+    typealias ListTagsForResourceEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.ListTagsForResourceInput) -> EventLoopFuture<StepFunctionsModel.ListTagsForResourceOutput>
+    typealias SendTaskFailureEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.SendTaskFailureInput) -> EventLoopFuture<StepFunctionsModel.SendTaskFailureOutput>
+    typealias SendTaskHeartbeatEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.SendTaskHeartbeatInput) -> EventLoopFuture<StepFunctionsModel.SendTaskHeartbeatOutput>
+    typealias SendTaskSuccessEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.SendTaskSuccessInput) -> EventLoopFuture<StepFunctionsModel.SendTaskSuccessOutput>
+    typealias StartExecutionEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.StartExecutionInput) -> EventLoopFuture<StepFunctionsModel.StartExecutionOutput>
+    typealias StartSyncExecutionEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.StartSyncExecutionInput) -> EventLoopFuture<StepFunctionsModel.StartSyncExecutionOutput>
+    typealias StopExecutionEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.StopExecutionInput) -> EventLoopFuture<StepFunctionsModel.StopExecutionOutput>
+    typealias TagResourceEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.TagResourceInput) -> EventLoopFuture<StepFunctionsModel.TagResourceOutput>
+    typealias UntagResourceEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.UntagResourceInput) -> EventLoopFuture<StepFunctionsModel.UntagResourceOutput>
+    typealias UpdateStateMachineEventLoopFutureAsyncType = (
+            _ input: StepFunctionsModel.UpdateStateMachineInput) -> EventLoopFuture<StepFunctionsModel.UpdateStateMachineOutput>
 
     /**
-     Invokes the CreateActivity operation returning immediately and passing the response to a callback.
+     Invokes the CreateActivity operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateActivityInput object being passed to this operation.
-         - completion: The CreateActivityOutput object or an error will be passed to this 
-           callback when the operation is complete. The CreateActivityOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateActivityOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: activityLimitExceeded, invalidName, tooManyTags.
      */
-    func createActivityAsync(
-            input: StepFunctionsModel.CreateActivityInput, 
-            completion: @escaping (Result<StepFunctionsModel.CreateActivityOutput, StepFunctionsError>) -> ()) throws
+    func createActivity(
+            input: StepFunctionsModel.CreateActivityInput) -> EventLoopFuture<StepFunctionsModel.CreateActivityOutput>
 
     /**
-     Invokes the CreateActivity operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateActivityInput object being passed to this operation.
-     - Returns: The CreateActivityOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: activityLimitExceeded, invalidName, tooManyTags.
-     */
-    func createActivitySync(
-            input: StepFunctionsModel.CreateActivityInput) throws -> StepFunctionsModel.CreateActivityOutput
-
-    /**
-     Invokes the CreateStateMachine operation returning immediately and passing the response to a callback.
+     Invokes the CreateStateMachine operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateStateMachineInput object being passed to this operation.
-         - completion: The CreateStateMachineOutput object or an error will be passed to this 
-           callback when the operation is complete. The CreateStateMachineOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateStateMachineOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn, invalidDefinition, invalidLoggingConfiguration, invalidName, invalidTracingConfiguration, stateMachineAlreadyExists, stateMachineDeleting, stateMachineLimitExceeded, stateMachineTypeNotSupported, tooManyTags.
      */
-    func createStateMachineAsync(
-            input: StepFunctionsModel.CreateStateMachineInput, 
-            completion: @escaping (Result<StepFunctionsModel.CreateStateMachineOutput, StepFunctionsError>) -> ()) throws
+    func createStateMachine(
+            input: StepFunctionsModel.CreateStateMachineInput) -> EventLoopFuture<StepFunctionsModel.CreateStateMachineOutput>
 
     /**
-     Invokes the CreateStateMachine operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateStateMachineInput object being passed to this operation.
-     - Returns: The CreateStateMachineOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn, invalidDefinition, invalidLoggingConfiguration, invalidName, invalidTracingConfiguration, stateMachineAlreadyExists, stateMachineDeleting, stateMachineLimitExceeded, stateMachineTypeNotSupported, tooManyTags.
-     */
-    func createStateMachineSync(
-            input: StepFunctionsModel.CreateStateMachineInput) throws -> StepFunctionsModel.CreateStateMachineOutput
-
-    /**
-     Invokes the DeleteActivity operation returning immediately and passing the response to a callback.
+     Invokes the DeleteActivity operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteActivityInput object being passed to this operation.
-         - completion: The DeleteActivityOutput object or an error will be passed to this 
-           callback when the operation is complete. The DeleteActivityOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteActivityOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn.
      */
-    func deleteActivityAsync(
-            input: StepFunctionsModel.DeleteActivityInput, 
-            completion: @escaping (Result<StepFunctionsModel.DeleteActivityOutput, StepFunctionsError>) -> ()) throws
+    func deleteActivity(
+            input: StepFunctionsModel.DeleteActivityInput) -> EventLoopFuture<StepFunctionsModel.DeleteActivityOutput>
 
     /**
-     Invokes the DeleteActivity operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteActivityInput object being passed to this operation.
-     - Returns: The DeleteActivityOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn.
-     */
-    func deleteActivitySync(
-            input: StepFunctionsModel.DeleteActivityInput) throws -> StepFunctionsModel.DeleteActivityOutput
-
-    /**
-     Invokes the DeleteStateMachine operation returning immediately and passing the response to a callback.
+     Invokes the DeleteStateMachine operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteStateMachineInput object being passed to this operation.
-         - completion: The DeleteStateMachineOutput object or an error will be passed to this 
-           callback when the operation is complete. The DeleteStateMachineOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteStateMachineOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn.
      */
-    func deleteStateMachineAsync(
-            input: StepFunctionsModel.DeleteStateMachineInput, 
-            completion: @escaping (Result<StepFunctionsModel.DeleteStateMachineOutput, StepFunctionsError>) -> ()) throws
+    func deleteStateMachine(
+            input: StepFunctionsModel.DeleteStateMachineInput) -> EventLoopFuture<StepFunctionsModel.DeleteStateMachineOutput>
 
     /**
-     Invokes the DeleteStateMachine operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteStateMachineInput object being passed to this operation.
-     - Returns: The DeleteStateMachineOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn.
-     */
-    func deleteStateMachineSync(
-            input: StepFunctionsModel.DeleteStateMachineInput) throws -> StepFunctionsModel.DeleteStateMachineOutput
-
-    /**
-     Invokes the DescribeActivity operation returning immediately and passing the response to a callback.
+     Invokes the DescribeActivity operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeActivityInput object being passed to this operation.
-         - completion: The DescribeActivityOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeActivityOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeActivityOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: activityDoesNotExist, invalidArn.
      */
-    func describeActivityAsync(
-            input: StepFunctionsModel.DescribeActivityInput, 
-            completion: @escaping (Result<StepFunctionsModel.DescribeActivityOutput, StepFunctionsError>) -> ()) throws
+    func describeActivity(
+            input: StepFunctionsModel.DescribeActivityInput) -> EventLoopFuture<StepFunctionsModel.DescribeActivityOutput>
 
     /**
-     Invokes the DescribeActivity operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeActivityInput object being passed to this operation.
-     - Returns: The DescribeActivityOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: activityDoesNotExist, invalidArn.
-     */
-    func describeActivitySync(
-            input: StepFunctionsModel.DescribeActivityInput) throws -> StepFunctionsModel.DescribeActivityOutput
-
-    /**
-     Invokes the DescribeExecution operation returning immediately and passing the response to a callback.
+     Invokes the DescribeExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeExecutionInput object being passed to this operation.
-         - completion: The DescribeExecutionOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeExecutionOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeExecutionOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: executionDoesNotExist, invalidArn.
      */
-    func describeExecutionAsync(
-            input: StepFunctionsModel.DescribeExecutionInput, 
-            completion: @escaping (Result<StepFunctionsModel.DescribeExecutionOutput, StepFunctionsError>) -> ()) throws
+    func describeExecution(
+            input: StepFunctionsModel.DescribeExecutionInput) -> EventLoopFuture<StepFunctionsModel.DescribeExecutionOutput>
 
     /**
-     Invokes the DescribeExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeExecutionInput object being passed to this operation.
-     - Returns: The DescribeExecutionOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: executionDoesNotExist, invalidArn.
-     */
-    func describeExecutionSync(
-            input: StepFunctionsModel.DescribeExecutionInput) throws -> StepFunctionsModel.DescribeExecutionOutput
-
-    /**
-     Invokes the DescribeStateMachine operation returning immediately and passing the response to a callback.
+     Invokes the DescribeStateMachine operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeStateMachineInput object being passed to this operation.
-         - completion: The DescribeStateMachineOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeStateMachineOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeStateMachineOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn, stateMachineDoesNotExist.
      */
-    func describeStateMachineAsync(
-            input: StepFunctionsModel.DescribeStateMachineInput, 
-            completion: @escaping (Result<StepFunctionsModel.DescribeStateMachineOutput, StepFunctionsError>) -> ()) throws
+    func describeStateMachine(
+            input: StepFunctionsModel.DescribeStateMachineInput) -> EventLoopFuture<StepFunctionsModel.DescribeStateMachineOutput>
 
     /**
-     Invokes the DescribeStateMachine operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeStateMachineInput object being passed to this operation.
-     - Returns: The DescribeStateMachineOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn, stateMachineDoesNotExist.
-     */
-    func describeStateMachineSync(
-            input: StepFunctionsModel.DescribeStateMachineInput) throws -> StepFunctionsModel.DescribeStateMachineOutput
-
-    /**
-     Invokes the DescribeStateMachineForExecution operation returning immediately and passing the response to a callback.
+     Invokes the DescribeStateMachineForExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeStateMachineForExecutionInput object being passed to this operation.
-         - completion: The DescribeStateMachineForExecutionOutput object or an error will be passed to this 
-           callback when the operation is complete. The DescribeStateMachineForExecutionOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeStateMachineForExecutionOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: executionDoesNotExist, invalidArn.
      */
-    func describeStateMachineForExecutionAsync(
-            input: StepFunctionsModel.DescribeStateMachineForExecutionInput, 
-            completion: @escaping (Result<StepFunctionsModel.DescribeStateMachineForExecutionOutput, StepFunctionsError>) -> ()) throws
+    func describeStateMachineForExecution(
+            input: StepFunctionsModel.DescribeStateMachineForExecutionInput) -> EventLoopFuture<StepFunctionsModel.DescribeStateMachineForExecutionOutput>
 
     /**
-     Invokes the DescribeStateMachineForExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeStateMachineForExecutionInput object being passed to this operation.
-     - Returns: The DescribeStateMachineForExecutionOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: executionDoesNotExist, invalidArn.
-     */
-    func describeStateMachineForExecutionSync(
-            input: StepFunctionsModel.DescribeStateMachineForExecutionInput) throws -> StepFunctionsModel.DescribeStateMachineForExecutionOutput
-
-    /**
-     Invokes the GetActivityTask operation returning immediately and passing the response to a callback.
+     Invokes the GetActivityTask operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetActivityTaskInput object being passed to this operation.
-         - completion: The GetActivityTaskOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetActivityTaskOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetActivityTaskOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: activityDoesNotExist, activityWorkerLimitExceeded, invalidArn.
      */
-    func getActivityTaskAsync(
-            input: StepFunctionsModel.GetActivityTaskInput, 
-            completion: @escaping (Result<StepFunctionsModel.GetActivityTaskOutput, StepFunctionsError>) -> ()) throws
+    func getActivityTask(
+            input: StepFunctionsModel.GetActivityTaskInput) -> EventLoopFuture<StepFunctionsModel.GetActivityTaskOutput>
 
     /**
-     Invokes the GetActivityTask operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetActivityTaskInput object being passed to this operation.
-     - Returns: The GetActivityTaskOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: activityDoesNotExist, activityWorkerLimitExceeded, invalidArn.
-     */
-    func getActivityTaskSync(
-            input: StepFunctionsModel.GetActivityTaskInput) throws -> StepFunctionsModel.GetActivityTaskOutput
-
-    /**
-     Invokes the GetExecutionHistory operation returning immediately and passing the response to a callback.
+     Invokes the GetExecutionHistory operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetExecutionHistoryInput object being passed to this operation.
-         - completion: The GetExecutionHistoryOutput object or an error will be passed to this 
-           callback when the operation is complete. The GetExecutionHistoryOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetExecutionHistoryOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: executionDoesNotExist, invalidArn, invalidToken.
      */
-    func getExecutionHistoryAsync(
-            input: StepFunctionsModel.GetExecutionHistoryInput, 
-            completion: @escaping (Result<StepFunctionsModel.GetExecutionHistoryOutput, StepFunctionsError>) -> ()) throws
+    func getExecutionHistory(
+            input: StepFunctionsModel.GetExecutionHistoryInput) -> EventLoopFuture<StepFunctionsModel.GetExecutionHistoryOutput>
 
     /**
-     Invokes the GetExecutionHistory operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetExecutionHistoryInput object being passed to this operation.
-     - Returns: The GetExecutionHistoryOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: executionDoesNotExist, invalidArn, invalidToken.
-     */
-    func getExecutionHistorySync(
-            input: StepFunctionsModel.GetExecutionHistoryInput) throws -> StepFunctionsModel.GetExecutionHistoryOutput
-
-    /**
-     Invokes the ListActivities operation returning immediately and passing the response to a callback.
+     Invokes the ListActivities operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListActivitiesInput object being passed to this operation.
-         - completion: The ListActivitiesOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListActivitiesOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListActivitiesOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidToken.
      */
-    func listActivitiesAsync(
-            input: StepFunctionsModel.ListActivitiesInput, 
-            completion: @escaping (Result<StepFunctionsModel.ListActivitiesOutput, StepFunctionsError>) -> ()) throws
+    func listActivities(
+            input: StepFunctionsModel.ListActivitiesInput) -> EventLoopFuture<StepFunctionsModel.ListActivitiesOutput>
 
     /**
-     Invokes the ListActivities operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListActivitiesInput object being passed to this operation.
-     - Returns: The ListActivitiesOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidToken.
-     */
-    func listActivitiesSync(
-            input: StepFunctionsModel.ListActivitiesInput) throws -> StepFunctionsModel.ListActivitiesOutput
-
-    /**
-     Invokes the ListExecutions operation returning immediately and passing the response to a callback.
+     Invokes the ListExecutions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListExecutionsInput object being passed to this operation.
-         - completion: The ListExecutionsOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListExecutionsOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListExecutionsOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn, invalidToken, stateMachineDoesNotExist, stateMachineTypeNotSupported.
      */
-    func listExecutionsAsync(
-            input: StepFunctionsModel.ListExecutionsInput, 
-            completion: @escaping (Result<StepFunctionsModel.ListExecutionsOutput, StepFunctionsError>) -> ()) throws
+    func listExecutions(
+            input: StepFunctionsModel.ListExecutionsInput) -> EventLoopFuture<StepFunctionsModel.ListExecutionsOutput>
 
     /**
-     Invokes the ListExecutions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListExecutionsInput object being passed to this operation.
-     - Returns: The ListExecutionsOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn, invalidToken, stateMachineDoesNotExist, stateMachineTypeNotSupported.
-     */
-    func listExecutionsSync(
-            input: StepFunctionsModel.ListExecutionsInput) throws -> StepFunctionsModel.ListExecutionsOutput
-
-    /**
-     Invokes the ListStateMachines operation returning immediately and passing the response to a callback.
+     Invokes the ListStateMachines operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListStateMachinesInput object being passed to this operation.
-         - completion: The ListStateMachinesOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListStateMachinesOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListStateMachinesOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidToken.
      */
-    func listStateMachinesAsync(
-            input: StepFunctionsModel.ListStateMachinesInput, 
-            completion: @escaping (Result<StepFunctionsModel.ListStateMachinesOutput, StepFunctionsError>) -> ()) throws
+    func listStateMachines(
+            input: StepFunctionsModel.ListStateMachinesInput) -> EventLoopFuture<StepFunctionsModel.ListStateMachinesOutput>
 
     /**
-     Invokes the ListStateMachines operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListStateMachinesInput object being passed to this operation.
-     - Returns: The ListStateMachinesOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidToken.
-     */
-    func listStateMachinesSync(
-            input: StepFunctionsModel.ListStateMachinesInput) throws -> StepFunctionsModel.ListStateMachinesOutput
-
-    /**
-     Invokes the ListTagsForResource operation returning immediately and passing the response to a callback.
+     Invokes the ListTagsForResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTagsForResourceInput object being passed to this operation.
-         - completion: The ListTagsForResourceOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListTagsForResourceOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTagsForResourceOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn, resourceNotFound.
      */
-    func listTagsForResourceAsync(
-            input: StepFunctionsModel.ListTagsForResourceInput, 
-            completion: @escaping (Result<StepFunctionsModel.ListTagsForResourceOutput, StepFunctionsError>) -> ()) throws
+    func listTagsForResource(
+            input: StepFunctionsModel.ListTagsForResourceInput) -> EventLoopFuture<StepFunctionsModel.ListTagsForResourceOutput>
 
     /**
-     Invokes the ListTagsForResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTagsForResourceInput object being passed to this operation.
-     - Returns: The ListTagsForResourceOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn, resourceNotFound.
-     */
-    func listTagsForResourceSync(
-            input: StepFunctionsModel.ListTagsForResourceInput) throws -> StepFunctionsModel.ListTagsForResourceOutput
-
-    /**
-     Invokes the SendTaskFailure operation returning immediately and passing the response to a callback.
+     Invokes the SendTaskFailure operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SendTaskFailureInput object being passed to this operation.
-         - completion: The SendTaskFailureOutput object or an error will be passed to this 
-           callback when the operation is complete. The SendTaskFailureOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the SendTaskFailureOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidToken, taskDoesNotExist, taskTimedOut.
      */
-    func sendTaskFailureAsync(
-            input: StepFunctionsModel.SendTaskFailureInput, 
-            completion: @escaping (Result<StepFunctionsModel.SendTaskFailureOutput, StepFunctionsError>) -> ()) throws
+    func sendTaskFailure(
+            input: StepFunctionsModel.SendTaskFailureInput) -> EventLoopFuture<StepFunctionsModel.SendTaskFailureOutput>
 
     /**
-     Invokes the SendTaskFailure operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SendTaskFailureInput object being passed to this operation.
-     - Returns: The SendTaskFailureOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidToken, taskDoesNotExist, taskTimedOut.
-     */
-    func sendTaskFailureSync(
-            input: StepFunctionsModel.SendTaskFailureInput) throws -> StepFunctionsModel.SendTaskFailureOutput
-
-    /**
-     Invokes the SendTaskHeartbeat operation returning immediately and passing the response to a callback.
+     Invokes the SendTaskHeartbeat operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SendTaskHeartbeatInput object being passed to this operation.
-         - completion: The SendTaskHeartbeatOutput object or an error will be passed to this 
-           callback when the operation is complete. The SendTaskHeartbeatOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the SendTaskHeartbeatOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidToken, taskDoesNotExist, taskTimedOut.
      */
-    func sendTaskHeartbeatAsync(
-            input: StepFunctionsModel.SendTaskHeartbeatInput, 
-            completion: @escaping (Result<StepFunctionsModel.SendTaskHeartbeatOutput, StepFunctionsError>) -> ()) throws
+    func sendTaskHeartbeat(
+            input: StepFunctionsModel.SendTaskHeartbeatInput) -> EventLoopFuture<StepFunctionsModel.SendTaskHeartbeatOutput>
 
     /**
-     Invokes the SendTaskHeartbeat operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SendTaskHeartbeatInput object being passed to this operation.
-     - Returns: The SendTaskHeartbeatOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidToken, taskDoesNotExist, taskTimedOut.
-     */
-    func sendTaskHeartbeatSync(
-            input: StepFunctionsModel.SendTaskHeartbeatInput) throws -> StepFunctionsModel.SendTaskHeartbeatOutput
-
-    /**
-     Invokes the SendTaskSuccess operation returning immediately and passing the response to a callback.
+     Invokes the SendTaskSuccess operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SendTaskSuccessInput object being passed to this operation.
-         - completion: The SendTaskSuccessOutput object or an error will be passed to this 
-           callback when the operation is complete. The SendTaskSuccessOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the SendTaskSuccessOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidOutput, invalidToken, taskDoesNotExist, taskTimedOut.
      */
-    func sendTaskSuccessAsync(
-            input: StepFunctionsModel.SendTaskSuccessInput, 
-            completion: @escaping (Result<StepFunctionsModel.SendTaskSuccessOutput, StepFunctionsError>) -> ()) throws
+    func sendTaskSuccess(
+            input: StepFunctionsModel.SendTaskSuccessInput) -> EventLoopFuture<StepFunctionsModel.SendTaskSuccessOutput>
 
     /**
-     Invokes the SendTaskSuccess operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SendTaskSuccessInput object being passed to this operation.
-     - Returns: The SendTaskSuccessOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidOutput, invalidToken, taskDoesNotExist, taskTimedOut.
-     */
-    func sendTaskSuccessSync(
-            input: StepFunctionsModel.SendTaskSuccessInput) throws -> StepFunctionsModel.SendTaskSuccessOutput
-
-    /**
-     Invokes the StartExecution operation returning immediately and passing the response to a callback.
+     Invokes the StartExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated StartExecutionInput object being passed to this operation.
-         - completion: The StartExecutionOutput object or an error will be passed to this 
-           callback when the operation is complete. The StartExecutionOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the StartExecutionOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: executionAlreadyExists, executionLimitExceeded, invalidArn, invalidExecutionInput, invalidName, stateMachineDeleting, stateMachineDoesNotExist.
      */
-    func startExecutionAsync(
-            input: StepFunctionsModel.StartExecutionInput, 
-            completion: @escaping (Result<StepFunctionsModel.StartExecutionOutput, StepFunctionsError>) -> ()) throws
+    func startExecution(
+            input: StepFunctionsModel.StartExecutionInput) -> EventLoopFuture<StepFunctionsModel.StartExecutionOutput>
 
     /**
-     Invokes the StartExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated StartExecutionInput object being passed to this operation.
-     - Returns: The StartExecutionOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: executionAlreadyExists, executionLimitExceeded, invalidArn, invalidExecutionInput, invalidName, stateMachineDeleting, stateMachineDoesNotExist.
-     */
-    func startExecutionSync(
-            input: StepFunctionsModel.StartExecutionInput) throws -> StepFunctionsModel.StartExecutionOutput
-
-    /**
-     Invokes the StartSyncExecution operation returning immediately and passing the response to a callback.
+     Invokes the StartSyncExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated StartSyncExecutionInput object being passed to this operation.
-         - completion: The StartSyncExecutionOutput object or an error will be passed to this 
-           callback when the operation is complete. The StartSyncExecutionOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the StartSyncExecutionOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn, invalidExecutionInput, invalidName, stateMachineDeleting, stateMachineDoesNotExist, stateMachineTypeNotSupported.
      */
-    func startSyncExecutionAsync(
-            input: StepFunctionsModel.StartSyncExecutionInput, 
-            completion: @escaping (Result<StepFunctionsModel.StartSyncExecutionOutput, StepFunctionsError>) -> ()) throws
+    func startSyncExecution(
+            input: StepFunctionsModel.StartSyncExecutionInput) -> EventLoopFuture<StepFunctionsModel.StartSyncExecutionOutput>
 
     /**
-     Invokes the StartSyncExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated StartSyncExecutionInput object being passed to this operation.
-     - Returns: The StartSyncExecutionOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn, invalidExecutionInput, invalidName, stateMachineDeleting, stateMachineDoesNotExist, stateMachineTypeNotSupported.
-     */
-    func startSyncExecutionSync(
-            input: StepFunctionsModel.StartSyncExecutionInput) throws -> StepFunctionsModel.StartSyncExecutionOutput
-
-    /**
-     Invokes the StopExecution operation returning immediately and passing the response to a callback.
+     Invokes the StopExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated StopExecutionInput object being passed to this operation.
-         - completion: The StopExecutionOutput object or an error will be passed to this 
-           callback when the operation is complete. The StopExecutionOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the StopExecutionOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: executionDoesNotExist, invalidArn.
      */
-    func stopExecutionAsync(
-            input: StepFunctionsModel.StopExecutionInput, 
-            completion: @escaping (Result<StepFunctionsModel.StopExecutionOutput, StepFunctionsError>) -> ()) throws
+    func stopExecution(
+            input: StepFunctionsModel.StopExecutionInput) -> EventLoopFuture<StepFunctionsModel.StopExecutionOutput>
 
     /**
-     Invokes the StopExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated StopExecutionInput object being passed to this operation.
-     - Returns: The StopExecutionOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: executionDoesNotExist, invalidArn.
-     */
-    func stopExecutionSync(
-            input: StepFunctionsModel.StopExecutionInput) throws -> StepFunctionsModel.StopExecutionOutput
-
-    /**
-     Invokes the TagResource operation returning immediately and passing the response to a callback.
+     Invokes the TagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagResourceInput object being passed to this operation.
-         - completion: The TagResourceOutput object or an error will be passed to this 
-           callback when the operation is complete. The TagResourceOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the TagResourceOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn, resourceNotFound, tooManyTags.
      */
-    func tagResourceAsync(
-            input: StepFunctionsModel.TagResourceInput, 
-            completion: @escaping (Result<StepFunctionsModel.TagResourceOutput, StepFunctionsError>) -> ()) throws
+    func tagResource(
+            input: StepFunctionsModel.TagResourceInput) -> EventLoopFuture<StepFunctionsModel.TagResourceOutput>
 
     /**
-     Invokes the TagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TagResourceInput object being passed to this operation.
-     - Returns: The TagResourceOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn, resourceNotFound, tooManyTags.
-     */
-    func tagResourceSync(
-            input: StepFunctionsModel.TagResourceInput) throws -> StepFunctionsModel.TagResourceOutput
-
-    /**
-     Invokes the UntagResource operation returning immediately and passing the response to a callback.
+     Invokes the UntagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagResourceInput object being passed to this operation.
-         - completion: The UntagResourceOutput object or an error will be passed to this 
-           callback when the operation is complete. The UntagResourceOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UntagResourceOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn, resourceNotFound.
      */
-    func untagResourceAsync(
-            input: StepFunctionsModel.UntagResourceInput, 
-            completion: @escaping (Result<StepFunctionsModel.UntagResourceOutput, StepFunctionsError>) -> ()) throws
+    func untagResource(
+            input: StepFunctionsModel.UntagResourceInput) -> EventLoopFuture<StepFunctionsModel.UntagResourceOutput>
 
     /**
-     Invokes the UntagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UntagResourceInput object being passed to this operation.
-     - Returns: The UntagResourceOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn, resourceNotFound.
-     */
-    func untagResourceSync(
-            input: StepFunctionsModel.UntagResourceInput) throws -> StepFunctionsModel.UntagResourceOutput
-
-    /**
-     Invokes the UpdateStateMachine operation returning immediately and passing the response to a callback.
+     Invokes the UpdateStateMachine operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UpdateStateMachineInput object being passed to this operation.
-         - completion: The UpdateStateMachineOutput object or an error will be passed to this 
-           callback when the operation is complete. The UpdateStateMachineOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the UpdateStateMachineOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidArn, invalidDefinition, invalidLoggingConfiguration, invalidTracingConfiguration, missingRequiredParameter, stateMachineDeleting, stateMachineDoesNotExist.
      */
-    func updateStateMachineAsync(
-            input: StepFunctionsModel.UpdateStateMachineInput, 
-            completion: @escaping (Result<StepFunctionsModel.UpdateStateMachineOutput, StepFunctionsError>) -> ()) throws
-
-    /**
-     Invokes the UpdateStateMachine operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UpdateStateMachineInput object being passed to this operation.
-     - Returns: The UpdateStateMachineOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidArn, invalidDefinition, invalidLoggingConfiguration, invalidTracingConfiguration, missingRequiredParameter, stateMachineDeleting, stateMachineDoesNotExist.
-     */
-    func updateStateMachineSync(
-            input: StepFunctionsModel.UpdateStateMachineInput) throws -> StepFunctionsModel.UpdateStateMachineOutput
+    func updateStateMachine(
+            input: StepFunctionsModel.UpdateStateMachineInput) -> EventLoopFuture<StepFunctionsModel.UpdateStateMachineOutput>
 }

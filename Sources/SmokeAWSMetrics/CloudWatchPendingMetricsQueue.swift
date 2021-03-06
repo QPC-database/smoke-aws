@@ -147,13 +147,9 @@ internal class CloudWatchPendingMetricsQueue {
                     
                     chunkedList.forEach { dataListChunk in
                         let input = PutMetricDataInput(metricData: dataListChunk, namespace: namespace)
-                        do {
-                            try self.cloudWatchClient.putMetricDataAsync(input: input, completion: { error in
-                                if let error = error {
-                                    self.logger.error("Unable to submit metrics to CloudWatch: \(String(describing: error))")
-                                }
-                            })
-                        } catch {
+                        let future = self.cloudWatchClient.putMetricData(input: input)
+                        
+                        future.whenFailure { error in
                             self.logger.error("Unable to submit metrics to CloudWatch: \(String(describing: error))")
                         }
                     }

@@ -24,6 +24,7 @@ import Foundation
 import CloudWatchModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 import SmokeAWSHttp
 import NIO
 import NIOHTTP1
@@ -64,16 +65,16 @@ private extension SmokeHTTPClient.HTTPClientError {
 /**
  AWS Client for the CloudWatch service.
  */
-public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocationReporting>: CloudWatchClientProtocol {
+public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocationReporting>: CloudWatchClientProtocol, AWSQueryClientProtocol {
     let httpClient: HTTPOperationsClient
     let ownsHttpClients: Bool
-    let awsRegion: AWSRegion
-    let service: String
-    let apiVersion: String
-    let target: String?
-    let retryConfiguration: HTTPClientRetryConfiguration
-    let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
-    let credentialsProvider: CredentialsProvider
+    public let awsRegion: AWSRegion
+    public let service: String
+    public let apiVersion: String
+    public let target: String?
+    public let retryConfiguration: HTTPClientRetryConfiguration
+    public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
+    public let credentialsProvider: CredentialsProvider
     
     public let reporting: InvocationReportingType
 
@@ -151,2313 +152,494 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
     }
 
     /**
-     Invokes the DeleteAlarms operation returning immediately and passing the response to a callback.
+     Invokes the DeleteAlarms operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteAlarmsInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: resourceNotFound.
      */
-    public func deleteAlarmsAsync(
-            input: CloudWatchModel.DeleteAlarmsInput, 
-            completion: @escaping (CloudWatchError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteAlarms,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DeleteAlarmsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.deleteAlarms.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deleteAlarms(
+            input: CloudWatchModel.DeleteAlarmsInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    wrappedInput: DeleteAlarmsOperationHTTPRequestInput(encodable: input),
+                                    action: CloudWatchModelOperations.deleteAlarms.rawValue,
+                                    reporting: self.invocationsReporting.deleteAlarms)
     }
 
     /**
-     Invokes the DeleteAlarms operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteAlarmsInput object being passed to this operation.
-     - Throws: resourceNotFound.
-     */
-    public func deleteAlarmsSync(
-            input: CloudWatchModel.DeleteAlarmsInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteAlarms,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DeleteAlarmsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.deleteAlarms.rawValue,
-            version: apiVersion)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeleteAnomalyDetector operation returning immediately and passing the response to a callback.
+     Invokes the DeleteAnomalyDetector operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteAnomalyDetectorInput object being passed to this operation.
-         - completion: The DeleteAnomalyDetectorOutputForDeleteAnomalyDetector object or an error will be passed to this 
-           callback when the operation is complete. The DeleteAnomalyDetectorOutputForDeleteAnomalyDetector
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteAnomalyDetectorOutputForDeleteAnomalyDetector object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalService, invalidParameterValue, missingRequiredParameter, resourceNotFound.
      */
-    public func deleteAnomalyDetectorAsync(
-            input: CloudWatchModel.DeleteAnomalyDetectorInput, 
-            completion: @escaping (Result<CloudWatchModel.DeleteAnomalyDetectorOutputForDeleteAnomalyDetector, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteAnomalyDetector,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DeleteAnomalyDetectorOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.deleteAnomalyDetector.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deleteAnomalyDetector(
+            input: CloudWatchModel.DeleteAnomalyDetectorInput) -> EventLoopFuture<CloudWatchModel.DeleteAnomalyDetectorOutputForDeleteAnomalyDetector> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DeleteAnomalyDetectorOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.deleteAnomalyDetector.rawValue,
+                                 reporting: self.invocationsReporting.deleteAnomalyDetector)
     }
 
     /**
-     Invokes the DeleteAnomalyDetector operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteAnomalyDetectorInput object being passed to this operation.
-     - Returns: The DeleteAnomalyDetectorOutputForDeleteAnomalyDetector object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalService, invalidParameterValue, missingRequiredParameter, resourceNotFound.
-     */
-    public func deleteAnomalyDetectorSync(
-            input: CloudWatchModel.DeleteAnomalyDetectorInput) throws -> CloudWatchModel.DeleteAnomalyDetectorOutputForDeleteAnomalyDetector {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteAnomalyDetector,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DeleteAnomalyDetectorOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.deleteAnomalyDetector.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeleteDashboards operation returning immediately and passing the response to a callback.
+     Invokes the DeleteDashboards operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteDashboardsInput object being passed to this operation.
-         - completion: The DeleteDashboardsOutputForDeleteDashboards object or an error will be passed to this 
-           callback when the operation is complete. The DeleteDashboardsOutputForDeleteDashboards
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteDashboardsOutputForDeleteDashboards object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: dashboardNotFound, internalService, invalidParameterValue.
      */
-    public func deleteDashboardsAsync(
-            input: CloudWatchModel.DeleteDashboardsInput, 
-            completion: @escaping (Result<CloudWatchModel.DeleteDashboardsOutputForDeleteDashboards, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteDashboards,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DeleteDashboardsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.deleteDashboards.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deleteDashboards(
+            input: CloudWatchModel.DeleteDashboardsInput) -> EventLoopFuture<CloudWatchModel.DeleteDashboardsOutputForDeleteDashboards> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DeleteDashboardsOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.deleteDashboards.rawValue,
+                                 reporting: self.invocationsReporting.deleteDashboards)
     }
 
     /**
-     Invokes the DeleteDashboards operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteDashboardsInput object being passed to this operation.
-     - Returns: The DeleteDashboardsOutputForDeleteDashboards object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: dashboardNotFound, internalService, invalidParameterValue.
-     */
-    public func deleteDashboardsSync(
-            input: CloudWatchModel.DeleteDashboardsInput) throws -> CloudWatchModel.DeleteDashboardsOutputForDeleteDashboards {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteDashboards,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DeleteDashboardsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.deleteDashboards.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeleteInsightRules operation returning immediately and passing the response to a callback.
+     Invokes the DeleteInsightRules operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteInsightRulesInput object being passed to this operation.
-         - completion: The DeleteInsightRulesOutputForDeleteInsightRules object or an error will be passed to this 
-           callback when the operation is complete. The DeleteInsightRulesOutputForDeleteInsightRules
-           object will be validated before being returned to caller.
+     - Returns: A future to the DeleteInsightRulesOutputForDeleteInsightRules object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameterValue, missingRequiredParameter.
      */
-    public func deleteInsightRulesAsync(
-            input: CloudWatchModel.DeleteInsightRulesInput, 
-            completion: @escaping (Result<CloudWatchModel.DeleteInsightRulesOutputForDeleteInsightRules, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteInsightRules,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DeleteInsightRulesOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.deleteInsightRules.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deleteInsightRules(
+            input: CloudWatchModel.DeleteInsightRulesInput) -> EventLoopFuture<CloudWatchModel.DeleteInsightRulesOutputForDeleteInsightRules> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DeleteInsightRulesOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.deleteInsightRules.rawValue,
+                                 reporting: self.invocationsReporting.deleteInsightRules)
     }
 
     /**
-     Invokes the DeleteInsightRules operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteInsightRulesInput object being passed to this operation.
-     - Returns: The DeleteInsightRulesOutputForDeleteInsightRules object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameterValue, missingRequiredParameter.
-     */
-    public func deleteInsightRulesSync(
-            input: CloudWatchModel.DeleteInsightRulesInput) throws -> CloudWatchModel.DeleteInsightRulesOutputForDeleteInsightRules {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deleteInsightRules,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DeleteInsightRulesOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.deleteInsightRules.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeAlarmHistory operation returning immediately and passing the response to a callback.
+     Invokes the DescribeAlarmHistory operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeAlarmHistoryInput object being passed to this operation.
-         - completion: The DescribeAlarmHistoryOutputForDescribeAlarmHistory object or an error will be passed to this 
-           callback when the operation is complete. The DescribeAlarmHistoryOutputForDescribeAlarmHistory
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeAlarmHistoryOutputForDescribeAlarmHistory object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidNextToken.
      */
-    public func describeAlarmHistoryAsync(
-            input: CloudWatchModel.DescribeAlarmHistoryInput, 
-            completion: @escaping (Result<CloudWatchModel.DescribeAlarmHistoryOutputForDescribeAlarmHistory, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeAlarmHistory,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeAlarmHistoryOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeAlarmHistory.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeAlarmHistory(
+            input: CloudWatchModel.DescribeAlarmHistoryInput) -> EventLoopFuture<CloudWatchModel.DescribeAlarmHistoryOutputForDescribeAlarmHistory> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DescribeAlarmHistoryOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.describeAlarmHistory.rawValue,
+                                 reporting: self.invocationsReporting.describeAlarmHistory)
     }
 
     /**
-     Invokes the DescribeAlarmHistory operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeAlarmHistoryInput object being passed to this operation.
-     - Returns: The DescribeAlarmHistoryOutputForDescribeAlarmHistory object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidNextToken.
-     */
-    public func describeAlarmHistorySync(
-            input: CloudWatchModel.DescribeAlarmHistoryInput) throws -> CloudWatchModel.DescribeAlarmHistoryOutputForDescribeAlarmHistory {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeAlarmHistory,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeAlarmHistoryOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeAlarmHistory.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeAlarms operation returning immediately and passing the response to a callback.
+     Invokes the DescribeAlarms operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeAlarmsInput object being passed to this operation.
-         - completion: The DescribeAlarmsOutputForDescribeAlarms object or an error will be passed to this 
-           callback when the operation is complete. The DescribeAlarmsOutputForDescribeAlarms
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeAlarmsOutputForDescribeAlarms object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidNextToken.
      */
-    public func describeAlarmsAsync(
-            input: CloudWatchModel.DescribeAlarmsInput, 
-            completion: @escaping (Result<CloudWatchModel.DescribeAlarmsOutputForDescribeAlarms, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeAlarms,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeAlarmsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeAlarms.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeAlarms(
+            input: CloudWatchModel.DescribeAlarmsInput) -> EventLoopFuture<CloudWatchModel.DescribeAlarmsOutputForDescribeAlarms> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DescribeAlarmsOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.describeAlarms.rawValue,
+                                 reporting: self.invocationsReporting.describeAlarms)
     }
 
     /**
-     Invokes the DescribeAlarms operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeAlarmsInput object being passed to this operation.
-     - Returns: The DescribeAlarmsOutputForDescribeAlarms object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidNextToken.
-     */
-    public func describeAlarmsSync(
-            input: CloudWatchModel.DescribeAlarmsInput) throws -> CloudWatchModel.DescribeAlarmsOutputForDescribeAlarms {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeAlarms,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeAlarmsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeAlarms.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeAlarmsForMetric operation returning immediately and passing the response to a callback.
+     Invokes the DescribeAlarmsForMetric operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeAlarmsForMetricInput object being passed to this operation.
-         - completion: The DescribeAlarmsForMetricOutputForDescribeAlarmsForMetric object or an error will be passed to this 
-           callback when the operation is complete. The DescribeAlarmsForMetricOutputForDescribeAlarmsForMetric
-           object will be validated before being returned to caller.
-     */
-    public func describeAlarmsForMetricAsync(
-            input: CloudWatchModel.DescribeAlarmsForMetricInput, 
-            completion: @escaping (Result<CloudWatchModel.DescribeAlarmsForMetricOutputForDescribeAlarmsForMetric, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeAlarmsForMetric,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeAlarmsForMetricOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeAlarmsForMetric.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the DescribeAlarmsForMetric operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeAlarmsForMetricInput object being passed to this operation.
-     - Returns: The DescribeAlarmsForMetricOutputForDescribeAlarmsForMetric object to be passed back from the caller of this operation.
+     - Returns: A future to the DescribeAlarmsForMetricOutputForDescribeAlarmsForMetric object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    public func describeAlarmsForMetricSync(
-            input: CloudWatchModel.DescribeAlarmsForMetricInput) throws -> CloudWatchModel.DescribeAlarmsForMetricOutputForDescribeAlarmsForMetric {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeAlarmsForMetric,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeAlarmsForMetricOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeAlarmsForMetric.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
+    public func describeAlarmsForMetric(
+            input: CloudWatchModel.DescribeAlarmsForMetricInput) -> EventLoopFuture<CloudWatchModel.DescribeAlarmsForMetricOutputForDescribeAlarmsForMetric> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DescribeAlarmsForMetricOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.describeAlarmsForMetric.rawValue,
+                                 reporting: self.invocationsReporting.describeAlarmsForMetric)
     }
 
     /**
-     Invokes the DescribeAnomalyDetectors operation returning immediately and passing the response to a callback.
+     Invokes the DescribeAnomalyDetectors operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeAnomalyDetectorsInput object being passed to this operation.
-         - completion: The DescribeAnomalyDetectorsOutputForDescribeAnomalyDetectors object or an error will be passed to this 
-           callback when the operation is complete. The DescribeAnomalyDetectorsOutputForDescribeAnomalyDetectors
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeAnomalyDetectorsOutputForDescribeAnomalyDetectors object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalService, invalidNextToken, invalidParameterValue.
      */
-    public func describeAnomalyDetectorsAsync(
-            input: CloudWatchModel.DescribeAnomalyDetectorsInput, 
-            completion: @escaping (Result<CloudWatchModel.DescribeAnomalyDetectorsOutputForDescribeAnomalyDetectors, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeAnomalyDetectors,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeAnomalyDetectorsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeAnomalyDetectors.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeAnomalyDetectors(
+            input: CloudWatchModel.DescribeAnomalyDetectorsInput) -> EventLoopFuture<CloudWatchModel.DescribeAnomalyDetectorsOutputForDescribeAnomalyDetectors> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DescribeAnomalyDetectorsOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.describeAnomalyDetectors.rawValue,
+                                 reporting: self.invocationsReporting.describeAnomalyDetectors)
     }
 
     /**
-     Invokes the DescribeAnomalyDetectors operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeAnomalyDetectorsInput object being passed to this operation.
-     - Returns: The DescribeAnomalyDetectorsOutputForDescribeAnomalyDetectors object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalService, invalidNextToken, invalidParameterValue.
-     */
-    public func describeAnomalyDetectorsSync(
-            input: CloudWatchModel.DescribeAnomalyDetectorsInput) throws -> CloudWatchModel.DescribeAnomalyDetectorsOutputForDescribeAnomalyDetectors {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeAnomalyDetectors,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeAnomalyDetectorsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeAnomalyDetectors.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeInsightRules operation returning immediately and passing the response to a callback.
+     Invokes the DescribeInsightRules operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeInsightRulesInput object being passed to this operation.
-         - completion: The DescribeInsightRulesOutputForDescribeInsightRules object or an error will be passed to this 
-           callback when the operation is complete. The DescribeInsightRulesOutputForDescribeInsightRules
-           object will be validated before being returned to caller.
+     - Returns: A future to the DescribeInsightRulesOutputForDescribeInsightRules object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidNextToken.
      */
-    public func describeInsightRulesAsync(
-            input: CloudWatchModel.DescribeInsightRulesInput, 
-            completion: @escaping (Result<CloudWatchModel.DescribeInsightRulesOutputForDescribeInsightRules, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeInsightRules,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeInsightRulesOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeInsightRules.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeInsightRules(
+            input: CloudWatchModel.DescribeInsightRulesInput) -> EventLoopFuture<CloudWatchModel.DescribeInsightRulesOutputForDescribeInsightRules> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DescribeInsightRulesOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.describeInsightRules.rawValue,
+                                 reporting: self.invocationsReporting.describeInsightRules)
     }
 
     /**
-     Invokes the DescribeInsightRules operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeInsightRulesInput object being passed to this operation.
-     - Returns: The DescribeInsightRulesOutputForDescribeInsightRules object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidNextToken.
-     */
-    public func describeInsightRulesSync(
-            input: CloudWatchModel.DescribeInsightRulesInput) throws -> CloudWatchModel.DescribeInsightRulesOutputForDescribeInsightRules {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeInsightRules,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DescribeInsightRulesOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.describeInsightRules.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DisableAlarmActions operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated DisableAlarmActionsInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    public func disableAlarmActionsAsync(
-            input: CloudWatchModel.DisableAlarmActionsInput, 
-            completion: @escaping (CloudWatchError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.disableAlarmActions,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DisableAlarmActionsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.disableAlarmActions.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the DisableAlarmActions operation waiting for the response before returning.
+     Invokes the DisableAlarmActions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DisableAlarmActionsInput object being passed to this operation.
      */
-    public func disableAlarmActionsSync(
-            input: CloudWatchModel.DisableAlarmActionsInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.disableAlarmActions,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DisableAlarmActionsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.disableAlarmActions.rawValue,
-            version: apiVersion)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
+    public func disableAlarmActions(
+            input: CloudWatchModel.DisableAlarmActionsInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    wrappedInput: DisableAlarmActionsOperationHTTPRequestInput(encodable: input),
+                                    action: CloudWatchModelOperations.disableAlarmActions.rawValue,
+                                    reporting: self.invocationsReporting.disableAlarmActions)
     }
 
     /**
-     Invokes the DisableInsightRules operation returning immediately and passing the response to a callback.
+     Invokes the DisableInsightRules operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DisableInsightRulesInput object being passed to this operation.
-         - completion: The DisableInsightRulesOutputForDisableInsightRules object or an error will be passed to this 
-           callback when the operation is complete. The DisableInsightRulesOutputForDisableInsightRules
-           object will be validated before being returned to caller.
+     - Returns: A future to the DisableInsightRulesOutputForDisableInsightRules object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameterValue, missingRequiredParameter.
      */
-    public func disableInsightRulesAsync(
-            input: CloudWatchModel.DisableInsightRulesInput, 
-            completion: @escaping (Result<CloudWatchModel.DisableInsightRulesOutputForDisableInsightRules, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.disableInsightRules,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DisableInsightRulesOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.disableInsightRules.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func disableInsightRules(
+            input: CloudWatchModel.DisableInsightRulesInput) -> EventLoopFuture<CloudWatchModel.DisableInsightRulesOutputForDisableInsightRules> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DisableInsightRulesOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.disableInsightRules.rawValue,
+                                 reporting: self.invocationsReporting.disableInsightRules)
     }
 
     /**
-     Invokes the DisableInsightRules operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DisableInsightRulesInput object being passed to this operation.
-     - Returns: The DisableInsightRulesOutputForDisableInsightRules object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameterValue, missingRequiredParameter.
-     */
-    public func disableInsightRulesSync(
-            input: CloudWatchModel.DisableInsightRulesInput) throws -> CloudWatchModel.DisableInsightRulesOutputForDisableInsightRules {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.disableInsightRules,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = DisableInsightRulesOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.disableInsightRules.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the EnableAlarmActions operation returning immediately and passing the response to a callback.
-
-     - Parameters:
-         - input: The validated EnableAlarmActionsInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
-     */
-    public func enableAlarmActionsAsync(
-            input: CloudWatchModel.EnableAlarmActionsInput, 
-            completion: @escaping (CloudWatchError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.enableAlarmActions,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = EnableAlarmActionsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.enableAlarmActions.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the EnableAlarmActions operation waiting for the response before returning.
+     Invokes the EnableAlarmActions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated EnableAlarmActionsInput object being passed to this operation.
      */
-    public func enableAlarmActionsSync(
-            input: CloudWatchModel.EnableAlarmActionsInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.enableAlarmActions,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = EnableAlarmActionsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.enableAlarmActions.rawValue,
-            version: apiVersion)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
+    public func enableAlarmActions(
+            input: CloudWatchModel.EnableAlarmActionsInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    wrappedInput: EnableAlarmActionsOperationHTTPRequestInput(encodable: input),
+                                    action: CloudWatchModelOperations.enableAlarmActions.rawValue,
+                                    reporting: self.invocationsReporting.enableAlarmActions)
     }
 
     /**
-     Invokes the EnableInsightRules operation returning immediately and passing the response to a callback.
+     Invokes the EnableInsightRules operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated EnableInsightRulesInput object being passed to this operation.
-         - completion: The EnableInsightRulesOutputForEnableInsightRules object or an error will be passed to this 
-           callback when the operation is complete. The EnableInsightRulesOutputForEnableInsightRules
-           object will be validated before being returned to caller.
+     - Returns: A future to the EnableInsightRulesOutputForEnableInsightRules object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameterValue, limitExceeded, missingRequiredParameter.
      */
-    public func enableInsightRulesAsync(
-            input: CloudWatchModel.EnableInsightRulesInput, 
-            completion: @escaping (Result<CloudWatchModel.EnableInsightRulesOutputForEnableInsightRules, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.enableInsightRules,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = EnableInsightRulesOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.enableInsightRules.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func enableInsightRules(
+            input: CloudWatchModel.EnableInsightRulesInput) -> EventLoopFuture<CloudWatchModel.EnableInsightRulesOutputForEnableInsightRules> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: EnableInsightRulesOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.enableInsightRules.rawValue,
+                                 reporting: self.invocationsReporting.enableInsightRules)
     }
 
     /**
-     Invokes the EnableInsightRules operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated EnableInsightRulesInput object being passed to this operation.
-     - Returns: The EnableInsightRulesOutputForEnableInsightRules object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameterValue, limitExceeded, missingRequiredParameter.
-     */
-    public func enableInsightRulesSync(
-            input: CloudWatchModel.EnableInsightRulesInput) throws -> CloudWatchModel.EnableInsightRulesOutputForEnableInsightRules {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.enableInsightRules,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = EnableInsightRulesOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.enableInsightRules.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetDashboard operation returning immediately and passing the response to a callback.
+     Invokes the GetDashboard operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetDashboardInput object being passed to this operation.
-         - completion: The GetDashboardOutputForGetDashboard object or an error will be passed to this 
-           callback when the operation is complete. The GetDashboardOutputForGetDashboard
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetDashboardOutputForGetDashboard object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: dashboardNotFound, internalService, invalidParameterValue.
      */
-    public func getDashboardAsync(
-            input: CloudWatchModel.GetDashboardInput, 
-            completion: @escaping (Result<CloudWatchModel.GetDashboardOutputForGetDashboard, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getDashboard,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetDashboardOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getDashboard.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getDashboard(
+            input: CloudWatchModel.GetDashboardInput) -> EventLoopFuture<CloudWatchModel.GetDashboardOutputForGetDashboard> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetDashboardOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.getDashboard.rawValue,
+                                 reporting: self.invocationsReporting.getDashboard)
     }
 
     /**
-     Invokes the GetDashboard operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetDashboardInput object being passed to this operation.
-     - Returns: The GetDashboardOutputForGetDashboard object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: dashboardNotFound, internalService, invalidParameterValue.
-     */
-    public func getDashboardSync(
-            input: CloudWatchModel.GetDashboardInput) throws -> CloudWatchModel.GetDashboardOutputForGetDashboard {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getDashboard,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetDashboardOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getDashboard.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetInsightRuleReport operation returning immediately and passing the response to a callback.
+     Invokes the GetInsightRuleReport operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetInsightRuleReportInput object being passed to this operation.
-         - completion: The GetInsightRuleReportOutputForGetInsightRuleReport object or an error will be passed to this 
-           callback when the operation is complete. The GetInsightRuleReportOutputForGetInsightRuleReport
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetInsightRuleReportOutputForGetInsightRuleReport object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameterValue, missingRequiredParameter, resourceNotFound.
      */
-    public func getInsightRuleReportAsync(
-            input: CloudWatchModel.GetInsightRuleReportInput, 
-            completion: @escaping (Result<CloudWatchModel.GetInsightRuleReportOutputForGetInsightRuleReport, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getInsightRuleReport,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetInsightRuleReportOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getInsightRuleReport.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getInsightRuleReport(
+            input: CloudWatchModel.GetInsightRuleReportInput) -> EventLoopFuture<CloudWatchModel.GetInsightRuleReportOutputForGetInsightRuleReport> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetInsightRuleReportOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.getInsightRuleReport.rawValue,
+                                 reporting: self.invocationsReporting.getInsightRuleReport)
     }
 
     /**
-     Invokes the GetInsightRuleReport operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetInsightRuleReportInput object being passed to this operation.
-     - Returns: The GetInsightRuleReportOutputForGetInsightRuleReport object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameterValue, missingRequiredParameter, resourceNotFound.
-     */
-    public func getInsightRuleReportSync(
-            input: CloudWatchModel.GetInsightRuleReportInput) throws -> CloudWatchModel.GetInsightRuleReportOutputForGetInsightRuleReport {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getInsightRuleReport,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetInsightRuleReportOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getInsightRuleReport.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetMetricData operation returning immediately and passing the response to a callback.
+     Invokes the GetMetricData operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetMetricDataInput object being passed to this operation.
-         - completion: The GetMetricDataOutputForGetMetricData object or an error will be passed to this 
-           callback when the operation is complete. The GetMetricDataOutputForGetMetricData
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetMetricDataOutputForGetMetricData object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidNextToken.
      */
-    public func getMetricDataAsync(
-            input: CloudWatchModel.GetMetricDataInput, 
-            completion: @escaping (Result<CloudWatchModel.GetMetricDataOutputForGetMetricData, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getMetricData,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetMetricDataOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getMetricData.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getMetricData(
+            input: CloudWatchModel.GetMetricDataInput) -> EventLoopFuture<CloudWatchModel.GetMetricDataOutputForGetMetricData> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetMetricDataOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.getMetricData.rawValue,
+                                 reporting: self.invocationsReporting.getMetricData)
     }
 
     /**
-     Invokes the GetMetricData operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetMetricDataInput object being passed to this operation.
-     - Returns: The GetMetricDataOutputForGetMetricData object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidNextToken.
-     */
-    public func getMetricDataSync(
-            input: CloudWatchModel.GetMetricDataInput) throws -> CloudWatchModel.GetMetricDataOutputForGetMetricData {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getMetricData,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetMetricDataOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getMetricData.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetMetricStatistics operation returning immediately and passing the response to a callback.
+     Invokes the GetMetricStatistics operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetMetricStatisticsInput object being passed to this operation.
-         - completion: The GetMetricStatisticsOutputForGetMetricStatistics object or an error will be passed to this 
-           callback when the operation is complete. The GetMetricStatisticsOutputForGetMetricStatistics
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetMetricStatisticsOutputForGetMetricStatistics object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalService, invalidParameterCombination, invalidParameterValue, missingRequiredParameter.
      */
-    public func getMetricStatisticsAsync(
-            input: CloudWatchModel.GetMetricStatisticsInput, 
-            completion: @escaping (Result<CloudWatchModel.GetMetricStatisticsOutputForGetMetricStatistics, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getMetricStatistics,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetMetricStatisticsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getMetricStatistics.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getMetricStatistics(
+            input: CloudWatchModel.GetMetricStatisticsInput) -> EventLoopFuture<CloudWatchModel.GetMetricStatisticsOutputForGetMetricStatistics> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetMetricStatisticsOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.getMetricStatistics.rawValue,
+                                 reporting: self.invocationsReporting.getMetricStatistics)
     }
 
     /**
-     Invokes the GetMetricStatistics operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetMetricStatisticsInput object being passed to this operation.
-     - Returns: The GetMetricStatisticsOutputForGetMetricStatistics object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalService, invalidParameterCombination, invalidParameterValue, missingRequiredParameter.
-     */
-    public func getMetricStatisticsSync(
-            input: CloudWatchModel.GetMetricStatisticsInput) throws -> CloudWatchModel.GetMetricStatisticsOutputForGetMetricStatistics {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getMetricStatistics,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetMetricStatisticsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getMetricStatistics.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetMetricWidgetImage operation returning immediately and passing the response to a callback.
+     Invokes the GetMetricWidgetImage operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetMetricWidgetImageInput object being passed to this operation.
-         - completion: The GetMetricWidgetImageOutputForGetMetricWidgetImage object or an error will be passed to this 
-           callback when the operation is complete. The GetMetricWidgetImageOutputForGetMetricWidgetImage
-           object will be validated before being returned to caller.
-     */
-    public func getMetricWidgetImageAsync(
-            input: CloudWatchModel.GetMetricWidgetImageInput, 
-            completion: @escaping (Result<CloudWatchModel.GetMetricWidgetImageOutputForGetMetricWidgetImage, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getMetricWidgetImage,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetMetricWidgetImageOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getMetricWidgetImage.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the GetMetricWidgetImage operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetMetricWidgetImageInput object being passed to this operation.
-     - Returns: The GetMetricWidgetImageOutputForGetMetricWidgetImage object to be passed back from the caller of this operation.
+     - Returns: A future to the GetMetricWidgetImageOutputForGetMetricWidgetImage object to be passed back from the caller of this operation.
          Will be validated before being returned to caller.
      */
-    public func getMetricWidgetImageSync(
-            input: CloudWatchModel.GetMetricWidgetImageInput) throws -> CloudWatchModel.GetMetricWidgetImageOutputForGetMetricWidgetImage {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getMetricWidgetImage,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = GetMetricWidgetImageOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.getMetricWidgetImage.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
+    public func getMetricWidgetImage(
+            input: CloudWatchModel.GetMetricWidgetImageInput) -> EventLoopFuture<CloudWatchModel.GetMetricWidgetImageOutputForGetMetricWidgetImage> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: GetMetricWidgetImageOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.getMetricWidgetImage.rawValue,
+                                 reporting: self.invocationsReporting.getMetricWidgetImage)
     }
 
     /**
-     Invokes the ListDashboards operation returning immediately and passing the response to a callback.
+     Invokes the ListDashboards operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListDashboardsInput object being passed to this operation.
-         - completion: The ListDashboardsOutputForListDashboards object or an error will be passed to this 
-           callback when the operation is complete. The ListDashboardsOutputForListDashboards
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListDashboardsOutputForListDashboards object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalService, invalidParameterValue.
      */
-    public func listDashboardsAsync(
-            input: CloudWatchModel.ListDashboardsInput, 
-            completion: @escaping (Result<CloudWatchModel.ListDashboardsOutputForListDashboards, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listDashboards,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = ListDashboardsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.listDashboards.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listDashboards(
+            input: CloudWatchModel.ListDashboardsInput) -> EventLoopFuture<CloudWatchModel.ListDashboardsOutputForListDashboards> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: ListDashboardsOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.listDashboards.rawValue,
+                                 reporting: self.invocationsReporting.listDashboards)
     }
 
     /**
-     Invokes the ListDashboards operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListDashboardsInput object being passed to this operation.
-     - Returns: The ListDashboardsOutputForListDashboards object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalService, invalidParameterValue.
-     */
-    public func listDashboardsSync(
-            input: CloudWatchModel.ListDashboardsInput) throws -> CloudWatchModel.ListDashboardsOutputForListDashboards {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listDashboards,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = ListDashboardsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.listDashboards.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListMetrics operation returning immediately and passing the response to a callback.
+     Invokes the ListMetrics operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListMetricsInput object being passed to this operation.
-         - completion: The ListMetricsOutputForListMetrics object or an error will be passed to this 
-           callback when the operation is complete. The ListMetricsOutputForListMetrics
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListMetricsOutputForListMetrics object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalService, invalidParameterValue.
      */
-    public func listMetricsAsync(
-            input: CloudWatchModel.ListMetricsInput, 
-            completion: @escaping (Result<CloudWatchModel.ListMetricsOutputForListMetrics, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listMetrics,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = ListMetricsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.listMetrics.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listMetrics(
+            input: CloudWatchModel.ListMetricsInput) -> EventLoopFuture<CloudWatchModel.ListMetricsOutputForListMetrics> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: ListMetricsOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.listMetrics.rawValue,
+                                 reporting: self.invocationsReporting.listMetrics)
     }
 
     /**
-     Invokes the ListMetrics operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListMetricsInput object being passed to this operation.
-     - Returns: The ListMetricsOutputForListMetrics object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalService, invalidParameterValue.
-     */
-    public func listMetricsSync(
-            input: CloudWatchModel.ListMetricsInput) throws -> CloudWatchModel.ListMetricsOutputForListMetrics {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listMetrics,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = ListMetricsOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.listMetrics.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListTagsForResource operation returning immediately and passing the response to a callback.
+     Invokes the ListTagsForResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTagsForResourceInput object being passed to this operation.
-         - completion: The ListTagsForResourceOutputForListTagsForResource object or an error will be passed to this 
-           callback when the operation is complete. The ListTagsForResourceOutputForListTagsForResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTagsForResourceOutputForListTagsForResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalService, invalidParameterValue, resourceNotFound.
      */
-    public func listTagsForResourceAsync(
-            input: CloudWatchModel.ListTagsForResourceInput, 
-            completion: @escaping (Result<CloudWatchModel.ListTagsForResourceOutputForListTagsForResource, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listTagsForResource,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = ListTagsForResourceOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.listTagsForResource.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listTagsForResource(
+            input: CloudWatchModel.ListTagsForResourceInput) -> EventLoopFuture<CloudWatchModel.ListTagsForResourceOutputForListTagsForResource> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.listTagsForResource.rawValue,
+                                 reporting: self.invocationsReporting.listTagsForResource)
     }
 
     /**
-     Invokes the ListTagsForResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTagsForResourceInput object being passed to this operation.
-     - Returns: The ListTagsForResourceOutputForListTagsForResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalService, invalidParameterValue, resourceNotFound.
-     */
-    public func listTagsForResourceSync(
-            input: CloudWatchModel.ListTagsForResourceInput) throws -> CloudWatchModel.ListTagsForResourceOutputForListTagsForResource {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listTagsForResource,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = ListTagsForResourceOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.listTagsForResource.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutAnomalyDetector operation returning immediately and passing the response to a callback.
+     Invokes the PutAnomalyDetector operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutAnomalyDetectorInput object being passed to this operation.
-         - completion: The PutAnomalyDetectorOutputForPutAnomalyDetector object or an error will be passed to this 
-           callback when the operation is complete. The PutAnomalyDetectorOutputForPutAnomalyDetector
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutAnomalyDetectorOutputForPutAnomalyDetector object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: internalService, invalidParameterValue, limitExceeded, missingRequiredParameter.
      */
-    public func putAnomalyDetectorAsync(
-            input: CloudWatchModel.PutAnomalyDetectorInput, 
-            completion: @escaping (Result<CloudWatchModel.PutAnomalyDetectorOutputForPutAnomalyDetector, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putAnomalyDetector,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutAnomalyDetectorOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putAnomalyDetector.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putAnomalyDetector(
+            input: CloudWatchModel.PutAnomalyDetectorInput) -> EventLoopFuture<CloudWatchModel.PutAnomalyDetectorOutputForPutAnomalyDetector> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: PutAnomalyDetectorOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.putAnomalyDetector.rawValue,
+                                 reporting: self.invocationsReporting.putAnomalyDetector)
     }
 
     /**
-     Invokes the PutAnomalyDetector operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutAnomalyDetectorInput object being passed to this operation.
-     - Returns: The PutAnomalyDetectorOutputForPutAnomalyDetector object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: internalService, invalidParameterValue, limitExceeded, missingRequiredParameter.
-     */
-    public func putAnomalyDetectorSync(
-            input: CloudWatchModel.PutAnomalyDetectorInput) throws -> CloudWatchModel.PutAnomalyDetectorOutputForPutAnomalyDetector {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putAnomalyDetector,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutAnomalyDetectorOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putAnomalyDetector.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutCompositeAlarm operation returning immediately and passing the response to a callback.
+     Invokes the PutCompositeAlarm operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutCompositeAlarmInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: limitExceeded.
      */
-    public func putCompositeAlarmAsync(
-            input: CloudWatchModel.PutCompositeAlarmInput, 
-            completion: @escaping (CloudWatchError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putCompositeAlarm,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutCompositeAlarmOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putCompositeAlarm.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putCompositeAlarm(
+            input: CloudWatchModel.PutCompositeAlarmInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    wrappedInput: PutCompositeAlarmOperationHTTPRequestInput(encodable: input),
+                                    action: CloudWatchModelOperations.putCompositeAlarm.rawValue,
+                                    reporting: self.invocationsReporting.putCompositeAlarm)
     }
 
     /**
-     Invokes the PutCompositeAlarm operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutCompositeAlarmInput object being passed to this operation.
-     - Throws: limitExceeded.
-     */
-    public func putCompositeAlarmSync(
-            input: CloudWatchModel.PutCompositeAlarmInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putCompositeAlarm,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutCompositeAlarmOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putCompositeAlarm.rawValue,
-            version: apiVersion)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutDashboard operation returning immediately and passing the response to a callback.
+     Invokes the PutDashboard operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutDashboardInput object being passed to this operation.
-         - completion: The PutDashboardOutputForPutDashboard object or an error will be passed to this 
-           callback when the operation is complete. The PutDashboardOutputForPutDashboard
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutDashboardOutputForPutDashboard object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: dashboardInvalidInput, internalService.
      */
-    public func putDashboardAsync(
-            input: CloudWatchModel.PutDashboardInput, 
-            completion: @escaping (Result<CloudWatchModel.PutDashboardOutputForPutDashboard, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putDashboard,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutDashboardOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putDashboard.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putDashboard(
+            input: CloudWatchModel.PutDashboardInput) -> EventLoopFuture<CloudWatchModel.PutDashboardOutputForPutDashboard> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: PutDashboardOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.putDashboard.rawValue,
+                                 reporting: self.invocationsReporting.putDashboard)
     }
 
     /**
-     Invokes the PutDashboard operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutDashboardInput object being passed to this operation.
-     - Returns: The PutDashboardOutputForPutDashboard object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: dashboardInvalidInput, internalService.
-     */
-    public func putDashboardSync(
-            input: CloudWatchModel.PutDashboardInput) throws -> CloudWatchModel.PutDashboardOutputForPutDashboard {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putDashboard,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutDashboardOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putDashboard.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutInsightRule operation returning immediately and passing the response to a callback.
+     Invokes the PutInsightRule operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutInsightRuleInput object being passed to this operation.
-         - completion: The PutInsightRuleOutputForPutInsightRule object or an error will be passed to this 
-           callback when the operation is complete. The PutInsightRuleOutputForPutInsightRule
-           object will be validated before being returned to caller.
+     - Returns: A future to the PutInsightRuleOutputForPutInsightRule object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: invalidParameterValue, limitExceeded, missingRequiredParameter.
      */
-    public func putInsightRuleAsync(
-            input: CloudWatchModel.PutInsightRuleInput, 
-            completion: @escaping (Result<CloudWatchModel.PutInsightRuleOutputForPutInsightRule, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putInsightRule,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutInsightRuleOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putInsightRule.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putInsightRule(
+            input: CloudWatchModel.PutInsightRuleInput) -> EventLoopFuture<CloudWatchModel.PutInsightRuleOutputForPutInsightRule> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: PutInsightRuleOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.putInsightRule.rawValue,
+                                 reporting: self.invocationsReporting.putInsightRule)
     }
 
     /**
-     Invokes the PutInsightRule operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutInsightRuleInput object being passed to this operation.
-     - Returns: The PutInsightRuleOutputForPutInsightRule object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: invalidParameterValue, limitExceeded, missingRequiredParameter.
-     */
-    public func putInsightRuleSync(
-            input: CloudWatchModel.PutInsightRuleInput) throws -> CloudWatchModel.PutInsightRuleOutputForPutInsightRule {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putInsightRule,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutInsightRuleOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putInsightRule.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutMetricAlarm operation returning immediately and passing the response to a callback.
+     Invokes the PutMetricAlarm operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutMetricAlarmInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: limitExceeded.
      */
-    public func putMetricAlarmAsync(
-            input: CloudWatchModel.PutMetricAlarmInput, 
-            completion: @escaping (CloudWatchError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putMetricAlarm,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutMetricAlarmOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putMetricAlarm.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putMetricAlarm(
+            input: CloudWatchModel.PutMetricAlarmInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    wrappedInput: PutMetricAlarmOperationHTTPRequestInput(encodable: input),
+                                    action: CloudWatchModelOperations.putMetricAlarm.rawValue,
+                                    reporting: self.invocationsReporting.putMetricAlarm)
     }
 
     /**
-     Invokes the PutMetricAlarm operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutMetricAlarmInput object being passed to this operation.
-     - Throws: limitExceeded.
-     */
-    public func putMetricAlarmSync(
-            input: CloudWatchModel.PutMetricAlarmInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putMetricAlarm,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutMetricAlarmOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putMetricAlarm.rawValue,
-            version: apiVersion)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PutMetricData operation returning immediately and passing the response to a callback.
+     Invokes the PutMetricData operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PutMetricDataInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: internalService, invalidParameterCombination, invalidParameterValue, missingRequiredParameter.
      */
-    public func putMetricDataAsync(
-            input: CloudWatchModel.PutMetricDataInput, 
-            completion: @escaping (CloudWatchError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putMetricData,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutMetricDataOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putMetricData.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func putMetricData(
+            input: CloudWatchModel.PutMetricDataInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    wrappedInput: PutMetricDataOperationHTTPRequestInput(encodable: input),
+                                    action: CloudWatchModelOperations.putMetricData.rawValue,
+                                    reporting: self.invocationsReporting.putMetricData)
     }
 
     /**
-     Invokes the PutMetricData operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PutMetricDataInput object being passed to this operation.
-     - Throws: internalService, invalidParameterCombination, invalidParameterValue, missingRequiredParameter.
-     */
-    public func putMetricDataSync(
-            input: CloudWatchModel.PutMetricDataInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.putMetricData,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = PutMetricDataOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.putMetricData.rawValue,
-            version: apiVersion)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the SetAlarmState operation returning immediately and passing the response to a callback.
+     Invokes the SetAlarmState operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetAlarmStateInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: invalidFormat, resourceNotFound.
      */
-    public func setAlarmStateAsync(
-            input: CloudWatchModel.SetAlarmStateInput, 
-            completion: @escaping (CloudWatchError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.setAlarmState,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = SetAlarmStateOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.setAlarmState.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func setAlarmState(
+            input: CloudWatchModel.SetAlarmStateInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    wrappedInput: SetAlarmStateOperationHTTPRequestInput(encodable: input),
+                                    action: CloudWatchModelOperations.setAlarmState.rawValue,
+                                    reporting: self.invocationsReporting.setAlarmState)
     }
 
     /**
-     Invokes the SetAlarmState operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetAlarmStateInput object being passed to this operation.
-     - Throws: invalidFormat, resourceNotFound.
-     */
-    public func setAlarmStateSync(
-            input: CloudWatchModel.SetAlarmStateInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.setAlarmState,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = SetAlarmStateOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.setAlarmState.rawValue,
-            version: apiVersion)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the TagResource operation returning immediately and passing the response to a callback.
+     Invokes the TagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagResourceInput object being passed to this operation.
-         - completion: The TagResourceOutputForTagResource object or an error will be passed to this 
-           callback when the operation is complete. The TagResourceOutputForTagResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the TagResourceOutputForTagResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: concurrentModification, internalService, invalidParameterValue, resourceNotFound.
      */
-    public func tagResourceAsync(
-            input: CloudWatchModel.TagResourceInput, 
-            completion: @escaping (Result<CloudWatchModel.TagResourceOutputForTagResource, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.tagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = TagResourceOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.tagResource.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func tagResource(
+            input: CloudWatchModel.TagResourceInput) -> EventLoopFuture<CloudWatchModel.TagResourceOutputForTagResource> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: TagResourceOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.tagResource.rawValue,
+                                 reporting: self.invocationsReporting.tagResource)
     }
 
     /**
-     Invokes the TagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TagResourceInput object being passed to this operation.
-     - Returns: The TagResourceOutputForTagResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: concurrentModification, internalService, invalidParameterValue, resourceNotFound.
-     */
-    public func tagResourceSync(
-            input: CloudWatchModel.TagResourceInput) throws -> CloudWatchModel.TagResourceOutputForTagResource {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.tagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = TagResourceOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.tagResource.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the UntagResource operation returning immediately and passing the response to a callback.
+     Invokes the UntagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagResourceInput object being passed to this operation.
-         - completion: The UntagResourceOutputForUntagResource object or an error will be passed to this 
-           callback when the operation is complete. The UntagResourceOutputForUntagResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the UntagResourceOutputForUntagResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: concurrentModification, internalService, invalidParameterValue, resourceNotFound.
      */
-    public func untagResourceAsync(
-            input: CloudWatchModel.UntagResourceInput, 
-            completion: @escaping (Result<CloudWatchModel.UntagResourceOutputForUntagResource, CloudWatchError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.untagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = UntagResourceOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.untagResource.rawValue,
-            version: apiVersion)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the UntagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UntagResourceInput object being passed to this operation.
-     - Returns: The UntagResourceOutputForUntagResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: concurrentModification, internalService, invalidParameterValue, resourceNotFound.
-     */
-    public func untagResourceSync(
-            input: CloudWatchModel.UntagResourceInput) throws -> CloudWatchModel.UntagResourceOutputForUntagResource {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    target: target)
-        
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.untagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let wrappedInput = UntagResourceOperationHTTPRequestInput(encodable: input)
-        
-        let requestInput = QueryWrapperHTTPRequestInput(
-            wrappedInput: wrappedInput,
-            action: CloudWatchModelOperations.untagResource.rawValue,
-            version: apiVersion)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: CloudWatchError = error.asTypedError()
-            throw typedError
-        }
+    public func untagResource(
+            input: CloudWatchModel.UntagResourceInput) -> EventLoopFuture<CloudWatchModel.UntagResourceOutputForUntagResource> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: UntagResourceOperationHTTPRequestInput(encodable: input),
+                                 action: CloudWatchModelOperations.untagResource.rawValue,
+                                 reporting: self.invocationsReporting.untagResource)
     }
 }

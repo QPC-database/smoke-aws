@@ -24,6 +24,7 @@ import Foundation
 import SimpleWorkflowModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 import SmokeAWSHttp
 import NIO
 import NIOHTTP1
@@ -64,15 +65,15 @@ private extension SmokeHTTPClient.HTTPClientError {
 /**
  AWS Client for the SimpleWorkflow service.
  */
-public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInvocationReporting>: SimpleWorkflowClientProtocol {
+public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInvocationReporting>: SimpleWorkflowClientProtocol, AWSClientProtocol {
     let httpClient: HTTPOperationsClient
     let ownsHttpClients: Bool
-    let awsRegion: AWSRegion
-    let service: String
-    let target: String?
-    let retryConfiguration: HTTPClientRetryConfiguration
-    let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
-    let credentialsProvider: CredentialsProvider
+    public let awsRegion: AWSRegion
+    public let service: String
+    public let target: String?
+    public let retryConfiguration: HTTPClientRetryConfiguration
+    public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
+    public let credentialsProvider: CredentialsProvider
     
     public let reporting: InvocationReportingType
 
@@ -146,2538 +147,595 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
     }
 
     /**
-     Invokes the CountClosedWorkflowExecutions operation returning immediately and passing the response to a callback.
+     Invokes the CountClosedWorkflowExecutions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CountClosedWorkflowExecutionsInput object being passed to this operation.
-         - completion: The WorkflowExecutionCount object or an error will be passed to this 
-           callback when the operation is complete. The WorkflowExecutionCount
-           object will be validated before being returned to caller.
+     - Returns: A future to the WorkflowExecutionCount object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func countClosedWorkflowExecutionsAsync(
-            input: SimpleWorkflowModel.CountClosedWorkflowExecutionsInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.WorkflowExecutionCount, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.countClosedWorkflowExecutions.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.countClosedWorkflowExecutions,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CountClosedWorkflowExecutionsOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func countClosedWorkflowExecutions(
+            input: SimpleWorkflowModel.CountClosedWorkflowExecutionsInput) -> EventLoopFuture<SimpleWorkflowModel.WorkflowExecutionCount> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: CountClosedWorkflowExecutionsOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.countClosedWorkflowExecutions.rawValue,
+                                 reporting: self.invocationsReporting.countClosedWorkflowExecutions)
     }
 
     /**
-     Invokes the CountClosedWorkflowExecutions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CountClosedWorkflowExecutionsInput object being passed to this operation.
-     - Returns: The WorkflowExecutionCount object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func countClosedWorkflowExecutionsSync(
-            input: SimpleWorkflowModel.CountClosedWorkflowExecutionsInput) throws -> SimpleWorkflowModel.WorkflowExecutionCount {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.countClosedWorkflowExecutions.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.countClosedWorkflowExecutions,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CountClosedWorkflowExecutionsOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the CountOpenWorkflowExecutions operation returning immediately and passing the response to a callback.
+     Invokes the CountOpenWorkflowExecutions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CountOpenWorkflowExecutionsInput object being passed to this operation.
-         - completion: The WorkflowExecutionCount object or an error will be passed to this 
-           callback when the operation is complete. The WorkflowExecutionCount
-           object will be validated before being returned to caller.
+     - Returns: A future to the WorkflowExecutionCount object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func countOpenWorkflowExecutionsAsync(
-            input: SimpleWorkflowModel.CountOpenWorkflowExecutionsInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.WorkflowExecutionCount, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.countOpenWorkflowExecutions.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.countOpenWorkflowExecutions,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CountOpenWorkflowExecutionsOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func countOpenWorkflowExecutions(
+            input: SimpleWorkflowModel.CountOpenWorkflowExecutionsInput) -> EventLoopFuture<SimpleWorkflowModel.WorkflowExecutionCount> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: CountOpenWorkflowExecutionsOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.countOpenWorkflowExecutions.rawValue,
+                                 reporting: self.invocationsReporting.countOpenWorkflowExecutions)
     }
 
     /**
-     Invokes the CountOpenWorkflowExecutions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CountOpenWorkflowExecutionsInput object being passed to this operation.
-     - Returns: The WorkflowExecutionCount object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func countOpenWorkflowExecutionsSync(
-            input: SimpleWorkflowModel.CountOpenWorkflowExecutionsInput) throws -> SimpleWorkflowModel.WorkflowExecutionCount {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.countOpenWorkflowExecutions.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.countOpenWorkflowExecutions,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CountOpenWorkflowExecutionsOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the CountPendingActivityTasks operation returning immediately and passing the response to a callback.
+     Invokes the CountPendingActivityTasks operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CountPendingActivityTasksInput object being passed to this operation.
-         - completion: The PendingTaskCount object or an error will be passed to this 
-           callback when the operation is complete. The PendingTaskCount
-           object will be validated before being returned to caller.
+     - Returns: A future to the PendingTaskCount object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func countPendingActivityTasksAsync(
-            input: SimpleWorkflowModel.CountPendingActivityTasksInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.PendingTaskCount, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.countPendingActivityTasks.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.countPendingActivityTasks,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CountPendingActivityTasksOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func countPendingActivityTasks(
+            input: SimpleWorkflowModel.CountPendingActivityTasksInput) -> EventLoopFuture<SimpleWorkflowModel.PendingTaskCount> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: CountPendingActivityTasksOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.countPendingActivityTasks.rawValue,
+                                 reporting: self.invocationsReporting.countPendingActivityTasks)
     }
 
     /**
-     Invokes the CountPendingActivityTasks operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CountPendingActivityTasksInput object being passed to this operation.
-     - Returns: The PendingTaskCount object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func countPendingActivityTasksSync(
-            input: SimpleWorkflowModel.CountPendingActivityTasksInput) throws -> SimpleWorkflowModel.PendingTaskCount {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.countPendingActivityTasks.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.countPendingActivityTasks,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CountPendingActivityTasksOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the CountPendingDecisionTasks operation returning immediately and passing the response to a callback.
+     Invokes the CountPendingDecisionTasks operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CountPendingDecisionTasksInput object being passed to this operation.
-         - completion: The PendingTaskCount object or an error will be passed to this 
-           callback when the operation is complete. The PendingTaskCount
-           object will be validated before being returned to caller.
+     - Returns: A future to the PendingTaskCount object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func countPendingDecisionTasksAsync(
-            input: SimpleWorkflowModel.CountPendingDecisionTasksInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.PendingTaskCount, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.countPendingDecisionTasks.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.countPendingDecisionTasks,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CountPendingDecisionTasksOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func countPendingDecisionTasks(
+            input: SimpleWorkflowModel.CountPendingDecisionTasksInput) -> EventLoopFuture<SimpleWorkflowModel.PendingTaskCount> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: CountPendingDecisionTasksOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.countPendingDecisionTasks.rawValue,
+                                 reporting: self.invocationsReporting.countPendingDecisionTasks)
     }
 
     /**
-     Invokes the CountPendingDecisionTasks operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CountPendingDecisionTasksInput object being passed to this operation.
-     - Returns: The PendingTaskCount object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func countPendingDecisionTasksSync(
-            input: SimpleWorkflowModel.CountPendingDecisionTasksInput) throws -> SimpleWorkflowModel.PendingTaskCount {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.countPendingDecisionTasks.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.countPendingDecisionTasks,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = CountPendingDecisionTasksOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeprecateActivityType operation returning immediately and passing the response to a callback.
+     Invokes the DeprecateActivityType operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeprecateActivityTypeInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, typeDeprecated, unknownResource.
      */
-    public func deprecateActivityTypeAsync(
-            input: SimpleWorkflowModel.DeprecateActivityTypeInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.deprecateActivityType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deprecateActivityType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeprecateActivityTypeOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deprecateActivityType(
+            input: SimpleWorkflowModel.DeprecateActivityTypeInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: DeprecateActivityTypeOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.deprecateActivityType.rawValue,
+                                    reporting: self.invocationsReporting.deprecateActivityType)
     }
 
     /**
-     Invokes the DeprecateActivityType operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeprecateActivityTypeInput object being passed to this operation.
-     - Throws: operationNotPermitted, typeDeprecated, unknownResource.
-     */
-    public func deprecateActivityTypeSync(
-            input: SimpleWorkflowModel.DeprecateActivityTypeInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.deprecateActivityType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deprecateActivityType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeprecateActivityTypeOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeprecateDomain operation returning immediately and passing the response to a callback.
+     Invokes the DeprecateDomain operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeprecateDomainInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: domainDeprecated, operationNotPermitted, unknownResource.
      */
-    public func deprecateDomainAsync(
-            input: SimpleWorkflowModel.DeprecateDomainInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.deprecateDomain.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deprecateDomain,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeprecateDomainOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deprecateDomain(
+            input: SimpleWorkflowModel.DeprecateDomainInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: DeprecateDomainOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.deprecateDomain.rawValue,
+                                    reporting: self.invocationsReporting.deprecateDomain)
     }
 
     /**
-     Invokes the DeprecateDomain operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeprecateDomainInput object being passed to this operation.
-     - Throws: domainDeprecated, operationNotPermitted, unknownResource.
-     */
-    public func deprecateDomainSync(
-            input: SimpleWorkflowModel.DeprecateDomainInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.deprecateDomain.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deprecateDomain,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeprecateDomainOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DeprecateWorkflowType operation returning immediately and passing the response to a callback.
+     Invokes the DeprecateWorkflowType operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeprecateWorkflowTypeInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, typeDeprecated, unknownResource.
      */
-    public func deprecateWorkflowTypeAsync(
-            input: SimpleWorkflowModel.DeprecateWorkflowTypeInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.deprecateWorkflowType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deprecateWorkflowType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeprecateWorkflowTypeOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func deprecateWorkflowType(
+            input: SimpleWorkflowModel.DeprecateWorkflowTypeInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: DeprecateWorkflowTypeOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.deprecateWorkflowType.rawValue,
+                                    reporting: self.invocationsReporting.deprecateWorkflowType)
     }
 
     /**
-     Invokes the DeprecateWorkflowType operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeprecateWorkflowTypeInput object being passed to this operation.
-     - Throws: operationNotPermitted, typeDeprecated, unknownResource.
-     */
-    public func deprecateWorkflowTypeSync(
-            input: SimpleWorkflowModel.DeprecateWorkflowTypeInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.deprecateWorkflowType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.deprecateWorkflowType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DeprecateWorkflowTypeOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeActivityType operation returning immediately and passing the response to a callback.
+     Invokes the DescribeActivityType operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeActivityTypeInput object being passed to this operation.
-         - completion: The ActivityTypeDetail object or an error will be passed to this 
-           callback when the operation is complete. The ActivityTypeDetail
-           object will be validated before being returned to caller.
+     - Returns: A future to the ActivityTypeDetail object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func describeActivityTypeAsync(
-            input: SimpleWorkflowModel.DescribeActivityTypeInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.ActivityTypeDetail, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.describeActivityType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeActivityType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeActivityTypeOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeActivityType(
+            input: SimpleWorkflowModel.DescribeActivityTypeInput) -> EventLoopFuture<SimpleWorkflowModel.ActivityTypeDetail> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DescribeActivityTypeOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.describeActivityType.rawValue,
+                                 reporting: self.invocationsReporting.describeActivityType)
     }
 
     /**
-     Invokes the DescribeActivityType operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeActivityTypeInput object being passed to this operation.
-     - Returns: The ActivityTypeDetail object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func describeActivityTypeSync(
-            input: SimpleWorkflowModel.DescribeActivityTypeInput) throws -> SimpleWorkflowModel.ActivityTypeDetail {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.describeActivityType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeActivityType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeActivityTypeOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeDomain operation returning immediately and passing the response to a callback.
+     Invokes the DescribeDomain operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeDomainInput object being passed to this operation.
-         - completion: The DomainDetail object or an error will be passed to this 
-           callback when the operation is complete. The DomainDetail
-           object will be validated before being returned to caller.
+     - Returns: A future to the DomainDetail object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func describeDomainAsync(
-            input: SimpleWorkflowModel.DescribeDomainInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.DomainDetail, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.describeDomain.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeDomain,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeDomainOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeDomain(
+            input: SimpleWorkflowModel.DescribeDomainInput) -> EventLoopFuture<SimpleWorkflowModel.DomainDetail> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DescribeDomainOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.describeDomain.rawValue,
+                                 reporting: self.invocationsReporting.describeDomain)
     }
 
     /**
-     Invokes the DescribeDomain operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeDomainInput object being passed to this operation.
-     - Returns: The DomainDetail object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func describeDomainSync(
-            input: SimpleWorkflowModel.DescribeDomainInput) throws -> SimpleWorkflowModel.DomainDetail {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.describeDomain.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeDomain,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeDomainOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeWorkflowExecution operation returning immediately and passing the response to a callback.
+     Invokes the DescribeWorkflowExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeWorkflowExecutionInput object being passed to this operation.
-         - completion: The WorkflowExecutionDetail object or an error will be passed to this 
-           callback when the operation is complete. The WorkflowExecutionDetail
-           object will be validated before being returned to caller.
+     - Returns: A future to the WorkflowExecutionDetail object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func describeWorkflowExecutionAsync(
-            input: SimpleWorkflowModel.DescribeWorkflowExecutionInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.WorkflowExecutionDetail, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.describeWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeWorkflowExecution(
+            input: SimpleWorkflowModel.DescribeWorkflowExecutionInput) -> EventLoopFuture<SimpleWorkflowModel.WorkflowExecutionDetail> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DescribeWorkflowExecutionOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.describeWorkflowExecution.rawValue,
+                                 reporting: self.invocationsReporting.describeWorkflowExecution)
     }
 
     /**
-     Invokes the DescribeWorkflowExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeWorkflowExecutionInput object being passed to this operation.
-     - Returns: The WorkflowExecutionDetail object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func describeWorkflowExecutionSync(
-            input: SimpleWorkflowModel.DescribeWorkflowExecutionInput) throws -> SimpleWorkflowModel.WorkflowExecutionDetail {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.describeWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the DescribeWorkflowType operation returning immediately and passing the response to a callback.
+     Invokes the DescribeWorkflowType operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DescribeWorkflowTypeInput object being passed to this operation.
-         - completion: The WorkflowTypeDetail object or an error will be passed to this 
-           callback when the operation is complete. The WorkflowTypeDetail
-           object will be validated before being returned to caller.
+     - Returns: A future to the WorkflowTypeDetail object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func describeWorkflowTypeAsync(
-            input: SimpleWorkflowModel.DescribeWorkflowTypeInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.WorkflowTypeDetail, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.describeWorkflowType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeWorkflowType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeWorkflowTypeOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func describeWorkflowType(
+            input: SimpleWorkflowModel.DescribeWorkflowTypeInput) -> EventLoopFuture<SimpleWorkflowModel.WorkflowTypeDetail> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: DescribeWorkflowTypeOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.describeWorkflowType.rawValue,
+                                 reporting: self.invocationsReporting.describeWorkflowType)
     }
 
     /**
-     Invokes the DescribeWorkflowType operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DescribeWorkflowTypeInput object being passed to this operation.
-     - Returns: The WorkflowTypeDetail object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func describeWorkflowTypeSync(
-            input: SimpleWorkflowModel.DescribeWorkflowTypeInput) throws -> SimpleWorkflowModel.WorkflowTypeDetail {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.describeWorkflowType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.describeWorkflowType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = DescribeWorkflowTypeOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the GetWorkflowExecutionHistory operation returning immediately and passing the response to a callback.
+     Invokes the GetWorkflowExecutionHistory operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetWorkflowExecutionHistoryInput object being passed to this operation.
-         - completion: The History object or an error will be passed to this 
-           callback when the operation is complete. The History
-           object will be validated before being returned to caller.
+     - Returns: A future to the History object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func getWorkflowExecutionHistoryAsync(
-            input: SimpleWorkflowModel.GetWorkflowExecutionHistoryInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.History, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.getWorkflowExecutionHistory.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getWorkflowExecutionHistory,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetWorkflowExecutionHistoryOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func getWorkflowExecutionHistory(
+            input: SimpleWorkflowModel.GetWorkflowExecutionHistoryInput) -> EventLoopFuture<SimpleWorkflowModel.History> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: GetWorkflowExecutionHistoryOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.getWorkflowExecutionHistory.rawValue,
+                                 reporting: self.invocationsReporting.getWorkflowExecutionHistory)
     }
 
     /**
-     Invokes the GetWorkflowExecutionHistory operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetWorkflowExecutionHistoryInput object being passed to this operation.
-     - Returns: The History object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func getWorkflowExecutionHistorySync(
-            input: SimpleWorkflowModel.GetWorkflowExecutionHistoryInput) throws -> SimpleWorkflowModel.History {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.getWorkflowExecutionHistory.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.getWorkflowExecutionHistory,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = GetWorkflowExecutionHistoryOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListActivityTypes operation returning immediately and passing the response to a callback.
+     Invokes the ListActivityTypes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListActivityTypesInput object being passed to this operation.
-         - completion: The ActivityTypeInfos object or an error will be passed to this 
-           callback when the operation is complete. The ActivityTypeInfos
-           object will be validated before being returned to caller.
+     - Returns: A future to the ActivityTypeInfos object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func listActivityTypesAsync(
-            input: SimpleWorkflowModel.ListActivityTypesInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.ActivityTypeInfos, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listActivityTypes.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listActivityTypes,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListActivityTypesOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listActivityTypes(
+            input: SimpleWorkflowModel.ListActivityTypesInput) -> EventLoopFuture<SimpleWorkflowModel.ActivityTypeInfos> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: ListActivityTypesOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.listActivityTypes.rawValue,
+                                 reporting: self.invocationsReporting.listActivityTypes)
     }
 
     /**
-     Invokes the ListActivityTypes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListActivityTypesInput object being passed to this operation.
-     - Returns: The ActivityTypeInfos object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func listActivityTypesSync(
-            input: SimpleWorkflowModel.ListActivityTypesInput) throws -> SimpleWorkflowModel.ActivityTypeInfos {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listActivityTypes.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listActivityTypes,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListActivityTypesOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListClosedWorkflowExecutions operation returning immediately and passing the response to a callback.
+     Invokes the ListClosedWorkflowExecutions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListClosedWorkflowExecutionsInput object being passed to this operation.
-         - completion: The WorkflowExecutionInfos object or an error will be passed to this 
-           callback when the operation is complete. The WorkflowExecutionInfos
-           object will be validated before being returned to caller.
+     - Returns: A future to the WorkflowExecutionInfos object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func listClosedWorkflowExecutionsAsync(
-            input: SimpleWorkflowModel.ListClosedWorkflowExecutionsInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.WorkflowExecutionInfos, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listClosedWorkflowExecutions.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listClosedWorkflowExecutions,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListClosedWorkflowExecutionsOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listClosedWorkflowExecutions(
+            input: SimpleWorkflowModel.ListClosedWorkflowExecutionsInput) -> EventLoopFuture<SimpleWorkflowModel.WorkflowExecutionInfos> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: ListClosedWorkflowExecutionsOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.listClosedWorkflowExecutions.rawValue,
+                                 reporting: self.invocationsReporting.listClosedWorkflowExecutions)
     }
 
     /**
-     Invokes the ListClosedWorkflowExecutions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListClosedWorkflowExecutionsInput object being passed to this operation.
-     - Returns: The WorkflowExecutionInfos object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func listClosedWorkflowExecutionsSync(
-            input: SimpleWorkflowModel.ListClosedWorkflowExecutionsInput) throws -> SimpleWorkflowModel.WorkflowExecutionInfos {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listClosedWorkflowExecutions.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listClosedWorkflowExecutions,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListClosedWorkflowExecutionsOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListDomains operation returning immediately and passing the response to a callback.
+     Invokes the ListDomains operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListDomainsInput object being passed to this operation.
-         - completion: The DomainInfos object or an error will be passed to this 
-           callback when the operation is complete. The DomainInfos
-           object will be validated before being returned to caller.
+     - Returns: A future to the DomainInfos object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted.
      */
-    public func listDomainsAsync(
-            input: SimpleWorkflowModel.ListDomainsInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.DomainInfos, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listDomains.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listDomains,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListDomainsOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listDomains(
+            input: SimpleWorkflowModel.ListDomainsInput) -> EventLoopFuture<SimpleWorkflowModel.DomainInfos> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: ListDomainsOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.listDomains.rawValue,
+                                 reporting: self.invocationsReporting.listDomains)
     }
 
     /**
-     Invokes the ListDomains operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListDomainsInput object being passed to this operation.
-     - Returns: The DomainInfos object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted.
-     */
-    public func listDomainsSync(
-            input: SimpleWorkflowModel.ListDomainsInput) throws -> SimpleWorkflowModel.DomainInfos {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listDomains.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listDomains,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListDomainsOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListOpenWorkflowExecutions operation returning immediately and passing the response to a callback.
+     Invokes the ListOpenWorkflowExecutions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListOpenWorkflowExecutionsInput object being passed to this operation.
-         - completion: The WorkflowExecutionInfos object or an error will be passed to this 
-           callback when the operation is complete. The WorkflowExecutionInfos
-           object will be validated before being returned to caller.
+     - Returns: A future to the WorkflowExecutionInfos object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func listOpenWorkflowExecutionsAsync(
-            input: SimpleWorkflowModel.ListOpenWorkflowExecutionsInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.WorkflowExecutionInfos, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listOpenWorkflowExecutions.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listOpenWorkflowExecutions,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListOpenWorkflowExecutionsOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listOpenWorkflowExecutions(
+            input: SimpleWorkflowModel.ListOpenWorkflowExecutionsInput) -> EventLoopFuture<SimpleWorkflowModel.WorkflowExecutionInfos> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: ListOpenWorkflowExecutionsOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.listOpenWorkflowExecutions.rawValue,
+                                 reporting: self.invocationsReporting.listOpenWorkflowExecutions)
     }
 
     /**
-     Invokes the ListOpenWorkflowExecutions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListOpenWorkflowExecutionsInput object being passed to this operation.
-     - Returns: The WorkflowExecutionInfos object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func listOpenWorkflowExecutionsSync(
-            input: SimpleWorkflowModel.ListOpenWorkflowExecutionsInput) throws -> SimpleWorkflowModel.WorkflowExecutionInfos {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listOpenWorkflowExecutions.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listOpenWorkflowExecutions,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListOpenWorkflowExecutionsOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListTagsForResource operation returning immediately and passing the response to a callback.
+     Invokes the ListTagsForResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTagsForResourceInput object being passed to this operation.
-         - completion: The ListTagsForResourceOutput object or an error will be passed to this 
-           callback when the operation is complete. The ListTagsForResourceOutput
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTagsForResourceOutput object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: limitExceeded, operationNotPermitted, unknownResource.
      */
-    public func listTagsForResourceAsync(
-            input: SimpleWorkflowModel.ListTagsForResourceInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.ListTagsForResourceOutput, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listTagsForResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listTagsForResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListTagsForResourceOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listTagsForResource(
+            input: SimpleWorkflowModel.ListTagsForResourceInput) -> EventLoopFuture<SimpleWorkflowModel.ListTagsForResourceOutput> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.listTagsForResource.rawValue,
+                                 reporting: self.invocationsReporting.listTagsForResource)
     }
 
     /**
-     Invokes the ListTagsForResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTagsForResourceInput object being passed to this operation.
-     - Returns: The ListTagsForResourceOutput object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: limitExceeded, operationNotPermitted, unknownResource.
-     */
-    public func listTagsForResourceSync(
-            input: SimpleWorkflowModel.ListTagsForResourceInput) throws -> SimpleWorkflowModel.ListTagsForResourceOutput {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listTagsForResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listTagsForResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListTagsForResourceOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the ListWorkflowTypes operation returning immediately and passing the response to a callback.
+     Invokes the ListWorkflowTypes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListWorkflowTypesInput object being passed to this operation.
-         - completion: The WorkflowTypeInfos object or an error will be passed to this 
-           callback when the operation is complete. The WorkflowTypeInfos
-           object will be validated before being returned to caller.
+     - Returns: A future to the WorkflowTypeInfos object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func listWorkflowTypesAsync(
-            input: SimpleWorkflowModel.ListWorkflowTypesInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.WorkflowTypeInfos, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listWorkflowTypes.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listWorkflowTypes,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListWorkflowTypesOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func listWorkflowTypes(
+            input: SimpleWorkflowModel.ListWorkflowTypesInput) -> EventLoopFuture<SimpleWorkflowModel.WorkflowTypeInfos> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: ListWorkflowTypesOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.listWorkflowTypes.rawValue,
+                                 reporting: self.invocationsReporting.listWorkflowTypes)
     }
 
     /**
-     Invokes the ListWorkflowTypes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListWorkflowTypesInput object being passed to this operation.
-     - Returns: The WorkflowTypeInfos object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func listWorkflowTypesSync(
-            input: SimpleWorkflowModel.ListWorkflowTypesInput) throws -> SimpleWorkflowModel.WorkflowTypeInfos {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.listWorkflowTypes.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.listWorkflowTypes,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = ListWorkflowTypesOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PollForActivityTask operation returning immediately and passing the response to a callback.
+     Invokes the PollForActivityTask operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PollForActivityTaskInput object being passed to this operation.
-         - completion: The ActivityTask object or an error will be passed to this 
-           callback when the operation is complete. The ActivityTask
-           object will be validated before being returned to caller.
+     - Returns: A future to the ActivityTask object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: limitExceeded, operationNotPermitted, unknownResource.
      */
-    public func pollForActivityTaskAsync(
-            input: SimpleWorkflowModel.PollForActivityTaskInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.ActivityTask, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.pollForActivityTask.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.pollForActivityTask,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PollForActivityTaskOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func pollForActivityTask(
+            input: SimpleWorkflowModel.PollForActivityTaskInput) -> EventLoopFuture<SimpleWorkflowModel.ActivityTask> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: PollForActivityTaskOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.pollForActivityTask.rawValue,
+                                 reporting: self.invocationsReporting.pollForActivityTask)
     }
 
     /**
-     Invokes the PollForActivityTask operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PollForActivityTaskInput object being passed to this operation.
-     - Returns: The ActivityTask object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: limitExceeded, operationNotPermitted, unknownResource.
-     */
-    public func pollForActivityTaskSync(
-            input: SimpleWorkflowModel.PollForActivityTaskInput) throws -> SimpleWorkflowModel.ActivityTask {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.pollForActivityTask.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.pollForActivityTask,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PollForActivityTaskOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the PollForDecisionTask operation returning immediately and passing the response to a callback.
+     Invokes the PollForDecisionTask operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PollForDecisionTaskInput object being passed to this operation.
-         - completion: The DecisionTask object or an error will be passed to this 
-           callback when the operation is complete. The DecisionTask
-           object will be validated before being returned to caller.
+     - Returns: A future to the DecisionTask object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: limitExceeded, operationNotPermitted, unknownResource.
      */
-    public func pollForDecisionTaskAsync(
-            input: SimpleWorkflowModel.PollForDecisionTaskInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.DecisionTask, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.pollForDecisionTask.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.pollForDecisionTask,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PollForDecisionTaskOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func pollForDecisionTask(
+            input: SimpleWorkflowModel.PollForDecisionTaskInput) -> EventLoopFuture<SimpleWorkflowModel.DecisionTask> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: PollForDecisionTaskOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.pollForDecisionTask.rawValue,
+                                 reporting: self.invocationsReporting.pollForDecisionTask)
     }
 
     /**
-     Invokes the PollForDecisionTask operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PollForDecisionTaskInput object being passed to this operation.
-     - Returns: The DecisionTask object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: limitExceeded, operationNotPermitted, unknownResource.
-     */
-    public func pollForDecisionTaskSync(
-            input: SimpleWorkflowModel.PollForDecisionTaskInput) throws -> SimpleWorkflowModel.DecisionTask {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.pollForDecisionTask.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.pollForDecisionTask,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = PollForDecisionTaskOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RecordActivityTaskHeartbeat operation returning immediately and passing the response to a callback.
+     Invokes the RecordActivityTaskHeartbeat operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RecordActivityTaskHeartbeatInput object being passed to this operation.
-         - completion: The ActivityTaskStatus object or an error will be passed to this 
-           callback when the operation is complete. The ActivityTaskStatus
-           object will be validated before being returned to caller.
+     - Returns: A future to the ActivityTaskStatus object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func recordActivityTaskHeartbeatAsync(
-            input: SimpleWorkflowModel.RecordActivityTaskHeartbeatInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.ActivityTaskStatus, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.recordActivityTaskHeartbeat.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.recordActivityTaskHeartbeat,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RecordActivityTaskHeartbeatOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func recordActivityTaskHeartbeat(
+            input: SimpleWorkflowModel.RecordActivityTaskHeartbeatInput) -> EventLoopFuture<SimpleWorkflowModel.ActivityTaskStatus> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: RecordActivityTaskHeartbeatOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.recordActivityTaskHeartbeat.rawValue,
+                                 reporting: self.invocationsReporting.recordActivityTaskHeartbeat)
     }
 
     /**
-     Invokes the RecordActivityTaskHeartbeat operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RecordActivityTaskHeartbeatInput object being passed to this operation.
-     - Returns: The ActivityTaskStatus object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func recordActivityTaskHeartbeatSync(
-            input: SimpleWorkflowModel.RecordActivityTaskHeartbeatInput) throws -> SimpleWorkflowModel.ActivityTaskStatus {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.recordActivityTaskHeartbeat.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.recordActivityTaskHeartbeat,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RecordActivityTaskHeartbeatOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RegisterActivityType operation returning immediately and passing the response to a callback.
+     Invokes the RegisterActivityType operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RegisterActivityTypeInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: limitExceeded, operationNotPermitted, typeAlreadyExists, unknownResource.
      */
-    public func registerActivityTypeAsync(
-            input: SimpleWorkflowModel.RegisterActivityTypeInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.registerActivityType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.registerActivityType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RegisterActivityTypeOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func registerActivityType(
+            input: SimpleWorkflowModel.RegisterActivityTypeInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: RegisterActivityTypeOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.registerActivityType.rawValue,
+                                    reporting: self.invocationsReporting.registerActivityType)
     }
 
     /**
-     Invokes the RegisterActivityType operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RegisterActivityTypeInput object being passed to this operation.
-     - Throws: limitExceeded, operationNotPermitted, typeAlreadyExists, unknownResource.
-     */
-    public func registerActivityTypeSync(
-            input: SimpleWorkflowModel.RegisterActivityTypeInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.registerActivityType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.registerActivityType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RegisterActivityTypeOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RegisterDomain operation returning immediately and passing the response to a callback.
+     Invokes the RegisterDomain operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RegisterDomainInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: domainAlreadyExists, limitExceeded, operationNotPermitted, tooManyTags.
      */
-    public func registerDomainAsync(
-            input: SimpleWorkflowModel.RegisterDomainInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.registerDomain.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.registerDomain,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RegisterDomainOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func registerDomain(
+            input: SimpleWorkflowModel.RegisterDomainInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: RegisterDomainOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.registerDomain.rawValue,
+                                    reporting: self.invocationsReporting.registerDomain)
     }
 
     /**
-     Invokes the RegisterDomain operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RegisterDomainInput object being passed to this operation.
-     - Throws: domainAlreadyExists, limitExceeded, operationNotPermitted, tooManyTags.
-     */
-    public func registerDomainSync(
-            input: SimpleWorkflowModel.RegisterDomainInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.registerDomain.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.registerDomain,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RegisterDomainOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RegisterWorkflowType operation returning immediately and passing the response to a callback.
+     Invokes the RegisterWorkflowType operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RegisterWorkflowTypeInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: limitExceeded, operationNotPermitted, typeAlreadyExists, unknownResource.
      */
-    public func registerWorkflowTypeAsync(
-            input: SimpleWorkflowModel.RegisterWorkflowTypeInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.registerWorkflowType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.registerWorkflowType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RegisterWorkflowTypeOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func registerWorkflowType(
+            input: SimpleWorkflowModel.RegisterWorkflowTypeInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: RegisterWorkflowTypeOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.registerWorkflowType.rawValue,
+                                    reporting: self.invocationsReporting.registerWorkflowType)
     }
 
     /**
-     Invokes the RegisterWorkflowType operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RegisterWorkflowTypeInput object being passed to this operation.
-     - Throws: limitExceeded, operationNotPermitted, typeAlreadyExists, unknownResource.
-     */
-    public func registerWorkflowTypeSync(
-            input: SimpleWorkflowModel.RegisterWorkflowTypeInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.registerWorkflowType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.registerWorkflowType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RegisterWorkflowTypeOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RequestCancelWorkflowExecution operation returning immediately and passing the response to a callback.
+     Invokes the RequestCancelWorkflowExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RequestCancelWorkflowExecutionInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func requestCancelWorkflowExecutionAsync(
-            input: SimpleWorkflowModel.RequestCancelWorkflowExecutionInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.requestCancelWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.requestCancelWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RequestCancelWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func requestCancelWorkflowExecution(
+            input: SimpleWorkflowModel.RequestCancelWorkflowExecutionInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: RequestCancelWorkflowExecutionOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.requestCancelWorkflowExecution.rawValue,
+                                    reporting: self.invocationsReporting.requestCancelWorkflowExecution)
     }
 
     /**
-     Invokes the RequestCancelWorkflowExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RequestCancelWorkflowExecutionInput object being passed to this operation.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func requestCancelWorkflowExecutionSync(
-            input: SimpleWorkflowModel.RequestCancelWorkflowExecutionInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.requestCancelWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.requestCancelWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RequestCancelWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RespondActivityTaskCanceled operation returning immediately and passing the response to a callback.
+     Invokes the RespondActivityTaskCanceled operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RespondActivityTaskCanceledInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func respondActivityTaskCanceledAsync(
-            input: SimpleWorkflowModel.RespondActivityTaskCanceledInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.respondActivityTaskCanceled.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.respondActivityTaskCanceled,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RespondActivityTaskCanceledOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func respondActivityTaskCanceled(
+            input: SimpleWorkflowModel.RespondActivityTaskCanceledInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: RespondActivityTaskCanceledOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.respondActivityTaskCanceled.rawValue,
+                                    reporting: self.invocationsReporting.respondActivityTaskCanceled)
     }
 
     /**
-     Invokes the RespondActivityTaskCanceled operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RespondActivityTaskCanceledInput object being passed to this operation.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func respondActivityTaskCanceledSync(
-            input: SimpleWorkflowModel.RespondActivityTaskCanceledInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.respondActivityTaskCanceled.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.respondActivityTaskCanceled,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RespondActivityTaskCanceledOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RespondActivityTaskCompleted operation returning immediately and passing the response to a callback.
+     Invokes the RespondActivityTaskCompleted operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RespondActivityTaskCompletedInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func respondActivityTaskCompletedAsync(
-            input: SimpleWorkflowModel.RespondActivityTaskCompletedInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.respondActivityTaskCompleted.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.respondActivityTaskCompleted,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RespondActivityTaskCompletedOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func respondActivityTaskCompleted(
+            input: SimpleWorkflowModel.RespondActivityTaskCompletedInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: RespondActivityTaskCompletedOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.respondActivityTaskCompleted.rawValue,
+                                    reporting: self.invocationsReporting.respondActivityTaskCompleted)
     }
 
     /**
-     Invokes the RespondActivityTaskCompleted operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RespondActivityTaskCompletedInput object being passed to this operation.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func respondActivityTaskCompletedSync(
-            input: SimpleWorkflowModel.RespondActivityTaskCompletedInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.respondActivityTaskCompleted.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.respondActivityTaskCompleted,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RespondActivityTaskCompletedOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RespondActivityTaskFailed operation returning immediately and passing the response to a callback.
+     Invokes the RespondActivityTaskFailed operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RespondActivityTaskFailedInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func respondActivityTaskFailedAsync(
-            input: SimpleWorkflowModel.RespondActivityTaskFailedInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.respondActivityTaskFailed.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.respondActivityTaskFailed,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RespondActivityTaskFailedOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func respondActivityTaskFailed(
+            input: SimpleWorkflowModel.RespondActivityTaskFailedInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: RespondActivityTaskFailedOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.respondActivityTaskFailed.rawValue,
+                                    reporting: self.invocationsReporting.respondActivityTaskFailed)
     }
 
     /**
-     Invokes the RespondActivityTaskFailed operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RespondActivityTaskFailedInput object being passed to this operation.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func respondActivityTaskFailedSync(
-            input: SimpleWorkflowModel.RespondActivityTaskFailedInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.respondActivityTaskFailed.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.respondActivityTaskFailed,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RespondActivityTaskFailedOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the RespondDecisionTaskCompleted operation returning immediately and passing the response to a callback.
+     Invokes the RespondDecisionTaskCompleted operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RespondDecisionTaskCompletedInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func respondDecisionTaskCompletedAsync(
-            input: SimpleWorkflowModel.RespondDecisionTaskCompletedInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.respondDecisionTaskCompleted.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.respondDecisionTaskCompleted,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RespondDecisionTaskCompletedOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func respondDecisionTaskCompleted(
+            input: SimpleWorkflowModel.RespondDecisionTaskCompletedInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: RespondDecisionTaskCompletedOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.respondDecisionTaskCompleted.rawValue,
+                                    reporting: self.invocationsReporting.respondDecisionTaskCompleted)
     }
 
     /**
-     Invokes the RespondDecisionTaskCompleted operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RespondDecisionTaskCompletedInput object being passed to this operation.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func respondDecisionTaskCompletedSync(
-            input: SimpleWorkflowModel.RespondDecisionTaskCompletedInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.respondDecisionTaskCompleted.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.respondDecisionTaskCompleted,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = RespondDecisionTaskCompletedOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the SignalWorkflowExecution operation returning immediately and passing the response to a callback.
+     Invokes the SignalWorkflowExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SignalWorkflowExecutionInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func signalWorkflowExecutionAsync(
-            input: SimpleWorkflowModel.SignalWorkflowExecutionInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.signalWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.signalWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = SignalWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func signalWorkflowExecution(
+            input: SimpleWorkflowModel.SignalWorkflowExecutionInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: SignalWorkflowExecutionOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.signalWorkflowExecution.rawValue,
+                                    reporting: self.invocationsReporting.signalWorkflowExecution)
     }
 
     /**
-     Invokes the SignalWorkflowExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SignalWorkflowExecutionInput object being passed to this operation.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func signalWorkflowExecutionSync(
-            input: SimpleWorkflowModel.SignalWorkflowExecutionInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.signalWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.signalWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = SignalWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the StartWorkflowExecution operation returning immediately and passing the response to a callback.
+     Invokes the StartWorkflowExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated StartWorkflowExecutionInput object being passed to this operation.
-         - completion: The Run object or an error will be passed to this 
-           callback when the operation is complete. The Run
-           object will be validated before being returned to caller.
+     - Returns: A future to the Run object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: defaultUndefined, limitExceeded, operationNotPermitted, typeDeprecated, unknownResource, workflowExecutionAlreadyStarted.
      */
-    public func startWorkflowExecutionAsync(
-            input: SimpleWorkflowModel.StartWorkflowExecutionInput, 
-            completion: @escaping (Result<SimpleWorkflowModel.Run, SimpleWorkflowError>) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.startWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.startWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = StartWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func startWorkflowExecution(
+            input: SimpleWorkflowModel.StartWorkflowExecutionInput) -> EventLoopFuture<SimpleWorkflowModel.Run> {
+        return executeWithOutput(httpClient: httpClient,
+                                 requestInput: StartWorkflowExecutionOperationHTTPRequestInput(encodable: input),
+                                 operation: SimpleWorkflowModelOperations.startWorkflowExecution.rawValue,
+                                 reporting: self.invocationsReporting.startWorkflowExecution)
     }
 
     /**
-     Invokes the StartWorkflowExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated StartWorkflowExecutionInput object being passed to this operation.
-     - Returns: The Run object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: defaultUndefined, limitExceeded, operationNotPermitted, typeDeprecated, unknownResource, workflowExecutionAlreadyStarted.
-     */
-    public func startWorkflowExecutionSync(
-            input: SimpleWorkflowModel.StartWorkflowExecutionInput) throws -> SimpleWorkflowModel.Run {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.startWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.startWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = StartWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        do {
-            return try httpClient.executeSyncRetriableWithOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the TagResource operation returning immediately and passing the response to a callback.
+     Invokes the TagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagResourceInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: limitExceeded, operationNotPermitted, tooManyTags, unknownResource.
      */
-    public func tagResourceAsync(
-            input: SimpleWorkflowModel.TagResourceInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.tagResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.tagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = TagResourceOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func tagResource(
+            input: SimpleWorkflowModel.TagResourceInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: TagResourceOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.tagResource.rawValue,
+                                    reporting: self.invocationsReporting.tagResource)
     }
 
     /**
-     Invokes the TagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TagResourceInput object being passed to this operation.
-     - Throws: limitExceeded, operationNotPermitted, tooManyTags, unknownResource.
-     */
-    public func tagResourceSync(
-            input: SimpleWorkflowModel.TagResourceInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.tagResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.tagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = TagResourceOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the TerminateWorkflowExecution operation returning immediately and passing the response to a callback.
+     Invokes the TerminateWorkflowExecution operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TerminateWorkflowExecutionInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, unknownResource.
      */
-    public func terminateWorkflowExecutionAsync(
-            input: SimpleWorkflowModel.TerminateWorkflowExecutionInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.terminateWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.terminateWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = TerminateWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func terminateWorkflowExecution(
+            input: SimpleWorkflowModel.TerminateWorkflowExecutionInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: TerminateWorkflowExecutionOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.terminateWorkflowExecution.rawValue,
+                                    reporting: self.invocationsReporting.terminateWorkflowExecution)
     }
 
     /**
-     Invokes the TerminateWorkflowExecution operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TerminateWorkflowExecutionInput object being passed to this operation.
-     - Throws: operationNotPermitted, unknownResource.
-     */
-    public func terminateWorkflowExecutionSync(
-            input: SimpleWorkflowModel.TerminateWorkflowExecutionInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.terminateWorkflowExecution.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.terminateWorkflowExecution,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = TerminateWorkflowExecutionOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the UndeprecateActivityType operation returning immediately and passing the response to a callback.
+     Invokes the UndeprecateActivityType operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UndeprecateActivityTypeInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, typeAlreadyExists, unknownResource.
      */
-    public func undeprecateActivityTypeAsync(
-            input: SimpleWorkflowModel.UndeprecateActivityTypeInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.undeprecateActivityType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.undeprecateActivityType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UndeprecateActivityTypeOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func undeprecateActivityType(
+            input: SimpleWorkflowModel.UndeprecateActivityTypeInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: UndeprecateActivityTypeOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.undeprecateActivityType.rawValue,
+                                    reporting: self.invocationsReporting.undeprecateActivityType)
     }
 
     /**
-     Invokes the UndeprecateActivityType operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UndeprecateActivityTypeInput object being passed to this operation.
-     - Throws: operationNotPermitted, typeAlreadyExists, unknownResource.
-     */
-    public func undeprecateActivityTypeSync(
-            input: SimpleWorkflowModel.UndeprecateActivityTypeInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.undeprecateActivityType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.undeprecateActivityType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UndeprecateActivityTypeOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the UndeprecateDomain operation returning immediately and passing the response to a callback.
+     Invokes the UndeprecateDomain operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UndeprecateDomainInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: domainAlreadyExists, operationNotPermitted, unknownResource.
      */
-    public func undeprecateDomainAsync(
-            input: SimpleWorkflowModel.UndeprecateDomainInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.undeprecateDomain.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.undeprecateDomain,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UndeprecateDomainOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func undeprecateDomain(
+            input: SimpleWorkflowModel.UndeprecateDomainInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: UndeprecateDomainOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.undeprecateDomain.rawValue,
+                                    reporting: self.invocationsReporting.undeprecateDomain)
     }
 
     /**
-     Invokes the UndeprecateDomain operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UndeprecateDomainInput object being passed to this operation.
-     - Throws: domainAlreadyExists, operationNotPermitted, unknownResource.
-     */
-    public func undeprecateDomainSync(
-            input: SimpleWorkflowModel.UndeprecateDomainInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.undeprecateDomain.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.undeprecateDomain,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UndeprecateDomainOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the UndeprecateWorkflowType operation returning immediately and passing the response to a callback.
+     Invokes the UndeprecateWorkflowType operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UndeprecateWorkflowTypeInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: operationNotPermitted, typeAlreadyExists, unknownResource.
      */
-    public func undeprecateWorkflowTypeAsync(
-            input: SimpleWorkflowModel.UndeprecateWorkflowTypeInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.undeprecateWorkflowType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.undeprecateWorkflowType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UndeprecateWorkflowTypeOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+    public func undeprecateWorkflowType(
+            input: SimpleWorkflowModel.UndeprecateWorkflowTypeInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: UndeprecateWorkflowTypeOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.undeprecateWorkflowType.rawValue,
+                                    reporting: self.invocationsReporting.undeprecateWorkflowType)
     }
 
     /**
-     Invokes the UndeprecateWorkflowType operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UndeprecateWorkflowTypeInput object being passed to this operation.
-     - Throws: operationNotPermitted, typeAlreadyExists, unknownResource.
-     */
-    public func undeprecateWorkflowTypeSync(
-            input: SimpleWorkflowModel.UndeprecateWorkflowTypeInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.undeprecateWorkflowType.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.undeprecateWorkflowType,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UndeprecateWorkflowTypeOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
-    }
-
-    /**
-     Invokes the UntagResource operation returning immediately and passing the response to a callback.
+     Invokes the UntagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagResourceInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: limitExceeded, operationNotPermitted, unknownResource.
      */
-    public func untagResourceAsync(
-            input: SimpleWorkflowModel.UntagResourceInput, 
-            completion: @escaping (SimpleWorkflowError?) -> ()) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.untagResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.untagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UntagResourceOperationHTTPRequestInput(encodable: input)
-
-        _ = try httpClient.executeOperationAsyncRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
-            input: requestInput,
-            completion: completion,
-            invocationContext: invocationContext,
-            retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
-    }
-
-    /**
-     Invokes the UntagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UntagResourceInput object being passed to this operation.
-     - Throws: limitExceeded, operationNotPermitted, unknownResource.
-     */
-    public func untagResourceSync(
-            input: SimpleWorkflowModel.UntagResourceInput) throws {
-        let handlerDelegate = AWSClientInvocationDelegate(
-                    credentialsProvider: credentialsProvider,
-                    awsRegion: awsRegion,
-                    service: service,
-                    operation: SimpleWorkflowModelOperations.untagResource.rawValue,
-                    target: target)
-
-        let invocationContext = HTTPClientInvocationContext(reporting: self.invocationsReporting.untagResource,
-                                                            handlerDelegate: handlerDelegate)
-        let requestInput = UntagResourceOperationHTTPRequestInput(encodable: input)
-
-        do {
-            try httpClient.executeSyncRetriableWithoutOutput(
-                endpointPath: "/",
-                httpMethod: .POST,
-                input: requestInput,
-                invocationContext: invocationContext,
-                retryConfiguration: retryConfiguration,
-                retryOnError: retryOnErrorProvider)
-        } catch {
-            let typedError: SimpleWorkflowError = error.asTypedError()
-            throw typedError
-        }
+    public func untagResource(
+            input: SimpleWorkflowModel.UntagResourceInput) -> EventLoopFuture<Void> {
+        return executeWithoutOutput(httpClient: httpClient,
+                                    requestInput: UntagResourceOperationHTTPRequestInput(encodable: input),
+                                    operation: SimpleWorkflowModelOperations.untagResource.rawValue,
+                                    reporting: self.invocationsReporting.untagResource)
     }
 }

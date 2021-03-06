@@ -24,1002 +24,452 @@ import Foundation
 import SimpleNotificationModel
 import SmokeAWSCore
 import SmokeHTTPClient
+import NIO
 
 /**
  Client Protocol for the SimpleNotification service.
  */
 public protocol SimpleNotificationClientProtocol {
-    typealias AddPermissionSyncType = (
-            _ input: SimpleNotificationModel.AddPermissionInput) throws -> ()
-    typealias AddPermissionAsyncType = (
-            _ input: SimpleNotificationModel.AddPermissionInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias CheckIfPhoneNumberIsOptedOutSyncType = (
-            _ input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput) throws -> SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut
-    typealias CheckIfPhoneNumberIsOptedOutAsyncType = (
-            _ input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut, SimpleNotificationError>) -> ()) throws -> ()
-    typealias ConfirmSubscriptionSyncType = (
-            _ input: SimpleNotificationModel.ConfirmSubscriptionInput) throws -> SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription
-    typealias ConfirmSubscriptionAsyncType = (
-            _ input: SimpleNotificationModel.ConfirmSubscriptionInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription, SimpleNotificationError>) -> ()) throws -> ()
-    typealias CreatePlatformApplicationSyncType = (
-            _ input: SimpleNotificationModel.CreatePlatformApplicationInput) throws -> SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication
-    typealias CreatePlatformApplicationAsyncType = (
-            _ input: SimpleNotificationModel.CreatePlatformApplicationInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication, SimpleNotificationError>) -> ()) throws -> ()
-    typealias CreatePlatformEndpointSyncType = (
-            _ input: SimpleNotificationModel.CreatePlatformEndpointInput) throws -> SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint
-    typealias CreatePlatformEndpointAsyncType = (
-            _ input: SimpleNotificationModel.CreatePlatformEndpointInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint, SimpleNotificationError>) -> ()) throws -> ()
-    typealias CreateTopicSyncType = (
-            _ input: SimpleNotificationModel.CreateTopicInput) throws -> SimpleNotificationModel.CreateTopicResponseForCreateTopic
-    typealias CreateTopicAsyncType = (
-            _ input: SimpleNotificationModel.CreateTopicInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.CreateTopicResponseForCreateTopic, SimpleNotificationError>) -> ()) throws -> ()
-    typealias DeleteEndpointSyncType = (
-            _ input: SimpleNotificationModel.DeleteEndpointInput) throws -> ()
-    typealias DeleteEndpointAsyncType = (
-            _ input: SimpleNotificationModel.DeleteEndpointInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias DeletePlatformApplicationSyncType = (
-            _ input: SimpleNotificationModel.DeletePlatformApplicationInput) throws -> ()
-    typealias DeletePlatformApplicationAsyncType = (
-            _ input: SimpleNotificationModel.DeletePlatformApplicationInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias DeleteTopicSyncType = (
-            _ input: SimpleNotificationModel.DeleteTopicInput) throws -> ()
-    typealias DeleteTopicAsyncType = (
-            _ input: SimpleNotificationModel.DeleteTopicInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias GetEndpointAttributesSyncType = (
-            _ input: SimpleNotificationModel.GetEndpointAttributesInput) throws -> SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes
-    typealias GetEndpointAttributesAsyncType = (
-            _ input: SimpleNotificationModel.GetEndpointAttributesInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes, SimpleNotificationError>) -> ()) throws -> ()
-    typealias GetPlatformApplicationAttributesSyncType = (
-            _ input: SimpleNotificationModel.GetPlatformApplicationAttributesInput) throws -> SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes
-    typealias GetPlatformApplicationAttributesAsyncType = (
-            _ input: SimpleNotificationModel.GetPlatformApplicationAttributesInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes, SimpleNotificationError>) -> ()) throws -> ()
-    typealias GetSMSAttributesSyncType = (
-            _ input: SimpleNotificationModel.GetSMSAttributesInput) throws -> SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes
-    typealias GetSMSAttributesAsyncType = (
-            _ input: SimpleNotificationModel.GetSMSAttributesInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes, SimpleNotificationError>) -> ()) throws -> ()
-    typealias GetSubscriptionAttributesSyncType = (
-            _ input: SimpleNotificationModel.GetSubscriptionAttributesInput) throws -> SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes
-    typealias GetSubscriptionAttributesAsyncType = (
-            _ input: SimpleNotificationModel.GetSubscriptionAttributesInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes, SimpleNotificationError>) -> ()) throws -> ()
-    typealias GetTopicAttributesSyncType = (
-            _ input: SimpleNotificationModel.GetTopicAttributesInput) throws -> SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes
-    typealias GetTopicAttributesAsyncType = (
-            _ input: SimpleNotificationModel.GetTopicAttributesInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes, SimpleNotificationError>) -> ()) throws -> ()
-    typealias ListEndpointsByPlatformApplicationSyncType = (
-            _ input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput) throws -> SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication
-    typealias ListEndpointsByPlatformApplicationAsyncType = (
-            _ input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication, SimpleNotificationError>) -> ()) throws -> ()
-    typealias ListPhoneNumbersOptedOutSyncType = (
-            _ input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput) throws -> SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut
-    typealias ListPhoneNumbersOptedOutAsyncType = (
-            _ input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut, SimpleNotificationError>) -> ()) throws -> ()
-    typealias ListPlatformApplicationsSyncType = (
-            _ input: SimpleNotificationModel.ListPlatformApplicationsInput) throws -> SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications
-    typealias ListPlatformApplicationsAsyncType = (
-            _ input: SimpleNotificationModel.ListPlatformApplicationsInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications, SimpleNotificationError>) -> ()) throws -> ()
-    typealias ListSubscriptionsSyncType = (
-            _ input: SimpleNotificationModel.ListSubscriptionsInput) throws -> SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions
-    typealias ListSubscriptionsAsyncType = (
-            _ input: SimpleNotificationModel.ListSubscriptionsInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions, SimpleNotificationError>) -> ()) throws -> ()
-    typealias ListSubscriptionsByTopicSyncType = (
-            _ input: SimpleNotificationModel.ListSubscriptionsByTopicInput) throws -> SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic
-    typealias ListSubscriptionsByTopicAsyncType = (
-            _ input: SimpleNotificationModel.ListSubscriptionsByTopicInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic, SimpleNotificationError>) -> ()) throws -> ()
-    typealias ListTagsForResourceSyncType = (
-            _ input: SimpleNotificationModel.ListTagsForResourceRequest) throws -> SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource
-    typealias ListTagsForResourceAsyncType = (
-            _ input: SimpleNotificationModel.ListTagsForResourceRequest, 
-            _ completion: @escaping (Result<SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource, SimpleNotificationError>) -> ()) throws -> ()
-    typealias ListTopicsSyncType = (
-            _ input: SimpleNotificationModel.ListTopicsInput) throws -> SimpleNotificationModel.ListTopicsResponseForListTopics
-    typealias ListTopicsAsyncType = (
-            _ input: SimpleNotificationModel.ListTopicsInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.ListTopicsResponseForListTopics, SimpleNotificationError>) -> ()) throws -> ()
-    typealias OptInPhoneNumberSyncType = (
-            _ input: SimpleNotificationModel.OptInPhoneNumberInput) throws -> SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber
-    typealias OptInPhoneNumberAsyncType = (
-            _ input: SimpleNotificationModel.OptInPhoneNumberInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber, SimpleNotificationError>) -> ()) throws -> ()
-    typealias PublishSyncType = (
-            _ input: SimpleNotificationModel.PublishInput) throws -> SimpleNotificationModel.PublishResponseForPublish
-    typealias PublishAsyncType = (
-            _ input: SimpleNotificationModel.PublishInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.PublishResponseForPublish, SimpleNotificationError>) -> ()) throws -> ()
-    typealias RemovePermissionSyncType = (
-            _ input: SimpleNotificationModel.RemovePermissionInput) throws -> ()
-    typealias RemovePermissionAsyncType = (
-            _ input: SimpleNotificationModel.RemovePermissionInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias SetEndpointAttributesSyncType = (
-            _ input: SimpleNotificationModel.SetEndpointAttributesInput) throws -> ()
-    typealias SetEndpointAttributesAsyncType = (
-            _ input: SimpleNotificationModel.SetEndpointAttributesInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias SetPlatformApplicationAttributesSyncType = (
-            _ input: SimpleNotificationModel.SetPlatformApplicationAttributesInput) throws -> ()
-    typealias SetPlatformApplicationAttributesAsyncType = (
-            _ input: SimpleNotificationModel.SetPlatformApplicationAttributesInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias SetSMSAttributesSyncType = (
-            _ input: SimpleNotificationModel.SetSMSAttributesInput) throws -> SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes
-    typealias SetSMSAttributesAsyncType = (
-            _ input: SimpleNotificationModel.SetSMSAttributesInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes, SimpleNotificationError>) -> ()) throws -> ()
-    typealias SetSubscriptionAttributesSyncType = (
-            _ input: SimpleNotificationModel.SetSubscriptionAttributesInput) throws -> ()
-    typealias SetSubscriptionAttributesAsyncType = (
-            _ input: SimpleNotificationModel.SetSubscriptionAttributesInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias SetTopicAttributesSyncType = (
-            _ input: SimpleNotificationModel.SetTopicAttributesInput) throws -> ()
-    typealias SetTopicAttributesAsyncType = (
-            _ input: SimpleNotificationModel.SetTopicAttributesInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias SubscribeSyncType = (
-            _ input: SimpleNotificationModel.SubscribeInput) throws -> SimpleNotificationModel.SubscribeResponseForSubscribe
-    typealias SubscribeAsyncType = (
-            _ input: SimpleNotificationModel.SubscribeInput, 
-            _ completion: @escaping (Result<SimpleNotificationModel.SubscribeResponseForSubscribe, SimpleNotificationError>) -> ()) throws -> ()
-    typealias TagResourceSyncType = (
-            _ input: SimpleNotificationModel.TagResourceRequest) throws -> SimpleNotificationModel.TagResourceResponseForTagResource
-    typealias TagResourceAsyncType = (
-            _ input: SimpleNotificationModel.TagResourceRequest, 
-            _ completion: @escaping (Result<SimpleNotificationModel.TagResourceResponseForTagResource, SimpleNotificationError>) -> ()) throws -> ()
-    typealias UnsubscribeSyncType = (
-            _ input: SimpleNotificationModel.UnsubscribeInput) throws -> ()
-    typealias UnsubscribeAsyncType = (
-            _ input: SimpleNotificationModel.UnsubscribeInput, 
-            _ completion: @escaping (SimpleNotificationError?) -> ()) throws -> ()
-    typealias UntagResourceSyncType = (
-            _ input: SimpleNotificationModel.UntagResourceRequest) throws -> SimpleNotificationModel.UntagResourceResponseForUntagResource
-    typealias UntagResourceAsyncType = (
-            _ input: SimpleNotificationModel.UntagResourceRequest, 
-            _ completion: @escaping (Result<SimpleNotificationModel.UntagResourceResponseForUntagResource, SimpleNotificationError>) -> ()) throws -> ()
+    typealias AddPermissionEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.AddPermissionInput) -> EventLoopFuture<Void>
+    typealias CheckIfPhoneNumberIsOptedOutEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput) -> EventLoopFuture<SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut>
+    typealias ConfirmSubscriptionEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.ConfirmSubscriptionInput) -> EventLoopFuture<SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription>
+    typealias CreatePlatformApplicationEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.CreatePlatformApplicationInput) -> EventLoopFuture<SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication>
+    typealias CreatePlatformEndpointEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.CreatePlatformEndpointInput) -> EventLoopFuture<SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint>
+    typealias CreateTopicEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.CreateTopicInput) -> EventLoopFuture<SimpleNotificationModel.CreateTopicResponseForCreateTopic>
+    typealias DeleteEndpointEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.DeleteEndpointInput) -> EventLoopFuture<Void>
+    typealias DeletePlatformApplicationEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.DeletePlatformApplicationInput) -> EventLoopFuture<Void>
+    typealias DeleteTopicEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.DeleteTopicInput) -> EventLoopFuture<Void>
+    typealias GetEndpointAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.GetEndpointAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes>
+    typealias GetPlatformApplicationAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.GetPlatformApplicationAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes>
+    typealias GetSMSAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.GetSMSAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes>
+    typealias GetSubscriptionAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.GetSubscriptionAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes>
+    typealias GetTopicAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.GetTopicAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes>
+    typealias ListEndpointsByPlatformApplicationEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput) -> EventLoopFuture<SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication>
+    typealias ListPhoneNumbersOptedOutEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput) -> EventLoopFuture<SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut>
+    typealias ListPlatformApplicationsEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.ListPlatformApplicationsInput) -> EventLoopFuture<SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications>
+    typealias ListSubscriptionsEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.ListSubscriptionsInput) -> EventLoopFuture<SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions>
+    typealias ListSubscriptionsByTopicEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.ListSubscriptionsByTopicInput) -> EventLoopFuture<SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic>
+    typealias ListTagsForResourceEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.ListTagsForResourceRequest) -> EventLoopFuture<SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource>
+    typealias ListTopicsEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.ListTopicsInput) -> EventLoopFuture<SimpleNotificationModel.ListTopicsResponseForListTopics>
+    typealias OptInPhoneNumberEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.OptInPhoneNumberInput) -> EventLoopFuture<SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber>
+    typealias PublishEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.PublishInput) -> EventLoopFuture<SimpleNotificationModel.PublishResponseForPublish>
+    typealias RemovePermissionEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.RemovePermissionInput) -> EventLoopFuture<Void>
+    typealias SetEndpointAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.SetEndpointAttributesInput) -> EventLoopFuture<Void>
+    typealias SetPlatformApplicationAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.SetPlatformApplicationAttributesInput) -> EventLoopFuture<Void>
+    typealias SetSMSAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.SetSMSAttributesInput) -> EventLoopFuture<SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes>
+    typealias SetSubscriptionAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.SetSubscriptionAttributesInput) -> EventLoopFuture<Void>
+    typealias SetTopicAttributesEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.SetTopicAttributesInput) -> EventLoopFuture<Void>
+    typealias SubscribeEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.SubscribeInput) -> EventLoopFuture<SimpleNotificationModel.SubscribeResponseForSubscribe>
+    typealias TagResourceEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.TagResourceRequest) -> EventLoopFuture<SimpleNotificationModel.TagResourceResponseForTagResource>
+    typealias UnsubscribeEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.UnsubscribeInput) -> EventLoopFuture<Void>
+    typealias UntagResourceEventLoopFutureAsyncType = (
+            _ input: SimpleNotificationModel.UntagResourceRequest) -> EventLoopFuture<SimpleNotificationModel.UntagResourceResponseForUntagResource>
 
     /**
-     Invokes the AddPermission operation returning immediately and passing the response to a callback.
+     Invokes the AddPermission operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated AddPermissionInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func addPermissionAsync(
-            input: SimpleNotificationModel.AddPermissionInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func addPermission(
+            input: SimpleNotificationModel.AddPermissionInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the AddPermission operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated AddPermissionInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func addPermissionSync(
-            input: SimpleNotificationModel.AddPermissionInput) throws
-
-    /**
-     Invokes the CheckIfPhoneNumberIsOptedOut operation returning immediately and passing the response to a callback.
+     Invokes the CheckIfPhoneNumberIsOptedOut operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CheckIfPhoneNumberIsOptedOutInput object being passed to this operation.
-         - completion: The CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut object or an error will be passed to this 
-           callback when the operation is complete. The CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut
-           object will be validated before being returned to caller.
+     - Returns: A future to the CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    func checkIfPhoneNumberIsOptedOutAsync(
-            input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput, 
-            completion: @escaping (Result<SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut, SimpleNotificationError>) -> ()) throws
+    func checkIfPhoneNumberIsOptedOut(
+            input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput) -> EventLoopFuture<SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut>
 
     /**
-     Invokes the CheckIfPhoneNumberIsOptedOut operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CheckIfPhoneNumberIsOptedOutInput object being passed to this operation.
-     - Returns: The CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    func checkIfPhoneNumberIsOptedOutSync(
-            input: SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutInput) throws -> SimpleNotificationModel.CheckIfPhoneNumberIsOptedOutResponseForCheckIfPhoneNumberIsOptedOut
-
-    /**
-     Invokes the ConfirmSubscription operation returning immediately and passing the response to a callback.
+     Invokes the ConfirmSubscription operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ConfirmSubscriptionInput object being passed to this operation.
-         - completion: The ConfirmSubscriptionResponseForConfirmSubscription object or an error will be passed to this 
-           callback when the operation is complete. The ConfirmSubscriptionResponseForConfirmSubscription
-           object will be validated before being returned to caller.
+     - Returns: A future to the ConfirmSubscriptionResponseForConfirmSubscription object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, notFound, subscriptionLimitExceeded.
      */
-    func confirmSubscriptionAsync(
-            input: SimpleNotificationModel.ConfirmSubscriptionInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription, SimpleNotificationError>) -> ()) throws
+    func confirmSubscription(
+            input: SimpleNotificationModel.ConfirmSubscriptionInput) -> EventLoopFuture<SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription>
 
     /**
-     Invokes the ConfirmSubscription operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ConfirmSubscriptionInput object being passed to this operation.
-     - Returns: The ConfirmSubscriptionResponseForConfirmSubscription object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, notFound, subscriptionLimitExceeded.
-     */
-    func confirmSubscriptionSync(
-            input: SimpleNotificationModel.ConfirmSubscriptionInput) throws -> SimpleNotificationModel.ConfirmSubscriptionResponseForConfirmSubscription
-
-    /**
-     Invokes the CreatePlatformApplication operation returning immediately and passing the response to a callback.
+     Invokes the CreatePlatformApplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreatePlatformApplicationInput object being passed to this operation.
-         - completion: The CreatePlatformApplicationResponseForCreatePlatformApplication object or an error will be passed to this 
-           callback when the operation is complete. The CreatePlatformApplicationResponseForCreatePlatformApplication
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreatePlatformApplicationResponseForCreatePlatformApplication object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    func createPlatformApplicationAsync(
-            input: SimpleNotificationModel.CreatePlatformApplicationInput, 
-            completion: @escaping (Result<SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication, SimpleNotificationError>) -> ()) throws
+    func createPlatformApplication(
+            input: SimpleNotificationModel.CreatePlatformApplicationInput) -> EventLoopFuture<SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication>
 
     /**
-     Invokes the CreatePlatformApplication operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreatePlatformApplicationInput object being passed to this operation.
-     - Returns: The CreatePlatformApplicationResponseForCreatePlatformApplication object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    func createPlatformApplicationSync(
-            input: SimpleNotificationModel.CreatePlatformApplicationInput) throws -> SimpleNotificationModel.CreatePlatformApplicationResponseForCreatePlatformApplication
-
-    /**
-     Invokes the CreatePlatformEndpoint operation returning immediately and passing the response to a callback.
+     Invokes the CreatePlatformEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreatePlatformEndpointInput object being passed to this operation.
-         - completion: The CreateEndpointResponseForCreatePlatformEndpoint object or an error will be passed to this 
-           callback when the operation is complete. The CreateEndpointResponseForCreatePlatformEndpoint
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateEndpointResponseForCreatePlatformEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func createPlatformEndpointAsync(
-            input: SimpleNotificationModel.CreatePlatformEndpointInput, 
-            completion: @escaping (Result<SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint, SimpleNotificationError>) -> ()) throws
+    func createPlatformEndpoint(
+            input: SimpleNotificationModel.CreatePlatformEndpointInput) -> EventLoopFuture<SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint>
 
     /**
-     Invokes the CreatePlatformEndpoint operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreatePlatformEndpointInput object being passed to this operation.
-     - Returns: The CreateEndpointResponseForCreatePlatformEndpoint object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func createPlatformEndpointSync(
-            input: SimpleNotificationModel.CreatePlatformEndpointInput) throws -> SimpleNotificationModel.CreateEndpointResponseForCreatePlatformEndpoint
-
-    /**
-     Invokes the CreateTopic operation returning immediately and passing the response to a callback.
+     Invokes the CreateTopic operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated CreateTopicInput object being passed to this operation.
-         - completion: The CreateTopicResponseForCreateTopic object or an error will be passed to this 
-           callback when the operation is complete. The CreateTopicResponseForCreateTopic
-           object will be validated before being returned to caller.
+     - Returns: A future to the CreateTopicResponseForCreateTopic object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, concurrentAccess, internalError, invalidParameter, invalidSecurity, staleTag, tagLimitExceeded, tagPolicy, topicLimitExceeded.
      */
-    func createTopicAsync(
-            input: SimpleNotificationModel.CreateTopicInput, 
-            completion: @escaping (Result<SimpleNotificationModel.CreateTopicResponseForCreateTopic, SimpleNotificationError>) -> ()) throws
+    func createTopic(
+            input: SimpleNotificationModel.CreateTopicInput) -> EventLoopFuture<SimpleNotificationModel.CreateTopicResponseForCreateTopic>
 
     /**
-     Invokes the CreateTopic operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated CreateTopicInput object being passed to this operation.
-     - Returns: The CreateTopicResponseForCreateTopic object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, concurrentAccess, internalError, invalidParameter, invalidSecurity, staleTag, tagLimitExceeded, tagPolicy, topicLimitExceeded.
-     */
-    func createTopicSync(
-            input: SimpleNotificationModel.CreateTopicInput) throws -> SimpleNotificationModel.CreateTopicResponseForCreateTopic
-
-    /**
-     Invokes the DeleteEndpoint operation returning immediately and passing the response to a callback.
+     Invokes the DeleteEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteEndpointInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    func deleteEndpointAsync(
-            input: SimpleNotificationModel.DeleteEndpointInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func deleteEndpoint(
+            input: SimpleNotificationModel.DeleteEndpointInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteEndpoint operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteEndpointInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    func deleteEndpointSync(
-            input: SimpleNotificationModel.DeleteEndpointInput) throws
-
-    /**
-     Invokes the DeletePlatformApplication operation returning immediately and passing the response to a callback.
+     Invokes the DeletePlatformApplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeletePlatformApplicationInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    func deletePlatformApplicationAsync(
-            input: SimpleNotificationModel.DeletePlatformApplicationInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func deletePlatformApplication(
+            input: SimpleNotificationModel.DeletePlatformApplicationInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeletePlatformApplication operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeletePlatformApplicationInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    func deletePlatformApplicationSync(
-            input: SimpleNotificationModel.DeletePlatformApplicationInput) throws
-
-    /**
-     Invokes the DeleteTopic operation returning immediately and passing the response to a callback.
+     Invokes the DeleteTopic operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated DeleteTopicInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, concurrentAccess, internalError, invalidParameter, notFound, staleTag, tagPolicy.
      */
-    func deleteTopicAsync(
-            input: SimpleNotificationModel.DeleteTopicInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func deleteTopic(
+            input: SimpleNotificationModel.DeleteTopicInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the DeleteTopic operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated DeleteTopicInput object being passed to this operation.
-     - Throws: authorizationError, concurrentAccess, internalError, invalidParameter, notFound, staleTag, tagPolicy.
-     */
-    func deleteTopicSync(
-            input: SimpleNotificationModel.DeleteTopicInput) throws
-
-    /**
-     Invokes the GetEndpointAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetEndpointAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetEndpointAttributesInput object being passed to this operation.
-         - completion: The GetEndpointAttributesResponseForGetEndpointAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetEndpointAttributesResponseForGetEndpointAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetEndpointAttributesResponseForGetEndpointAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func getEndpointAttributesAsync(
-            input: SimpleNotificationModel.GetEndpointAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes, SimpleNotificationError>) -> ()) throws
+    func getEndpointAttributes(
+            input: SimpleNotificationModel.GetEndpointAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes>
 
     /**
-     Invokes the GetEndpointAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetEndpointAttributesInput object being passed to this operation.
-     - Returns: The GetEndpointAttributesResponseForGetEndpointAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func getEndpointAttributesSync(
-            input: SimpleNotificationModel.GetEndpointAttributesInput) throws -> SimpleNotificationModel.GetEndpointAttributesResponseForGetEndpointAttributes
-
-    /**
-     Invokes the GetPlatformApplicationAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetPlatformApplicationAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetPlatformApplicationAttributesInput object being passed to this operation.
-         - completion: The GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func getPlatformApplicationAttributesAsync(
-            input: SimpleNotificationModel.GetPlatformApplicationAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes, SimpleNotificationError>) -> ()) throws
+    func getPlatformApplicationAttributes(
+            input: SimpleNotificationModel.GetPlatformApplicationAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes>
 
     /**
-     Invokes the GetPlatformApplicationAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetPlatformApplicationAttributesInput object being passed to this operation.
-     - Returns: The GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func getPlatformApplicationAttributesSync(
-            input: SimpleNotificationModel.GetPlatformApplicationAttributesInput) throws -> SimpleNotificationModel.GetPlatformApplicationAttributesResponseForGetPlatformApplicationAttributes
-
-    /**
-     Invokes the GetSMSAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetSMSAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetSMSAttributesInput object being passed to this operation.
-         - completion: The GetSMSAttributesResponseForGetSMSAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetSMSAttributesResponseForGetSMSAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetSMSAttributesResponseForGetSMSAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    func getSMSAttributesAsync(
-            input: SimpleNotificationModel.GetSMSAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes, SimpleNotificationError>) -> ()) throws
+    func getSMSAttributes(
+            input: SimpleNotificationModel.GetSMSAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes>
 
     /**
-     Invokes the GetSMSAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetSMSAttributesInput object being passed to this operation.
-     - Returns: The GetSMSAttributesResponseForGetSMSAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    func getSMSAttributesSync(
-            input: SimpleNotificationModel.GetSMSAttributesInput) throws -> SimpleNotificationModel.GetSMSAttributesResponseForGetSMSAttributes
-
-    /**
-     Invokes the GetSubscriptionAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetSubscriptionAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetSubscriptionAttributesInput object being passed to this operation.
-         - completion: The GetSubscriptionAttributesResponseForGetSubscriptionAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetSubscriptionAttributesResponseForGetSubscriptionAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetSubscriptionAttributesResponseForGetSubscriptionAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func getSubscriptionAttributesAsync(
-            input: SimpleNotificationModel.GetSubscriptionAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes, SimpleNotificationError>) -> ()) throws
+    func getSubscriptionAttributes(
+            input: SimpleNotificationModel.GetSubscriptionAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes>
 
     /**
-     Invokes the GetSubscriptionAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetSubscriptionAttributesInput object being passed to this operation.
-     - Returns: The GetSubscriptionAttributesResponseForGetSubscriptionAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func getSubscriptionAttributesSync(
-            input: SimpleNotificationModel.GetSubscriptionAttributesInput) throws -> SimpleNotificationModel.GetSubscriptionAttributesResponseForGetSubscriptionAttributes
-
-    /**
-     Invokes the GetTopicAttributes operation returning immediately and passing the response to a callback.
+     Invokes the GetTopicAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated GetTopicAttributesInput object being passed to this operation.
-         - completion: The GetTopicAttributesResponseForGetTopicAttributes object or an error will be passed to this 
-           callback when the operation is complete. The GetTopicAttributesResponseForGetTopicAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the GetTopicAttributesResponseForGetTopicAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
      */
-    func getTopicAttributesAsync(
-            input: SimpleNotificationModel.GetTopicAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes, SimpleNotificationError>) -> ()) throws
+    func getTopicAttributes(
+            input: SimpleNotificationModel.GetTopicAttributesInput) -> EventLoopFuture<SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes>
 
     /**
-     Invokes the GetTopicAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated GetTopicAttributesInput object being passed to this operation.
-     - Returns: The GetTopicAttributesResponseForGetTopicAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
-     */
-    func getTopicAttributesSync(
-            input: SimpleNotificationModel.GetTopicAttributesInput) throws -> SimpleNotificationModel.GetTopicAttributesResponseForGetTopicAttributes
-
-    /**
-     Invokes the ListEndpointsByPlatformApplication operation returning immediately and passing the response to a callback.
+     Invokes the ListEndpointsByPlatformApplication operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListEndpointsByPlatformApplicationInput object being passed to this operation.
-         - completion: The ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication object or an error will be passed to this 
-           callback when the operation is complete. The ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func listEndpointsByPlatformApplicationAsync(
-            input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication, SimpleNotificationError>) -> ()) throws
+    func listEndpointsByPlatformApplication(
+            input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput) -> EventLoopFuture<SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication>
 
     /**
-     Invokes the ListEndpointsByPlatformApplication operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListEndpointsByPlatformApplicationInput object being passed to this operation.
-     - Returns: The ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func listEndpointsByPlatformApplicationSync(
-            input: SimpleNotificationModel.ListEndpointsByPlatformApplicationInput) throws -> SimpleNotificationModel.ListEndpointsByPlatformApplicationResponseForListEndpointsByPlatformApplication
-
-    /**
-     Invokes the ListPhoneNumbersOptedOut operation returning immediately and passing the response to a callback.
+     Invokes the ListPhoneNumbersOptedOut operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListPhoneNumbersOptedOutInput object being passed to this operation.
-         - completion: The ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut object or an error will be passed to this 
-           callback when the operation is complete. The ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    func listPhoneNumbersOptedOutAsync(
-            input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut, SimpleNotificationError>) -> ()) throws
+    func listPhoneNumbersOptedOut(
+            input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput) -> EventLoopFuture<SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut>
 
     /**
-     Invokes the ListPhoneNumbersOptedOut operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListPhoneNumbersOptedOutInput object being passed to this operation.
-     - Returns: The ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    func listPhoneNumbersOptedOutSync(
-            input: SimpleNotificationModel.ListPhoneNumbersOptedOutInput) throws -> SimpleNotificationModel.ListPhoneNumbersOptedOutResponseForListPhoneNumbersOptedOut
-
-    /**
-     Invokes the ListPlatformApplications operation returning immediately and passing the response to a callback.
+     Invokes the ListPlatformApplications operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListPlatformApplicationsInput object being passed to this operation.
-         - completion: The ListPlatformApplicationsResponseForListPlatformApplications object or an error will be passed to this 
-           callback when the operation is complete. The ListPlatformApplicationsResponseForListPlatformApplications
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListPlatformApplicationsResponseForListPlatformApplications object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    func listPlatformApplicationsAsync(
-            input: SimpleNotificationModel.ListPlatformApplicationsInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications, SimpleNotificationError>) -> ()) throws
+    func listPlatformApplications(
+            input: SimpleNotificationModel.ListPlatformApplicationsInput) -> EventLoopFuture<SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications>
 
     /**
-     Invokes the ListPlatformApplications operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListPlatformApplicationsInput object being passed to this operation.
-     - Returns: The ListPlatformApplicationsResponseForListPlatformApplications object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    func listPlatformApplicationsSync(
-            input: SimpleNotificationModel.ListPlatformApplicationsInput) throws -> SimpleNotificationModel.ListPlatformApplicationsResponseForListPlatformApplications
-
-    /**
-     Invokes the ListSubscriptions operation returning immediately and passing the response to a callback.
+     Invokes the ListSubscriptions operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListSubscriptionsInput object being passed to this operation.
-         - completion: The ListSubscriptionsResponseForListSubscriptions object or an error will be passed to this 
-           callback when the operation is complete. The ListSubscriptionsResponseForListSubscriptions
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListSubscriptionsResponseForListSubscriptions object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    func listSubscriptionsAsync(
-            input: SimpleNotificationModel.ListSubscriptionsInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions, SimpleNotificationError>) -> ()) throws
+    func listSubscriptions(
+            input: SimpleNotificationModel.ListSubscriptionsInput) -> EventLoopFuture<SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions>
 
     /**
-     Invokes the ListSubscriptions operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListSubscriptionsInput object being passed to this operation.
-     - Returns: The ListSubscriptionsResponseForListSubscriptions object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    func listSubscriptionsSync(
-            input: SimpleNotificationModel.ListSubscriptionsInput) throws -> SimpleNotificationModel.ListSubscriptionsResponseForListSubscriptions
-
-    /**
-     Invokes the ListSubscriptionsByTopic operation returning immediately and passing the response to a callback.
+     Invokes the ListSubscriptionsByTopic operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListSubscriptionsByTopicInput object being passed to this operation.
-         - completion: The ListSubscriptionsByTopicResponseForListSubscriptionsByTopic object or an error will be passed to this 
-           callback when the operation is complete. The ListSubscriptionsByTopicResponseForListSubscriptionsByTopic
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListSubscriptionsByTopicResponseForListSubscriptionsByTopic object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func listSubscriptionsByTopicAsync(
-            input: SimpleNotificationModel.ListSubscriptionsByTopicInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic, SimpleNotificationError>) -> ()) throws
+    func listSubscriptionsByTopic(
+            input: SimpleNotificationModel.ListSubscriptionsByTopicInput) -> EventLoopFuture<SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic>
 
     /**
-     Invokes the ListSubscriptionsByTopic operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListSubscriptionsByTopicInput object being passed to this operation.
-     - Returns: The ListSubscriptionsByTopicResponseForListSubscriptionsByTopic object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func listSubscriptionsByTopicSync(
-            input: SimpleNotificationModel.ListSubscriptionsByTopicInput) throws -> SimpleNotificationModel.ListSubscriptionsByTopicResponseForListSubscriptionsByTopic
-
-    /**
-     Invokes the ListTagsForResource operation returning immediately and passing the response to a callback.
+     Invokes the ListTagsForResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTagsForResourceRequest object being passed to this operation.
-         - completion: The ListTagsForResourceResponseForListTagsForResource object or an error will be passed to this 
-           callback when the operation is complete. The ListTagsForResourceResponseForListTagsForResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTagsForResourceResponseForListTagsForResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, tagPolicy.
      */
-    func listTagsForResourceAsync(
-            input: SimpleNotificationModel.ListTagsForResourceRequest, 
-            completion: @escaping (Result<SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource, SimpleNotificationError>) -> ()) throws
+    func listTagsForResource(
+            input: SimpleNotificationModel.ListTagsForResourceRequest) -> EventLoopFuture<SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource>
 
     /**
-     Invokes the ListTagsForResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTagsForResourceRequest object being passed to this operation.
-     - Returns: The ListTagsForResourceResponseForListTagsForResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, tagPolicy.
-     */
-    func listTagsForResourceSync(
-            input: SimpleNotificationModel.ListTagsForResourceRequest) throws -> SimpleNotificationModel.ListTagsForResourceResponseForListTagsForResource
-
-    /**
-     Invokes the ListTopics operation returning immediately and passing the response to a callback.
+     Invokes the ListTopics operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated ListTopicsInput object being passed to this operation.
-         - completion: The ListTopicsResponseForListTopics object or an error will be passed to this 
-           callback when the operation is complete. The ListTopicsResponseForListTopics
-           object will be validated before being returned to caller.
+     - Returns: A future to the ListTopicsResponseForListTopics object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter.
      */
-    func listTopicsAsync(
-            input: SimpleNotificationModel.ListTopicsInput, 
-            completion: @escaping (Result<SimpleNotificationModel.ListTopicsResponseForListTopics, SimpleNotificationError>) -> ()) throws
+    func listTopics(
+            input: SimpleNotificationModel.ListTopicsInput) -> EventLoopFuture<SimpleNotificationModel.ListTopicsResponseForListTopics>
 
     /**
-     Invokes the ListTopics operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated ListTopicsInput object being passed to this operation.
-     - Returns: The ListTopicsResponseForListTopics object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter.
-     */
-    func listTopicsSync(
-            input: SimpleNotificationModel.ListTopicsInput) throws -> SimpleNotificationModel.ListTopicsResponseForListTopics
-
-    /**
-     Invokes the OptInPhoneNumber operation returning immediately and passing the response to a callback.
+     Invokes the OptInPhoneNumber operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated OptInPhoneNumberInput object being passed to this operation.
-         - completion: The OptInPhoneNumberResponseForOptInPhoneNumber object or an error will be passed to this 
-           callback when the operation is complete. The OptInPhoneNumberResponseForOptInPhoneNumber
-           object will be validated before being returned to caller.
+     - Returns: A future to the OptInPhoneNumberResponseForOptInPhoneNumber object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    func optInPhoneNumberAsync(
-            input: SimpleNotificationModel.OptInPhoneNumberInput, 
-            completion: @escaping (Result<SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber, SimpleNotificationError>) -> ()) throws
+    func optInPhoneNumber(
+            input: SimpleNotificationModel.OptInPhoneNumberInput) -> EventLoopFuture<SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber>
 
     /**
-     Invokes the OptInPhoneNumber operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated OptInPhoneNumberInput object being passed to this operation.
-     - Returns: The OptInPhoneNumberResponseForOptInPhoneNumber object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    func optInPhoneNumberSync(
-            input: SimpleNotificationModel.OptInPhoneNumberInput) throws -> SimpleNotificationModel.OptInPhoneNumberResponseForOptInPhoneNumber
-
-    /**
-     Invokes the Publish operation returning immediately and passing the response to a callback.
+     Invokes the Publish operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated PublishInput object being passed to this operation.
-         - completion: The PublishResponseForPublish object or an error will be passed to this 
-           callback when the operation is complete. The PublishResponseForPublish
-           object will be validated before being returned to caller.
+     - Returns: A future to the PublishResponseForPublish object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, endpointDisabled, internalError, invalidParameter, invalidParameterValue, invalidSecurity, kMSAccessDenied, kMSDisabled, kMSInvalidState, kMSNotFound, kMSOptInRequired, kMSThrottling, notFound, platformApplicationDisabled.
      */
-    func publishAsync(
-            input: SimpleNotificationModel.PublishInput, 
-            completion: @escaping (Result<SimpleNotificationModel.PublishResponseForPublish, SimpleNotificationError>) -> ()) throws
+    func publish(
+            input: SimpleNotificationModel.PublishInput) -> EventLoopFuture<SimpleNotificationModel.PublishResponseForPublish>
 
     /**
-     Invokes the Publish operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated PublishInput object being passed to this operation.
-     - Returns: The PublishResponseForPublish object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, endpointDisabled, internalError, invalidParameter, invalidParameterValue, invalidSecurity, kMSAccessDenied, kMSDisabled, kMSInvalidState, kMSNotFound, kMSOptInRequired, kMSThrottling, notFound, platformApplicationDisabled.
-     */
-    func publishSync(
-            input: SimpleNotificationModel.PublishInput) throws -> SimpleNotificationModel.PublishResponseForPublish
-
-    /**
-     Invokes the RemovePermission operation returning immediately and passing the response to a callback.
+     Invokes the RemovePermission operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated RemovePermissionInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func removePermissionAsync(
-            input: SimpleNotificationModel.RemovePermissionInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func removePermission(
+            input: SimpleNotificationModel.RemovePermissionInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the RemovePermission operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated RemovePermissionInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func removePermissionSync(
-            input: SimpleNotificationModel.RemovePermissionInput) throws
-
-    /**
-     Invokes the SetEndpointAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetEndpointAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetEndpointAttributesInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func setEndpointAttributesAsync(
-            input: SimpleNotificationModel.SetEndpointAttributesInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func setEndpointAttributes(
+            input: SimpleNotificationModel.SetEndpointAttributesInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the SetEndpointAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetEndpointAttributesInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func setEndpointAttributesSync(
-            input: SimpleNotificationModel.SetEndpointAttributesInput) throws
-
-    /**
-     Invokes the SetPlatformApplicationAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetPlatformApplicationAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetPlatformApplicationAttributesInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, notFound.
      */
-    func setPlatformApplicationAttributesAsync(
-            input: SimpleNotificationModel.SetPlatformApplicationAttributesInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func setPlatformApplicationAttributes(
+            input: SimpleNotificationModel.SetPlatformApplicationAttributesInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the SetPlatformApplicationAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetPlatformApplicationAttributesInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, notFound.
-     */
-    func setPlatformApplicationAttributesSync(
-            input: SimpleNotificationModel.SetPlatformApplicationAttributesInput) throws
-
-    /**
-     Invokes the SetSMSAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetSMSAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetSMSAttributesInput object being passed to this operation.
-         - completion: The SetSMSAttributesResponseForSetSMSAttributes object or an error will be passed to this 
-           callback when the operation is complete. The SetSMSAttributesResponseForSetSMSAttributes
-           object will be validated before being returned to caller.
+     - Returns: A future to the SetSMSAttributesResponseForSetSMSAttributes object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, internalError, invalidParameter, throttled.
      */
-    func setSMSAttributesAsync(
-            input: SimpleNotificationModel.SetSMSAttributesInput, 
-            completion: @escaping (Result<SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes, SimpleNotificationError>) -> ()) throws
+    func setSMSAttributes(
+            input: SimpleNotificationModel.SetSMSAttributesInput) -> EventLoopFuture<SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes>
 
     /**
-     Invokes the SetSMSAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetSMSAttributesInput object being passed to this operation.
-     - Returns: The SetSMSAttributesResponseForSetSMSAttributes object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, internalError, invalidParameter, throttled.
-     */
-    func setSMSAttributesSync(
-            input: SimpleNotificationModel.SetSMSAttributesInput) throws -> SimpleNotificationModel.SetSMSAttributesResponseForSetSMSAttributes
-
-    /**
-     Invokes the SetSubscriptionAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetSubscriptionAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetSubscriptionAttributesInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, notFound.
      */
-    func setSubscriptionAttributesAsync(
-            input: SimpleNotificationModel.SetSubscriptionAttributesInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func setSubscriptionAttributes(
+            input: SimpleNotificationModel.SetSubscriptionAttributesInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the SetSubscriptionAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetSubscriptionAttributesInput object being passed to this operation.
-     - Throws: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, notFound.
-     */
-    func setSubscriptionAttributesSync(
-            input: SimpleNotificationModel.SetSubscriptionAttributesInput) throws
-
-    /**
-     Invokes the SetTopicAttributes operation returning immediately and passing the response to a callback.
+     Invokes the SetTopicAttributes operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SetTopicAttributesInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
      */
-    func setTopicAttributesAsync(
-            input: SimpleNotificationModel.SetTopicAttributesInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func setTopicAttributes(
+            input: SimpleNotificationModel.SetTopicAttributesInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the SetTopicAttributes operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SetTopicAttributesInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
-     */
-    func setTopicAttributesSync(
-            input: SimpleNotificationModel.SetTopicAttributesInput) throws
-
-    /**
-     Invokes the Subscribe operation returning immediately and passing the response to a callback.
+     Invokes the Subscribe operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated SubscribeInput object being passed to this operation.
-         - completion: The SubscribeResponseForSubscribe object or an error will be passed to this 
-           callback when the operation is complete. The SubscribeResponseForSubscribe
-           object will be validated before being returned to caller.
+     - Returns: A future to the SubscribeResponseForSubscribe object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, invalidSecurity, notFound, subscriptionLimitExceeded.
      */
-    func subscribeAsync(
-            input: SimpleNotificationModel.SubscribeInput, 
-            completion: @escaping (Result<SimpleNotificationModel.SubscribeResponseForSubscribe, SimpleNotificationError>) -> ()) throws
+    func subscribe(
+            input: SimpleNotificationModel.SubscribeInput) -> EventLoopFuture<SimpleNotificationModel.SubscribeResponseForSubscribe>
 
     /**
-     Invokes the Subscribe operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated SubscribeInput object being passed to this operation.
-     - Returns: The SubscribeResponseForSubscribe object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, filterPolicyLimitExceeded, internalError, invalidParameter, invalidSecurity, notFound, subscriptionLimitExceeded.
-     */
-    func subscribeSync(
-            input: SimpleNotificationModel.SubscribeInput) throws -> SimpleNotificationModel.SubscribeResponseForSubscribe
-
-    /**
-     Invokes the TagResource operation returning immediately and passing the response to a callback.
+     Invokes the TagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated TagResourceRequest object being passed to this operation.
-         - completion: The TagResourceResponseForTagResource object or an error will be passed to this 
-           callback when the operation is complete. The TagResourceResponseForTagResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the TagResourceResponseForTagResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, staleTag, tagLimitExceeded, tagPolicy.
      */
-    func tagResourceAsync(
-            input: SimpleNotificationModel.TagResourceRequest, 
-            completion: @escaping (Result<SimpleNotificationModel.TagResourceResponseForTagResource, SimpleNotificationError>) -> ()) throws
+    func tagResource(
+            input: SimpleNotificationModel.TagResourceRequest) -> EventLoopFuture<SimpleNotificationModel.TagResourceResponseForTagResource>
 
     /**
-     Invokes the TagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated TagResourceRequest object being passed to this operation.
-     - Returns: The TagResourceResponseForTagResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, staleTag, tagLimitExceeded, tagPolicy.
-     */
-    func tagResourceSync(
-            input: SimpleNotificationModel.TagResourceRequest) throws -> SimpleNotificationModel.TagResourceResponseForTagResource
-
-    /**
-     Invokes the Unsubscribe operation returning immediately and passing the response to a callback.
+     Invokes the Unsubscribe operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UnsubscribeInput object being passed to this operation.
-         - completion: Nil or an error will be passed to this callback when the operation
-           is complete.
            The possible errors are: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
      */
-    func unsubscribeAsync(
-            input: SimpleNotificationModel.UnsubscribeInput, 
-            completion: @escaping (SimpleNotificationError?) -> ()) throws
+    func unsubscribe(
+            input: SimpleNotificationModel.UnsubscribeInput) -> EventLoopFuture<Void>
 
     /**
-     Invokes the Unsubscribe operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UnsubscribeInput object being passed to this operation.
-     - Throws: authorizationError, internalError, invalidParameter, invalidSecurity, notFound.
-     */
-    func unsubscribeSync(
-            input: SimpleNotificationModel.UnsubscribeInput) throws
-
-    /**
-     Invokes the UntagResource operation returning immediately and passing the response to a callback.
+     Invokes the UntagResource operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
          - input: The validated UntagResourceRequest object being passed to this operation.
-         - completion: The UntagResourceResponseForUntagResource object or an error will be passed to this 
-           callback when the operation is complete. The UntagResourceResponseForUntagResource
-           object will be validated before being returned to caller.
+     - Returns: A future to the UntagResourceResponseForUntagResource object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
            The possible errors are: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, staleTag, tagLimitExceeded, tagPolicy.
      */
-    func untagResourceAsync(
-            input: SimpleNotificationModel.UntagResourceRequest, 
-            completion: @escaping (Result<SimpleNotificationModel.UntagResourceResponseForUntagResource, SimpleNotificationError>) -> ()) throws
-
-    /**
-     Invokes the UntagResource operation waiting for the response before returning.
-
-     - Parameters:
-         - input: The validated UntagResourceRequest object being passed to this operation.
-     - Returns: The UntagResourceResponseForUntagResource object to be passed back from the caller of this operation.
-         Will be validated before being returned to caller.
-     - Throws: authorizationError, concurrentAccess, invalidParameter, resourceNotFound, staleTag, tagLimitExceeded, tagPolicy.
-     */
-    func untagResourceSync(
-            input: SimpleNotificationModel.UntagResourceRequest) throws -> SimpleNotificationModel.UntagResourceResponseForUntagResource
+    func untagResource(
+            input: SimpleNotificationModel.UntagResourceRequest) -> EventLoopFuture<SimpleNotificationModel.UntagResourceResponseForUntagResource>
 }
