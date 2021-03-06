@@ -18,6 +18,7 @@
 import Foundation
 import SmokeHTTPClient
 import SmokeAWSCore
+import NIO
 
 /**
  Retrieves objects from an S3 bucket.
@@ -28,15 +29,7 @@ public protocol S3ObjectProtocol {
      Gets an object from the S3 bucket, returning the decoded response in the
      completion handler.
      */
-    func getAsync<OutputType: Codable, InvocationReportingType: HTTPClientCoreInvocationReporting>(
+    func get<OutputType: Codable, InvocationReportingType: HTTPClientCoreInvocationReporting>(
         objectPath: String,
-        reporting: InvocationReportingType,
-        completion: @escaping (Result<OutputType, HTTPClientError>) -> ()) throws
-
-    /**
-     Gets an object from the S3 bucket, returning the decoded response.
-     */
-    func getSync<OutputType: Codable, InvocationReportingType: HTTPClientCoreInvocationReporting>(
-        objectPath: String,
-        reporting: InvocationReportingType) throws -> OutputType
+        reporting: InvocationReportingType) -> EventLoopFuture<OutputType>
 }

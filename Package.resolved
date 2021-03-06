@@ -14,9 +14,9 @@
         "package": "smoke-http",
         "repositoryURL": "https://github.com/amzn/smoke-http.git",
         "state": {
-          "branch": null,
-          "revision": "6619fe6f8e56a85d9a7d9481c27afb2dc5688459",
-          "version": "2.7.0"
+          "branch": "event_loop_future",
+          "revision": "d5f8c184e519d6922dd7f42e59efdf4b568f2a1a",
+          "version": null
         }
       },
       {

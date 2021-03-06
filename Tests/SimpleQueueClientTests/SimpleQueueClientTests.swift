@@ -35,7 +35,8 @@ class SimpleQueueClientTests: XCTestCase {
                                                 body: errorResponse.data(using: .utf8)!)
         let clientDelegate = XMLAWSHttpClientDelegate<SimpleQueueError>(requiresTLS: true)
         let invocationReporting = StandardHTTPClientInvocationReporting(internalRequestId: "internalRequestId",
-                                                                        traceContext: MockInvocationTraceContext())
+                                                                        traceContext: MockInvocationTraceContext(),
+                                                                        eventLoop: nil)
         let error = try clientDelegate.getResponseError(response: response,
                                                         responseComponents: components,
                                                         invocationReporting: invocationReporting)
@@ -70,7 +71,8 @@ class SimpleQueueClientTests: XCTestCase {
                                                 body: errorResponse.data(using: .utf8)!)
         let clientDelegate = DataAWSHttpClientDelegate<SimpleQueueError>(requiresTLS: true)
         let invocationReporting = StandardHTTPClientInvocationReporting(internalRequestId: "internalRequestId",
-                                                                        traceContext: MockInvocationTraceContext())
+                                                                        traceContext: MockInvocationTraceContext(),
+                                                                        eventLoop: nil)
         let error = try clientDelegate.getResponseError(response: response,
                                                         responseComponents: components,
                                                         invocationReporting: invocationReporting)

@@ -33,7 +33,8 @@ class SimpleNotificationClientTests: XCTestCase {
                                                 body: errorResponse.data(using: .utf8)!)
         let clientDelegate = XMLAWSHttpClientDelegate<SimpleNotificationError>(requiresTLS: true)
         let invocationReporting = StandardHTTPClientInvocationReporting(internalRequestId: "internalRequestId",
-                                                                        traceContext: MockInvocationTraceContext())
+                                                                        traceContext: MockInvocationTraceContext(),
+                                                                        eventLoop: nil)
         let error = try clientDelegate.getResponseError(response: response,
                                                         responseComponents: components,
                                                         invocationReporting: invocationReporting)
@@ -66,7 +67,8 @@ class SimpleNotificationClientTests: XCTestCase {
                                                 body: errorResponse.data(using: .utf8)!)
         let clientDelegate = DataAWSHttpClientDelegate<SimpleNotificationError>(requiresTLS: true)
         let invocationReporting = StandardHTTPClientInvocationReporting(internalRequestId: "internalRequestId",
-                                                                        traceContext: MockInvocationTraceContext())
+                                                                        traceContext: MockInvocationTraceContext(),
+                                                                        eventLoop: nil)
         let error = try clientDelegate.getResponseError(response: response,
                                                         responseComponents: components,
                                                         invocationReporting: invocationReporting)
@@ -97,7 +99,8 @@ class SimpleNotificationClientTests: XCTestCase {
                                                 body: errorResponse.data(using: .utf8)!)
         let clientDelegate = DataAWSHttpClientDelegate<SimpleNotificationError>(requiresTLS: true)
         let invocationReporting = StandardHTTPClientInvocationReporting(internalRequestId: "internalRequestId",
-                                                                        traceContext: MockInvocationTraceContext())
+                                                                        traceContext: MockInvocationTraceContext(),
+                                                                        eventLoop: nil)
         let error = try clientDelegate.getResponseError(response: response,
                                                         responseComponents: components,
                                                         invocationReporting: invocationReporting)

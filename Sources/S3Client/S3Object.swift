@@ -101,19 +101,9 @@ public struct S3Object: S3ObjectProtocol {
      Gets an object from the S3 bucket, returning the decoded response in the
      completion handler.
      */
-    public func getAsync<OutputType: Codable, InvocationReportingType: HTTPClientCoreInvocationReporting>(
+    public func get<OutputType: Codable, InvocationReportingType: HTTPClientCoreInvocationReporting>(
             objectPath: String,
-            reporting: InvocationReportingType,
-            completion: @escaping (Result<OutputType, HTTPClientError>) -> ()) throws {
-        func innerCompletion(result: Result<BodyHTTPRequestOutput<OutputType>, HTTPClientError>) {
-            switch result {
-            case .success(let result):
-                completion(.success(result.body))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-        
+            reporting: InvocationReportingType) -> EventLoopFuture<OutputType> {
         // make sure the object path is submitted starting with a "/"
         let fullEndpointPath: String
         if let first = objectPath.first, first == "/" {
@@ -125,36 +115,13 @@ public struct S3Object: S3ObjectProtocol {
         let httpClientInvocationReporting = SmokeAWSHTTPClientInvocationReporting(smokeAWSInvocationReporting: reporting,
                                                                                   smokeAWSOperationReporting: getOperationReporting)
         let invocationContext = HTTPClientInvocationContext(reporting: httpClientInvocationReporting, handlerDelegate: handlerDelegate)
-        _ = try httpClient.executeAsyncWithOutput(
+        
+        return httpClient.executeAsEventLoopFutureWithOutput(
             endpointPath: fullEndpointPath,
             httpMethod: .GET,
             input: NoHTTPRequestInput(),
-            completion: innerCompletion,
-            invocationContext: invocationContext)
-    }
-
-    /**
-     Gets an object from the S3 bucket, returning the decoded response.
-     */
-    public func getSync<OutputType: Codable, InvocationReportingType: HTTPClientCoreInvocationReporting  >(objectPath: String, reporting: InvocationReportingType) throws -> OutputType {
-        // make sure the object path is submitted starting with a "/"
-        let fullEndpointPath: String
-        if let first = objectPath.first, first == "/" {
-            fullEndpointPath = objectPath
-        } else {
-            fullEndpointPath = "/" + objectPath
-        }
-        
-        let httpClientInvocationReporting = SmokeAWSHTTPClientInvocationReporting(smokeAWSInvocationReporting: reporting,
-                                                                                  smokeAWSOperationReporting: getOperationReporting)
-        let invocationContext = HTTPClientInvocationContext(reporting: httpClientInvocationReporting, handlerDelegate: handlerDelegate)
-        let responseOutput: BodyHTTPRequestOutput<OutputType> =
-            try httpClient.executeSyncWithOutput(
-                endpointPath: fullEndpointPath,
-                httpMethod: .GET,
-                input: NoHTTPRequestInput(),
-                invocationContext: invocationContext)
-        
-        return responseOutput.body
+            invocationContext: invocationContext).map { (result: BodyHTTPRequestOutput<OutputType>) in
+                return result.body
+            }
     }
 }
