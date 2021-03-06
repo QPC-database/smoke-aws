@@ -81,7 +81,7 @@ public struct AWSClientHelper {
                     return MultiThreadedEventLoopGroup(numberOfThreads: 1)
                 }
             #else
-                self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+                return MultiThreadedEventLoopGroup(numberOfThreads: 1)
             #endif
         }
     }
