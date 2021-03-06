@@ -51,6 +51,8 @@ public struct AWSStepFunctionsClientGenerator {
     let retryConfiguration: HTTPClientRetryConfiguration
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
+    
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
 
     let operationsReporting: StepFunctionsOperationsReporting
     
@@ -80,6 +82,7 @@ public struct AWSStepFunctionsClientGenerator {
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.operationsReporting = StepFunctionsOperationsReporting(clientName: "AWSStepFunctionsClient", reportingConfiguration: reportingConfiguration)
@@ -102,6 +105,7 @@ public struct AWSStepFunctionsClientGenerator {
             httpClient: self.httpClient,
             service: self.service,
             target: self.target,
+            eventLoopProvider: self.eventLoopProvider,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)
@@ -110,22 +114,26 @@ public struct AWSStepFunctionsClientGenerator {
     public func with<NewTraceContextType: InvocationTraceContext>(
             logger: Logging.Logger,
             internalRequestId: String = "none",
-            traceContext: NewTraceContextType) -> AWSStepFunctionsClient<StandardHTTPClientCoreInvocationReporting<NewTraceContextType>> {
+            traceContext: NewTraceContextType,
+            eventLoop: EventLoop? = nil) -> AWSStepFunctionsClient<StandardHTTPClientCoreInvocationReporting<NewTraceContextType>> {
         let reporting = StandardHTTPClientCoreInvocationReporting(
             logger: logger,
             internalRequestId: internalRequestId,
-            traceContext: traceContext)
+            traceContext: traceContext,
+            eventLoop: eventLoop)
         
         return with(reporting: reporting)
     }
     
     public func with(
             logger: Logging.Logger,
-            internalRequestId: String = "none") -> AWSStepFunctionsClient<StandardHTTPClientCoreInvocationReporting<AWSClientInvocationTraceContext>> {
+            internalRequestId: String = "none",
+            eventLoop: EventLoop? = nil) -> AWSStepFunctionsClient<StandardHTTPClientCoreInvocationReporting<AWSClientInvocationTraceContext>> {
         let reporting = StandardHTTPClientCoreInvocationReporting(
             logger: logger,
             internalRequestId: internalRequestId,
-            traceContext: AWSClientInvocationTraceContext())
+            traceContext: AWSClientInvocationTraceContext(),
+            eventLoop: eventLoop)
         
         return with(reporting: reporting)
     }

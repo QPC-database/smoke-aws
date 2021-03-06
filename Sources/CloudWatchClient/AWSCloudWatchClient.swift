@@ -76,6 +76,7 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
     public let reporting: InvocationReportingType
 
     let operationsReporting: CloudWatchOperationsReporting
@@ -111,6 +112,7 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -124,6 +126,7 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
                 httpClient: HTTPOperationsClient,
                 service: String,
                 apiVersion: String,
+                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: CloudWatchOperationsReporting) {
@@ -133,6 +136,7 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

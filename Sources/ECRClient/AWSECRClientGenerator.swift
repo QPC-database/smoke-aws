@@ -41,6 +41,8 @@ public struct AWSECRClientGenerator {
     let retryConfiguration: HTTPClientRetryConfiguration
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
+    
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
 
     let operationsReporting: ECROperationsReporting
     
@@ -70,6 +72,7 @@ public struct AWSECRClientGenerator {
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.operationsReporting = ECROperationsReporting(clientName: "AWSECRClient", reportingConfiguration: reportingConfiguration)
@@ -92,6 +95,7 @@ public struct AWSECRClientGenerator {
             httpClient: self.httpClient,
             service: self.service,
             target: self.target,
+            eventLoopProvider: self.eventLoopProvider,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)
@@ -100,22 +104,26 @@ public struct AWSECRClientGenerator {
     public func with<NewTraceContextType: InvocationTraceContext>(
             logger: Logging.Logger,
             internalRequestId: String = "none",
-            traceContext: NewTraceContextType) -> AWSECRClient<StandardHTTPClientCoreInvocationReporting<NewTraceContextType>> {
+            traceContext: NewTraceContextType,
+            eventLoop: EventLoop? = nil) -> AWSECRClient<StandardHTTPClientCoreInvocationReporting<NewTraceContextType>> {
         let reporting = StandardHTTPClientCoreInvocationReporting(
             logger: logger,
             internalRequestId: internalRequestId,
-            traceContext: traceContext)
+            traceContext: traceContext,
+            eventLoop: eventLoop)
         
         return with(reporting: reporting)
     }
     
     public func with(
             logger: Logging.Logger,
-            internalRequestId: String = "none") -> AWSECRClient<StandardHTTPClientCoreInvocationReporting<AWSClientInvocationTraceContext>> {
+            internalRequestId: String = "none",
+            eventLoop: EventLoop? = nil) -> AWSECRClient<StandardHTTPClientCoreInvocationReporting<AWSClientInvocationTraceContext>> {
         let reporting = StandardHTTPClientCoreInvocationReporting(
             logger: logger,
             internalRequestId: internalRequestId,
-            traceContext: AWSClientInvocationTraceContext())
+            traceContext: AWSClientInvocationTraceContext(),
+            eventLoop: eventLoop)
         
         return with(reporting: reporting)
     }

@@ -57,6 +57,7 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
     public let reporting: InvocationReportingType
 
     let operationsReporting: ElasticComputeCloudOperationsReporting
@@ -92,6 +93,7 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -105,6 +107,7 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
                 httpClient: HTTPOperationsClient,
                 service: String,
                 apiVersion: String,
+                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: ElasticComputeCloudOperationsReporting) {
@@ -114,6 +117,7 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

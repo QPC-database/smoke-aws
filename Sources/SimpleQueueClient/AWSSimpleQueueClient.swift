@@ -77,6 +77,7 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
     public let reporting: InvocationReportingType
 
     let operationsReporting: SimpleQueueOperationsReporting
@@ -121,6 +122,7 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -134,6 +136,7 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
                 httpClient: HTTPOperationsClient, listHttpClient: HTTPOperationsClient,
                 service: String,
                 apiVersion: String,
+                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: SimpleQueueOperationsReporting) {
@@ -144,6 +147,7 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

@@ -52,6 +52,8 @@ public struct AWSSimpleNotificationClientGenerator {
     let retryConfiguration: HTTPClientRetryConfiguration
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
+    
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
 
     let operationsReporting: SimpleNotificationOperationsReporting
     
@@ -81,6 +83,7 @@ public struct AWSSimpleNotificationClientGenerator {
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.apiVersion = apiVersion
@@ -104,6 +107,7 @@ public struct AWSSimpleNotificationClientGenerator {
             httpClient: self.httpClient,
             service: self.service,
             apiVersion: self.apiVersion,
+            eventLoopProvider: self.eventLoopProvider,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)
@@ -112,22 +116,26 @@ public struct AWSSimpleNotificationClientGenerator {
     public func with<NewTraceContextType: InvocationTraceContext>(
             logger: Logging.Logger,
             internalRequestId: String = "none",
-            traceContext: NewTraceContextType) -> AWSSimpleNotificationClient<StandardHTTPClientCoreInvocationReporting<NewTraceContextType>> {
+            traceContext: NewTraceContextType,
+            eventLoop: EventLoop? = nil) -> AWSSimpleNotificationClient<StandardHTTPClientCoreInvocationReporting<NewTraceContextType>> {
         let reporting = StandardHTTPClientCoreInvocationReporting(
             logger: logger,
             internalRequestId: internalRequestId,
-            traceContext: traceContext)
+            traceContext: traceContext,
+            eventLoop: eventLoop)
         
         return with(reporting: reporting)
     }
     
     public func with(
             logger: Logging.Logger,
-            internalRequestId: String = "none") -> AWSSimpleNotificationClient<StandardHTTPClientCoreInvocationReporting<AWSClientInvocationTraceContext>> {
+            internalRequestId: String = "none",
+            eventLoop: EventLoop? = nil) -> AWSSimpleNotificationClient<StandardHTTPClientCoreInvocationReporting<AWSClientInvocationTraceContext>> {
         let reporting = StandardHTTPClientCoreInvocationReporting(
             logger: logger,
             internalRequestId: internalRequestId,
-            traceContext: AWSClientInvocationTraceContext())
+            traceContext: AWSClientInvocationTraceContext(),
+            eventLoop: eventLoop)
         
         return with(reporting: reporting)
     }

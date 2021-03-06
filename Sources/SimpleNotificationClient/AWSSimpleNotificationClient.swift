@@ -76,6 +76,7 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
     public let reporting: InvocationReportingType
 
     let operationsReporting: SimpleNotificationOperationsReporting
@@ -109,6 +110,7 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -122,6 +124,7 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
                 httpClient: HTTPOperationsClient,
                 service: String,
                 apiVersion: String,
+                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: SimpleNotificationOperationsReporting) {
@@ -131,6 +134,7 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

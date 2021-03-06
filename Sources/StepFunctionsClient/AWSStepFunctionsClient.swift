@@ -75,6 +75,7 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
     public let reporting: InvocationReportingType
 
     let operationsReporting: StepFunctionsOperationsReporting
@@ -108,6 +109,7 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -120,6 +122,7 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
                 httpClient: HTTPOperationsClient,
                 service: String,
                 target: String?,
+                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: StepFunctionsOperationsReporting) {
@@ -129,6 +132,7 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

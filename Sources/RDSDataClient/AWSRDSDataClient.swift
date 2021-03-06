@@ -56,6 +56,7 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
     public let reporting: InvocationReportingType
 
     let operationsReporting: RDSDataOperationsReporting
@@ -89,6 +90,7 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -101,6 +103,7 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
                 httpClient: HTTPOperationsClient,
                 service: String,
                 target: String?,
+                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: RDSDataOperationsReporting) {
@@ -110,6 +113,7 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

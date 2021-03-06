@@ -53,6 +53,8 @@ public struct AWSSimpleQueueClientGenerator {
     let retryConfiguration: HTTPClientRetryConfiguration
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
+    
+    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
 
     let operationsReporting: SimpleQueueOperationsReporting
     
@@ -93,6 +95,7 @@ public struct AWSSimpleQueueClientGenerator {
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
+        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.apiVersion = apiVersion
@@ -118,6 +121,7 @@ public struct AWSSimpleQueueClientGenerator {
             listHttpClient: self.listHttpClient,
             service: self.service,
             apiVersion: self.apiVersion,
+            eventLoopProvider: self.eventLoopProvider,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)
@@ -126,22 +130,26 @@ public struct AWSSimpleQueueClientGenerator {
     public func with<NewTraceContextType: InvocationTraceContext>(
             logger: Logging.Logger,
             internalRequestId: String = "none",
-            traceContext: NewTraceContextType) -> AWSSimpleQueueClient<StandardHTTPClientCoreInvocationReporting<NewTraceContextType>> {
+            traceContext: NewTraceContextType,
+            eventLoop: EventLoop? = nil) -> AWSSimpleQueueClient<StandardHTTPClientCoreInvocationReporting<NewTraceContextType>> {
         let reporting = StandardHTTPClientCoreInvocationReporting(
             logger: logger,
             internalRequestId: internalRequestId,
-            traceContext: traceContext)
+            traceContext: traceContext,
+            eventLoop: eventLoop)
         
         return with(reporting: reporting)
     }
     
     public func with(
             logger: Logging.Logger,
-            internalRequestId: String = "none") -> AWSSimpleQueueClient<StandardHTTPClientCoreInvocationReporting<AWSClientInvocationTraceContext>> {
+            internalRequestId: String = "none",
+            eventLoop: EventLoop? = nil) -> AWSSimpleQueueClient<StandardHTTPClientCoreInvocationReporting<AWSClientInvocationTraceContext>> {
         let reporting = StandardHTTPClientCoreInvocationReporting(
             logger: logger,
             internalRequestId: internalRequestId,
-            traceContext: AWSClientInvocationTraceContext())
+            traceContext: AWSClientInvocationTraceContext(),
+            eventLoop: eventLoop)
         
         return with(reporting: reporting)
     }
