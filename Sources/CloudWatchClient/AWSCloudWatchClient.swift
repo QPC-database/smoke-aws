@@ -167,7 +167,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteAlarmsOperationHTTPRequestInput(encodable: input),
                                     action: CloudWatchModelOperations.deleteAlarms.rawValue,
-                                    reporting: self.invocationsReporting.deleteAlarms)
+                                    reporting: self.invocationsReporting.deleteAlarms,
+                                    errorType: CloudWatchError.self)
     }
 
     /**
@@ -184,7 +185,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteAnomalyDetectorOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.deleteAnomalyDetector.rawValue,
-                                 reporting: self.invocationsReporting.deleteAnomalyDetector)
+                                 reporting: self.invocationsReporting.deleteAnomalyDetector,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -201,7 +203,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteDashboardsOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.deleteDashboards.rawValue,
-                                 reporting: self.invocationsReporting.deleteDashboards)
+                                 reporting: self.invocationsReporting.deleteDashboards,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -218,7 +221,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteInsightRulesOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.deleteInsightRules.rawValue,
-                                 reporting: self.invocationsReporting.deleteInsightRules)
+                                 reporting: self.invocationsReporting.deleteInsightRules,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -235,7 +239,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAlarmHistoryOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.describeAlarmHistory.rawValue,
-                                 reporting: self.invocationsReporting.describeAlarmHistory)
+                                 reporting: self.invocationsReporting.describeAlarmHistory,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -252,7 +257,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAlarmsOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.describeAlarms.rawValue,
-                                 reporting: self.invocationsReporting.describeAlarms)
+                                 reporting: self.invocationsReporting.describeAlarms,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -268,7 +274,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAlarmsForMetricOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.describeAlarmsForMetric.rawValue,
-                                 reporting: self.invocationsReporting.describeAlarmsForMetric)
+                                 reporting: self.invocationsReporting.describeAlarmsForMetric,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -285,7 +292,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAnomalyDetectorsOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.describeAnomalyDetectors.rawValue,
-                                 reporting: self.invocationsReporting.describeAnomalyDetectors)
+                                 reporting: self.invocationsReporting.describeAnomalyDetectors,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -302,7 +310,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInsightRulesOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.describeInsightRules.rawValue,
-                                 reporting: self.invocationsReporting.describeInsightRules)
+                                 reporting: self.invocationsReporting.describeInsightRules,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -316,7 +325,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DisableAlarmActionsOperationHTTPRequestInput(encodable: input),
                                     action: CloudWatchModelOperations.disableAlarmActions.rawValue,
-                                    reporting: self.invocationsReporting.disableAlarmActions)
+                                    reporting: self.invocationsReporting.disableAlarmActions,
+                                    errorType: CloudWatchError.self)
     }
 
     /**
@@ -333,7 +343,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisableInsightRulesOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.disableInsightRules.rawValue,
-                                 reporting: self.invocationsReporting.disableInsightRules)
+                                 reporting: self.invocationsReporting.disableInsightRules,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -347,7 +358,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: EnableAlarmActionsOperationHTTPRequestInput(encodable: input),
                                     action: CloudWatchModelOperations.enableAlarmActions.rawValue,
-                                    reporting: self.invocationsReporting.enableAlarmActions)
+                                    reporting: self.invocationsReporting.enableAlarmActions,
+                                    errorType: CloudWatchError.self)
     }
 
     /**
@@ -364,7 +376,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: EnableInsightRulesOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.enableInsightRules.rawValue,
-                                 reporting: self.invocationsReporting.enableInsightRules)
+                                 reporting: self.invocationsReporting.enableInsightRules,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -381,7 +394,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetDashboardOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.getDashboard.rawValue,
-                                 reporting: self.invocationsReporting.getDashboard)
+                                 reporting: self.invocationsReporting.getDashboard,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -398,7 +412,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetInsightRuleReportOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.getInsightRuleReport.rawValue,
-                                 reporting: self.invocationsReporting.getInsightRuleReport)
+                                 reporting: self.invocationsReporting.getInsightRuleReport,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -415,7 +430,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetMetricDataOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.getMetricData.rawValue,
-                                 reporting: self.invocationsReporting.getMetricData)
+                                 reporting: self.invocationsReporting.getMetricData,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -432,7 +448,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetMetricStatisticsOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.getMetricStatistics.rawValue,
-                                 reporting: self.invocationsReporting.getMetricStatistics)
+                                 reporting: self.invocationsReporting.getMetricStatistics,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -448,7 +465,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetMetricWidgetImageOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.getMetricWidgetImage.rawValue,
-                                 reporting: self.invocationsReporting.getMetricWidgetImage)
+                                 reporting: self.invocationsReporting.getMetricWidgetImage,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -465,7 +483,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListDashboardsOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.listDashboards.rawValue,
-                                 reporting: self.invocationsReporting.listDashboards)
+                                 reporting: self.invocationsReporting.listDashboards,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -482,7 +501,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListMetricsOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.listMetrics.rawValue,
-                                 reporting: self.invocationsReporting.listMetrics)
+                                 reporting: self.invocationsReporting.listMetrics,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -499,7 +519,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.listTagsForResource.rawValue,
-                                 reporting: self.invocationsReporting.listTagsForResource)
+                                 reporting: self.invocationsReporting.listTagsForResource,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -516,7 +537,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PutAnomalyDetectorOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.putAnomalyDetector.rawValue,
-                                 reporting: self.invocationsReporting.putAnomalyDetector)
+                                 reporting: self.invocationsReporting.putAnomalyDetector,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -531,7 +553,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: PutCompositeAlarmOperationHTTPRequestInput(encodable: input),
                                     action: CloudWatchModelOperations.putCompositeAlarm.rawValue,
-                                    reporting: self.invocationsReporting.putCompositeAlarm)
+                                    reporting: self.invocationsReporting.putCompositeAlarm,
+                                    errorType: CloudWatchError.self)
     }
 
     /**
@@ -548,7 +571,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PutDashboardOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.putDashboard.rawValue,
-                                 reporting: self.invocationsReporting.putDashboard)
+                                 reporting: self.invocationsReporting.putDashboard,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -565,7 +589,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PutInsightRuleOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.putInsightRule.rawValue,
-                                 reporting: self.invocationsReporting.putInsightRule)
+                                 reporting: self.invocationsReporting.putInsightRule,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -580,7 +605,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: PutMetricAlarmOperationHTTPRequestInput(encodable: input),
                                     action: CloudWatchModelOperations.putMetricAlarm.rawValue,
-                                    reporting: self.invocationsReporting.putMetricAlarm)
+                                    reporting: self.invocationsReporting.putMetricAlarm,
+                                    errorType: CloudWatchError.self)
     }
 
     /**
@@ -595,7 +621,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: PutMetricDataOperationHTTPRequestInput(encodable: input),
                                     action: CloudWatchModelOperations.putMetricData.rawValue,
-                                    reporting: self.invocationsReporting.putMetricData)
+                                    reporting: self.invocationsReporting.putMetricData,
+                                    errorType: CloudWatchError.self)
     }
 
     /**
@@ -610,7 +637,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: SetAlarmStateOperationHTTPRequestInput(encodable: input),
                                     action: CloudWatchModelOperations.setAlarmState.rawValue,
-                                    reporting: self.invocationsReporting.setAlarmState)
+                                    reporting: self.invocationsReporting.setAlarmState,
+                                    errorType: CloudWatchError.self)
     }
 
     /**
@@ -627,7 +655,8 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: TagResourceOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.tagResource.rawValue,
-                                 reporting: self.invocationsReporting.tagResource)
+                                 reporting: self.invocationsReporting.tagResource,
+                                 errorType: CloudWatchError.self)
     }
 
     /**
@@ -644,6 +673,7 @@ public struct AWSCloudWatchClient<InvocationReportingType: HTTPClientCoreInvocat
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UntagResourceOperationHTTPRequestInput(encodable: input),
                                  action: CloudWatchModelOperations.untagResource.rawValue,
-                                 reporting: self.invocationsReporting.untagResource)
+                                 reporting: self.invocationsReporting.untagResource,
+                                 errorType: CloudWatchError.self)
     }
 }

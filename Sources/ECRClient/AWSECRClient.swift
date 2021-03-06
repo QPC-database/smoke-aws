@@ -145,7 +145,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: BatchCheckLayerAvailabilityOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.batchCheckLayerAvailability.rawValue,
-                                 reporting: self.invocationsReporting.batchCheckLayerAvailability)
+                                 reporting: self.invocationsReporting.batchCheckLayerAvailability,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -162,7 +163,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: BatchDeleteImageOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.batchDeleteImage.rawValue,
-                                 reporting: self.invocationsReporting.batchDeleteImage)
+                                 reporting: self.invocationsReporting.batchDeleteImage,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -179,7 +181,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: BatchGetImageOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.batchGetImage.rawValue,
-                                 reporting: self.invocationsReporting.batchGetImage)
+                                 reporting: self.invocationsReporting.batchGetImage,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -196,7 +199,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CompleteLayerUploadOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.completeLayerUpload.rawValue,
-                                 reporting: self.invocationsReporting.completeLayerUpload)
+                                 reporting: self.invocationsReporting.completeLayerUpload,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -213,7 +217,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateRepositoryOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.createRepository.rawValue,
-                                 reporting: self.invocationsReporting.createRepository)
+                                 reporting: self.invocationsReporting.createRepository,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -230,7 +235,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteLifecyclePolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.deleteLifecyclePolicy.rawValue,
-                                 reporting: self.invocationsReporting.deleteLifecyclePolicy)
+                                 reporting: self.invocationsReporting.deleteLifecyclePolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -247,7 +253,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteRegistryPolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.deleteRegistryPolicy.rawValue,
-                                 reporting: self.invocationsReporting.deleteRegistryPolicy)
+                                 reporting: self.invocationsReporting.deleteRegistryPolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -264,7 +271,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteRepositoryOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.deleteRepository.rawValue,
-                                 reporting: self.invocationsReporting.deleteRepository)
+                                 reporting: self.invocationsReporting.deleteRepository,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -281,7 +289,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteRepositoryPolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.deleteRepositoryPolicy.rawValue,
-                                 reporting: self.invocationsReporting.deleteRepositoryPolicy)
+                                 reporting: self.invocationsReporting.deleteRepositoryPolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -298,7 +307,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeImageScanFindingsOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.describeImageScanFindings.rawValue,
-                                 reporting: self.invocationsReporting.describeImageScanFindings)
+                                 reporting: self.invocationsReporting.describeImageScanFindings,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -315,7 +325,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeImagesOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.describeImages.rawValue,
-                                 reporting: self.invocationsReporting.describeImages)
+                                 reporting: self.invocationsReporting.describeImages,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -332,7 +343,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeRegistryOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.describeRegistry.rawValue,
-                                 reporting: self.invocationsReporting.describeRegistry)
+                                 reporting: self.invocationsReporting.describeRegistry,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -349,7 +361,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeRepositoriesOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.describeRepositories.rawValue,
-                                 reporting: self.invocationsReporting.describeRepositories)
+                                 reporting: self.invocationsReporting.describeRepositories,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -366,7 +379,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetAuthorizationTokenOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.getAuthorizationToken.rawValue,
-                                 reporting: self.invocationsReporting.getAuthorizationToken)
+                                 reporting: self.invocationsReporting.getAuthorizationToken,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -383,7 +397,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetDownloadUrlForLayerOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.getDownloadUrlForLayer.rawValue,
-                                 reporting: self.invocationsReporting.getDownloadUrlForLayer)
+                                 reporting: self.invocationsReporting.getDownloadUrlForLayer,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -400,7 +415,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetLifecyclePolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.getLifecyclePolicy.rawValue,
-                                 reporting: self.invocationsReporting.getLifecyclePolicy)
+                                 reporting: self.invocationsReporting.getLifecyclePolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -417,7 +433,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetLifecyclePolicyPreviewOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.getLifecyclePolicyPreview.rawValue,
-                                 reporting: self.invocationsReporting.getLifecyclePolicyPreview)
+                                 reporting: self.invocationsReporting.getLifecyclePolicyPreview,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -434,7 +451,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetRegistryPolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.getRegistryPolicy.rawValue,
-                                 reporting: self.invocationsReporting.getRegistryPolicy)
+                                 reporting: self.invocationsReporting.getRegistryPolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -451,7 +469,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetRepositoryPolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.getRepositoryPolicy.rawValue,
-                                 reporting: self.invocationsReporting.getRepositoryPolicy)
+                                 reporting: self.invocationsReporting.getRepositoryPolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -468,7 +487,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: InitiateLayerUploadOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.initiateLayerUpload.rawValue,
-                                 reporting: self.invocationsReporting.initiateLayerUpload)
+                                 reporting: self.invocationsReporting.initiateLayerUpload,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -485,7 +505,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListImagesOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.listImages.rawValue,
-                                 reporting: self.invocationsReporting.listImages)
+                                 reporting: self.invocationsReporting.listImages,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -502,7 +523,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.listTagsForResource.rawValue,
-                                 reporting: self.invocationsReporting.listTagsForResource)
+                                 reporting: self.invocationsReporting.listTagsForResource,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -519,7 +541,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutImageOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.putImage.rawValue,
-                                 reporting: self.invocationsReporting.putImage)
+                                 reporting: self.invocationsReporting.putImage,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -536,7 +559,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutImageScanningConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.putImageScanningConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.putImageScanningConfiguration)
+                                 reporting: self.invocationsReporting.putImageScanningConfiguration,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -553,7 +577,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutImageTagMutabilityOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.putImageTagMutability.rawValue,
-                                 reporting: self.invocationsReporting.putImageTagMutability)
+                                 reporting: self.invocationsReporting.putImageTagMutability,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -570,7 +595,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutLifecyclePolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.putLifecyclePolicy.rawValue,
-                                 reporting: self.invocationsReporting.putLifecyclePolicy)
+                                 reporting: self.invocationsReporting.putLifecyclePolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -587,7 +613,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutRegistryPolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.putRegistryPolicy.rawValue,
-                                 reporting: self.invocationsReporting.putRegistryPolicy)
+                                 reporting: self.invocationsReporting.putRegistryPolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -604,7 +631,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutReplicationConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.putReplicationConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.putReplicationConfiguration)
+                                 reporting: self.invocationsReporting.putReplicationConfiguration,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -621,7 +649,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: SetRepositoryPolicyOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.setRepositoryPolicy.rawValue,
-                                 reporting: self.invocationsReporting.setRepositoryPolicy)
+                                 reporting: self.invocationsReporting.setRepositoryPolicy,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -638,7 +667,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: StartImageScanOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.startImageScan.rawValue,
-                                 reporting: self.invocationsReporting.startImageScan)
+                                 reporting: self.invocationsReporting.startImageScan,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -655,7 +685,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: StartLifecyclePolicyPreviewOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.startLifecyclePolicyPreview.rawValue,
-                                 reporting: self.invocationsReporting.startLifecyclePolicyPreview)
+                                 reporting: self.invocationsReporting.startLifecyclePolicyPreview,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -672,7 +703,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: TagResourceOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.tagResource.rawValue,
-                                 reporting: self.invocationsReporting.tagResource)
+                                 reporting: self.invocationsReporting.tagResource,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -689,7 +721,8 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UntagResourceOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.untagResource.rawValue,
-                                 reporting: self.invocationsReporting.untagResource)
+                                 reporting: self.invocationsReporting.untagResource,
+                                 errorType: ECRError.self)
     }
 
     /**
@@ -706,6 +739,7 @@ public struct AWSECRClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UploadLayerPartOperationHTTPRequestInput(encodable: input),
                                  operation: ECRModelOperations.uploadLayerPart.rawValue,
-                                 reporting: self.invocationsReporting.uploadLayerPart)
+                                 reporting: self.invocationsReporting.uploadLayerPart,
+                                 errorType: ECRError.self)
     }
 }

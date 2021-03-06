@@ -157,7 +157,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: AbortMultipartUploadOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.abortMultipartUpload.rawValue,
-                                 reporting: self.invocationsReporting.abortMultipartUpload)
+                                 reporting: self.invocationsReporting.abortMultipartUpload,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -173,7 +174,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CompleteMultipartUploadOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.completeMultipartUpload.rawValue,
-                                 reporting: self.invocationsReporting.completeMultipartUpload)
+                                 reporting: self.invocationsReporting.completeMultipartUpload,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -190,7 +192,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CopyObjectOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.copyObject.rawValue,
-                                 reporting: self.invocationsReporting.copyObject)
+                                 reporting: self.invocationsReporting.copyObject,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -207,7 +210,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateBucketOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.createBucket.rawValue,
-                                 reporting: self.invocationsReporting.createBucket)
+                                 reporting: self.invocationsReporting.createBucket,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -223,7 +227,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateMultipartUploadOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.createMultipartUpload.rawValue,
-                                 reporting: self.invocationsReporting.createMultipartUpload)
+                                 reporting: self.invocationsReporting.createMultipartUpload,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -237,7 +242,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucket.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucket)
+                                    reporting: self.invocationsReporting.deleteBucket,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -251,7 +257,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketAnalyticsConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketAnalyticsConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketAnalyticsConfiguration)
+                                    reporting: self.invocationsReporting.deleteBucketAnalyticsConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -265,7 +272,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketCorsOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketCors.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketCors)
+                                    reporting: self.invocationsReporting.deleteBucketCors,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -279,7 +287,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketEncryptionOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketEncryption.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketEncryption)
+                                    reporting: self.invocationsReporting.deleteBucketEncryption,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -293,7 +302,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketIntelligentTieringConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketIntelligentTieringConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketIntelligentTieringConfiguration)
+                                    reporting: self.invocationsReporting.deleteBucketIntelligentTieringConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -307,7 +317,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketInventoryConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketInventoryConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketInventoryConfiguration)
+                                    reporting: self.invocationsReporting.deleteBucketInventoryConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -321,7 +332,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketLifecycleOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketLifecycle.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketLifecycle)
+                                    reporting: self.invocationsReporting.deleteBucketLifecycle,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -335,7 +347,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketMetricsConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketMetricsConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketMetricsConfiguration)
+                                    reporting: self.invocationsReporting.deleteBucketMetricsConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -349,7 +362,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketOwnershipControlsOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketOwnershipControls.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketOwnershipControls)
+                                    reporting: self.invocationsReporting.deleteBucketOwnershipControls,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -363,7 +377,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketPolicyOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketPolicy.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketPolicy)
+                                    reporting: self.invocationsReporting.deleteBucketPolicy,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -377,7 +392,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketReplicationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketReplication.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketReplication)
+                                    reporting: self.invocationsReporting.deleteBucketReplication,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -391,7 +407,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketTaggingOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketTagging.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketTagging)
+                                    reporting: self.invocationsReporting.deleteBucketTagging,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -405,7 +422,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeleteBucketWebsiteOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deleteBucketWebsite.rawValue,
-                                    reporting: self.invocationsReporting.deleteBucketWebsite)
+                                    reporting: self.invocationsReporting.deleteBucketWebsite,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -421,7 +439,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteObjectOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.deleteObject.rawValue,
-                                 reporting: self.invocationsReporting.deleteObject)
+                                 reporting: self.invocationsReporting.deleteObject,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -437,7 +456,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteObjectTaggingOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.deleteObjectTagging.rawValue,
-                                 reporting: self.invocationsReporting.deleteObjectTagging)
+                                 reporting: self.invocationsReporting.deleteObjectTagging,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -453,7 +473,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteObjectsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.deleteObjects.rawValue,
-                                 reporting: self.invocationsReporting.deleteObjects)
+                                 reporting: self.invocationsReporting.deleteObjects,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -467,7 +488,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeletePublicAccessBlockOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.deletePublicAccessBlock.rawValue,
-                                    reporting: self.invocationsReporting.deletePublicAccessBlock)
+                                    reporting: self.invocationsReporting.deletePublicAccessBlock,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -483,7 +505,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketAccelerateConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketAccelerateConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.getBucketAccelerateConfiguration)
+                                 reporting: self.invocationsReporting.getBucketAccelerateConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -499,7 +522,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketAclOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketAcl.rawValue,
-                                 reporting: self.invocationsReporting.getBucketAcl)
+                                 reporting: self.invocationsReporting.getBucketAcl,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -515,7 +539,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketAnalyticsConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketAnalyticsConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.getBucketAnalyticsConfiguration)
+                                 reporting: self.invocationsReporting.getBucketAnalyticsConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -531,7 +556,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketCorsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketCors.rawValue,
-                                 reporting: self.invocationsReporting.getBucketCors)
+                                 reporting: self.invocationsReporting.getBucketCors,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -547,7 +573,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketEncryptionOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketEncryption.rawValue,
-                                 reporting: self.invocationsReporting.getBucketEncryption)
+                                 reporting: self.invocationsReporting.getBucketEncryption,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -563,7 +590,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketIntelligentTieringConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketIntelligentTieringConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.getBucketIntelligentTieringConfiguration)
+                                 reporting: self.invocationsReporting.getBucketIntelligentTieringConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -579,7 +607,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketInventoryConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketInventoryConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.getBucketInventoryConfiguration)
+                                 reporting: self.invocationsReporting.getBucketInventoryConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -595,7 +624,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketLifecycleOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketLifecycle.rawValue,
-                                 reporting: self.invocationsReporting.getBucketLifecycle)
+                                 reporting: self.invocationsReporting.getBucketLifecycle,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -611,7 +641,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketLifecycleConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketLifecycleConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.getBucketLifecycleConfiguration)
+                                 reporting: self.invocationsReporting.getBucketLifecycleConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -627,7 +658,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketLocationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketLocation.rawValue,
-                                 reporting: self.invocationsReporting.getBucketLocation)
+                                 reporting: self.invocationsReporting.getBucketLocation,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -643,7 +675,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketLoggingOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketLogging.rawValue,
-                                 reporting: self.invocationsReporting.getBucketLogging)
+                                 reporting: self.invocationsReporting.getBucketLogging,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -659,7 +692,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketMetricsConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketMetricsConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.getBucketMetricsConfiguration)
+                                 reporting: self.invocationsReporting.getBucketMetricsConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -675,7 +709,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketNotificationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketNotification.rawValue,
-                                 reporting: self.invocationsReporting.getBucketNotification)
+                                 reporting: self.invocationsReporting.getBucketNotification,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -691,7 +726,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketNotificationConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketNotificationConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.getBucketNotificationConfiguration)
+                                 reporting: self.invocationsReporting.getBucketNotificationConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -707,7 +743,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketOwnershipControlsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketOwnershipControls.rawValue,
-                                 reporting: self.invocationsReporting.getBucketOwnershipControls)
+                                 reporting: self.invocationsReporting.getBucketOwnershipControls,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -723,7 +760,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketPolicyOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketPolicy.rawValue,
-                                 reporting: self.invocationsReporting.getBucketPolicy)
+                                 reporting: self.invocationsReporting.getBucketPolicy,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -739,7 +777,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketPolicyStatusOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketPolicyStatus.rawValue,
-                                 reporting: self.invocationsReporting.getBucketPolicyStatus)
+                                 reporting: self.invocationsReporting.getBucketPolicyStatus,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -755,7 +794,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketReplicationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketReplication.rawValue,
-                                 reporting: self.invocationsReporting.getBucketReplication)
+                                 reporting: self.invocationsReporting.getBucketReplication,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -771,7 +811,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketRequestPaymentOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketRequestPayment.rawValue,
-                                 reporting: self.invocationsReporting.getBucketRequestPayment)
+                                 reporting: self.invocationsReporting.getBucketRequestPayment,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -787,7 +828,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketTaggingOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketTagging.rawValue,
-                                 reporting: self.invocationsReporting.getBucketTagging)
+                                 reporting: self.invocationsReporting.getBucketTagging,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -803,7 +845,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketVersioningOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketVersioning.rawValue,
-                                 reporting: self.invocationsReporting.getBucketVersioning)
+                                 reporting: self.invocationsReporting.getBucketVersioning,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -819,7 +862,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetBucketWebsiteOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getBucketWebsite.rawValue,
-                                 reporting: self.invocationsReporting.getBucketWebsite)
+                                 reporting: self.invocationsReporting.getBucketWebsite,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -836,7 +880,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: dataHttpClient,
                                  requestInput: GetObjectOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getObject.rawValue,
-                                 reporting: self.invocationsReporting.getObject)
+                                 reporting: self.invocationsReporting.getObject,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -853,7 +898,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetObjectAclOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getObjectAcl.rawValue,
-                                 reporting: self.invocationsReporting.getObjectAcl)
+                                 reporting: self.invocationsReporting.getObjectAcl,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -869,7 +915,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetObjectLegalHoldOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getObjectLegalHold.rawValue,
-                                 reporting: self.invocationsReporting.getObjectLegalHold)
+                                 reporting: self.invocationsReporting.getObjectLegalHold,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -885,7 +932,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetObjectLockConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getObjectLockConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.getObjectLockConfiguration)
+                                 reporting: self.invocationsReporting.getObjectLockConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -901,7 +949,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetObjectRetentionOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getObjectRetention.rawValue,
-                                 reporting: self.invocationsReporting.getObjectRetention)
+                                 reporting: self.invocationsReporting.getObjectRetention,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -917,7 +966,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetObjectTaggingOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getObjectTagging.rawValue,
-                                 reporting: self.invocationsReporting.getObjectTagging)
+                                 reporting: self.invocationsReporting.getObjectTagging,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -933,7 +983,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: dataHttpClient,
                                  requestInput: GetObjectTorrentOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getObjectTorrent.rawValue,
-                                 reporting: self.invocationsReporting.getObjectTorrent)
+                                 reporting: self.invocationsReporting.getObjectTorrent,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -949,7 +1000,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetPublicAccessBlockOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.getPublicAccessBlock.rawValue,
-                                 reporting: self.invocationsReporting.getPublicAccessBlock)
+                                 reporting: self.invocationsReporting.getPublicAccessBlock,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -964,7 +1016,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: HeadBucketOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.headBucket.rawValue,
-                                    reporting: self.invocationsReporting.headBucket)
+                                    reporting: self.invocationsReporting.headBucket,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -981,7 +1034,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: HeadObjectOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.headObject.rawValue,
-                                 reporting: self.invocationsReporting.headObject)
+                                 reporting: self.invocationsReporting.headObject,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -997,7 +1051,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListBucketAnalyticsConfigurationsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listBucketAnalyticsConfigurations.rawValue,
-                                 reporting: self.invocationsReporting.listBucketAnalyticsConfigurations)
+                                 reporting: self.invocationsReporting.listBucketAnalyticsConfigurations,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1013,7 +1068,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListBucketIntelligentTieringConfigurationsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listBucketIntelligentTieringConfigurations.rawValue,
-                                 reporting: self.invocationsReporting.listBucketIntelligentTieringConfigurations)
+                                 reporting: self.invocationsReporting.listBucketIntelligentTieringConfigurations,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1029,7 +1085,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListBucketInventoryConfigurationsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listBucketInventoryConfigurations.rawValue,
-                                 reporting: self.invocationsReporting.listBucketInventoryConfigurations)
+                                 reporting: self.invocationsReporting.listBucketInventoryConfigurations,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1045,7 +1102,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListBucketMetricsConfigurationsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listBucketMetricsConfigurations.rawValue,
-                                 reporting: self.invocationsReporting.listBucketMetricsConfigurations)
+                                 reporting: self.invocationsReporting.listBucketMetricsConfigurations,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1057,7 +1115,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: NoHTTPRequestInput(),
                                  operation: S3ModelOperations.listBuckets.rawValue,
-                                 reporting: self.invocationsReporting.listBuckets)
+                                 reporting: self.invocationsReporting.listBuckets,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1073,7 +1132,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListMultipartUploadsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listMultipartUploads.rawValue,
-                                 reporting: self.invocationsReporting.listMultipartUploads)
+                                 reporting: self.invocationsReporting.listMultipartUploads,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1089,7 +1149,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListObjectVersionsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listObjectVersions.rawValue,
-                                 reporting: self.invocationsReporting.listObjectVersions)
+                                 reporting: self.invocationsReporting.listObjectVersions,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1106,7 +1167,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListObjectsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listObjects.rawValue,
-                                 reporting: self.invocationsReporting.listObjects)
+                                 reporting: self.invocationsReporting.listObjects,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1123,7 +1185,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListObjectsV2OperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listObjectsV2.rawValue,
-                                 reporting: self.invocationsReporting.listObjectsV2)
+                                 reporting: self.invocationsReporting.listObjectsV2,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1139,7 +1202,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListPartsOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.listParts.rawValue,
-                                 reporting: self.invocationsReporting.listParts)
+                                 reporting: self.invocationsReporting.listParts,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1153,7 +1217,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketAccelerateConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketAccelerateConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.putBucketAccelerateConfiguration)
+                                    reporting: self.invocationsReporting.putBucketAccelerateConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1167,7 +1232,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketAclOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketAcl.rawValue,
-                                    reporting: self.invocationsReporting.putBucketAcl)
+                                    reporting: self.invocationsReporting.putBucketAcl,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1181,7 +1247,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketAnalyticsConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketAnalyticsConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.putBucketAnalyticsConfiguration)
+                                    reporting: self.invocationsReporting.putBucketAnalyticsConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1195,7 +1262,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketCorsOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketCors.rawValue,
-                                    reporting: self.invocationsReporting.putBucketCors)
+                                    reporting: self.invocationsReporting.putBucketCors,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1209,7 +1277,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketEncryptionOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketEncryption.rawValue,
-                                    reporting: self.invocationsReporting.putBucketEncryption)
+                                    reporting: self.invocationsReporting.putBucketEncryption,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1223,7 +1292,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketIntelligentTieringConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketIntelligentTieringConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.putBucketIntelligentTieringConfiguration)
+                                    reporting: self.invocationsReporting.putBucketIntelligentTieringConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1237,7 +1307,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketInventoryConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketInventoryConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.putBucketInventoryConfiguration)
+                                    reporting: self.invocationsReporting.putBucketInventoryConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1251,7 +1322,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketLifecycleOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketLifecycle.rawValue,
-                                    reporting: self.invocationsReporting.putBucketLifecycle)
+                                    reporting: self.invocationsReporting.putBucketLifecycle,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1265,7 +1337,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketLifecycleConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketLifecycleConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.putBucketLifecycleConfiguration)
+                                    reporting: self.invocationsReporting.putBucketLifecycleConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1279,7 +1352,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketLoggingOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketLogging.rawValue,
-                                    reporting: self.invocationsReporting.putBucketLogging)
+                                    reporting: self.invocationsReporting.putBucketLogging,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1293,7 +1367,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketMetricsConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketMetricsConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.putBucketMetricsConfiguration)
+                                    reporting: self.invocationsReporting.putBucketMetricsConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1307,7 +1382,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketNotificationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketNotification.rawValue,
-                                    reporting: self.invocationsReporting.putBucketNotification)
+                                    reporting: self.invocationsReporting.putBucketNotification,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1321,7 +1397,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketNotificationConfigurationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketNotificationConfiguration.rawValue,
-                                    reporting: self.invocationsReporting.putBucketNotificationConfiguration)
+                                    reporting: self.invocationsReporting.putBucketNotificationConfiguration,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1335,7 +1412,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketOwnershipControlsOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketOwnershipControls.rawValue,
-                                    reporting: self.invocationsReporting.putBucketOwnershipControls)
+                                    reporting: self.invocationsReporting.putBucketOwnershipControls,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1349,7 +1427,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketPolicyOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketPolicy.rawValue,
-                                    reporting: self.invocationsReporting.putBucketPolicy)
+                                    reporting: self.invocationsReporting.putBucketPolicy,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1363,7 +1442,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketReplicationOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketReplication.rawValue,
-                                    reporting: self.invocationsReporting.putBucketReplication)
+                                    reporting: self.invocationsReporting.putBucketReplication,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1377,7 +1457,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketRequestPaymentOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketRequestPayment.rawValue,
-                                    reporting: self.invocationsReporting.putBucketRequestPayment)
+                                    reporting: self.invocationsReporting.putBucketRequestPayment,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1391,7 +1472,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketTaggingOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketTagging.rawValue,
-                                    reporting: self.invocationsReporting.putBucketTagging)
+                                    reporting: self.invocationsReporting.putBucketTagging,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1405,7 +1487,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketVersioningOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketVersioning.rawValue,
-                                    reporting: self.invocationsReporting.putBucketVersioning)
+                                    reporting: self.invocationsReporting.putBucketVersioning,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1419,7 +1502,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutBucketWebsiteOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putBucketWebsite.rawValue,
-                                    reporting: self.invocationsReporting.putBucketWebsite)
+                                    reporting: self.invocationsReporting.putBucketWebsite,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1435,7 +1519,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: dataHttpClient,
                                  requestInput: PutObjectOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.putObject.rawValue,
-                                 reporting: self.invocationsReporting.putObject)
+                                 reporting: self.invocationsReporting.putObject,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1452,7 +1537,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutObjectAclOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.putObjectAcl.rawValue,
-                                 reporting: self.invocationsReporting.putObjectAcl)
+                                 reporting: self.invocationsReporting.putObjectAcl,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1468,7 +1554,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutObjectLegalHoldOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.putObjectLegalHold.rawValue,
-                                 reporting: self.invocationsReporting.putObjectLegalHold)
+                                 reporting: self.invocationsReporting.putObjectLegalHold,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1484,7 +1571,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutObjectLockConfigurationOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.putObjectLockConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.putObjectLockConfiguration)
+                                 reporting: self.invocationsReporting.putObjectLockConfiguration,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1500,7 +1588,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutObjectRetentionOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.putObjectRetention.rawValue,
-                                 reporting: self.invocationsReporting.putObjectRetention)
+                                 reporting: self.invocationsReporting.putObjectRetention,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1516,7 +1605,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutObjectTaggingOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.putObjectTagging.rawValue,
-                                 reporting: self.invocationsReporting.putObjectTagging)
+                                 reporting: self.invocationsReporting.putObjectTagging,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1530,7 +1620,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: PutPublicAccessBlockOperationHTTPRequestInput(encodable: input),
                                     operation: S3ModelOperations.putPublicAccessBlock.rawValue,
-                                    reporting: self.invocationsReporting.putPublicAccessBlock)
+                                    reporting: self.invocationsReporting.putPublicAccessBlock,
+                                    errorType: S3Error.self)
     }
 
     /**
@@ -1547,7 +1638,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: RestoreObjectOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.restoreObject.rawValue,
-                                 reporting: self.invocationsReporting.restoreObject)
+                                 reporting: self.invocationsReporting.restoreObject,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1563,7 +1655,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: SelectObjectContentOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.selectObjectContent.rawValue,
-                                 reporting: self.invocationsReporting.selectObjectContent)
+                                 reporting: self.invocationsReporting.selectObjectContent,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1579,7 +1672,8 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: dataHttpClient,
                                  requestInput: UploadPartOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.uploadPart.rawValue,
-                                 reporting: self.invocationsReporting.uploadPart)
+                                 reporting: self.invocationsReporting.uploadPart,
+                                 errorType: S3Error.self)
     }
 
     /**
@@ -1595,6 +1689,7 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UploadPartCopyOperationHTTPRequestInput(encodable: input),
                                  operation: S3ModelOperations.uploadPartCopy.rawValue,
-                                 reporting: self.invocationsReporting.uploadPartCopy)
+                                 reporting: self.invocationsReporting.uploadPartCopy,
+                                 errorType: S3Error.self)
     }
 }

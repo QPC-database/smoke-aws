@@ -149,7 +149,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AcceptReservedInstancesExchangeQuoteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.acceptReservedInstancesExchangeQuote.rawValue,
-                                 reporting: self.invocationsReporting.acceptReservedInstancesExchangeQuote)
+                                 reporting: self.invocationsReporting.acceptReservedInstancesExchangeQuote,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -165,7 +166,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AcceptTransitGatewayMulticastDomainAssociationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.acceptTransitGatewayMulticastDomainAssociations.rawValue,
-                                 reporting: self.invocationsReporting.acceptTransitGatewayMulticastDomainAssociations)
+                                 reporting: self.invocationsReporting.acceptTransitGatewayMulticastDomainAssociations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -181,7 +183,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AcceptTransitGatewayPeeringAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.acceptTransitGatewayPeeringAttachment.rawValue,
-                                 reporting: self.invocationsReporting.acceptTransitGatewayPeeringAttachment)
+                                 reporting: self.invocationsReporting.acceptTransitGatewayPeeringAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -197,7 +200,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AcceptTransitGatewayVpcAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.acceptTransitGatewayVpcAttachment.rawValue,
-                                 reporting: self.invocationsReporting.acceptTransitGatewayVpcAttachment)
+                                 reporting: self.invocationsReporting.acceptTransitGatewayVpcAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -213,7 +217,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AcceptVpcEndpointConnectionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.acceptVpcEndpointConnections.rawValue,
-                                 reporting: self.invocationsReporting.acceptVpcEndpointConnections)
+                                 reporting: self.invocationsReporting.acceptVpcEndpointConnections,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -229,7 +234,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AcceptVpcPeeringConnectionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.acceptVpcPeeringConnection.rawValue,
-                                 reporting: self.invocationsReporting.acceptVpcPeeringConnection)
+                                 reporting: self.invocationsReporting.acceptVpcPeeringConnection,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -245,7 +251,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AdvertiseByoipCidrOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.advertiseByoipCidr.rawValue,
-                                 reporting: self.invocationsReporting.advertiseByoipCidr)
+                                 reporting: self.invocationsReporting.advertiseByoipCidr,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -261,7 +268,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AllocateAddressOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.allocateAddress.rawValue,
-                                 reporting: self.invocationsReporting.allocateAddress)
+                                 reporting: self.invocationsReporting.allocateAddress,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -277,7 +285,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AllocateHostsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.allocateHosts.rawValue,
-                                 reporting: self.invocationsReporting.allocateHosts)
+                                 reporting: self.invocationsReporting.allocateHosts,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -293,7 +302,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ApplySecurityGroupsToClientVpnTargetNetworkOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.applySecurityGroupsToClientVpnTargetNetwork.rawValue,
-                                 reporting: self.invocationsReporting.applySecurityGroupsToClientVpnTargetNetwork)
+                                 reporting: self.invocationsReporting.applySecurityGroupsToClientVpnTargetNetwork,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -309,7 +319,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssignIpv6AddressesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.assignIpv6Addresses.rawValue,
-                                 reporting: self.invocationsReporting.assignIpv6Addresses)
+                                 reporting: self.invocationsReporting.assignIpv6Addresses,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -325,7 +336,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssignPrivateIpAddressesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.assignPrivateIpAddresses.rawValue,
-                                 reporting: self.invocationsReporting.assignPrivateIpAddresses)
+                                 reporting: self.invocationsReporting.assignPrivateIpAddresses,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -341,7 +353,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateAddressOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateAddress.rawValue,
-                                 reporting: self.invocationsReporting.associateAddress)
+                                 reporting: self.invocationsReporting.associateAddress,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -357,7 +370,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateClientVpnTargetNetworkOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateClientVpnTargetNetwork.rawValue,
-                                 reporting: self.invocationsReporting.associateClientVpnTargetNetwork)
+                                 reporting: self.invocationsReporting.associateClientVpnTargetNetwork,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -371,7 +385,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AssociateDhcpOptionsOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.associateDhcpOptions.rawValue,
-                                    reporting: self.invocationsReporting.associateDhcpOptions)
+                                    reporting: self.invocationsReporting.associateDhcpOptions,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -387,7 +402,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateEnclaveCertificateIamRoleOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateEnclaveCertificateIamRole.rawValue,
-                                 reporting: self.invocationsReporting.associateEnclaveCertificateIamRole)
+                                 reporting: self.invocationsReporting.associateEnclaveCertificateIamRole,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -403,7 +419,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateIamInstanceProfileOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateIamInstanceProfile.rawValue,
-                                 reporting: self.invocationsReporting.associateIamInstanceProfile)
+                                 reporting: self.invocationsReporting.associateIamInstanceProfile,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -419,7 +436,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateRouteTableOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateRouteTable.rawValue,
-                                 reporting: self.invocationsReporting.associateRouteTable)
+                                 reporting: self.invocationsReporting.associateRouteTable,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -435,7 +453,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateSubnetCidrBlockOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateSubnetCidrBlock.rawValue,
-                                 reporting: self.invocationsReporting.associateSubnetCidrBlock)
+                                 reporting: self.invocationsReporting.associateSubnetCidrBlock,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -451,7 +470,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateTransitGatewayMulticastDomainOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateTransitGatewayMulticastDomain.rawValue,
-                                 reporting: self.invocationsReporting.associateTransitGatewayMulticastDomain)
+                                 reporting: self.invocationsReporting.associateTransitGatewayMulticastDomain,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -467,7 +487,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateTransitGatewayRouteTableOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateTransitGatewayRouteTable.rawValue,
-                                 reporting: self.invocationsReporting.associateTransitGatewayRouteTable)
+                                 reporting: self.invocationsReporting.associateTransitGatewayRouteTable,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -483,7 +504,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssociateVpcCidrBlockOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.associateVpcCidrBlock.rawValue,
-                                 reporting: self.invocationsReporting.associateVpcCidrBlock)
+                                 reporting: self.invocationsReporting.associateVpcCidrBlock,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -499,7 +521,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AttachClassicLinkVpcOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.attachClassicLinkVpc.rawValue,
-                                 reporting: self.invocationsReporting.attachClassicLinkVpc)
+                                 reporting: self.invocationsReporting.attachClassicLinkVpc,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -513,7 +536,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AttachInternetGatewayOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.attachInternetGateway.rawValue,
-                                    reporting: self.invocationsReporting.attachInternetGateway)
+                                    reporting: self.invocationsReporting.attachInternetGateway,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -529,7 +553,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AttachNetworkInterfaceOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.attachNetworkInterface.rawValue,
-                                 reporting: self.invocationsReporting.attachNetworkInterface)
+                                 reporting: self.invocationsReporting.attachNetworkInterface,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -545,7 +570,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AttachVolumeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.attachVolume.rawValue,
-                                 reporting: self.invocationsReporting.attachVolume)
+                                 reporting: self.invocationsReporting.attachVolume,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -561,7 +587,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AttachVpnGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.attachVpnGateway.rawValue,
-                                 reporting: self.invocationsReporting.attachVpnGateway)
+                                 reporting: self.invocationsReporting.attachVpnGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -577,7 +604,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AuthorizeClientVpnIngressOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.authorizeClientVpnIngress.rawValue,
-                                 reporting: self.invocationsReporting.authorizeClientVpnIngress)
+                                 reporting: self.invocationsReporting.authorizeClientVpnIngress,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -591,7 +619,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AuthorizeSecurityGroupEgressOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.authorizeSecurityGroupEgress.rawValue,
-                                    reporting: self.invocationsReporting.authorizeSecurityGroupEgress)
+                                    reporting: self.invocationsReporting.authorizeSecurityGroupEgress,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -605,7 +634,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AuthorizeSecurityGroupIngressOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.authorizeSecurityGroupIngress.rawValue,
-                                    reporting: self.invocationsReporting.authorizeSecurityGroupIngress)
+                                    reporting: self.invocationsReporting.authorizeSecurityGroupIngress,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -621,7 +651,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: BundleInstanceOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.bundleInstance.rawValue,
-                                 reporting: self.invocationsReporting.bundleInstance)
+                                 reporting: self.invocationsReporting.bundleInstance,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -637,7 +668,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CancelBundleTaskOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.cancelBundleTask.rawValue,
-                                 reporting: self.invocationsReporting.cancelBundleTask)
+                                 reporting: self.invocationsReporting.cancelBundleTask,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -653,7 +685,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CancelCapacityReservationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.cancelCapacityReservation.rawValue,
-                                 reporting: self.invocationsReporting.cancelCapacityReservation)
+                                 reporting: self.invocationsReporting.cancelCapacityReservation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -667,7 +700,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: CancelConversionTaskOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.cancelConversionTask.rawValue,
-                                    reporting: self.invocationsReporting.cancelConversionTask)
+                                    reporting: self.invocationsReporting.cancelConversionTask,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -681,7 +715,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: CancelExportTaskOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.cancelExportTask.rawValue,
-                                    reporting: self.invocationsReporting.cancelExportTask)
+                                    reporting: self.invocationsReporting.cancelExportTask,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -697,7 +732,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CancelImportTaskOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.cancelImportTask.rawValue,
-                                 reporting: self.invocationsReporting.cancelImportTask)
+                                 reporting: self.invocationsReporting.cancelImportTask,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -713,7 +749,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CancelReservedInstancesListingOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.cancelReservedInstancesListing.rawValue,
-                                 reporting: self.invocationsReporting.cancelReservedInstancesListing)
+                                 reporting: self.invocationsReporting.cancelReservedInstancesListing,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -729,7 +766,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CancelSpotFleetRequestsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.cancelSpotFleetRequests.rawValue,
-                                 reporting: self.invocationsReporting.cancelSpotFleetRequests)
+                                 reporting: self.invocationsReporting.cancelSpotFleetRequests,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -745,7 +783,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CancelSpotInstanceRequestsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.cancelSpotInstanceRequests.rawValue,
-                                 reporting: self.invocationsReporting.cancelSpotInstanceRequests)
+                                 reporting: self.invocationsReporting.cancelSpotInstanceRequests,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -761,7 +800,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ConfirmProductInstanceOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.confirmProductInstance.rawValue,
-                                 reporting: self.invocationsReporting.confirmProductInstance)
+                                 reporting: self.invocationsReporting.confirmProductInstance,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -777,7 +817,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CopyFpgaImageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.copyFpgaImage.rawValue,
-                                 reporting: self.invocationsReporting.copyFpgaImage)
+                                 reporting: self.invocationsReporting.copyFpgaImage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -793,7 +834,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CopyImageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.copyImage.rawValue,
-                                 reporting: self.invocationsReporting.copyImage)
+                                 reporting: self.invocationsReporting.copyImage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -809,7 +851,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CopySnapshotOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.copySnapshot.rawValue,
-                                 reporting: self.invocationsReporting.copySnapshot)
+                                 reporting: self.invocationsReporting.copySnapshot,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -825,7 +868,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateCapacityReservationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createCapacityReservation.rawValue,
-                                 reporting: self.invocationsReporting.createCapacityReservation)
+                                 reporting: self.invocationsReporting.createCapacityReservation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -841,7 +885,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateCarrierGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createCarrierGateway.rawValue,
-                                 reporting: self.invocationsReporting.createCarrierGateway)
+                                 reporting: self.invocationsReporting.createCarrierGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -857,7 +902,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateClientVpnEndpointOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createClientVpnEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.createClientVpnEndpoint)
+                                 reporting: self.invocationsReporting.createClientVpnEndpoint,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -873,7 +919,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateClientVpnRouteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createClientVpnRoute.rawValue,
-                                 reporting: self.invocationsReporting.createClientVpnRoute)
+                                 reporting: self.invocationsReporting.createClientVpnRoute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -889,7 +936,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateCustomerGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createCustomerGateway.rawValue,
-                                 reporting: self.invocationsReporting.createCustomerGateway)
+                                 reporting: self.invocationsReporting.createCustomerGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -905,7 +953,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDefaultSubnetOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createDefaultSubnet.rawValue,
-                                 reporting: self.invocationsReporting.createDefaultSubnet)
+                                 reporting: self.invocationsReporting.createDefaultSubnet,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -921,7 +970,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDefaultVpcOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createDefaultVpc.rawValue,
-                                 reporting: self.invocationsReporting.createDefaultVpc)
+                                 reporting: self.invocationsReporting.createDefaultVpc,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -937,7 +987,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDhcpOptionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createDhcpOptions.rawValue,
-                                 reporting: self.invocationsReporting.createDhcpOptions)
+                                 reporting: self.invocationsReporting.createDhcpOptions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -953,7 +1004,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateEgressOnlyInternetGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createEgressOnlyInternetGateway.rawValue,
-                                 reporting: self.invocationsReporting.createEgressOnlyInternetGateway)
+                                 reporting: self.invocationsReporting.createEgressOnlyInternetGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -969,7 +1021,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateFleetOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createFleet.rawValue,
-                                 reporting: self.invocationsReporting.createFleet)
+                                 reporting: self.invocationsReporting.createFleet,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -985,7 +1038,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateFlowLogsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createFlowLogs.rawValue,
-                                 reporting: self.invocationsReporting.createFlowLogs)
+                                 reporting: self.invocationsReporting.createFlowLogs,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1001,7 +1055,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateFpgaImageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createFpgaImage.rawValue,
-                                 reporting: self.invocationsReporting.createFpgaImage)
+                                 reporting: self.invocationsReporting.createFpgaImage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1017,7 +1072,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateImageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createImage.rawValue,
-                                 reporting: self.invocationsReporting.createImage)
+                                 reporting: self.invocationsReporting.createImage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1033,7 +1089,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateInstanceExportTaskOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createInstanceExportTask.rawValue,
-                                 reporting: self.invocationsReporting.createInstanceExportTask)
+                                 reporting: self.invocationsReporting.createInstanceExportTask,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1049,7 +1106,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateInternetGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createInternetGateway.rawValue,
-                                 reporting: self.invocationsReporting.createInternetGateway)
+                                 reporting: self.invocationsReporting.createInternetGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1065,7 +1123,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateKeyPairOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createKeyPair.rawValue,
-                                 reporting: self.invocationsReporting.createKeyPair)
+                                 reporting: self.invocationsReporting.createKeyPair,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1081,7 +1140,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateLaunchTemplateOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createLaunchTemplate.rawValue,
-                                 reporting: self.invocationsReporting.createLaunchTemplate)
+                                 reporting: self.invocationsReporting.createLaunchTemplate,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1097,7 +1157,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateLaunchTemplateVersionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createLaunchTemplateVersion.rawValue,
-                                 reporting: self.invocationsReporting.createLaunchTemplateVersion)
+                                 reporting: self.invocationsReporting.createLaunchTemplateVersion,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1113,7 +1174,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateLocalGatewayRouteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createLocalGatewayRoute.rawValue,
-                                 reporting: self.invocationsReporting.createLocalGatewayRoute)
+                                 reporting: self.invocationsReporting.createLocalGatewayRoute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1129,7 +1191,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateLocalGatewayRouteTableVpcAssociationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createLocalGatewayRouteTableVpcAssociation.rawValue,
-                                 reporting: self.invocationsReporting.createLocalGatewayRouteTableVpcAssociation)
+                                 reporting: self.invocationsReporting.createLocalGatewayRouteTableVpcAssociation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1145,7 +1208,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateManagedPrefixListOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createManagedPrefixList.rawValue,
-                                 reporting: self.invocationsReporting.createManagedPrefixList)
+                                 reporting: self.invocationsReporting.createManagedPrefixList,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1161,7 +1225,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateNatGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createNatGateway.rawValue,
-                                 reporting: self.invocationsReporting.createNatGateway)
+                                 reporting: self.invocationsReporting.createNatGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1177,7 +1242,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateNetworkAclOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createNetworkAcl.rawValue,
-                                 reporting: self.invocationsReporting.createNetworkAcl)
+                                 reporting: self.invocationsReporting.createNetworkAcl,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1191,7 +1257,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: CreateNetworkAclEntryOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.createNetworkAclEntry.rawValue,
-                                    reporting: self.invocationsReporting.createNetworkAclEntry)
+                                    reporting: self.invocationsReporting.createNetworkAclEntry,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1207,7 +1274,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateNetworkInsightsPathOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createNetworkInsightsPath.rawValue,
-                                 reporting: self.invocationsReporting.createNetworkInsightsPath)
+                                 reporting: self.invocationsReporting.createNetworkInsightsPath,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1223,7 +1291,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateNetworkInterfaceOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createNetworkInterface.rawValue,
-                                 reporting: self.invocationsReporting.createNetworkInterface)
+                                 reporting: self.invocationsReporting.createNetworkInterface,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1239,7 +1308,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateNetworkInterfacePermissionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createNetworkInterfacePermission.rawValue,
-                                 reporting: self.invocationsReporting.createNetworkInterfacePermission)
+                                 reporting: self.invocationsReporting.createNetworkInterfacePermission,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1255,7 +1325,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreatePlacementGroupOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createPlacementGroup.rawValue,
-                                 reporting: self.invocationsReporting.createPlacementGroup)
+                                 reporting: self.invocationsReporting.createPlacementGroup,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1271,7 +1342,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateReservedInstancesListingOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createReservedInstancesListing.rawValue,
-                                 reporting: self.invocationsReporting.createReservedInstancesListing)
+                                 reporting: self.invocationsReporting.createReservedInstancesListing,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1287,7 +1359,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateRouteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createRoute.rawValue,
-                                 reporting: self.invocationsReporting.createRoute)
+                                 reporting: self.invocationsReporting.createRoute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1303,7 +1376,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateRouteTableOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createRouteTable.rawValue,
-                                 reporting: self.invocationsReporting.createRouteTable)
+                                 reporting: self.invocationsReporting.createRouteTable,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1319,7 +1393,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateSecurityGroupOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createSecurityGroup.rawValue,
-                                 reporting: self.invocationsReporting.createSecurityGroup)
+                                 reporting: self.invocationsReporting.createSecurityGroup,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1335,7 +1410,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.createSnapshot)
+                                 reporting: self.invocationsReporting.createSnapshot,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1351,7 +1427,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateSnapshotsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createSnapshots.rawValue,
-                                 reporting: self.invocationsReporting.createSnapshots)
+                                 reporting: self.invocationsReporting.createSnapshots,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1367,7 +1444,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateSpotDatafeedSubscriptionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createSpotDatafeedSubscription.rawValue,
-                                 reporting: self.invocationsReporting.createSpotDatafeedSubscription)
+                                 reporting: self.invocationsReporting.createSpotDatafeedSubscription,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1383,7 +1461,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateSubnetOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createSubnet.rawValue,
-                                 reporting: self.invocationsReporting.createSubnet)
+                                 reporting: self.invocationsReporting.createSubnet,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1397,7 +1476,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: CreateTagsOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.createTags.rawValue,
-                                    reporting: self.invocationsReporting.createTags)
+                                    reporting: self.invocationsReporting.createTags,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1413,7 +1493,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTrafficMirrorFilterOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTrafficMirrorFilter.rawValue,
-                                 reporting: self.invocationsReporting.createTrafficMirrorFilter)
+                                 reporting: self.invocationsReporting.createTrafficMirrorFilter,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1429,7 +1510,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTrafficMirrorFilterRuleOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTrafficMirrorFilterRule.rawValue,
-                                 reporting: self.invocationsReporting.createTrafficMirrorFilterRule)
+                                 reporting: self.invocationsReporting.createTrafficMirrorFilterRule,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1445,7 +1527,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTrafficMirrorSessionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTrafficMirrorSession.rawValue,
-                                 reporting: self.invocationsReporting.createTrafficMirrorSession)
+                                 reporting: self.invocationsReporting.createTrafficMirrorSession,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1461,7 +1544,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTrafficMirrorTargetOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTrafficMirrorTarget.rawValue,
-                                 reporting: self.invocationsReporting.createTrafficMirrorTarget)
+                                 reporting: self.invocationsReporting.createTrafficMirrorTarget,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1477,7 +1561,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGateway.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGateway)
+                                 reporting: self.invocationsReporting.createTransitGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1493,7 +1578,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayConnectOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGatewayConnect.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGatewayConnect)
+                                 reporting: self.invocationsReporting.createTransitGatewayConnect,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1509,7 +1595,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayConnectPeerOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGatewayConnectPeer.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGatewayConnectPeer)
+                                 reporting: self.invocationsReporting.createTransitGatewayConnectPeer,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1525,7 +1612,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayMulticastDomainOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGatewayMulticastDomain.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGatewayMulticastDomain)
+                                 reporting: self.invocationsReporting.createTransitGatewayMulticastDomain,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1541,7 +1629,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayPeeringAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGatewayPeeringAttachment.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGatewayPeeringAttachment)
+                                 reporting: self.invocationsReporting.createTransitGatewayPeeringAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1557,7 +1646,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayPrefixListReferenceOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGatewayPrefixListReference.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGatewayPrefixListReference)
+                                 reporting: self.invocationsReporting.createTransitGatewayPrefixListReference,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1573,7 +1663,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayRouteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGatewayRoute.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGatewayRoute)
+                                 reporting: self.invocationsReporting.createTransitGatewayRoute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1589,7 +1680,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayRouteTableOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGatewayRouteTable.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGatewayRouteTable)
+                                 reporting: self.invocationsReporting.createTransitGatewayRouteTable,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1605,7 +1697,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTransitGatewayVpcAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createTransitGatewayVpcAttachment.rawValue,
-                                 reporting: self.invocationsReporting.createTransitGatewayVpcAttachment)
+                                 reporting: self.invocationsReporting.createTransitGatewayVpcAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1621,7 +1714,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateVolumeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createVolume.rawValue,
-                                 reporting: self.invocationsReporting.createVolume)
+                                 reporting: self.invocationsReporting.createVolume,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1637,7 +1731,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateVpcOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createVpc.rawValue,
-                                 reporting: self.invocationsReporting.createVpc)
+                                 reporting: self.invocationsReporting.createVpc,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1653,7 +1748,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateVpcEndpointOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createVpcEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.createVpcEndpoint)
+                                 reporting: self.invocationsReporting.createVpcEndpoint,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1669,7 +1765,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateVpcEndpointConnectionNotificationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createVpcEndpointConnectionNotification.rawValue,
-                                 reporting: self.invocationsReporting.createVpcEndpointConnectionNotification)
+                                 reporting: self.invocationsReporting.createVpcEndpointConnectionNotification,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1685,7 +1782,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateVpcEndpointServiceConfigurationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createVpcEndpointServiceConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.createVpcEndpointServiceConfiguration)
+                                 reporting: self.invocationsReporting.createVpcEndpointServiceConfiguration,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1701,7 +1799,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateVpcPeeringConnectionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createVpcPeeringConnection.rawValue,
-                                 reporting: self.invocationsReporting.createVpcPeeringConnection)
+                                 reporting: self.invocationsReporting.createVpcPeeringConnection,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1717,7 +1816,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateVpnConnectionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createVpnConnection.rawValue,
-                                 reporting: self.invocationsReporting.createVpnConnection)
+                                 reporting: self.invocationsReporting.createVpnConnection,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1731,7 +1831,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: CreateVpnConnectionRouteOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.createVpnConnectionRoute.rawValue,
-                                    reporting: self.invocationsReporting.createVpnConnectionRoute)
+                                    reporting: self.invocationsReporting.createVpnConnectionRoute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1747,7 +1848,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateVpnGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.createVpnGateway.rawValue,
-                                 reporting: self.invocationsReporting.createVpnGateway)
+                                 reporting: self.invocationsReporting.createVpnGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1763,7 +1865,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteCarrierGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteCarrierGateway.rawValue,
-                                 reporting: self.invocationsReporting.deleteCarrierGateway)
+                                 reporting: self.invocationsReporting.deleteCarrierGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1779,7 +1882,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteClientVpnEndpointOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteClientVpnEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.deleteClientVpnEndpoint)
+                                 reporting: self.invocationsReporting.deleteClientVpnEndpoint,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1795,7 +1899,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteClientVpnRouteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteClientVpnRoute.rawValue,
-                                 reporting: self.invocationsReporting.deleteClientVpnRoute)
+                                 reporting: self.invocationsReporting.deleteClientVpnRoute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1809,7 +1914,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteCustomerGatewayOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteCustomerGateway.rawValue,
-                                    reporting: self.invocationsReporting.deleteCustomerGateway)
+                                    reporting: self.invocationsReporting.deleteCustomerGateway,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1823,7 +1929,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteDhcpOptionsOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteDhcpOptions.rawValue,
-                                    reporting: self.invocationsReporting.deleteDhcpOptions)
+                                    reporting: self.invocationsReporting.deleteDhcpOptions,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1839,7 +1946,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteEgressOnlyInternetGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteEgressOnlyInternetGateway.rawValue,
-                                 reporting: self.invocationsReporting.deleteEgressOnlyInternetGateway)
+                                 reporting: self.invocationsReporting.deleteEgressOnlyInternetGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1855,7 +1963,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteFleetsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteFleets.rawValue,
-                                 reporting: self.invocationsReporting.deleteFleets)
+                                 reporting: self.invocationsReporting.deleteFleets,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1871,7 +1980,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteFlowLogsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteFlowLogs.rawValue,
-                                 reporting: self.invocationsReporting.deleteFlowLogs)
+                                 reporting: self.invocationsReporting.deleteFlowLogs,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1887,7 +1997,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteFpgaImageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteFpgaImage.rawValue,
-                                 reporting: self.invocationsReporting.deleteFpgaImage)
+                                 reporting: self.invocationsReporting.deleteFpgaImage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1901,7 +2012,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteInternetGatewayOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteInternetGateway.rawValue,
-                                    reporting: self.invocationsReporting.deleteInternetGateway)
+                                    reporting: self.invocationsReporting.deleteInternetGateway,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1915,7 +2027,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteKeyPairOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteKeyPair.rawValue,
-                                    reporting: self.invocationsReporting.deleteKeyPair)
+                                    reporting: self.invocationsReporting.deleteKeyPair,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1931,7 +2044,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteLaunchTemplateOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteLaunchTemplate.rawValue,
-                                 reporting: self.invocationsReporting.deleteLaunchTemplate)
+                                 reporting: self.invocationsReporting.deleteLaunchTemplate,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1947,7 +2061,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteLaunchTemplateVersionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteLaunchTemplateVersions.rawValue,
-                                 reporting: self.invocationsReporting.deleteLaunchTemplateVersions)
+                                 reporting: self.invocationsReporting.deleteLaunchTemplateVersions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1963,7 +2078,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteLocalGatewayRouteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteLocalGatewayRoute.rawValue,
-                                 reporting: self.invocationsReporting.deleteLocalGatewayRoute)
+                                 reporting: self.invocationsReporting.deleteLocalGatewayRoute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1979,7 +2095,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteLocalGatewayRouteTableVpcAssociationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteLocalGatewayRouteTableVpcAssociation.rawValue,
-                                 reporting: self.invocationsReporting.deleteLocalGatewayRouteTableVpcAssociation)
+                                 reporting: self.invocationsReporting.deleteLocalGatewayRouteTableVpcAssociation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -1995,7 +2112,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteManagedPrefixListOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteManagedPrefixList.rawValue,
-                                 reporting: self.invocationsReporting.deleteManagedPrefixList)
+                                 reporting: self.invocationsReporting.deleteManagedPrefixList,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2011,7 +2129,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteNatGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteNatGateway.rawValue,
-                                 reporting: self.invocationsReporting.deleteNatGateway)
+                                 reporting: self.invocationsReporting.deleteNatGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2025,7 +2144,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteNetworkAclOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteNetworkAcl.rawValue,
-                                    reporting: self.invocationsReporting.deleteNetworkAcl)
+                                    reporting: self.invocationsReporting.deleteNetworkAcl,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2039,7 +2159,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteNetworkAclEntryOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteNetworkAclEntry.rawValue,
-                                    reporting: self.invocationsReporting.deleteNetworkAclEntry)
+                                    reporting: self.invocationsReporting.deleteNetworkAclEntry,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2055,7 +2176,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteNetworkInsightsAnalysisOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteNetworkInsightsAnalysis.rawValue,
-                                 reporting: self.invocationsReporting.deleteNetworkInsightsAnalysis)
+                                 reporting: self.invocationsReporting.deleteNetworkInsightsAnalysis,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2071,7 +2193,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteNetworkInsightsPathOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteNetworkInsightsPath.rawValue,
-                                 reporting: self.invocationsReporting.deleteNetworkInsightsPath)
+                                 reporting: self.invocationsReporting.deleteNetworkInsightsPath,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2085,7 +2208,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteNetworkInterfaceOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteNetworkInterface.rawValue,
-                                    reporting: self.invocationsReporting.deleteNetworkInterface)
+                                    reporting: self.invocationsReporting.deleteNetworkInterface,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2101,7 +2225,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteNetworkInterfacePermissionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteNetworkInterfacePermission.rawValue,
-                                 reporting: self.invocationsReporting.deleteNetworkInterfacePermission)
+                                 reporting: self.invocationsReporting.deleteNetworkInterfacePermission,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2115,7 +2240,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeletePlacementGroupOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deletePlacementGroup.rawValue,
-                                    reporting: self.invocationsReporting.deletePlacementGroup)
+                                    reporting: self.invocationsReporting.deletePlacementGroup,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2131,7 +2257,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteQueuedReservedInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteQueuedReservedInstances.rawValue,
-                                 reporting: self.invocationsReporting.deleteQueuedReservedInstances)
+                                 reporting: self.invocationsReporting.deleteQueuedReservedInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2145,7 +2272,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteRouteOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteRoute.rawValue,
-                                    reporting: self.invocationsReporting.deleteRoute)
+                                    reporting: self.invocationsReporting.deleteRoute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2159,7 +2287,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteRouteTableOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteRouteTable.rawValue,
-                                    reporting: self.invocationsReporting.deleteRouteTable)
+                                    reporting: self.invocationsReporting.deleteRouteTable,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2173,7 +2302,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteSecurityGroupOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteSecurityGroup.rawValue,
-                                    reporting: self.invocationsReporting.deleteSecurityGroup)
+                                    reporting: self.invocationsReporting.deleteSecurityGroup,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2187,7 +2317,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteSnapshotOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteSnapshot.rawValue,
-                                    reporting: self.invocationsReporting.deleteSnapshot)
+                                    reporting: self.invocationsReporting.deleteSnapshot,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2201,7 +2332,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteSpotDatafeedSubscriptionOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteSpotDatafeedSubscription.rawValue,
-                                    reporting: self.invocationsReporting.deleteSpotDatafeedSubscription)
+                                    reporting: self.invocationsReporting.deleteSpotDatafeedSubscription,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2215,7 +2347,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteSubnetOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteSubnet.rawValue,
-                                    reporting: self.invocationsReporting.deleteSubnet)
+                                    reporting: self.invocationsReporting.deleteSubnet,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2229,7 +2362,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteTagsOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteTags.rawValue,
-                                    reporting: self.invocationsReporting.deleteTags)
+                                    reporting: self.invocationsReporting.deleteTags,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2245,7 +2379,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTrafficMirrorFilterOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTrafficMirrorFilter.rawValue,
-                                 reporting: self.invocationsReporting.deleteTrafficMirrorFilter)
+                                 reporting: self.invocationsReporting.deleteTrafficMirrorFilter,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2261,7 +2396,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTrafficMirrorFilterRuleOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTrafficMirrorFilterRule.rawValue,
-                                 reporting: self.invocationsReporting.deleteTrafficMirrorFilterRule)
+                                 reporting: self.invocationsReporting.deleteTrafficMirrorFilterRule,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2277,7 +2413,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTrafficMirrorSessionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTrafficMirrorSession.rawValue,
-                                 reporting: self.invocationsReporting.deleteTrafficMirrorSession)
+                                 reporting: self.invocationsReporting.deleteTrafficMirrorSession,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2293,7 +2430,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTrafficMirrorTargetOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTrafficMirrorTarget.rawValue,
-                                 reporting: self.invocationsReporting.deleteTrafficMirrorTarget)
+                                 reporting: self.invocationsReporting.deleteTrafficMirrorTarget,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2309,7 +2447,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGateway.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGateway)
+                                 reporting: self.invocationsReporting.deleteTransitGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2325,7 +2464,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayConnectOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGatewayConnect.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGatewayConnect)
+                                 reporting: self.invocationsReporting.deleteTransitGatewayConnect,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2341,7 +2481,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayConnectPeerOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGatewayConnectPeer.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGatewayConnectPeer)
+                                 reporting: self.invocationsReporting.deleteTransitGatewayConnectPeer,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2357,7 +2498,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayMulticastDomainOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGatewayMulticastDomain.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGatewayMulticastDomain)
+                                 reporting: self.invocationsReporting.deleteTransitGatewayMulticastDomain,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2373,7 +2515,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayPeeringAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGatewayPeeringAttachment.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGatewayPeeringAttachment)
+                                 reporting: self.invocationsReporting.deleteTransitGatewayPeeringAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2389,7 +2532,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayPrefixListReferenceOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGatewayPrefixListReference.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGatewayPrefixListReference)
+                                 reporting: self.invocationsReporting.deleteTransitGatewayPrefixListReference,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2405,7 +2549,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayRouteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGatewayRoute.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGatewayRoute)
+                                 reporting: self.invocationsReporting.deleteTransitGatewayRoute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2421,7 +2566,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayRouteTableOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGatewayRouteTable.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGatewayRouteTable)
+                                 reporting: self.invocationsReporting.deleteTransitGatewayRouteTable,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2437,7 +2583,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteTransitGatewayVpcAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteTransitGatewayVpcAttachment.rawValue,
-                                 reporting: self.invocationsReporting.deleteTransitGatewayVpcAttachment)
+                                 reporting: self.invocationsReporting.deleteTransitGatewayVpcAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2451,7 +2598,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteVolumeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteVolume.rawValue,
-                                    reporting: self.invocationsReporting.deleteVolume)
+                                    reporting: self.invocationsReporting.deleteVolume,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2465,7 +2613,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteVpcOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteVpc.rawValue,
-                                    reporting: self.invocationsReporting.deleteVpc)
+                                    reporting: self.invocationsReporting.deleteVpc,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2481,7 +2630,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteVpcEndpointConnectionNotificationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteVpcEndpointConnectionNotifications.rawValue,
-                                 reporting: self.invocationsReporting.deleteVpcEndpointConnectionNotifications)
+                                 reporting: self.invocationsReporting.deleteVpcEndpointConnectionNotifications,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2497,7 +2647,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteVpcEndpointServiceConfigurationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteVpcEndpointServiceConfigurations.rawValue,
-                                 reporting: self.invocationsReporting.deleteVpcEndpointServiceConfigurations)
+                                 reporting: self.invocationsReporting.deleteVpcEndpointServiceConfigurations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2513,7 +2664,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteVpcEndpointsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteVpcEndpoints.rawValue,
-                                 reporting: self.invocationsReporting.deleteVpcEndpoints)
+                                 reporting: self.invocationsReporting.deleteVpcEndpoints,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2529,7 +2681,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteVpcPeeringConnectionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deleteVpcPeeringConnection.rawValue,
-                                 reporting: self.invocationsReporting.deleteVpcPeeringConnection)
+                                 reporting: self.invocationsReporting.deleteVpcPeeringConnection,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2543,7 +2696,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteVpnConnectionOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteVpnConnection.rawValue,
-                                    reporting: self.invocationsReporting.deleteVpnConnection)
+                                    reporting: self.invocationsReporting.deleteVpnConnection,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2557,7 +2711,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteVpnConnectionRouteOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteVpnConnectionRoute.rawValue,
-                                    reporting: self.invocationsReporting.deleteVpnConnectionRoute)
+                                    reporting: self.invocationsReporting.deleteVpnConnectionRoute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2571,7 +2726,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteVpnGatewayOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deleteVpnGateway.rawValue,
-                                    reporting: self.invocationsReporting.deleteVpnGateway)
+                                    reporting: self.invocationsReporting.deleteVpnGateway,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2587,7 +2743,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeprovisionByoipCidrOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deprovisionByoipCidr.rawValue,
-                                 reporting: self.invocationsReporting.deprovisionByoipCidr)
+                                 reporting: self.invocationsReporting.deprovisionByoipCidr,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2601,7 +2758,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeregisterImageOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.deregisterImage.rawValue,
-                                    reporting: self.invocationsReporting.deregisterImage)
+                                    reporting: self.invocationsReporting.deregisterImage,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2617,7 +2775,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeregisterInstanceEventNotificationAttributesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deregisterInstanceEventNotificationAttributes.rawValue,
-                                 reporting: self.invocationsReporting.deregisterInstanceEventNotificationAttributes)
+                                 reporting: self.invocationsReporting.deregisterInstanceEventNotificationAttributes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2633,7 +2792,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeregisterTransitGatewayMulticastGroupMembersOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deregisterTransitGatewayMulticastGroupMembers.rawValue,
-                                 reporting: self.invocationsReporting.deregisterTransitGatewayMulticastGroupMembers)
+                                 reporting: self.invocationsReporting.deregisterTransitGatewayMulticastGroupMembers,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2649,7 +2809,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeregisterTransitGatewayMulticastGroupSourcesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.deregisterTransitGatewayMulticastGroupSources.rawValue,
-                                 reporting: self.invocationsReporting.deregisterTransitGatewayMulticastGroupSources)
+                                 reporting: self.invocationsReporting.deregisterTransitGatewayMulticastGroupSources,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2665,7 +2826,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAccountAttributesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeAccountAttributes.rawValue,
-                                 reporting: self.invocationsReporting.describeAccountAttributes)
+                                 reporting: self.invocationsReporting.describeAccountAttributes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2681,7 +2843,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAddressesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeAddresses.rawValue,
-                                 reporting: self.invocationsReporting.describeAddresses)
+                                 reporting: self.invocationsReporting.describeAddresses,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2697,7 +2860,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAddressesAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeAddressesAttribute.rawValue,
-                                 reporting: self.invocationsReporting.describeAddressesAttribute)
+                                 reporting: self.invocationsReporting.describeAddressesAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2713,7 +2877,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAggregateIdFormatOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeAggregateIdFormat.rawValue,
-                                 reporting: self.invocationsReporting.describeAggregateIdFormat)
+                                 reporting: self.invocationsReporting.describeAggregateIdFormat,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2729,7 +2894,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAvailabilityZonesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeAvailabilityZones.rawValue,
-                                 reporting: self.invocationsReporting.describeAvailabilityZones)
+                                 reporting: self.invocationsReporting.describeAvailabilityZones,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2745,7 +2911,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeBundleTasksOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeBundleTasks.rawValue,
-                                 reporting: self.invocationsReporting.describeBundleTasks)
+                                 reporting: self.invocationsReporting.describeBundleTasks,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2761,7 +2928,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeByoipCidrsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeByoipCidrs.rawValue,
-                                 reporting: self.invocationsReporting.describeByoipCidrs)
+                                 reporting: self.invocationsReporting.describeByoipCidrs,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2777,7 +2945,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeCapacityReservationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeCapacityReservations.rawValue,
-                                 reporting: self.invocationsReporting.describeCapacityReservations)
+                                 reporting: self.invocationsReporting.describeCapacityReservations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2793,7 +2962,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeCarrierGatewaysOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeCarrierGateways.rawValue,
-                                 reporting: self.invocationsReporting.describeCarrierGateways)
+                                 reporting: self.invocationsReporting.describeCarrierGateways,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2809,7 +2979,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeClassicLinkInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeClassicLinkInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeClassicLinkInstances)
+                                 reporting: self.invocationsReporting.describeClassicLinkInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2825,7 +2996,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeClientVpnAuthorizationRulesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeClientVpnAuthorizationRules.rawValue,
-                                 reporting: self.invocationsReporting.describeClientVpnAuthorizationRules)
+                                 reporting: self.invocationsReporting.describeClientVpnAuthorizationRules,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2841,7 +3013,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeClientVpnConnectionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeClientVpnConnections.rawValue,
-                                 reporting: self.invocationsReporting.describeClientVpnConnections)
+                                 reporting: self.invocationsReporting.describeClientVpnConnections,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2857,7 +3030,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeClientVpnEndpointsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeClientVpnEndpoints.rawValue,
-                                 reporting: self.invocationsReporting.describeClientVpnEndpoints)
+                                 reporting: self.invocationsReporting.describeClientVpnEndpoints,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2873,7 +3047,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeClientVpnRoutesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeClientVpnRoutes.rawValue,
-                                 reporting: self.invocationsReporting.describeClientVpnRoutes)
+                                 reporting: self.invocationsReporting.describeClientVpnRoutes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2889,7 +3064,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeClientVpnTargetNetworksOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeClientVpnTargetNetworks.rawValue,
-                                 reporting: self.invocationsReporting.describeClientVpnTargetNetworks)
+                                 reporting: self.invocationsReporting.describeClientVpnTargetNetworks,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2905,7 +3081,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeCoipPoolsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeCoipPools.rawValue,
-                                 reporting: self.invocationsReporting.describeCoipPools)
+                                 reporting: self.invocationsReporting.describeCoipPools,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2921,7 +3098,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeConversionTasksOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeConversionTasks.rawValue,
-                                 reporting: self.invocationsReporting.describeConversionTasks)
+                                 reporting: self.invocationsReporting.describeConversionTasks,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2937,7 +3115,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeCustomerGatewaysOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeCustomerGateways.rawValue,
-                                 reporting: self.invocationsReporting.describeCustomerGateways)
+                                 reporting: self.invocationsReporting.describeCustomerGateways,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2953,7 +3132,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDhcpOptionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeDhcpOptions.rawValue,
-                                 reporting: self.invocationsReporting.describeDhcpOptions)
+                                 reporting: self.invocationsReporting.describeDhcpOptions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2969,7 +3149,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeEgressOnlyInternetGatewaysOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeEgressOnlyInternetGateways.rawValue,
-                                 reporting: self.invocationsReporting.describeEgressOnlyInternetGateways)
+                                 reporting: self.invocationsReporting.describeEgressOnlyInternetGateways,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -2985,7 +3166,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeElasticGpusOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeElasticGpus.rawValue,
-                                 reporting: self.invocationsReporting.describeElasticGpus)
+                                 reporting: self.invocationsReporting.describeElasticGpus,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3001,7 +3183,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeExportImageTasksOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeExportImageTasks.rawValue,
-                                 reporting: self.invocationsReporting.describeExportImageTasks)
+                                 reporting: self.invocationsReporting.describeExportImageTasks,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3017,7 +3200,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeExportTasksOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeExportTasks.rawValue,
-                                 reporting: self.invocationsReporting.describeExportTasks)
+                                 reporting: self.invocationsReporting.describeExportTasks,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3033,7 +3217,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeFastSnapshotRestoresOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeFastSnapshotRestores.rawValue,
-                                 reporting: self.invocationsReporting.describeFastSnapshotRestores)
+                                 reporting: self.invocationsReporting.describeFastSnapshotRestores,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3049,7 +3234,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeFleetHistoryOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeFleetHistory.rawValue,
-                                 reporting: self.invocationsReporting.describeFleetHistory)
+                                 reporting: self.invocationsReporting.describeFleetHistory,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3065,7 +3251,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeFleetInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeFleetInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeFleetInstances)
+                                 reporting: self.invocationsReporting.describeFleetInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3081,7 +3268,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeFleetsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeFleets.rawValue,
-                                 reporting: self.invocationsReporting.describeFleets)
+                                 reporting: self.invocationsReporting.describeFleets,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3097,7 +3285,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeFlowLogsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeFlowLogs.rawValue,
-                                 reporting: self.invocationsReporting.describeFlowLogs)
+                                 reporting: self.invocationsReporting.describeFlowLogs,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3113,7 +3302,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeFpgaImageAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeFpgaImageAttribute.rawValue,
-                                 reporting: self.invocationsReporting.describeFpgaImageAttribute)
+                                 reporting: self.invocationsReporting.describeFpgaImageAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3129,7 +3319,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeFpgaImagesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeFpgaImages.rawValue,
-                                 reporting: self.invocationsReporting.describeFpgaImages)
+                                 reporting: self.invocationsReporting.describeFpgaImages,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3145,7 +3336,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeHostReservationOfferingsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeHostReservationOfferings.rawValue,
-                                 reporting: self.invocationsReporting.describeHostReservationOfferings)
+                                 reporting: self.invocationsReporting.describeHostReservationOfferings,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3161,7 +3353,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeHostReservationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeHostReservations.rawValue,
-                                 reporting: self.invocationsReporting.describeHostReservations)
+                                 reporting: self.invocationsReporting.describeHostReservations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3177,7 +3370,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeHostsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeHosts.rawValue,
-                                 reporting: self.invocationsReporting.describeHosts)
+                                 reporting: self.invocationsReporting.describeHosts,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3193,7 +3387,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeIamInstanceProfileAssociationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeIamInstanceProfileAssociations.rawValue,
-                                 reporting: self.invocationsReporting.describeIamInstanceProfileAssociations)
+                                 reporting: self.invocationsReporting.describeIamInstanceProfileAssociations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3209,7 +3404,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeIdFormatOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeIdFormat.rawValue,
-                                 reporting: self.invocationsReporting.describeIdFormat)
+                                 reporting: self.invocationsReporting.describeIdFormat,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3225,7 +3421,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeIdentityIdFormatOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeIdentityIdFormat.rawValue,
-                                 reporting: self.invocationsReporting.describeIdentityIdFormat)
+                                 reporting: self.invocationsReporting.describeIdentityIdFormat,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3241,7 +3438,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeImageAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeImageAttribute.rawValue,
-                                 reporting: self.invocationsReporting.describeImageAttribute)
+                                 reporting: self.invocationsReporting.describeImageAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3257,7 +3455,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeImagesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeImages.rawValue,
-                                 reporting: self.invocationsReporting.describeImages)
+                                 reporting: self.invocationsReporting.describeImages,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3273,7 +3472,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeImportImageTasksOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeImportImageTasks.rawValue,
-                                 reporting: self.invocationsReporting.describeImportImageTasks)
+                                 reporting: self.invocationsReporting.describeImportImageTasks,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3289,7 +3489,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeImportSnapshotTasksOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeImportSnapshotTasks.rawValue,
-                                 reporting: self.invocationsReporting.describeImportSnapshotTasks)
+                                 reporting: self.invocationsReporting.describeImportSnapshotTasks,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3305,7 +3506,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInstanceAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeInstanceAttribute.rawValue,
-                                 reporting: self.invocationsReporting.describeInstanceAttribute)
+                                 reporting: self.invocationsReporting.describeInstanceAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3321,7 +3523,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInstanceCreditSpecificationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeInstanceCreditSpecifications.rawValue,
-                                 reporting: self.invocationsReporting.describeInstanceCreditSpecifications)
+                                 reporting: self.invocationsReporting.describeInstanceCreditSpecifications,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3337,7 +3540,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInstanceEventNotificationAttributesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeInstanceEventNotificationAttributes.rawValue,
-                                 reporting: self.invocationsReporting.describeInstanceEventNotificationAttributes)
+                                 reporting: self.invocationsReporting.describeInstanceEventNotificationAttributes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3353,7 +3557,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInstanceStatusOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeInstanceStatus.rawValue,
-                                 reporting: self.invocationsReporting.describeInstanceStatus)
+                                 reporting: self.invocationsReporting.describeInstanceStatus,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3369,7 +3574,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInstanceTypeOfferingsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeInstanceTypeOfferings.rawValue,
-                                 reporting: self.invocationsReporting.describeInstanceTypeOfferings)
+                                 reporting: self.invocationsReporting.describeInstanceTypeOfferings,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3385,7 +3591,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInstanceTypesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeInstanceTypes.rawValue,
-                                 reporting: self.invocationsReporting.describeInstanceTypes)
+                                 reporting: self.invocationsReporting.describeInstanceTypes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3401,7 +3608,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeInstances)
+                                 reporting: self.invocationsReporting.describeInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3417,7 +3625,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInternetGatewaysOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeInternetGateways.rawValue,
-                                 reporting: self.invocationsReporting.describeInternetGateways)
+                                 reporting: self.invocationsReporting.describeInternetGateways,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3433,7 +3642,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeIpv6PoolsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeIpv6Pools.rawValue,
-                                 reporting: self.invocationsReporting.describeIpv6Pools)
+                                 reporting: self.invocationsReporting.describeIpv6Pools,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3449,7 +3659,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeKeyPairsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeKeyPairs.rawValue,
-                                 reporting: self.invocationsReporting.describeKeyPairs)
+                                 reporting: self.invocationsReporting.describeKeyPairs,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3465,7 +3676,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeLaunchTemplateVersionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeLaunchTemplateVersions.rawValue,
-                                 reporting: self.invocationsReporting.describeLaunchTemplateVersions)
+                                 reporting: self.invocationsReporting.describeLaunchTemplateVersions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3481,7 +3693,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeLaunchTemplatesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeLaunchTemplates.rawValue,
-                                 reporting: self.invocationsReporting.describeLaunchTemplates)
+                                 reporting: self.invocationsReporting.describeLaunchTemplates,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3497,7 +3710,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations.rawValue,
-                                 reporting: self.invocationsReporting.describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations)
+                                 reporting: self.invocationsReporting.describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3513,7 +3727,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeLocalGatewayRouteTableVpcAssociationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeLocalGatewayRouteTableVpcAssociations.rawValue,
-                                 reporting: self.invocationsReporting.describeLocalGatewayRouteTableVpcAssociations)
+                                 reporting: self.invocationsReporting.describeLocalGatewayRouteTableVpcAssociations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3529,7 +3744,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeLocalGatewayRouteTablesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeLocalGatewayRouteTables.rawValue,
-                                 reporting: self.invocationsReporting.describeLocalGatewayRouteTables)
+                                 reporting: self.invocationsReporting.describeLocalGatewayRouteTables,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3545,7 +3761,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeLocalGatewayVirtualInterfaceGroupsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeLocalGatewayVirtualInterfaceGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeLocalGatewayVirtualInterfaceGroups)
+                                 reporting: self.invocationsReporting.describeLocalGatewayVirtualInterfaceGroups,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3561,7 +3778,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeLocalGatewayVirtualInterfacesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeLocalGatewayVirtualInterfaces.rawValue,
-                                 reporting: self.invocationsReporting.describeLocalGatewayVirtualInterfaces)
+                                 reporting: self.invocationsReporting.describeLocalGatewayVirtualInterfaces,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3577,7 +3795,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeLocalGatewaysOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeLocalGateways.rawValue,
-                                 reporting: self.invocationsReporting.describeLocalGateways)
+                                 reporting: self.invocationsReporting.describeLocalGateways,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3593,7 +3812,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeManagedPrefixListsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeManagedPrefixLists.rawValue,
-                                 reporting: self.invocationsReporting.describeManagedPrefixLists)
+                                 reporting: self.invocationsReporting.describeManagedPrefixLists,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3609,7 +3829,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeMovingAddressesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeMovingAddresses.rawValue,
-                                 reporting: self.invocationsReporting.describeMovingAddresses)
+                                 reporting: self.invocationsReporting.describeMovingAddresses,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3625,7 +3846,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeNatGatewaysOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeNatGateways.rawValue,
-                                 reporting: self.invocationsReporting.describeNatGateways)
+                                 reporting: self.invocationsReporting.describeNatGateways,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3641,7 +3863,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeNetworkAclsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeNetworkAcls.rawValue,
-                                 reporting: self.invocationsReporting.describeNetworkAcls)
+                                 reporting: self.invocationsReporting.describeNetworkAcls,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3657,7 +3880,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeNetworkInsightsAnalysesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeNetworkInsightsAnalyses.rawValue,
-                                 reporting: self.invocationsReporting.describeNetworkInsightsAnalyses)
+                                 reporting: self.invocationsReporting.describeNetworkInsightsAnalyses,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3673,7 +3897,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeNetworkInsightsPathsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeNetworkInsightsPaths.rawValue,
-                                 reporting: self.invocationsReporting.describeNetworkInsightsPaths)
+                                 reporting: self.invocationsReporting.describeNetworkInsightsPaths,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3689,7 +3914,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeNetworkInterfaceAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeNetworkInterfaceAttribute.rawValue,
-                                 reporting: self.invocationsReporting.describeNetworkInterfaceAttribute)
+                                 reporting: self.invocationsReporting.describeNetworkInterfaceAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3705,7 +3931,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeNetworkInterfacePermissionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeNetworkInterfacePermissions.rawValue,
-                                 reporting: self.invocationsReporting.describeNetworkInterfacePermissions)
+                                 reporting: self.invocationsReporting.describeNetworkInterfacePermissions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3721,7 +3948,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeNetworkInterfacesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeNetworkInterfaces.rawValue,
-                                 reporting: self.invocationsReporting.describeNetworkInterfaces)
+                                 reporting: self.invocationsReporting.describeNetworkInterfaces,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3737,7 +3965,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribePlacementGroupsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describePlacementGroups.rawValue,
-                                 reporting: self.invocationsReporting.describePlacementGroups)
+                                 reporting: self.invocationsReporting.describePlacementGroups,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3753,7 +3982,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribePrefixListsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describePrefixLists.rawValue,
-                                 reporting: self.invocationsReporting.describePrefixLists)
+                                 reporting: self.invocationsReporting.describePrefixLists,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3769,7 +3999,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribePrincipalIdFormatOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describePrincipalIdFormat.rawValue,
-                                 reporting: self.invocationsReporting.describePrincipalIdFormat)
+                                 reporting: self.invocationsReporting.describePrincipalIdFormat,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3785,7 +4016,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribePublicIpv4PoolsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describePublicIpv4Pools.rawValue,
-                                 reporting: self.invocationsReporting.describePublicIpv4Pools)
+                                 reporting: self.invocationsReporting.describePublicIpv4Pools,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3801,7 +4033,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeRegionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeRegions.rawValue,
-                                 reporting: self.invocationsReporting.describeRegions)
+                                 reporting: self.invocationsReporting.describeRegions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3817,7 +4050,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeReservedInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeReservedInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeReservedInstances)
+                                 reporting: self.invocationsReporting.describeReservedInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3833,7 +4067,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeReservedInstancesListingsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeReservedInstancesListings.rawValue,
-                                 reporting: self.invocationsReporting.describeReservedInstancesListings)
+                                 reporting: self.invocationsReporting.describeReservedInstancesListings,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3849,7 +4084,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeReservedInstancesModificationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeReservedInstancesModifications.rawValue,
-                                 reporting: self.invocationsReporting.describeReservedInstancesModifications)
+                                 reporting: self.invocationsReporting.describeReservedInstancesModifications,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3865,7 +4101,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeReservedInstancesOfferingsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeReservedInstancesOfferings.rawValue,
-                                 reporting: self.invocationsReporting.describeReservedInstancesOfferings)
+                                 reporting: self.invocationsReporting.describeReservedInstancesOfferings,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3881,7 +4118,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeRouteTablesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeRouteTables.rawValue,
-                                 reporting: self.invocationsReporting.describeRouteTables)
+                                 reporting: self.invocationsReporting.describeRouteTables,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3897,7 +4135,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeScheduledInstanceAvailabilityOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeScheduledInstanceAvailability.rawValue,
-                                 reporting: self.invocationsReporting.describeScheduledInstanceAvailability)
+                                 reporting: self.invocationsReporting.describeScheduledInstanceAvailability,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3913,7 +4152,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeScheduledInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeScheduledInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeScheduledInstances)
+                                 reporting: self.invocationsReporting.describeScheduledInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3929,7 +4169,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSecurityGroupReferencesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSecurityGroupReferences.rawValue,
-                                 reporting: self.invocationsReporting.describeSecurityGroupReferences)
+                                 reporting: self.invocationsReporting.describeSecurityGroupReferences,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3945,7 +4186,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSecurityGroupsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSecurityGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeSecurityGroups)
+                                 reporting: self.invocationsReporting.describeSecurityGroups,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3961,7 +4203,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSnapshotAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSnapshotAttribute.rawValue,
-                                 reporting: self.invocationsReporting.describeSnapshotAttribute)
+                                 reporting: self.invocationsReporting.describeSnapshotAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3977,7 +4220,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSnapshotsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSnapshots.rawValue,
-                                 reporting: self.invocationsReporting.describeSnapshots)
+                                 reporting: self.invocationsReporting.describeSnapshots,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -3993,7 +4237,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSpotDatafeedSubscriptionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSpotDatafeedSubscription.rawValue,
-                                 reporting: self.invocationsReporting.describeSpotDatafeedSubscription)
+                                 reporting: self.invocationsReporting.describeSpotDatafeedSubscription,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4009,7 +4254,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSpotFleetInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSpotFleetInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeSpotFleetInstances)
+                                 reporting: self.invocationsReporting.describeSpotFleetInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4025,7 +4271,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSpotFleetRequestHistoryOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSpotFleetRequestHistory.rawValue,
-                                 reporting: self.invocationsReporting.describeSpotFleetRequestHistory)
+                                 reporting: self.invocationsReporting.describeSpotFleetRequestHistory,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4041,7 +4288,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSpotFleetRequestsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSpotFleetRequests.rawValue,
-                                 reporting: self.invocationsReporting.describeSpotFleetRequests)
+                                 reporting: self.invocationsReporting.describeSpotFleetRequests,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4057,7 +4305,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSpotInstanceRequestsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSpotInstanceRequests.rawValue,
-                                 reporting: self.invocationsReporting.describeSpotInstanceRequests)
+                                 reporting: self.invocationsReporting.describeSpotInstanceRequests,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4073,7 +4322,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSpotPriceHistoryOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSpotPriceHistory.rawValue,
-                                 reporting: self.invocationsReporting.describeSpotPriceHistory)
+                                 reporting: self.invocationsReporting.describeSpotPriceHistory,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4089,7 +4339,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStaleSecurityGroupsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeStaleSecurityGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeStaleSecurityGroups)
+                                 reporting: self.invocationsReporting.describeStaleSecurityGroups,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4105,7 +4356,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSubnetsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeSubnets.rawValue,
-                                 reporting: self.invocationsReporting.describeSubnets)
+                                 reporting: self.invocationsReporting.describeSubnets,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4121,7 +4373,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTagsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTags.rawValue,
-                                 reporting: self.invocationsReporting.describeTags)
+                                 reporting: self.invocationsReporting.describeTags,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4137,7 +4390,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTrafficMirrorFiltersOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTrafficMirrorFilters.rawValue,
-                                 reporting: self.invocationsReporting.describeTrafficMirrorFilters)
+                                 reporting: self.invocationsReporting.describeTrafficMirrorFilters,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4153,7 +4407,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTrafficMirrorSessionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTrafficMirrorSessions.rawValue,
-                                 reporting: self.invocationsReporting.describeTrafficMirrorSessions)
+                                 reporting: self.invocationsReporting.describeTrafficMirrorSessions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4169,7 +4424,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTrafficMirrorTargetsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTrafficMirrorTargets.rawValue,
-                                 reporting: self.invocationsReporting.describeTrafficMirrorTargets)
+                                 reporting: self.invocationsReporting.describeTrafficMirrorTargets,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4185,7 +4441,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTransitGatewayAttachmentsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTransitGatewayAttachments.rawValue,
-                                 reporting: self.invocationsReporting.describeTransitGatewayAttachments)
+                                 reporting: self.invocationsReporting.describeTransitGatewayAttachments,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4201,7 +4458,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTransitGatewayConnectPeersOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTransitGatewayConnectPeers.rawValue,
-                                 reporting: self.invocationsReporting.describeTransitGatewayConnectPeers)
+                                 reporting: self.invocationsReporting.describeTransitGatewayConnectPeers,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4217,7 +4475,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTransitGatewayConnectsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTransitGatewayConnects.rawValue,
-                                 reporting: self.invocationsReporting.describeTransitGatewayConnects)
+                                 reporting: self.invocationsReporting.describeTransitGatewayConnects,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4233,7 +4492,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTransitGatewayMulticastDomainsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTransitGatewayMulticastDomains.rawValue,
-                                 reporting: self.invocationsReporting.describeTransitGatewayMulticastDomains)
+                                 reporting: self.invocationsReporting.describeTransitGatewayMulticastDomains,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4249,7 +4509,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTransitGatewayPeeringAttachmentsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTransitGatewayPeeringAttachments.rawValue,
-                                 reporting: self.invocationsReporting.describeTransitGatewayPeeringAttachments)
+                                 reporting: self.invocationsReporting.describeTransitGatewayPeeringAttachments,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4265,7 +4526,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTransitGatewayRouteTablesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTransitGatewayRouteTables.rawValue,
-                                 reporting: self.invocationsReporting.describeTransitGatewayRouteTables)
+                                 reporting: self.invocationsReporting.describeTransitGatewayRouteTables,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4281,7 +4543,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTransitGatewayVpcAttachmentsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTransitGatewayVpcAttachments.rawValue,
-                                 reporting: self.invocationsReporting.describeTransitGatewayVpcAttachments)
+                                 reporting: self.invocationsReporting.describeTransitGatewayVpcAttachments,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4297,7 +4560,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTransitGatewaysOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeTransitGateways.rawValue,
-                                 reporting: self.invocationsReporting.describeTransitGateways)
+                                 reporting: self.invocationsReporting.describeTransitGateways,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4313,7 +4577,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVolumeAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVolumeAttribute.rawValue,
-                                 reporting: self.invocationsReporting.describeVolumeAttribute)
+                                 reporting: self.invocationsReporting.describeVolumeAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4329,7 +4594,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVolumeStatusOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVolumeStatus.rawValue,
-                                 reporting: self.invocationsReporting.describeVolumeStatus)
+                                 reporting: self.invocationsReporting.describeVolumeStatus,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4345,7 +4611,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVolumesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVolumes.rawValue,
-                                 reporting: self.invocationsReporting.describeVolumes)
+                                 reporting: self.invocationsReporting.describeVolumes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4361,7 +4628,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVolumesModificationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVolumesModifications.rawValue,
-                                 reporting: self.invocationsReporting.describeVolumesModifications)
+                                 reporting: self.invocationsReporting.describeVolumesModifications,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4377,7 +4645,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcAttribute.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcAttribute)
+                                 reporting: self.invocationsReporting.describeVpcAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4393,7 +4662,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcClassicLinkOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcClassicLink.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcClassicLink)
+                                 reporting: self.invocationsReporting.describeVpcClassicLink,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4409,7 +4679,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcClassicLinkDnsSupportOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcClassicLinkDnsSupport.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcClassicLinkDnsSupport)
+                                 reporting: self.invocationsReporting.describeVpcClassicLinkDnsSupport,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4425,7 +4696,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcEndpointConnectionNotificationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcEndpointConnectionNotifications.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcEndpointConnectionNotifications)
+                                 reporting: self.invocationsReporting.describeVpcEndpointConnectionNotifications,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4441,7 +4713,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcEndpointConnectionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcEndpointConnections.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcEndpointConnections)
+                                 reporting: self.invocationsReporting.describeVpcEndpointConnections,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4457,7 +4730,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcEndpointServiceConfigurationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcEndpointServiceConfigurations.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcEndpointServiceConfigurations)
+                                 reporting: self.invocationsReporting.describeVpcEndpointServiceConfigurations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4473,7 +4747,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcEndpointServicePermissionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcEndpointServicePermissions.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcEndpointServicePermissions)
+                                 reporting: self.invocationsReporting.describeVpcEndpointServicePermissions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4489,7 +4764,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcEndpointServicesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcEndpointServices.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcEndpointServices)
+                                 reporting: self.invocationsReporting.describeVpcEndpointServices,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4505,7 +4781,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcEndpointsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcEndpoints.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcEndpoints)
+                                 reporting: self.invocationsReporting.describeVpcEndpoints,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4521,7 +4798,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcPeeringConnectionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcPeeringConnections.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcPeeringConnections)
+                                 reporting: self.invocationsReporting.describeVpcPeeringConnections,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4537,7 +4815,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpcsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpcs.rawValue,
-                                 reporting: self.invocationsReporting.describeVpcs)
+                                 reporting: self.invocationsReporting.describeVpcs,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4553,7 +4832,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpnConnectionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpnConnections.rawValue,
-                                 reporting: self.invocationsReporting.describeVpnConnections)
+                                 reporting: self.invocationsReporting.describeVpnConnections,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4569,7 +4849,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeVpnGatewaysOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.describeVpnGateways.rawValue,
-                                 reporting: self.invocationsReporting.describeVpnGateways)
+                                 reporting: self.invocationsReporting.describeVpnGateways,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4585,7 +4866,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DetachClassicLinkVpcOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.detachClassicLinkVpc.rawValue,
-                                 reporting: self.invocationsReporting.detachClassicLinkVpc)
+                                 reporting: self.invocationsReporting.detachClassicLinkVpc,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4599,7 +4881,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DetachInternetGatewayOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.detachInternetGateway.rawValue,
-                                    reporting: self.invocationsReporting.detachInternetGateway)
+                                    reporting: self.invocationsReporting.detachInternetGateway,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4613,7 +4896,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DetachNetworkInterfaceOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.detachNetworkInterface.rawValue,
-                                    reporting: self.invocationsReporting.detachNetworkInterface)
+                                    reporting: self.invocationsReporting.detachNetworkInterface,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4629,7 +4913,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DetachVolumeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.detachVolume.rawValue,
-                                 reporting: self.invocationsReporting.detachVolume)
+                                 reporting: self.invocationsReporting.detachVolume,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4643,7 +4928,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DetachVpnGatewayOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.detachVpnGateway.rawValue,
-                                    reporting: self.invocationsReporting.detachVpnGateway)
+                                    reporting: self.invocationsReporting.detachVpnGateway,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4659,7 +4945,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisableEbsEncryptionByDefaultOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disableEbsEncryptionByDefault.rawValue,
-                                 reporting: self.invocationsReporting.disableEbsEncryptionByDefault)
+                                 reporting: self.invocationsReporting.disableEbsEncryptionByDefault,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4675,7 +4962,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisableFastSnapshotRestoresOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disableFastSnapshotRestores.rawValue,
-                                 reporting: self.invocationsReporting.disableFastSnapshotRestores)
+                                 reporting: self.invocationsReporting.disableFastSnapshotRestores,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4691,7 +4979,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisableTransitGatewayRouteTablePropagationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disableTransitGatewayRouteTablePropagation.rawValue,
-                                 reporting: self.invocationsReporting.disableTransitGatewayRouteTablePropagation)
+                                 reporting: self.invocationsReporting.disableTransitGatewayRouteTablePropagation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4705,7 +4994,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DisableVgwRoutePropagationOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.disableVgwRoutePropagation.rawValue,
-                                    reporting: self.invocationsReporting.disableVgwRoutePropagation)
+                                    reporting: self.invocationsReporting.disableVgwRoutePropagation,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4721,7 +5011,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisableVpcClassicLinkOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disableVpcClassicLink.rawValue,
-                                 reporting: self.invocationsReporting.disableVpcClassicLink)
+                                 reporting: self.invocationsReporting.disableVpcClassicLink,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4737,7 +5028,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisableVpcClassicLinkDnsSupportOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disableVpcClassicLinkDnsSupport.rawValue,
-                                 reporting: self.invocationsReporting.disableVpcClassicLinkDnsSupport)
+                                 reporting: self.invocationsReporting.disableVpcClassicLinkDnsSupport,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4751,7 +5043,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DisassociateAddressOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.disassociateAddress.rawValue,
-                                    reporting: self.invocationsReporting.disassociateAddress)
+                                    reporting: self.invocationsReporting.disassociateAddress,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4767,7 +5060,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisassociateClientVpnTargetNetworkOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disassociateClientVpnTargetNetwork.rawValue,
-                                 reporting: self.invocationsReporting.disassociateClientVpnTargetNetwork)
+                                 reporting: self.invocationsReporting.disassociateClientVpnTargetNetwork,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4783,7 +5077,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisassociateEnclaveCertificateIamRoleOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disassociateEnclaveCertificateIamRole.rawValue,
-                                 reporting: self.invocationsReporting.disassociateEnclaveCertificateIamRole)
+                                 reporting: self.invocationsReporting.disassociateEnclaveCertificateIamRole,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4799,7 +5094,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisassociateIamInstanceProfileOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disassociateIamInstanceProfile.rawValue,
-                                 reporting: self.invocationsReporting.disassociateIamInstanceProfile)
+                                 reporting: self.invocationsReporting.disassociateIamInstanceProfile,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4813,7 +5109,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DisassociateRouteTableOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.disassociateRouteTable.rawValue,
-                                    reporting: self.invocationsReporting.disassociateRouteTable)
+                                    reporting: self.invocationsReporting.disassociateRouteTable,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4829,7 +5126,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisassociateSubnetCidrBlockOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disassociateSubnetCidrBlock.rawValue,
-                                 reporting: self.invocationsReporting.disassociateSubnetCidrBlock)
+                                 reporting: self.invocationsReporting.disassociateSubnetCidrBlock,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4845,7 +5143,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisassociateTransitGatewayMulticastDomainOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disassociateTransitGatewayMulticastDomain.rawValue,
-                                 reporting: self.invocationsReporting.disassociateTransitGatewayMulticastDomain)
+                                 reporting: self.invocationsReporting.disassociateTransitGatewayMulticastDomain,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4861,7 +5160,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisassociateTransitGatewayRouteTableOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disassociateTransitGatewayRouteTable.rawValue,
-                                 reporting: self.invocationsReporting.disassociateTransitGatewayRouteTable)
+                                 reporting: self.invocationsReporting.disassociateTransitGatewayRouteTable,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4877,7 +5177,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DisassociateVpcCidrBlockOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.disassociateVpcCidrBlock.rawValue,
-                                 reporting: self.invocationsReporting.disassociateVpcCidrBlock)
+                                 reporting: self.invocationsReporting.disassociateVpcCidrBlock,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4893,7 +5194,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: EnableEbsEncryptionByDefaultOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.enableEbsEncryptionByDefault.rawValue,
-                                 reporting: self.invocationsReporting.enableEbsEncryptionByDefault)
+                                 reporting: self.invocationsReporting.enableEbsEncryptionByDefault,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4909,7 +5211,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: EnableFastSnapshotRestoresOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.enableFastSnapshotRestores.rawValue,
-                                 reporting: self.invocationsReporting.enableFastSnapshotRestores)
+                                 reporting: self.invocationsReporting.enableFastSnapshotRestores,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4925,7 +5228,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: EnableTransitGatewayRouteTablePropagationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.enableTransitGatewayRouteTablePropagation.rawValue,
-                                 reporting: self.invocationsReporting.enableTransitGatewayRouteTablePropagation)
+                                 reporting: self.invocationsReporting.enableTransitGatewayRouteTablePropagation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4939,7 +5243,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: EnableVgwRoutePropagationOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.enableVgwRoutePropagation.rawValue,
-                                    reporting: self.invocationsReporting.enableVgwRoutePropagation)
+                                    reporting: self.invocationsReporting.enableVgwRoutePropagation,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4953,7 +5258,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: EnableVolumeIOOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.enableVolumeIO.rawValue,
-                                    reporting: self.invocationsReporting.enableVolumeIO)
+                                    reporting: self.invocationsReporting.enableVolumeIO,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4969,7 +5275,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: EnableVpcClassicLinkOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.enableVpcClassicLink.rawValue,
-                                 reporting: self.invocationsReporting.enableVpcClassicLink)
+                                 reporting: self.invocationsReporting.enableVpcClassicLink,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -4985,7 +5292,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: EnableVpcClassicLinkDnsSupportOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.enableVpcClassicLinkDnsSupport.rawValue,
-                                 reporting: self.invocationsReporting.enableVpcClassicLinkDnsSupport)
+                                 reporting: self.invocationsReporting.enableVpcClassicLinkDnsSupport,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5001,7 +5309,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ExportClientVpnClientCertificateRevocationListOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.exportClientVpnClientCertificateRevocationList.rawValue,
-                                 reporting: self.invocationsReporting.exportClientVpnClientCertificateRevocationList)
+                                 reporting: self.invocationsReporting.exportClientVpnClientCertificateRevocationList,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5017,7 +5326,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ExportClientVpnClientConfigurationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.exportClientVpnClientConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.exportClientVpnClientConfiguration)
+                                 reporting: self.invocationsReporting.exportClientVpnClientConfiguration,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5033,7 +5343,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ExportImageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.exportImage.rawValue,
-                                 reporting: self.invocationsReporting.exportImage)
+                                 reporting: self.invocationsReporting.exportImage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5049,7 +5360,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ExportTransitGatewayRoutesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.exportTransitGatewayRoutes.rawValue,
-                                 reporting: self.invocationsReporting.exportTransitGatewayRoutes)
+                                 reporting: self.invocationsReporting.exportTransitGatewayRoutes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5065,7 +5377,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetAssociatedEnclaveCertificateIamRolesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getAssociatedEnclaveCertificateIamRoles.rawValue,
-                                 reporting: self.invocationsReporting.getAssociatedEnclaveCertificateIamRoles)
+                                 reporting: self.invocationsReporting.getAssociatedEnclaveCertificateIamRoles,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5081,7 +5394,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetAssociatedIpv6PoolCidrsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getAssociatedIpv6PoolCidrs.rawValue,
-                                 reporting: self.invocationsReporting.getAssociatedIpv6PoolCidrs)
+                                 reporting: self.invocationsReporting.getAssociatedIpv6PoolCidrs,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5097,7 +5411,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetCapacityReservationUsageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getCapacityReservationUsage.rawValue,
-                                 reporting: self.invocationsReporting.getCapacityReservationUsage)
+                                 reporting: self.invocationsReporting.getCapacityReservationUsage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5113,7 +5428,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetCoipPoolUsageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getCoipPoolUsage.rawValue,
-                                 reporting: self.invocationsReporting.getCoipPoolUsage)
+                                 reporting: self.invocationsReporting.getCoipPoolUsage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5129,7 +5445,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetConsoleOutputOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getConsoleOutput.rawValue,
-                                 reporting: self.invocationsReporting.getConsoleOutput)
+                                 reporting: self.invocationsReporting.getConsoleOutput,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5145,7 +5462,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetConsoleScreenshotOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getConsoleScreenshot.rawValue,
-                                 reporting: self.invocationsReporting.getConsoleScreenshot)
+                                 reporting: self.invocationsReporting.getConsoleScreenshot,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5161,7 +5479,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetDefaultCreditSpecificationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getDefaultCreditSpecification.rawValue,
-                                 reporting: self.invocationsReporting.getDefaultCreditSpecification)
+                                 reporting: self.invocationsReporting.getDefaultCreditSpecification,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5177,7 +5496,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetEbsDefaultKmsKeyIdOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getEbsDefaultKmsKeyId.rawValue,
-                                 reporting: self.invocationsReporting.getEbsDefaultKmsKeyId)
+                                 reporting: self.invocationsReporting.getEbsDefaultKmsKeyId,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5193,7 +5513,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetEbsEncryptionByDefaultOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getEbsEncryptionByDefault.rawValue,
-                                 reporting: self.invocationsReporting.getEbsEncryptionByDefault)
+                                 reporting: self.invocationsReporting.getEbsEncryptionByDefault,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5209,7 +5530,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetGroupsForCapacityReservationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getGroupsForCapacityReservation.rawValue,
-                                 reporting: self.invocationsReporting.getGroupsForCapacityReservation)
+                                 reporting: self.invocationsReporting.getGroupsForCapacityReservation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5225,7 +5547,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetHostReservationPurchasePreviewOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getHostReservationPurchasePreview.rawValue,
-                                 reporting: self.invocationsReporting.getHostReservationPurchasePreview)
+                                 reporting: self.invocationsReporting.getHostReservationPurchasePreview,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5241,7 +5564,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetLaunchTemplateDataOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getLaunchTemplateData.rawValue,
-                                 reporting: self.invocationsReporting.getLaunchTemplateData)
+                                 reporting: self.invocationsReporting.getLaunchTemplateData,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5257,7 +5581,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetManagedPrefixListAssociationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getManagedPrefixListAssociations.rawValue,
-                                 reporting: self.invocationsReporting.getManagedPrefixListAssociations)
+                                 reporting: self.invocationsReporting.getManagedPrefixListAssociations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5273,7 +5598,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetManagedPrefixListEntriesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getManagedPrefixListEntries.rawValue,
-                                 reporting: self.invocationsReporting.getManagedPrefixListEntries)
+                                 reporting: self.invocationsReporting.getManagedPrefixListEntries,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5289,7 +5615,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetPasswordDataOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getPasswordData.rawValue,
-                                 reporting: self.invocationsReporting.getPasswordData)
+                                 reporting: self.invocationsReporting.getPasswordData,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5305,7 +5632,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetReservedInstancesExchangeQuoteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getReservedInstancesExchangeQuote.rawValue,
-                                 reporting: self.invocationsReporting.getReservedInstancesExchangeQuote)
+                                 reporting: self.invocationsReporting.getReservedInstancesExchangeQuote,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5321,7 +5649,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetTransitGatewayAttachmentPropagationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getTransitGatewayAttachmentPropagations.rawValue,
-                                 reporting: self.invocationsReporting.getTransitGatewayAttachmentPropagations)
+                                 reporting: self.invocationsReporting.getTransitGatewayAttachmentPropagations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5337,7 +5666,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetTransitGatewayMulticastDomainAssociationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getTransitGatewayMulticastDomainAssociations.rawValue,
-                                 reporting: self.invocationsReporting.getTransitGatewayMulticastDomainAssociations)
+                                 reporting: self.invocationsReporting.getTransitGatewayMulticastDomainAssociations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5353,7 +5683,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetTransitGatewayPrefixListReferencesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getTransitGatewayPrefixListReferences.rawValue,
-                                 reporting: self.invocationsReporting.getTransitGatewayPrefixListReferences)
+                                 reporting: self.invocationsReporting.getTransitGatewayPrefixListReferences,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5369,7 +5700,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetTransitGatewayRouteTableAssociationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getTransitGatewayRouteTableAssociations.rawValue,
-                                 reporting: self.invocationsReporting.getTransitGatewayRouteTableAssociations)
+                                 reporting: self.invocationsReporting.getTransitGatewayRouteTableAssociations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5385,7 +5717,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetTransitGatewayRouteTablePropagationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.getTransitGatewayRouteTablePropagations.rawValue,
-                                 reporting: self.invocationsReporting.getTransitGatewayRouteTablePropagations)
+                                 reporting: self.invocationsReporting.getTransitGatewayRouteTablePropagations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5401,7 +5734,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ImportClientVpnClientCertificateRevocationListOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.importClientVpnClientCertificateRevocationList.rawValue,
-                                 reporting: self.invocationsReporting.importClientVpnClientCertificateRevocationList)
+                                 reporting: self.invocationsReporting.importClientVpnClientCertificateRevocationList,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5417,7 +5751,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ImportImageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.importImage.rawValue,
-                                 reporting: self.invocationsReporting.importImage)
+                                 reporting: self.invocationsReporting.importImage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5433,7 +5768,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ImportInstanceOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.importInstance.rawValue,
-                                 reporting: self.invocationsReporting.importInstance)
+                                 reporting: self.invocationsReporting.importInstance,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5449,7 +5785,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ImportKeyPairOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.importKeyPair.rawValue,
-                                 reporting: self.invocationsReporting.importKeyPair)
+                                 reporting: self.invocationsReporting.importKeyPair,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5465,7 +5802,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ImportSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.importSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.importSnapshot)
+                                 reporting: self.invocationsReporting.importSnapshot,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5481,7 +5819,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ImportVolumeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.importVolume.rawValue,
-                                 reporting: self.invocationsReporting.importVolume)
+                                 reporting: self.invocationsReporting.importVolume,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5497,7 +5836,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyAddressAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyAddressAttribute.rawValue,
-                                 reporting: self.invocationsReporting.modifyAddressAttribute)
+                                 reporting: self.invocationsReporting.modifyAddressAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5513,7 +5853,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyAvailabilityZoneGroupOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyAvailabilityZoneGroup.rawValue,
-                                 reporting: self.invocationsReporting.modifyAvailabilityZoneGroup)
+                                 reporting: self.invocationsReporting.modifyAvailabilityZoneGroup,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5529,7 +5870,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyCapacityReservationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyCapacityReservation.rawValue,
-                                 reporting: self.invocationsReporting.modifyCapacityReservation)
+                                 reporting: self.invocationsReporting.modifyCapacityReservation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5545,7 +5887,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyClientVpnEndpointOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyClientVpnEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.modifyClientVpnEndpoint)
+                                 reporting: self.invocationsReporting.modifyClientVpnEndpoint,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5561,7 +5904,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDefaultCreditSpecificationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyDefaultCreditSpecification.rawValue,
-                                 reporting: self.invocationsReporting.modifyDefaultCreditSpecification)
+                                 reporting: self.invocationsReporting.modifyDefaultCreditSpecification,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5577,7 +5921,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyEbsDefaultKmsKeyIdOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyEbsDefaultKmsKeyId.rawValue,
-                                 reporting: self.invocationsReporting.modifyEbsDefaultKmsKeyId)
+                                 reporting: self.invocationsReporting.modifyEbsDefaultKmsKeyId,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5593,7 +5938,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyFleetOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyFleet.rawValue,
-                                 reporting: self.invocationsReporting.modifyFleet)
+                                 reporting: self.invocationsReporting.modifyFleet,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5609,7 +5955,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyFpgaImageAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyFpgaImageAttribute.rawValue,
-                                 reporting: self.invocationsReporting.modifyFpgaImageAttribute)
+                                 reporting: self.invocationsReporting.modifyFpgaImageAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5625,7 +5972,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyHostsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyHosts.rawValue,
-                                 reporting: self.invocationsReporting.modifyHosts)
+                                 reporting: self.invocationsReporting.modifyHosts,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5639,7 +5987,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifyIdFormatOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifyIdFormat.rawValue,
-                                    reporting: self.invocationsReporting.modifyIdFormat)
+                                    reporting: self.invocationsReporting.modifyIdFormat,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5653,7 +6002,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifyIdentityIdFormatOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifyIdentityIdFormat.rawValue,
-                                    reporting: self.invocationsReporting.modifyIdentityIdFormat)
+                                    reporting: self.invocationsReporting.modifyIdentityIdFormat,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5667,7 +6017,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifyImageAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifyImageAttribute.rawValue,
-                                    reporting: self.invocationsReporting.modifyImageAttribute)
+                                    reporting: self.invocationsReporting.modifyImageAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5681,7 +6032,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifyInstanceAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifyInstanceAttribute.rawValue,
-                                    reporting: self.invocationsReporting.modifyInstanceAttribute)
+                                    reporting: self.invocationsReporting.modifyInstanceAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5697,7 +6049,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyInstanceCapacityReservationAttributesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyInstanceCapacityReservationAttributes.rawValue,
-                                 reporting: self.invocationsReporting.modifyInstanceCapacityReservationAttributes)
+                                 reporting: self.invocationsReporting.modifyInstanceCapacityReservationAttributes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5713,7 +6066,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyInstanceCreditSpecificationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyInstanceCreditSpecification.rawValue,
-                                 reporting: self.invocationsReporting.modifyInstanceCreditSpecification)
+                                 reporting: self.invocationsReporting.modifyInstanceCreditSpecification,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5729,7 +6083,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyInstanceEventStartTimeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyInstanceEventStartTime.rawValue,
-                                 reporting: self.invocationsReporting.modifyInstanceEventStartTime)
+                                 reporting: self.invocationsReporting.modifyInstanceEventStartTime,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5745,7 +6100,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyInstanceMetadataOptionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyInstanceMetadataOptions.rawValue,
-                                 reporting: self.invocationsReporting.modifyInstanceMetadataOptions)
+                                 reporting: self.invocationsReporting.modifyInstanceMetadataOptions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5761,7 +6117,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyInstancePlacementOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyInstancePlacement.rawValue,
-                                 reporting: self.invocationsReporting.modifyInstancePlacement)
+                                 reporting: self.invocationsReporting.modifyInstancePlacement,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5777,7 +6134,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyLaunchTemplateOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyLaunchTemplate.rawValue,
-                                 reporting: self.invocationsReporting.modifyLaunchTemplate)
+                                 reporting: self.invocationsReporting.modifyLaunchTemplate,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5793,7 +6151,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyManagedPrefixListOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyManagedPrefixList.rawValue,
-                                 reporting: self.invocationsReporting.modifyManagedPrefixList)
+                                 reporting: self.invocationsReporting.modifyManagedPrefixList,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5807,7 +6166,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifyNetworkInterfaceAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifyNetworkInterfaceAttribute.rawValue,
-                                    reporting: self.invocationsReporting.modifyNetworkInterfaceAttribute)
+                                    reporting: self.invocationsReporting.modifyNetworkInterfaceAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5823,7 +6183,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyReservedInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyReservedInstances.rawValue,
-                                 reporting: self.invocationsReporting.modifyReservedInstances)
+                                 reporting: self.invocationsReporting.modifyReservedInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5837,7 +6198,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifySnapshotAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifySnapshotAttribute.rawValue,
-                                    reporting: self.invocationsReporting.modifySnapshotAttribute)
+                                    reporting: self.invocationsReporting.modifySnapshotAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5853,7 +6215,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifySpotFleetRequestOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifySpotFleetRequest.rawValue,
-                                 reporting: self.invocationsReporting.modifySpotFleetRequest)
+                                 reporting: self.invocationsReporting.modifySpotFleetRequest,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5867,7 +6230,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifySubnetAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifySubnetAttribute.rawValue,
-                                    reporting: self.invocationsReporting.modifySubnetAttribute)
+                                    reporting: self.invocationsReporting.modifySubnetAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5883,7 +6247,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyTrafficMirrorFilterNetworkServicesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyTrafficMirrorFilterNetworkServices.rawValue,
-                                 reporting: self.invocationsReporting.modifyTrafficMirrorFilterNetworkServices)
+                                 reporting: self.invocationsReporting.modifyTrafficMirrorFilterNetworkServices,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5899,7 +6264,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyTrafficMirrorFilterRuleOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyTrafficMirrorFilterRule.rawValue,
-                                 reporting: self.invocationsReporting.modifyTrafficMirrorFilterRule)
+                                 reporting: self.invocationsReporting.modifyTrafficMirrorFilterRule,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5915,7 +6281,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyTrafficMirrorSessionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyTrafficMirrorSession.rawValue,
-                                 reporting: self.invocationsReporting.modifyTrafficMirrorSession)
+                                 reporting: self.invocationsReporting.modifyTrafficMirrorSession,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5931,7 +6298,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyTransitGatewayOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyTransitGateway.rawValue,
-                                 reporting: self.invocationsReporting.modifyTransitGateway)
+                                 reporting: self.invocationsReporting.modifyTransitGateway,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5947,7 +6315,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyTransitGatewayPrefixListReferenceOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyTransitGatewayPrefixListReference.rawValue,
-                                 reporting: self.invocationsReporting.modifyTransitGatewayPrefixListReference)
+                                 reporting: self.invocationsReporting.modifyTransitGatewayPrefixListReference,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5963,7 +6332,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyTransitGatewayVpcAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyTransitGatewayVpcAttachment.rawValue,
-                                 reporting: self.invocationsReporting.modifyTransitGatewayVpcAttachment)
+                                 reporting: self.invocationsReporting.modifyTransitGatewayVpcAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5979,7 +6349,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVolumeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVolume.rawValue,
-                                 reporting: self.invocationsReporting.modifyVolume)
+                                 reporting: self.invocationsReporting.modifyVolume,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -5993,7 +6364,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifyVolumeAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifyVolumeAttribute.rawValue,
-                                    reporting: self.invocationsReporting.modifyVolumeAttribute)
+                                    reporting: self.invocationsReporting.modifyVolumeAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6007,7 +6379,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ModifyVpcAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.modifyVpcAttribute.rawValue,
-                                    reporting: self.invocationsReporting.modifyVpcAttribute)
+                                    reporting: self.invocationsReporting.modifyVpcAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6023,7 +6396,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpcEndpointOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpcEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpcEndpoint)
+                                 reporting: self.invocationsReporting.modifyVpcEndpoint,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6039,7 +6413,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpcEndpointConnectionNotificationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpcEndpointConnectionNotification.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpcEndpointConnectionNotification)
+                                 reporting: self.invocationsReporting.modifyVpcEndpointConnectionNotification,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6055,7 +6430,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpcEndpointServiceConfigurationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpcEndpointServiceConfiguration.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpcEndpointServiceConfiguration)
+                                 reporting: self.invocationsReporting.modifyVpcEndpointServiceConfiguration,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6071,7 +6447,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpcEndpointServicePermissionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpcEndpointServicePermissions.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpcEndpointServicePermissions)
+                                 reporting: self.invocationsReporting.modifyVpcEndpointServicePermissions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6087,7 +6464,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpcPeeringConnectionOptionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpcPeeringConnectionOptions.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpcPeeringConnectionOptions)
+                                 reporting: self.invocationsReporting.modifyVpcPeeringConnectionOptions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6103,7 +6481,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpcTenancyOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpcTenancy.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpcTenancy)
+                                 reporting: self.invocationsReporting.modifyVpcTenancy,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6119,7 +6498,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpnConnectionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpnConnection.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpnConnection)
+                                 reporting: self.invocationsReporting.modifyVpnConnection,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6135,7 +6515,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpnConnectionOptionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpnConnectionOptions.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpnConnectionOptions)
+                                 reporting: self.invocationsReporting.modifyVpnConnectionOptions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6151,7 +6532,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpnTunnelCertificateOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpnTunnelCertificate.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpnTunnelCertificate)
+                                 reporting: self.invocationsReporting.modifyVpnTunnelCertificate,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6167,7 +6549,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyVpnTunnelOptionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.modifyVpnTunnelOptions.rawValue,
-                                 reporting: self.invocationsReporting.modifyVpnTunnelOptions)
+                                 reporting: self.invocationsReporting.modifyVpnTunnelOptions,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6183,7 +6566,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: MonitorInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.monitorInstances.rawValue,
-                                 reporting: self.invocationsReporting.monitorInstances)
+                                 reporting: self.invocationsReporting.monitorInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6199,7 +6583,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: MoveAddressToVpcOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.moveAddressToVpc.rawValue,
-                                 reporting: self.invocationsReporting.moveAddressToVpc)
+                                 reporting: self.invocationsReporting.moveAddressToVpc,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6215,7 +6600,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ProvisionByoipCidrOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.provisionByoipCidr.rawValue,
-                                 reporting: self.invocationsReporting.provisionByoipCidr)
+                                 reporting: self.invocationsReporting.provisionByoipCidr,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6231,7 +6617,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PurchaseHostReservationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.purchaseHostReservation.rawValue,
-                                 reporting: self.invocationsReporting.purchaseHostReservation)
+                                 reporting: self.invocationsReporting.purchaseHostReservation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6247,7 +6634,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PurchaseReservedInstancesOfferingOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.purchaseReservedInstancesOffering.rawValue,
-                                 reporting: self.invocationsReporting.purchaseReservedInstancesOffering)
+                                 reporting: self.invocationsReporting.purchaseReservedInstancesOffering,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6263,7 +6651,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PurchaseScheduledInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.purchaseScheduledInstances.rawValue,
-                                 reporting: self.invocationsReporting.purchaseScheduledInstances)
+                                 reporting: self.invocationsReporting.purchaseScheduledInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6277,7 +6666,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: RebootInstancesOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.rebootInstances.rawValue,
-                                    reporting: self.invocationsReporting.rebootInstances)
+                                    reporting: self.invocationsReporting.rebootInstances,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6293,7 +6683,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RegisterImageOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.registerImage.rawValue,
-                                 reporting: self.invocationsReporting.registerImage)
+                                 reporting: self.invocationsReporting.registerImage,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6309,7 +6700,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RegisterInstanceEventNotificationAttributesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.registerInstanceEventNotificationAttributes.rawValue,
-                                 reporting: self.invocationsReporting.registerInstanceEventNotificationAttributes)
+                                 reporting: self.invocationsReporting.registerInstanceEventNotificationAttributes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6325,7 +6717,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RegisterTransitGatewayMulticastGroupMembersOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.registerTransitGatewayMulticastGroupMembers.rawValue,
-                                 reporting: self.invocationsReporting.registerTransitGatewayMulticastGroupMembers)
+                                 reporting: self.invocationsReporting.registerTransitGatewayMulticastGroupMembers,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6341,7 +6734,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RegisterTransitGatewayMulticastGroupSourcesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.registerTransitGatewayMulticastGroupSources.rawValue,
-                                 reporting: self.invocationsReporting.registerTransitGatewayMulticastGroupSources)
+                                 reporting: self.invocationsReporting.registerTransitGatewayMulticastGroupSources,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6357,7 +6751,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RejectTransitGatewayMulticastDomainAssociationsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.rejectTransitGatewayMulticastDomainAssociations.rawValue,
-                                 reporting: self.invocationsReporting.rejectTransitGatewayMulticastDomainAssociations)
+                                 reporting: self.invocationsReporting.rejectTransitGatewayMulticastDomainAssociations,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6373,7 +6768,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RejectTransitGatewayPeeringAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.rejectTransitGatewayPeeringAttachment.rawValue,
-                                 reporting: self.invocationsReporting.rejectTransitGatewayPeeringAttachment)
+                                 reporting: self.invocationsReporting.rejectTransitGatewayPeeringAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6389,7 +6785,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RejectTransitGatewayVpcAttachmentOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.rejectTransitGatewayVpcAttachment.rawValue,
-                                 reporting: self.invocationsReporting.rejectTransitGatewayVpcAttachment)
+                                 reporting: self.invocationsReporting.rejectTransitGatewayVpcAttachment,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6405,7 +6802,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RejectVpcEndpointConnectionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.rejectVpcEndpointConnections.rawValue,
-                                 reporting: self.invocationsReporting.rejectVpcEndpointConnections)
+                                 reporting: self.invocationsReporting.rejectVpcEndpointConnections,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6421,7 +6819,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RejectVpcPeeringConnectionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.rejectVpcPeeringConnection.rawValue,
-                                 reporting: self.invocationsReporting.rejectVpcPeeringConnection)
+                                 reporting: self.invocationsReporting.rejectVpcPeeringConnection,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6435,7 +6834,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ReleaseAddressOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.releaseAddress.rawValue,
-                                    reporting: self.invocationsReporting.releaseAddress)
+                                    reporting: self.invocationsReporting.releaseAddress,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6451,7 +6851,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ReleaseHostsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.releaseHosts.rawValue,
-                                 reporting: self.invocationsReporting.releaseHosts)
+                                 reporting: self.invocationsReporting.releaseHosts,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6467,7 +6868,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ReplaceIamInstanceProfileAssociationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.replaceIamInstanceProfileAssociation.rawValue,
-                                 reporting: self.invocationsReporting.replaceIamInstanceProfileAssociation)
+                                 reporting: self.invocationsReporting.replaceIamInstanceProfileAssociation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6483,7 +6885,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ReplaceNetworkAclAssociationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.replaceNetworkAclAssociation.rawValue,
-                                 reporting: self.invocationsReporting.replaceNetworkAclAssociation)
+                                 reporting: self.invocationsReporting.replaceNetworkAclAssociation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6497,7 +6900,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ReplaceNetworkAclEntryOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.replaceNetworkAclEntry.rawValue,
-                                    reporting: self.invocationsReporting.replaceNetworkAclEntry)
+                                    reporting: self.invocationsReporting.replaceNetworkAclEntry,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6511,7 +6915,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ReplaceRouteOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.replaceRoute.rawValue,
-                                    reporting: self.invocationsReporting.replaceRoute)
+                                    reporting: self.invocationsReporting.replaceRoute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6527,7 +6932,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ReplaceRouteTableAssociationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.replaceRouteTableAssociation.rawValue,
-                                 reporting: self.invocationsReporting.replaceRouteTableAssociation)
+                                 reporting: self.invocationsReporting.replaceRouteTableAssociation,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6543,7 +6949,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ReplaceTransitGatewayRouteOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.replaceTransitGatewayRoute.rawValue,
-                                 reporting: self.invocationsReporting.replaceTransitGatewayRoute)
+                                 reporting: self.invocationsReporting.replaceTransitGatewayRoute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6557,7 +6964,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ReportInstanceStatusOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.reportInstanceStatus.rawValue,
-                                    reporting: self.invocationsReporting.reportInstanceStatus)
+                                    reporting: self.invocationsReporting.reportInstanceStatus,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6573,7 +6981,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RequestSpotFleetOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.requestSpotFleet.rawValue,
-                                 reporting: self.invocationsReporting.requestSpotFleet)
+                                 reporting: self.invocationsReporting.requestSpotFleet,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6589,7 +6998,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RequestSpotInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.requestSpotInstances.rawValue,
-                                 reporting: self.invocationsReporting.requestSpotInstances)
+                                 reporting: self.invocationsReporting.requestSpotInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6605,7 +7015,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ResetAddressAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.resetAddressAttribute.rawValue,
-                                 reporting: self.invocationsReporting.resetAddressAttribute)
+                                 reporting: self.invocationsReporting.resetAddressAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6621,7 +7032,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ResetEbsDefaultKmsKeyIdOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.resetEbsDefaultKmsKeyId.rawValue,
-                                 reporting: self.invocationsReporting.resetEbsDefaultKmsKeyId)
+                                 reporting: self.invocationsReporting.resetEbsDefaultKmsKeyId,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6637,7 +7049,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ResetFpgaImageAttributeOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.resetFpgaImageAttribute.rawValue,
-                                 reporting: self.invocationsReporting.resetFpgaImageAttribute)
+                                 reporting: self.invocationsReporting.resetFpgaImageAttribute,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6651,7 +7064,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ResetImageAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.resetImageAttribute.rawValue,
-                                    reporting: self.invocationsReporting.resetImageAttribute)
+                                    reporting: self.invocationsReporting.resetImageAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6665,7 +7079,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ResetInstanceAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.resetInstanceAttribute.rawValue,
-                                    reporting: self.invocationsReporting.resetInstanceAttribute)
+                                    reporting: self.invocationsReporting.resetInstanceAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6679,7 +7094,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ResetNetworkInterfaceAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.resetNetworkInterfaceAttribute.rawValue,
-                                    reporting: self.invocationsReporting.resetNetworkInterfaceAttribute)
+                                    reporting: self.invocationsReporting.resetNetworkInterfaceAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6693,7 +7109,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ResetSnapshotAttributeOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.resetSnapshotAttribute.rawValue,
-                                    reporting: self.invocationsReporting.resetSnapshotAttribute)
+                                    reporting: self.invocationsReporting.resetSnapshotAttribute,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6709,7 +7126,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RestoreAddressToClassicOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.restoreAddressToClassic.rawValue,
-                                 reporting: self.invocationsReporting.restoreAddressToClassic)
+                                 reporting: self.invocationsReporting.restoreAddressToClassic,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6725,7 +7143,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RestoreManagedPrefixListVersionOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.restoreManagedPrefixListVersion.rawValue,
-                                 reporting: self.invocationsReporting.restoreManagedPrefixListVersion)
+                                 reporting: self.invocationsReporting.restoreManagedPrefixListVersion,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6741,7 +7160,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RevokeClientVpnIngressOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.revokeClientVpnIngress.rawValue,
-                                 reporting: self.invocationsReporting.revokeClientVpnIngress)
+                                 reporting: self.invocationsReporting.revokeClientVpnIngress,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6757,7 +7177,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RevokeSecurityGroupEgressOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.revokeSecurityGroupEgress.rawValue,
-                                 reporting: self.invocationsReporting.revokeSecurityGroupEgress)
+                                 reporting: self.invocationsReporting.revokeSecurityGroupEgress,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6773,7 +7194,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RevokeSecurityGroupIngressOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.revokeSecurityGroupIngress.rawValue,
-                                 reporting: self.invocationsReporting.revokeSecurityGroupIngress)
+                                 reporting: self.invocationsReporting.revokeSecurityGroupIngress,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6789,7 +7211,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RunInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.runInstances.rawValue,
-                                 reporting: self.invocationsReporting.runInstances)
+                                 reporting: self.invocationsReporting.runInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6805,7 +7228,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RunScheduledInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.runScheduledInstances.rawValue,
-                                 reporting: self.invocationsReporting.runScheduledInstances)
+                                 reporting: self.invocationsReporting.runScheduledInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6821,7 +7245,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: SearchLocalGatewayRoutesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.searchLocalGatewayRoutes.rawValue,
-                                 reporting: self.invocationsReporting.searchLocalGatewayRoutes)
+                                 reporting: self.invocationsReporting.searchLocalGatewayRoutes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6837,7 +7262,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: SearchTransitGatewayMulticastGroupsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.searchTransitGatewayMulticastGroups.rawValue,
-                                 reporting: self.invocationsReporting.searchTransitGatewayMulticastGroups)
+                                 reporting: self.invocationsReporting.searchTransitGatewayMulticastGroups,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6853,7 +7279,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: SearchTransitGatewayRoutesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.searchTransitGatewayRoutes.rawValue,
-                                 reporting: self.invocationsReporting.searchTransitGatewayRoutes)
+                                 reporting: self.invocationsReporting.searchTransitGatewayRoutes,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6867,7 +7294,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: SendDiagnosticInterruptOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.sendDiagnosticInterrupt.rawValue,
-                                    reporting: self.invocationsReporting.sendDiagnosticInterrupt)
+                                    reporting: self.invocationsReporting.sendDiagnosticInterrupt,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6883,7 +7311,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StartInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.startInstances.rawValue,
-                                 reporting: self.invocationsReporting.startInstances)
+                                 reporting: self.invocationsReporting.startInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6899,7 +7328,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StartNetworkInsightsAnalysisOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.startNetworkInsightsAnalysis.rawValue,
-                                 reporting: self.invocationsReporting.startNetworkInsightsAnalysis)
+                                 reporting: self.invocationsReporting.startNetworkInsightsAnalysis,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6915,7 +7345,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StartVpcEndpointServicePrivateDnsVerificationOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.startVpcEndpointServicePrivateDnsVerification.rawValue,
-                                 reporting: self.invocationsReporting.startVpcEndpointServicePrivateDnsVerification)
+                                 reporting: self.invocationsReporting.startVpcEndpointServicePrivateDnsVerification,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6931,7 +7362,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StopInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.stopInstances.rawValue,
-                                 reporting: self.invocationsReporting.stopInstances)
+                                 reporting: self.invocationsReporting.stopInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6947,7 +7379,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: TerminateClientVpnConnectionsOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.terminateClientVpnConnections.rawValue,
-                                 reporting: self.invocationsReporting.terminateClientVpnConnections)
+                                 reporting: self.invocationsReporting.terminateClientVpnConnections,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6963,7 +7396,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: TerminateInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.terminateInstances.rawValue,
-                                 reporting: self.invocationsReporting.terminateInstances)
+                                 reporting: self.invocationsReporting.terminateInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6979,7 +7413,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UnassignIpv6AddressesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.unassignIpv6Addresses.rawValue,
-                                 reporting: self.invocationsReporting.unassignIpv6Addresses)
+                                 reporting: self.invocationsReporting.unassignIpv6Addresses,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -6993,7 +7428,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: UnassignPrivateIpAddressesOperationHTTPRequestInput(encodable: input),
                                     action: ElasticComputeCloudModelOperations.unassignPrivateIpAddresses.rawValue,
-                                    reporting: self.invocationsReporting.unassignPrivateIpAddresses)
+                                    reporting: self.invocationsReporting.unassignPrivateIpAddresses,
+                                    errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -7009,7 +7445,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UnmonitorInstancesOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.unmonitorInstances.rawValue,
-                                 reporting: self.invocationsReporting.unmonitorInstances)
+                                 reporting: self.invocationsReporting.unmonitorInstances,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -7025,7 +7462,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UpdateSecurityGroupRuleDescriptionsEgressOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.updateSecurityGroupRuleDescriptionsEgress.rawValue,
-                                 reporting: self.invocationsReporting.updateSecurityGroupRuleDescriptionsEgress)
+                                 reporting: self.invocationsReporting.updateSecurityGroupRuleDescriptionsEgress,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -7041,7 +7479,8 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UpdateSecurityGroupRuleDescriptionsIngressOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.updateSecurityGroupRuleDescriptionsIngress.rawValue,
-                                 reporting: self.invocationsReporting.updateSecurityGroupRuleDescriptionsIngress)
+                                 reporting: self.invocationsReporting.updateSecurityGroupRuleDescriptionsIngress,
+                                 errorType: ElasticComputeCloudError.self)
     }
 
     /**
@@ -7057,6 +7496,7 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: WithdrawByoipCidrOperationHTTPRequestInput(encodable: input),
                                  action: ElasticComputeCloudModelOperations.withdrawByoipCidr.rawValue,
-                                 reporting: self.invocationsReporting.withdrawByoipCidr)
+                                 reporting: self.invocationsReporting.withdrawByoipCidr,
+                                 errorType: ElasticComputeCloudError.self)
     }
 }

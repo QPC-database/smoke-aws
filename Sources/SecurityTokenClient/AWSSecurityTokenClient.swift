@@ -148,7 +148,8 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssumeRoleOperationHTTPRequestInput(encodable: input),
                                  action: SecurityTokenModelOperations.assumeRole.rawValue,
-                                 reporting: self.invocationsReporting.assumeRole)
+                                 reporting: self.invocationsReporting.assumeRole,
+                                 errorType: SecurityTokenError.self)
     }
 
     /**
@@ -165,7 +166,8 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssumeRoleWithSAMLOperationHTTPRequestInput(encodable: input),
                                  action: SecurityTokenModelOperations.assumeRoleWithSAML.rawValue,
-                                 reporting: self.invocationsReporting.assumeRoleWithSAML)
+                                 reporting: self.invocationsReporting.assumeRoleWithSAML,
+                                 errorType: SecurityTokenError.self)
     }
 
     /**
@@ -182,7 +184,8 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AssumeRoleWithWebIdentityOperationHTTPRequestInput(encodable: input),
                                  action: SecurityTokenModelOperations.assumeRoleWithWebIdentity.rawValue,
-                                 reporting: self.invocationsReporting.assumeRoleWithWebIdentity)
+                                 reporting: self.invocationsReporting.assumeRoleWithWebIdentity,
+                                 errorType: SecurityTokenError.self)
     }
 
     /**
@@ -199,7 +202,8 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DecodeAuthorizationMessageOperationHTTPRequestInput(encodable: input),
                                  action: SecurityTokenModelOperations.decodeAuthorizationMessage.rawValue,
-                                 reporting: self.invocationsReporting.decodeAuthorizationMessage)
+                                 reporting: self.invocationsReporting.decodeAuthorizationMessage,
+                                 errorType: SecurityTokenError.self)
     }
 
     /**
@@ -215,7 +219,8 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetAccessKeyInfoOperationHTTPRequestInput(encodable: input),
                                  action: SecurityTokenModelOperations.getAccessKeyInfo.rawValue,
-                                 reporting: self.invocationsReporting.getAccessKeyInfo)
+                                 reporting: self.invocationsReporting.getAccessKeyInfo,
+                                 errorType: SecurityTokenError.self)
     }
 
     /**
@@ -231,7 +236,8 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetCallerIdentityOperationHTTPRequestInput(encodable: input),
                                  action: SecurityTokenModelOperations.getCallerIdentity.rawValue,
-                                 reporting: self.invocationsReporting.getCallerIdentity)
+                                 reporting: self.invocationsReporting.getCallerIdentity,
+                                 errorType: SecurityTokenError.self)
     }
 
     /**
@@ -248,7 +254,8 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetFederationTokenOperationHTTPRequestInput(encodable: input),
                                  action: SecurityTokenModelOperations.getFederationToken.rawValue,
-                                 reporting: self.invocationsReporting.getFederationToken)
+                                 reporting: self.invocationsReporting.getFederationToken,
+                                 errorType: SecurityTokenError.self)
     }
 
     /**
@@ -265,6 +272,7 @@ public struct AWSSecurityTokenClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetSessionTokenOperationHTTPRequestInput(encodable: input),
                                  action: SecurityTokenModelOperations.getSessionToken.rawValue,
-                                 reporting: self.invocationsReporting.getSessionToken)
+                                 reporting: self.invocationsReporting.getSessionToken,
+                                 errorType: SecurityTokenError.self)
     }
 }

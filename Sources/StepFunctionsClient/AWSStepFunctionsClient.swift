@@ -164,7 +164,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateActivityOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.createActivity.rawValue,
-                                 reporting: self.invocationsReporting.createActivity)
+                                 reporting: self.invocationsReporting.createActivity,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -181,7 +182,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateStateMachineOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.createStateMachine.rawValue,
-                                 reporting: self.invocationsReporting.createStateMachine)
+                                 reporting: self.invocationsReporting.createStateMachine,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -198,7 +200,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteActivityOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.deleteActivity.rawValue,
-                                 reporting: self.invocationsReporting.deleteActivity)
+                                 reporting: self.invocationsReporting.deleteActivity,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -215,7 +218,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteStateMachineOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.deleteStateMachine.rawValue,
-                                 reporting: self.invocationsReporting.deleteStateMachine)
+                                 reporting: self.invocationsReporting.deleteStateMachine,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -232,7 +236,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeActivityOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.describeActivity.rawValue,
-                                 reporting: self.invocationsReporting.describeActivity)
+                                 reporting: self.invocationsReporting.describeActivity,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -249,7 +254,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeExecutionOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.describeExecution.rawValue,
-                                 reporting: self.invocationsReporting.describeExecution)
+                                 reporting: self.invocationsReporting.describeExecution,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -266,7 +272,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeStateMachineOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.describeStateMachine.rawValue,
-                                 reporting: self.invocationsReporting.describeStateMachine)
+                                 reporting: self.invocationsReporting.describeStateMachine,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -283,7 +290,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeStateMachineForExecutionOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.describeStateMachineForExecution.rawValue,
-                                 reporting: self.invocationsReporting.describeStateMachineForExecution)
+                                 reporting: self.invocationsReporting.describeStateMachineForExecution,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -300,7 +308,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetActivityTaskOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.getActivityTask.rawValue,
-                                 reporting: self.invocationsReporting.getActivityTask)
+                                 reporting: self.invocationsReporting.getActivityTask,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -317,7 +326,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetExecutionHistoryOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.getExecutionHistory.rawValue,
-                                 reporting: self.invocationsReporting.getExecutionHistory)
+                                 reporting: self.invocationsReporting.getExecutionHistory,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -334,7 +344,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListActivitiesOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.listActivities.rawValue,
-                                 reporting: self.invocationsReporting.listActivities)
+                                 reporting: self.invocationsReporting.listActivities,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -351,7 +362,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListExecutionsOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.listExecutions.rawValue,
-                                 reporting: self.invocationsReporting.listExecutions)
+                                 reporting: self.invocationsReporting.listExecutions,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -368,7 +380,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListStateMachinesOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.listStateMachines.rawValue,
-                                 reporting: self.invocationsReporting.listStateMachines)
+                                 reporting: self.invocationsReporting.listStateMachines,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -385,7 +398,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.listTagsForResource.rawValue,
-                                 reporting: self.invocationsReporting.listTagsForResource)
+                                 reporting: self.invocationsReporting.listTagsForResource,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -402,7 +416,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: SendTaskFailureOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.sendTaskFailure.rawValue,
-                                 reporting: self.invocationsReporting.sendTaskFailure)
+                                 reporting: self.invocationsReporting.sendTaskFailure,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -419,7 +434,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: SendTaskHeartbeatOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.sendTaskHeartbeat.rawValue,
-                                 reporting: self.invocationsReporting.sendTaskHeartbeat)
+                                 reporting: self.invocationsReporting.sendTaskHeartbeat,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -436,7 +452,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: SendTaskSuccessOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.sendTaskSuccess.rawValue,
-                                 reporting: self.invocationsReporting.sendTaskSuccess)
+                                 reporting: self.invocationsReporting.sendTaskSuccess,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -453,7 +470,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: StartExecutionOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.startExecution.rawValue,
-                                 reporting: self.invocationsReporting.startExecution)
+                                 reporting: self.invocationsReporting.startExecution,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -470,7 +488,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: StartSyncExecutionOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.startSyncExecution.rawValue,
-                                 reporting: self.invocationsReporting.startSyncExecution)
+                                 reporting: self.invocationsReporting.startSyncExecution,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -487,7 +506,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: StopExecutionOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.stopExecution.rawValue,
-                                 reporting: self.invocationsReporting.stopExecution)
+                                 reporting: self.invocationsReporting.stopExecution,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -504,7 +524,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: TagResourceOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.tagResource.rawValue,
-                                 reporting: self.invocationsReporting.tagResource)
+                                 reporting: self.invocationsReporting.tagResource,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -521,7 +542,8 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UntagResourceOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.untagResource.rawValue,
-                                 reporting: self.invocationsReporting.untagResource)
+                                 reporting: self.invocationsReporting.untagResource,
+                                 errorType: StepFunctionsError.self)
     }
 
     /**
@@ -538,6 +560,7 @@ public struct AWSStepFunctionsClient<InvocationReportingType: HTTPClientCoreInvo
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateStateMachineOperationHTTPRequestInput(encodable: input),
                                  operation: StepFunctionsModelOperations.updateStateMachine.rawValue,
-                                 reporting: self.invocationsReporting.updateStateMachine)
+                                 reporting: self.invocationsReporting.updateStateMachine,
+                                 errorType: StepFunctionsError.self)
     }
 }

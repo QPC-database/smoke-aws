@@ -179,7 +179,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AddPermissionOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.addPermission.rawValue,
-                                    reporting: self.invocationsReporting.addPermission)
+                                    reporting: self.invocationsReporting.addPermission,
+                                    errorType: SimpleQueueError.self)
     }
 
     /**
@@ -194,7 +195,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: ChangeMessageVisibilityOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.changeMessageVisibility.rawValue,
-                                    reporting: self.invocationsReporting.changeMessageVisibility)
+                                    reporting: self.invocationsReporting.changeMessageVisibility,
+                                    errorType: SimpleQueueError.self)
     }
 
     /**
@@ -211,7 +213,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ChangeMessageVisibilityBatchOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.changeMessageVisibilityBatch.rawValue,
-                                 reporting: self.invocationsReporting.changeMessageVisibilityBatch)
+                                 reporting: self.invocationsReporting.changeMessageVisibilityBatch,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -228,7 +231,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateQueueOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.createQueue.rawValue,
-                                 reporting: self.invocationsReporting.createQueue)
+                                 reporting: self.invocationsReporting.createQueue,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -243,7 +247,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteMessageOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.deleteMessage.rawValue,
-                                    reporting: self.invocationsReporting.deleteMessage)
+                                    reporting: self.invocationsReporting.deleteMessage,
+                                    errorType: SimpleQueueError.self)
     }
 
     /**
@@ -260,7 +265,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteMessageBatchOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.deleteMessageBatch.rawValue,
-                                 reporting: self.invocationsReporting.deleteMessageBatch)
+                                 reporting: self.invocationsReporting.deleteMessageBatch,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -274,7 +280,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteQueueOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.deleteQueue.rawValue,
-                                    reporting: self.invocationsReporting.deleteQueue)
+                                    reporting: self.invocationsReporting.deleteQueue,
+                                    errorType: SimpleQueueError.self)
     }
 
     /**
@@ -291,7 +298,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: listHttpClient,
                                  wrappedInput: GetQueueAttributesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.getQueueAttributes.rawValue,
-                                 reporting: self.invocationsReporting.getQueueAttributes)
+                                 reporting: self.invocationsReporting.getQueueAttributes,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -308,7 +316,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetQueueUrlOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.getQueueUrl.rawValue,
-                                 reporting: self.invocationsReporting.getQueueUrl)
+                                 reporting: self.invocationsReporting.getQueueUrl,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -325,7 +334,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListDeadLetterSourceQueuesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.listDeadLetterSourceQueues.rawValue,
-                                 reporting: self.invocationsReporting.listDeadLetterSourceQueues)
+                                 reporting: self.invocationsReporting.listDeadLetterSourceQueues,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -341,7 +351,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: listHttpClient,
                                  wrappedInput: ListQueueTagsOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.listQueueTags.rawValue,
-                                 reporting: self.invocationsReporting.listQueueTags)
+                                 reporting: self.invocationsReporting.listQueueTags,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -357,7 +368,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListQueuesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.listQueues.rawValue,
-                                 reporting: self.invocationsReporting.listQueues)
+                                 reporting: self.invocationsReporting.listQueues,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -372,7 +384,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: PurgeQueueOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.purgeQueue.rawValue,
-                                    reporting: self.invocationsReporting.purgeQueue)
+                                    reporting: self.invocationsReporting.purgeQueue,
+                                    errorType: SimpleQueueError.self)
     }
 
     /**
@@ -389,7 +402,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ReceiveMessageOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.receiveMessage.rawValue,
-                                 reporting: self.invocationsReporting.receiveMessage)
+                                 reporting: self.invocationsReporting.receiveMessage,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -403,7 +417,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: RemovePermissionOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.removePermission.rawValue,
-                                    reporting: self.invocationsReporting.removePermission)
+                                    reporting: self.invocationsReporting.removePermission,
+                                    errorType: SimpleQueueError.self)
     }
 
     /**
@@ -420,7 +435,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: SendMessageOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.sendMessage.rawValue,
-                                 reporting: self.invocationsReporting.sendMessage)
+                                 reporting: self.invocationsReporting.sendMessage,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -437,7 +453,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: SendMessageBatchOperationHTTPRequestInput(encodable: input),
                                  action: SimpleQueueModelOperations.sendMessageBatch.rawValue,
-                                 reporting: self.invocationsReporting.sendMessageBatch)
+                                 reporting: self.invocationsReporting.sendMessageBatch,
+                                 errorType: SimpleQueueError.self)
     }
 
     /**
@@ -452,7 +469,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: listHttpClient,
                                     wrappedInput: SetQueueAttributesOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.setQueueAttributes.rawValue,
-                                    reporting: self.invocationsReporting.setQueueAttributes)
+                                    reporting: self.invocationsReporting.setQueueAttributes,
+                                    errorType: SimpleQueueError.self)
     }
 
     /**
@@ -466,7 +484,8 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: listHttpClient,
                                     wrappedInput: TagQueueOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.tagQueue.rawValue,
-                                    reporting: self.invocationsReporting.tagQueue)
+                                    reporting: self.invocationsReporting.tagQueue,
+                                    errorType: SimpleQueueError.self)
     }
 
     /**
@@ -480,6 +499,7 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: UntagQueueOperationHTTPRequestInput(encodable: input),
                                     action: SimpleQueueModelOperations.untagQueue.rawValue,
-                                    reporting: self.invocationsReporting.untagQueue)
+                                    reporting: self.invocationsReporting.untagQueue,
+                                    errorType: SimpleQueueError.self)
     }
 }

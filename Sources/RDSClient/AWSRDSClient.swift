@@ -146,7 +146,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AddRoleToDBClusterOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.addRoleToDBCluster.rawValue,
-                                    reporting: self.invocationsReporting.addRoleToDBCluster)
+                                    reporting: self.invocationsReporting.addRoleToDBCluster,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -161,7 +162,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AddRoleToDBInstanceOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.addRoleToDBInstance.rawValue,
-                                    reporting: self.invocationsReporting.addRoleToDBInstance)
+                                    reporting: self.invocationsReporting.addRoleToDBInstance,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -178,7 +180,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AddSourceIdentifierToSubscriptionOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.addSourceIdentifierToSubscription.rawValue,
-                                 reporting: self.invocationsReporting.addSourceIdentifierToSubscription)
+                                 reporting: self.invocationsReporting.addSourceIdentifierToSubscription,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -193,7 +196,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AddTagsToResourceOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.addTagsToResource.rawValue,
-                                    reporting: self.invocationsReporting.addTagsToResource)
+                                    reporting: self.invocationsReporting.addTagsToResource,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -210,7 +214,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ApplyPendingMaintenanceActionOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.applyPendingMaintenanceAction.rawValue,
-                                 reporting: self.invocationsReporting.applyPendingMaintenanceAction)
+                                 reporting: self.invocationsReporting.applyPendingMaintenanceAction,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -227,7 +232,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: AuthorizeDBSecurityGroupIngressOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.authorizeDBSecurityGroupIngress.rawValue,
-                                 reporting: self.invocationsReporting.authorizeDBSecurityGroupIngress)
+                                 reporting: self.invocationsReporting.authorizeDBSecurityGroupIngress,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -244,7 +250,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: BacktrackDBClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.backtrackDBCluster.rawValue,
-                                 reporting: self.invocationsReporting.backtrackDBCluster)
+                                 reporting: self.invocationsReporting.backtrackDBCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -261,7 +268,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CancelExportTaskOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.cancelExportTask.rawValue,
-                                 reporting: self.invocationsReporting.cancelExportTask)
+                                 reporting: self.invocationsReporting.cancelExportTask,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -278,7 +286,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CopyDBClusterParameterGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.copyDBClusterParameterGroup.rawValue,
-                                 reporting: self.invocationsReporting.copyDBClusterParameterGroup)
+                                 reporting: self.invocationsReporting.copyDBClusterParameterGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -295,7 +304,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CopyDBClusterSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.copyDBClusterSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.copyDBClusterSnapshot)
+                                 reporting: self.invocationsReporting.copyDBClusterSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -312,7 +322,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CopyDBParameterGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.copyDBParameterGroup.rawValue,
-                                 reporting: self.invocationsReporting.copyDBParameterGroup)
+                                 reporting: self.invocationsReporting.copyDBParameterGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -329,7 +340,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CopyDBSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.copyDBSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.copyDBSnapshot)
+                                 reporting: self.invocationsReporting.copyDBSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -346,7 +358,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CopyOptionGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.copyOptionGroup.rawValue,
-                                 reporting: self.invocationsReporting.copyOptionGroup)
+                                 reporting: self.invocationsReporting.copyOptionGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -363,7 +376,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateCustomAvailabilityZoneOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createCustomAvailabilityZone.rawValue,
-                                 reporting: self.invocationsReporting.createCustomAvailabilityZone)
+                                 reporting: self.invocationsReporting.createCustomAvailabilityZone,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -380,7 +394,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBCluster.rawValue,
-                                 reporting: self.invocationsReporting.createDBCluster)
+                                 reporting: self.invocationsReporting.createDBCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -397,7 +412,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBClusterEndpointOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBClusterEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.createDBClusterEndpoint)
+                                 reporting: self.invocationsReporting.createDBClusterEndpoint,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -414,7 +430,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBClusterParameterGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBClusterParameterGroup.rawValue,
-                                 reporting: self.invocationsReporting.createDBClusterParameterGroup)
+                                 reporting: self.invocationsReporting.createDBClusterParameterGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -431,7 +448,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBClusterSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBClusterSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.createDBClusterSnapshot)
+                                 reporting: self.invocationsReporting.createDBClusterSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -448,7 +466,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBInstanceOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBInstance.rawValue,
-                                 reporting: self.invocationsReporting.createDBInstance)
+                                 reporting: self.invocationsReporting.createDBInstance,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -465,7 +484,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBInstanceReadReplicaOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBInstanceReadReplica.rawValue,
-                                 reporting: self.invocationsReporting.createDBInstanceReadReplica)
+                                 reporting: self.invocationsReporting.createDBInstanceReadReplica,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -482,7 +502,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBParameterGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBParameterGroup.rawValue,
-                                 reporting: self.invocationsReporting.createDBParameterGroup)
+                                 reporting: self.invocationsReporting.createDBParameterGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -499,7 +520,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBProxyOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBProxy.rawValue,
-                                 reporting: self.invocationsReporting.createDBProxy)
+                                 reporting: self.invocationsReporting.createDBProxy,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -516,7 +538,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBSecurityGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBSecurityGroup.rawValue,
-                                 reporting: self.invocationsReporting.createDBSecurityGroup)
+                                 reporting: self.invocationsReporting.createDBSecurityGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -533,7 +556,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.createDBSnapshot)
+                                 reporting: self.invocationsReporting.createDBSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -550,7 +574,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateDBSubnetGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createDBSubnetGroup.rawValue,
-                                 reporting: self.invocationsReporting.createDBSubnetGroup)
+                                 reporting: self.invocationsReporting.createDBSubnetGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -567,7 +592,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateEventSubscriptionOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createEventSubscription.rawValue,
-                                 reporting: self.invocationsReporting.createEventSubscription)
+                                 reporting: self.invocationsReporting.createEventSubscription,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -584,7 +610,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateGlobalClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createGlobalCluster.rawValue,
-                                 reporting: self.invocationsReporting.createGlobalCluster)
+                                 reporting: self.invocationsReporting.createGlobalCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -601,7 +628,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateOptionGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.createOptionGroup.rawValue,
-                                 reporting: self.invocationsReporting.createOptionGroup)
+                                 reporting: self.invocationsReporting.createOptionGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -618,7 +646,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteCustomAvailabilityZoneOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteCustomAvailabilityZone.rawValue,
-                                 reporting: self.invocationsReporting.deleteCustomAvailabilityZone)
+                                 reporting: self.invocationsReporting.deleteCustomAvailabilityZone,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -635,7 +664,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteDBClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteDBCluster.rawValue,
-                                 reporting: self.invocationsReporting.deleteDBCluster)
+                                 reporting: self.invocationsReporting.deleteDBCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -652,7 +682,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteDBClusterEndpointOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteDBClusterEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.deleteDBClusterEndpoint)
+                                 reporting: self.invocationsReporting.deleteDBClusterEndpoint,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -667,7 +698,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteDBClusterParameterGroupOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.deleteDBClusterParameterGroup.rawValue,
-                                    reporting: self.invocationsReporting.deleteDBClusterParameterGroup)
+                                    reporting: self.invocationsReporting.deleteDBClusterParameterGroup,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -684,7 +716,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteDBClusterSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteDBClusterSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.deleteDBClusterSnapshot)
+                                 reporting: self.invocationsReporting.deleteDBClusterSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -701,7 +734,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteDBInstanceOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteDBInstance.rawValue,
-                                 reporting: self.invocationsReporting.deleteDBInstance)
+                                 reporting: self.invocationsReporting.deleteDBInstance,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -718,7 +752,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteDBInstanceAutomatedBackupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteDBInstanceAutomatedBackup.rawValue,
-                                 reporting: self.invocationsReporting.deleteDBInstanceAutomatedBackup)
+                                 reporting: self.invocationsReporting.deleteDBInstanceAutomatedBackup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -733,7 +768,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteDBParameterGroupOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.deleteDBParameterGroup.rawValue,
-                                    reporting: self.invocationsReporting.deleteDBParameterGroup)
+                                    reporting: self.invocationsReporting.deleteDBParameterGroup,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -750,7 +786,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteDBProxyOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteDBProxy.rawValue,
-                                 reporting: self.invocationsReporting.deleteDBProxy)
+                                 reporting: self.invocationsReporting.deleteDBProxy,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -765,7 +802,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteDBSecurityGroupOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.deleteDBSecurityGroup.rawValue,
-                                    reporting: self.invocationsReporting.deleteDBSecurityGroup)
+                                    reporting: self.invocationsReporting.deleteDBSecurityGroup,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -782,7 +820,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteDBSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteDBSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.deleteDBSnapshot)
+                                 reporting: self.invocationsReporting.deleteDBSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -797,7 +836,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteDBSubnetGroupOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.deleteDBSubnetGroup.rawValue,
-                                    reporting: self.invocationsReporting.deleteDBSubnetGroup)
+                                    reporting: self.invocationsReporting.deleteDBSubnetGroup,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -814,7 +854,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteEventSubscriptionOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteEventSubscription.rawValue,
-                                 reporting: self.invocationsReporting.deleteEventSubscription)
+                                 reporting: self.invocationsReporting.deleteEventSubscription,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -831,7 +872,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteGlobalClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteGlobalCluster.rawValue,
-                                 reporting: self.invocationsReporting.deleteGlobalCluster)
+                                 reporting: self.invocationsReporting.deleteGlobalCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -848,7 +890,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteInstallationMediaOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteInstallationMedia.rawValue,
-                                 reporting: self.invocationsReporting.deleteInstallationMedia)
+                                 reporting: self.invocationsReporting.deleteInstallationMedia,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -863,7 +906,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteOptionGroupOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.deleteOptionGroup.rawValue,
-                                    reporting: self.invocationsReporting.deleteOptionGroup)
+                                    reporting: self.invocationsReporting.deleteOptionGroup,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -880,7 +924,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeregisterDBProxyTargetsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deregisterDBProxyTargets.rawValue,
-                                 reporting: self.invocationsReporting.deregisterDBProxyTargets)
+                                 reporting: self.invocationsReporting.deregisterDBProxyTargets,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -896,7 +941,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAccountAttributesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeAccountAttributes.rawValue,
-                                 reporting: self.invocationsReporting.describeAccountAttributes)
+                                 reporting: self.invocationsReporting.describeAccountAttributes,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -913,7 +959,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeCertificatesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeCertificates.rawValue,
-                                 reporting: self.invocationsReporting.describeCertificates)
+                                 reporting: self.invocationsReporting.describeCertificates,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -930,7 +977,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeCustomAvailabilityZonesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeCustomAvailabilityZones.rawValue,
-                                 reporting: self.invocationsReporting.describeCustomAvailabilityZones)
+                                 reporting: self.invocationsReporting.describeCustomAvailabilityZones,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -947,7 +995,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBClusterBacktracksOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBClusterBacktracks.rawValue,
-                                 reporting: self.invocationsReporting.describeDBClusterBacktracks)
+                                 reporting: self.invocationsReporting.describeDBClusterBacktracks,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -964,7 +1013,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBClusterEndpointsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBClusterEndpoints.rawValue,
-                                 reporting: self.invocationsReporting.describeDBClusterEndpoints)
+                                 reporting: self.invocationsReporting.describeDBClusterEndpoints,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -981,7 +1031,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBClusterParameterGroupsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBClusterParameterGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeDBClusterParameterGroups)
+                                 reporting: self.invocationsReporting.describeDBClusterParameterGroups,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -998,7 +1049,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBClusterParametersOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBClusterParameters.rawValue,
-                                 reporting: self.invocationsReporting.describeDBClusterParameters)
+                                 reporting: self.invocationsReporting.describeDBClusterParameters,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1015,7 +1067,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBClusterSnapshotAttributesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBClusterSnapshotAttributes.rawValue,
-                                 reporting: self.invocationsReporting.describeDBClusterSnapshotAttributes)
+                                 reporting: self.invocationsReporting.describeDBClusterSnapshotAttributes,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1032,7 +1085,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBClusterSnapshotsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBClusterSnapshots.rawValue,
-                                 reporting: self.invocationsReporting.describeDBClusterSnapshots)
+                                 reporting: self.invocationsReporting.describeDBClusterSnapshots,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1049,7 +1103,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBClustersOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBClusters.rawValue,
-                                 reporting: self.invocationsReporting.describeDBClusters)
+                                 reporting: self.invocationsReporting.describeDBClusters,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1065,7 +1120,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBEngineVersionsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBEngineVersions.rawValue,
-                                 reporting: self.invocationsReporting.describeDBEngineVersions)
+                                 reporting: self.invocationsReporting.describeDBEngineVersions,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1082,7 +1138,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBInstanceAutomatedBackupsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBInstanceAutomatedBackups.rawValue,
-                                 reporting: self.invocationsReporting.describeDBInstanceAutomatedBackups)
+                                 reporting: self.invocationsReporting.describeDBInstanceAutomatedBackups,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1099,7 +1156,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBInstancesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeDBInstances)
+                                 reporting: self.invocationsReporting.describeDBInstances,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1116,7 +1174,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBLogFilesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBLogFiles.rawValue,
-                                 reporting: self.invocationsReporting.describeDBLogFiles)
+                                 reporting: self.invocationsReporting.describeDBLogFiles,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1133,7 +1192,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBParameterGroupsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBParameterGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeDBParameterGroups)
+                                 reporting: self.invocationsReporting.describeDBParameterGroups,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1150,7 +1210,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBParametersOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBParameters.rawValue,
-                                 reporting: self.invocationsReporting.describeDBParameters)
+                                 reporting: self.invocationsReporting.describeDBParameters,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1167,7 +1228,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBProxiesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBProxies.rawValue,
-                                 reporting: self.invocationsReporting.describeDBProxies)
+                                 reporting: self.invocationsReporting.describeDBProxies,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1184,7 +1246,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBProxyTargetGroupsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBProxyTargetGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeDBProxyTargetGroups)
+                                 reporting: self.invocationsReporting.describeDBProxyTargetGroups,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1201,7 +1264,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBProxyTargetsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBProxyTargets.rawValue,
-                                 reporting: self.invocationsReporting.describeDBProxyTargets)
+                                 reporting: self.invocationsReporting.describeDBProxyTargets,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1218,7 +1282,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBSecurityGroupsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBSecurityGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeDBSecurityGroups)
+                                 reporting: self.invocationsReporting.describeDBSecurityGroups,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1235,7 +1300,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBSnapshotAttributesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBSnapshotAttributes.rawValue,
-                                 reporting: self.invocationsReporting.describeDBSnapshotAttributes)
+                                 reporting: self.invocationsReporting.describeDBSnapshotAttributes,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1252,7 +1318,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBSnapshotsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBSnapshots.rawValue,
-                                 reporting: self.invocationsReporting.describeDBSnapshots)
+                                 reporting: self.invocationsReporting.describeDBSnapshots,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1269,7 +1336,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeDBSubnetGroupsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBSubnetGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeDBSubnetGroups)
+                                 reporting: self.invocationsReporting.describeDBSubnetGroups,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1285,7 +1353,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeEngineDefaultClusterParametersOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeEngineDefaultClusterParameters.rawValue,
-                                 reporting: self.invocationsReporting.describeEngineDefaultClusterParameters)
+                                 reporting: self.invocationsReporting.describeEngineDefaultClusterParameters,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1301,7 +1370,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeEngineDefaultParametersOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeEngineDefaultParameters.rawValue,
-                                 reporting: self.invocationsReporting.describeEngineDefaultParameters)
+                                 reporting: self.invocationsReporting.describeEngineDefaultParameters,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1317,7 +1387,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeEventCategoriesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeEventCategories.rawValue,
-                                 reporting: self.invocationsReporting.describeEventCategories)
+                                 reporting: self.invocationsReporting.describeEventCategories,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1334,7 +1405,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeEventSubscriptionsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeEventSubscriptions.rawValue,
-                                 reporting: self.invocationsReporting.describeEventSubscriptions)
+                                 reporting: self.invocationsReporting.describeEventSubscriptions,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1350,7 +1422,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeEventsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeEvents.rawValue,
-                                 reporting: self.invocationsReporting.describeEvents)
+                                 reporting: self.invocationsReporting.describeEvents,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1367,7 +1440,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeExportTasksOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeExportTasks.rawValue,
-                                 reporting: self.invocationsReporting.describeExportTasks)
+                                 reporting: self.invocationsReporting.describeExportTasks,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1384,7 +1458,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeGlobalClustersOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeGlobalClusters.rawValue,
-                                 reporting: self.invocationsReporting.describeGlobalClusters)
+                                 reporting: self.invocationsReporting.describeGlobalClusters,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1401,7 +1476,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeInstallationMediaOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeInstallationMedia.rawValue,
-                                 reporting: self.invocationsReporting.describeInstallationMedia)
+                                 reporting: self.invocationsReporting.describeInstallationMedia,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1417,7 +1493,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeOptionGroupOptionsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeOptionGroupOptions.rawValue,
-                                 reporting: self.invocationsReporting.describeOptionGroupOptions)
+                                 reporting: self.invocationsReporting.describeOptionGroupOptions,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1434,7 +1511,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeOptionGroupsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeOptionGroups.rawValue,
-                                 reporting: self.invocationsReporting.describeOptionGroups)
+                                 reporting: self.invocationsReporting.describeOptionGroups,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1450,7 +1528,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeOrderableDBInstanceOptionsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeOrderableDBInstanceOptions.rawValue,
-                                 reporting: self.invocationsReporting.describeOrderableDBInstanceOptions)
+                                 reporting: self.invocationsReporting.describeOrderableDBInstanceOptions,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1467,7 +1546,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribePendingMaintenanceActionsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describePendingMaintenanceActions.rawValue,
-                                 reporting: self.invocationsReporting.describePendingMaintenanceActions)
+                                 reporting: self.invocationsReporting.describePendingMaintenanceActions,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1484,7 +1564,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeReservedDBInstancesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeReservedDBInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeReservedDBInstances)
+                                 reporting: self.invocationsReporting.describeReservedDBInstances,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1501,7 +1582,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeReservedDBInstancesOfferingsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeReservedDBInstancesOfferings.rawValue,
-                                 reporting: self.invocationsReporting.describeReservedDBInstancesOfferings)
+                                 reporting: self.invocationsReporting.describeReservedDBInstancesOfferings,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1517,7 +1599,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeSourceRegionsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeSourceRegions.rawValue,
-                                 reporting: self.invocationsReporting.describeSourceRegions)
+                                 reporting: self.invocationsReporting.describeSourceRegions,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1534,7 +1617,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeValidDBInstanceModificationsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeValidDBInstanceModifications.rawValue,
-                                 reporting: self.invocationsReporting.describeValidDBInstanceModifications)
+                                 reporting: self.invocationsReporting.describeValidDBInstanceModifications,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1551,7 +1635,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DownloadDBLogFilePortionOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.downloadDBLogFilePortion.rawValue,
-                                 reporting: self.invocationsReporting.downloadDBLogFilePortion)
+                                 reporting: self.invocationsReporting.downloadDBLogFilePortion,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1568,7 +1653,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: FailoverDBClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.failoverDBCluster.rawValue,
-                                 reporting: self.invocationsReporting.failoverDBCluster)
+                                 reporting: self.invocationsReporting.failoverDBCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1585,7 +1671,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: FailoverGlobalClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.failoverGlobalCluster.rawValue,
-                                 reporting: self.invocationsReporting.failoverGlobalCluster)
+                                 reporting: self.invocationsReporting.failoverGlobalCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1602,7 +1689,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ImportInstallationMediaOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.importInstallationMedia.rawValue,
-                                 reporting: self.invocationsReporting.importInstallationMedia)
+                                 reporting: self.invocationsReporting.importInstallationMedia,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1619,7 +1707,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.listTagsForResource.rawValue,
-                                 reporting: self.invocationsReporting.listTagsForResource)
+                                 reporting: self.invocationsReporting.listTagsForResource,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1636,7 +1725,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyCertificatesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyCertificates.rawValue,
-                                 reporting: self.invocationsReporting.modifyCertificates)
+                                 reporting: self.invocationsReporting.modifyCertificates,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1653,7 +1743,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyCurrentDBClusterCapacityOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyCurrentDBClusterCapacity.rawValue,
-                                 reporting: self.invocationsReporting.modifyCurrentDBClusterCapacity)
+                                 reporting: self.invocationsReporting.modifyCurrentDBClusterCapacity,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1670,7 +1761,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBCluster.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBCluster)
+                                 reporting: self.invocationsReporting.modifyDBCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1687,7 +1779,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBClusterEndpointOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBClusterEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBClusterEndpoint)
+                                 reporting: self.invocationsReporting.modifyDBClusterEndpoint,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1704,7 +1797,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBClusterParameterGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBClusterParameterGroup.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBClusterParameterGroup)
+                                 reporting: self.invocationsReporting.modifyDBClusterParameterGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1721,7 +1815,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBClusterSnapshotAttributeOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBClusterSnapshotAttribute.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBClusterSnapshotAttribute)
+                                 reporting: self.invocationsReporting.modifyDBClusterSnapshotAttribute,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1738,7 +1833,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBInstanceOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBInstance.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBInstance)
+                                 reporting: self.invocationsReporting.modifyDBInstance,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1755,7 +1851,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBParameterGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBParameterGroup.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBParameterGroup)
+                                 reporting: self.invocationsReporting.modifyDBParameterGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1772,7 +1869,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBProxyOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBProxy.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBProxy)
+                                 reporting: self.invocationsReporting.modifyDBProxy,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1789,7 +1887,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBProxyTargetGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBProxyTargetGroup.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBProxyTargetGroup)
+                                 reporting: self.invocationsReporting.modifyDBProxyTargetGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1806,7 +1905,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBSnapshot)
+                                 reporting: self.invocationsReporting.modifyDBSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1823,7 +1923,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBSnapshotAttributeOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBSnapshotAttribute.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBSnapshotAttribute)
+                                 reporting: self.invocationsReporting.modifyDBSnapshotAttribute,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1840,7 +1941,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyDBSubnetGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBSubnetGroup.rawValue,
-                                 reporting: self.invocationsReporting.modifyDBSubnetGroup)
+                                 reporting: self.invocationsReporting.modifyDBSubnetGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1857,7 +1959,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyEventSubscriptionOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyEventSubscription.rawValue,
-                                 reporting: self.invocationsReporting.modifyEventSubscription)
+                                 reporting: self.invocationsReporting.modifyEventSubscription,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1874,7 +1977,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyGlobalClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyGlobalCluster.rawValue,
-                                 reporting: self.invocationsReporting.modifyGlobalCluster)
+                                 reporting: self.invocationsReporting.modifyGlobalCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1891,7 +1995,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ModifyOptionGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyOptionGroup.rawValue,
-                                 reporting: self.invocationsReporting.modifyOptionGroup)
+                                 reporting: self.invocationsReporting.modifyOptionGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1908,7 +2013,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PromoteReadReplicaOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.promoteReadReplica.rawValue,
-                                 reporting: self.invocationsReporting.promoteReadReplica)
+                                 reporting: self.invocationsReporting.promoteReadReplica,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1925,7 +2031,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PromoteReadReplicaDBClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.promoteReadReplicaDBCluster.rawValue,
-                                 reporting: self.invocationsReporting.promoteReadReplicaDBCluster)
+                                 reporting: self.invocationsReporting.promoteReadReplicaDBCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1942,7 +2049,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PurchaseReservedDBInstancesOfferingOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.purchaseReservedDBInstancesOffering.rawValue,
-                                 reporting: self.invocationsReporting.purchaseReservedDBInstancesOffering)
+                                 reporting: self.invocationsReporting.purchaseReservedDBInstancesOffering,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1959,7 +2067,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RebootDBInstanceOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.rebootDBInstance.rawValue,
-                                 reporting: self.invocationsReporting.rebootDBInstance)
+                                 reporting: self.invocationsReporting.rebootDBInstance,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1976,7 +2085,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RegisterDBProxyTargetsOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.registerDBProxyTargets.rawValue,
-                                 reporting: self.invocationsReporting.registerDBProxyTargets)
+                                 reporting: self.invocationsReporting.registerDBProxyTargets,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -1993,7 +2103,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RemoveFromGlobalClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.removeFromGlobalCluster.rawValue,
-                                 reporting: self.invocationsReporting.removeFromGlobalCluster)
+                                 reporting: self.invocationsReporting.removeFromGlobalCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2008,7 +2119,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: RemoveRoleFromDBClusterOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.removeRoleFromDBCluster.rawValue,
-                                    reporting: self.invocationsReporting.removeRoleFromDBCluster)
+                                    reporting: self.invocationsReporting.removeRoleFromDBCluster,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -2023,7 +2135,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: RemoveRoleFromDBInstanceOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.removeRoleFromDBInstance.rawValue,
-                                    reporting: self.invocationsReporting.removeRoleFromDBInstance)
+                                    reporting: self.invocationsReporting.removeRoleFromDBInstance,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -2040,7 +2153,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RemoveSourceIdentifierFromSubscriptionOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.removeSourceIdentifierFromSubscription.rawValue,
-                                 reporting: self.invocationsReporting.removeSourceIdentifierFromSubscription)
+                                 reporting: self.invocationsReporting.removeSourceIdentifierFromSubscription,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2055,7 +2169,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: RemoveTagsFromResourceOperationHTTPRequestInput(encodable: input),
                                     action: RDSModelOperations.removeTagsFromResource.rawValue,
-                                    reporting: self.invocationsReporting.removeTagsFromResource)
+                                    reporting: self.invocationsReporting.removeTagsFromResource,
+                                    errorType: RDSError.self)
     }
 
     /**
@@ -2072,7 +2187,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ResetDBClusterParameterGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.resetDBClusterParameterGroup.rawValue,
-                                 reporting: self.invocationsReporting.resetDBClusterParameterGroup)
+                                 reporting: self.invocationsReporting.resetDBClusterParameterGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2089,7 +2205,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ResetDBParameterGroupOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.resetDBParameterGroup.rawValue,
-                                 reporting: self.invocationsReporting.resetDBParameterGroup)
+                                 reporting: self.invocationsReporting.resetDBParameterGroup,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2106,7 +2223,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RestoreDBClusterFromS3OperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.restoreDBClusterFromS3.rawValue,
-                                 reporting: self.invocationsReporting.restoreDBClusterFromS3)
+                                 reporting: self.invocationsReporting.restoreDBClusterFromS3,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2123,7 +2241,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RestoreDBClusterFromSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.restoreDBClusterFromSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.restoreDBClusterFromSnapshot)
+                                 reporting: self.invocationsReporting.restoreDBClusterFromSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2140,7 +2259,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RestoreDBClusterToPointInTimeOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.restoreDBClusterToPointInTime.rawValue,
-                                 reporting: self.invocationsReporting.restoreDBClusterToPointInTime)
+                                 reporting: self.invocationsReporting.restoreDBClusterToPointInTime,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2157,7 +2277,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RestoreDBInstanceFromDBSnapshotOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.restoreDBInstanceFromDBSnapshot.rawValue,
-                                 reporting: self.invocationsReporting.restoreDBInstanceFromDBSnapshot)
+                                 reporting: self.invocationsReporting.restoreDBInstanceFromDBSnapshot,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2174,7 +2295,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RestoreDBInstanceFromS3OperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.restoreDBInstanceFromS3.rawValue,
-                                 reporting: self.invocationsReporting.restoreDBInstanceFromS3)
+                                 reporting: self.invocationsReporting.restoreDBInstanceFromS3,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2191,7 +2313,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RestoreDBInstanceToPointInTimeOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.restoreDBInstanceToPointInTime.rawValue,
-                                 reporting: self.invocationsReporting.restoreDBInstanceToPointInTime)
+                                 reporting: self.invocationsReporting.restoreDBInstanceToPointInTime,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2208,7 +2331,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RevokeDBSecurityGroupIngressOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.revokeDBSecurityGroupIngress.rawValue,
-                                 reporting: self.invocationsReporting.revokeDBSecurityGroupIngress)
+                                 reporting: self.invocationsReporting.revokeDBSecurityGroupIngress,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2225,7 +2349,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StartActivityStreamOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.startActivityStream.rawValue,
-                                 reporting: self.invocationsReporting.startActivityStream)
+                                 reporting: self.invocationsReporting.startActivityStream,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2242,7 +2367,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StartDBClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.startDBCluster.rawValue,
-                                 reporting: self.invocationsReporting.startDBCluster)
+                                 reporting: self.invocationsReporting.startDBCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2259,7 +2385,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StartDBInstanceOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.startDBInstance.rawValue,
-                                 reporting: self.invocationsReporting.startDBInstance)
+                                 reporting: self.invocationsReporting.startDBInstance,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2276,7 +2403,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StartDBInstanceAutomatedBackupsReplicationOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.startDBInstanceAutomatedBackupsReplication.rawValue,
-                                 reporting: self.invocationsReporting.startDBInstanceAutomatedBackupsReplication)
+                                 reporting: self.invocationsReporting.startDBInstanceAutomatedBackupsReplication,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2293,7 +2421,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StartExportTaskOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.startExportTask.rawValue,
-                                 reporting: self.invocationsReporting.startExportTask)
+                                 reporting: self.invocationsReporting.startExportTask,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2310,7 +2439,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StopActivityStreamOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.stopActivityStream.rawValue,
-                                 reporting: self.invocationsReporting.stopActivityStream)
+                                 reporting: self.invocationsReporting.stopActivityStream,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2327,7 +2457,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StopDBClusterOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.stopDBCluster.rawValue,
-                                 reporting: self.invocationsReporting.stopDBCluster)
+                                 reporting: self.invocationsReporting.stopDBCluster,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2344,7 +2475,8 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StopDBInstanceOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.stopDBInstance.rawValue,
-                                 reporting: self.invocationsReporting.stopDBInstance)
+                                 reporting: self.invocationsReporting.stopDBInstance,
+                                 errorType: RDSError.self)
     }
 
     /**
@@ -2361,6 +2493,7 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StopDBInstanceAutomatedBackupsReplicationOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.stopDBInstanceAutomatedBackupsReplication.rawValue,
-                                 reporting: self.invocationsReporting.stopDBInstanceAutomatedBackupsReplication)
+                                 reporting: self.invocationsReporting.stopDBInstanceAutomatedBackupsReplication,
+                                 errorType: RDSError.self)
     }
 }

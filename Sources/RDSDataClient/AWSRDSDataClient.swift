@@ -145,7 +145,8 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: BatchExecuteStatementOperationHTTPRequestInput(encodable: input),
                                  operation: RDSDataModelOperations.batchExecuteStatement.rawValue,
-                                 reporting: self.invocationsReporting.batchExecuteStatement)
+                                 reporting: self.invocationsReporting.batchExecuteStatement,
+                                 errorType: RDSDataError.self)
     }
 
     /**
@@ -162,7 +163,8 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: BeginTransactionOperationHTTPRequestInput(encodable: input),
                                  operation: RDSDataModelOperations.beginTransaction.rawValue,
-                                 reporting: self.invocationsReporting.beginTransaction)
+                                 reporting: self.invocationsReporting.beginTransaction,
+                                 errorType: RDSDataError.self)
     }
 
     /**
@@ -179,7 +181,8 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CommitTransactionOperationHTTPRequestInput(encodable: input),
                                  operation: RDSDataModelOperations.commitTransaction.rawValue,
-                                 reporting: self.invocationsReporting.commitTransaction)
+                                 reporting: self.invocationsReporting.commitTransaction,
+                                 errorType: RDSDataError.self)
     }
 
     /**
@@ -196,7 +199,8 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ExecuteSqlOperationHTTPRequestInput(encodable: input),
                                  operation: RDSDataModelOperations.executeSql.rawValue,
-                                 reporting: self.invocationsReporting.executeSql)
+                                 reporting: self.invocationsReporting.executeSql,
+                                 errorType: RDSDataError.self)
     }
 
     /**
@@ -213,7 +217,8 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ExecuteStatementOperationHTTPRequestInput(encodable: input),
                                  operation: RDSDataModelOperations.executeStatement.rawValue,
-                                 reporting: self.invocationsReporting.executeStatement)
+                                 reporting: self.invocationsReporting.executeStatement,
+                                 errorType: RDSDataError.self)
     }
 
     /**
@@ -230,6 +235,7 @@ public struct AWSRDSDataClient<InvocationReportingType: HTTPClientCoreInvocation
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: RollbackTransactionOperationHTTPRequestInput(encodable: input),
                                  operation: RDSDataModelOperations.rollbackTransaction.rawValue,
-                                 reporting: self.invocationsReporting.rollbackTransaction)
+                                 reporting: self.invocationsReporting.rollbackTransaction,
+                                 errorType: RDSDataError.self)
     }
 }

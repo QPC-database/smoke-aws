@@ -164,7 +164,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateCapacityProviderOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.createCapacityProvider.rawValue,
-                                 reporting: self.invocationsReporting.createCapacityProvider)
+                                 reporting: self.invocationsReporting.createCapacityProvider,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -181,7 +182,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateClusterOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.createCluster.rawValue,
-                                 reporting: self.invocationsReporting.createCluster)
+                                 reporting: self.invocationsReporting.createCluster,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -198,7 +200,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateServiceOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.createService.rawValue,
-                                 reporting: self.invocationsReporting.createService)
+                                 reporting: self.invocationsReporting.createService,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -215,7 +218,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateTaskSetOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.createTaskSet.rawValue,
-                                 reporting: self.invocationsReporting.createTaskSet)
+                                 reporting: self.invocationsReporting.createTaskSet,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -232,7 +236,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteAccountSettingOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.deleteAccountSetting.rawValue,
-                                 reporting: self.invocationsReporting.deleteAccountSetting)
+                                 reporting: self.invocationsReporting.deleteAccountSetting,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -249,7 +254,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteAttributesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.deleteAttributes.rawValue,
-                                 reporting: self.invocationsReporting.deleteAttributes)
+                                 reporting: self.invocationsReporting.deleteAttributes,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -266,7 +272,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteCapacityProviderOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.deleteCapacityProvider.rawValue,
-                                 reporting: self.invocationsReporting.deleteCapacityProvider)
+                                 reporting: self.invocationsReporting.deleteCapacityProvider,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -283,7 +290,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteClusterOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.deleteCluster.rawValue,
-                                 reporting: self.invocationsReporting.deleteCluster)
+                                 reporting: self.invocationsReporting.deleteCluster,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -300,7 +308,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteServiceOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.deleteService.rawValue,
-                                 reporting: self.invocationsReporting.deleteService)
+                                 reporting: self.invocationsReporting.deleteService,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -317,7 +326,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteTaskSetOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.deleteTaskSet.rawValue,
-                                 reporting: self.invocationsReporting.deleteTaskSet)
+                                 reporting: self.invocationsReporting.deleteTaskSet,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -334,7 +344,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeregisterContainerInstanceOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.deregisterContainerInstance.rawValue,
-                                 reporting: self.invocationsReporting.deregisterContainerInstance)
+                                 reporting: self.invocationsReporting.deregisterContainerInstance,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -351,7 +362,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeregisterTaskDefinitionOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.deregisterTaskDefinition.rawValue,
-                                 reporting: self.invocationsReporting.deregisterTaskDefinition)
+                                 reporting: self.invocationsReporting.deregisterTaskDefinition,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -368,7 +380,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeCapacityProvidersOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.describeCapacityProviders.rawValue,
-                                 reporting: self.invocationsReporting.describeCapacityProviders)
+                                 reporting: self.invocationsReporting.describeCapacityProviders,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -385,7 +398,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeClustersOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.describeClusters.rawValue,
-                                 reporting: self.invocationsReporting.describeClusters)
+                                 reporting: self.invocationsReporting.describeClusters,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -402,7 +416,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeContainerInstancesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.describeContainerInstances.rawValue,
-                                 reporting: self.invocationsReporting.describeContainerInstances)
+                                 reporting: self.invocationsReporting.describeContainerInstances,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -419,7 +434,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeServicesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.describeServices.rawValue,
-                                 reporting: self.invocationsReporting.describeServices)
+                                 reporting: self.invocationsReporting.describeServices,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -436,7 +452,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeTaskDefinitionOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.describeTaskDefinition.rawValue,
-                                 reporting: self.invocationsReporting.describeTaskDefinition)
+                                 reporting: self.invocationsReporting.describeTaskDefinition,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -453,7 +470,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeTaskSetsOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.describeTaskSets.rawValue,
-                                 reporting: self.invocationsReporting.describeTaskSets)
+                                 reporting: self.invocationsReporting.describeTaskSets,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -470,7 +488,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeTasksOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.describeTasks.rawValue,
-                                 reporting: self.invocationsReporting.describeTasks)
+                                 reporting: self.invocationsReporting.describeTasks,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -487,7 +506,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DiscoverPollEndpointOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.discoverPollEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.discoverPollEndpoint)
+                                 reporting: self.invocationsReporting.discoverPollEndpoint,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -504,7 +524,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListAccountSettingsOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listAccountSettings.rawValue,
-                                 reporting: self.invocationsReporting.listAccountSettings)
+                                 reporting: self.invocationsReporting.listAccountSettings,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -521,7 +542,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListAttributesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listAttributes.rawValue,
-                                 reporting: self.invocationsReporting.listAttributes)
+                                 reporting: self.invocationsReporting.listAttributes,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -538,7 +560,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListClustersOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listClusters.rawValue,
-                                 reporting: self.invocationsReporting.listClusters)
+                                 reporting: self.invocationsReporting.listClusters,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -555,7 +578,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListContainerInstancesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listContainerInstances.rawValue,
-                                 reporting: self.invocationsReporting.listContainerInstances)
+                                 reporting: self.invocationsReporting.listContainerInstances,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -572,7 +596,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListServicesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listServices.rawValue,
-                                 reporting: self.invocationsReporting.listServices)
+                                 reporting: self.invocationsReporting.listServices,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -589,7 +614,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listTagsForResource.rawValue,
-                                 reporting: self.invocationsReporting.listTagsForResource)
+                                 reporting: self.invocationsReporting.listTagsForResource,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -606,7 +632,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTaskDefinitionFamiliesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listTaskDefinitionFamilies.rawValue,
-                                 reporting: self.invocationsReporting.listTaskDefinitionFamilies)
+                                 reporting: self.invocationsReporting.listTaskDefinitionFamilies,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -623,7 +650,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTaskDefinitionsOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listTaskDefinitions.rawValue,
-                                 reporting: self.invocationsReporting.listTaskDefinitions)
+                                 reporting: self.invocationsReporting.listTaskDefinitions,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -640,7 +668,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTasksOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.listTasks.rawValue,
-                                 reporting: self.invocationsReporting.listTasks)
+                                 reporting: self.invocationsReporting.listTasks,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -657,7 +686,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutAccountSettingOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.putAccountSetting.rawValue,
-                                 reporting: self.invocationsReporting.putAccountSetting)
+                                 reporting: self.invocationsReporting.putAccountSetting,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -674,7 +704,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutAccountSettingDefaultOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.putAccountSettingDefault.rawValue,
-                                 reporting: self.invocationsReporting.putAccountSettingDefault)
+                                 reporting: self.invocationsReporting.putAccountSettingDefault,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -691,7 +722,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutAttributesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.putAttributes.rawValue,
-                                 reporting: self.invocationsReporting.putAttributes)
+                                 reporting: self.invocationsReporting.putAttributes,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -708,7 +740,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutClusterCapacityProvidersOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.putClusterCapacityProviders.rawValue,
-                                 reporting: self.invocationsReporting.putClusterCapacityProviders)
+                                 reporting: self.invocationsReporting.putClusterCapacityProviders,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -725,7 +758,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: RegisterContainerInstanceOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.registerContainerInstance.rawValue,
-                                 reporting: self.invocationsReporting.registerContainerInstance)
+                                 reporting: self.invocationsReporting.registerContainerInstance,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -742,7 +776,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: RegisterTaskDefinitionOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.registerTaskDefinition.rawValue,
-                                 reporting: self.invocationsReporting.registerTaskDefinition)
+                                 reporting: self.invocationsReporting.registerTaskDefinition,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -759,7 +794,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: RunTaskOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.runTask.rawValue,
-                                 reporting: self.invocationsReporting.runTask)
+                                 reporting: self.invocationsReporting.runTask,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -776,7 +812,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: StartTaskOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.startTask.rawValue,
-                                 reporting: self.invocationsReporting.startTask)
+                                 reporting: self.invocationsReporting.startTask,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -793,7 +830,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: StopTaskOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.stopTask.rawValue,
-                                 reporting: self.invocationsReporting.stopTask)
+                                 reporting: self.invocationsReporting.stopTask,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -810,7 +848,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: SubmitAttachmentStateChangesOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.submitAttachmentStateChanges.rawValue,
-                                 reporting: self.invocationsReporting.submitAttachmentStateChanges)
+                                 reporting: self.invocationsReporting.submitAttachmentStateChanges,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -827,7 +866,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: SubmitContainerStateChangeOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.submitContainerStateChange.rawValue,
-                                 reporting: self.invocationsReporting.submitContainerStateChange)
+                                 reporting: self.invocationsReporting.submitContainerStateChange,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -844,7 +884,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: SubmitTaskStateChangeOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.submitTaskStateChange.rawValue,
-                                 reporting: self.invocationsReporting.submitTaskStateChange)
+                                 reporting: self.invocationsReporting.submitTaskStateChange,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -861,7 +902,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: TagResourceOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.tagResource.rawValue,
-                                 reporting: self.invocationsReporting.tagResource)
+                                 reporting: self.invocationsReporting.tagResource,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -878,7 +920,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UntagResourceOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.untagResource.rawValue,
-                                 reporting: self.invocationsReporting.untagResource)
+                                 reporting: self.invocationsReporting.untagResource,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -895,7 +938,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateCapacityProviderOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.updateCapacityProvider.rawValue,
-                                 reporting: self.invocationsReporting.updateCapacityProvider)
+                                 reporting: self.invocationsReporting.updateCapacityProvider,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -912,7 +956,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateClusterSettingsOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.updateClusterSettings.rawValue,
-                                 reporting: self.invocationsReporting.updateClusterSettings)
+                                 reporting: self.invocationsReporting.updateClusterSettings,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -929,7 +974,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateContainerAgentOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.updateContainerAgent.rawValue,
-                                 reporting: self.invocationsReporting.updateContainerAgent)
+                                 reporting: self.invocationsReporting.updateContainerAgent,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -946,7 +992,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateContainerInstancesStateOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.updateContainerInstancesState.rawValue,
-                                 reporting: self.invocationsReporting.updateContainerInstancesState)
+                                 reporting: self.invocationsReporting.updateContainerInstancesState,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -963,7 +1010,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateServiceOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.updateService.rawValue,
-                                 reporting: self.invocationsReporting.updateService)
+                                 reporting: self.invocationsReporting.updateService,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -980,7 +1028,8 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateServicePrimaryTaskSetOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.updateServicePrimaryTaskSet.rawValue,
-                                 reporting: self.invocationsReporting.updateServicePrimaryTaskSet)
+                                 reporting: self.invocationsReporting.updateServicePrimaryTaskSet,
+                                 errorType: ElasticContainerError.self)
     }
 
     /**
@@ -997,6 +1046,7 @@ public struct AWSElasticContainerClient<InvocationReportingType: HTTPClientCoreI
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateTaskSetOperationHTTPRequestInput(encodable: input),
                                  operation: ElasticContainerModelOperations.updateTaskSet.rawValue,
-                                 reporting: self.invocationsReporting.updateTaskSet)
+                                 reporting: self.invocationsReporting.updateTaskSet,
+                                 errorType: ElasticContainerError.self)
     }
 }

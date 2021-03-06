@@ -164,7 +164,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: BatchExecuteStatementOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.batchExecuteStatement.rawValue,
-                                 reporting: self.invocationsReporting.batchExecuteStatement)
+                                 reporting: self.invocationsReporting.batchExecuteStatement,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -181,7 +182,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: BatchGetItemOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.batchGetItem.rawValue,
-                                 reporting: self.invocationsReporting.batchGetItem)
+                                 reporting: self.invocationsReporting.batchGetItem,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -198,7 +200,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: BatchWriteItemOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.batchWriteItem.rawValue,
-                                 reporting: self.invocationsReporting.batchWriteItem)
+                                 reporting: self.invocationsReporting.batchWriteItem,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -215,7 +218,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateBackupOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.createBackup.rawValue,
-                                 reporting: self.invocationsReporting.createBackup)
+                                 reporting: self.invocationsReporting.createBackup,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -232,7 +236,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateGlobalTableOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.createGlobalTable.rawValue,
-                                 reporting: self.invocationsReporting.createGlobalTable)
+                                 reporting: self.invocationsReporting.createGlobalTable,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -249,7 +254,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CreateTableOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.createTable.rawValue,
-                                 reporting: self.invocationsReporting.createTable)
+                                 reporting: self.invocationsReporting.createTable,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -266,7 +272,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteBackupOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.deleteBackup.rawValue,
-                                 reporting: self.invocationsReporting.deleteBackup)
+                                 reporting: self.invocationsReporting.deleteBackup,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -283,7 +290,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteItemOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.deleteItem.rawValue,
-                                 reporting: self.invocationsReporting.deleteItem)
+                                 reporting: self.invocationsReporting.deleteItem,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -300,7 +308,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DeleteTableOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.deleteTable.rawValue,
-                                 reporting: self.invocationsReporting.deleteTable)
+                                 reporting: self.invocationsReporting.deleteTable,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -317,7 +326,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeBackupOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeBackup.rawValue,
-                                 reporting: self.invocationsReporting.describeBackup)
+                                 reporting: self.invocationsReporting.describeBackup,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -334,7 +344,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeContinuousBackupsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeContinuousBackups.rawValue,
-                                 reporting: self.invocationsReporting.describeContinuousBackups)
+                                 reporting: self.invocationsReporting.describeContinuousBackups,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -351,7 +362,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeContributorInsightsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeContributorInsights.rawValue,
-                                 reporting: self.invocationsReporting.describeContributorInsights)
+                                 reporting: self.invocationsReporting.describeContributorInsights,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -367,7 +379,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeEndpointsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeEndpoints.rawValue,
-                                 reporting: self.invocationsReporting.describeEndpoints)
+                                 reporting: self.invocationsReporting.describeEndpoints,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -384,7 +397,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeExportOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeExport.rawValue,
-                                 reporting: self.invocationsReporting.describeExport)
+                                 reporting: self.invocationsReporting.describeExport,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -401,7 +415,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeGlobalTableOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeGlobalTable.rawValue,
-                                 reporting: self.invocationsReporting.describeGlobalTable)
+                                 reporting: self.invocationsReporting.describeGlobalTable,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -418,7 +433,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeGlobalTableSettingsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeGlobalTableSettings.rawValue,
-                                 reporting: self.invocationsReporting.describeGlobalTableSettings)
+                                 reporting: self.invocationsReporting.describeGlobalTableSettings,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -435,7 +451,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeKinesisStreamingDestinationOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeKinesisStreamingDestination.rawValue,
-                                 reporting: self.invocationsReporting.describeKinesisStreamingDestination)
+                                 reporting: self.invocationsReporting.describeKinesisStreamingDestination,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -452,7 +469,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeLimitsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeLimits.rawValue,
-                                 reporting: self.invocationsReporting.describeLimits)
+                                 reporting: self.invocationsReporting.describeLimits,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -469,7 +487,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeTableOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeTable.rawValue,
-                                 reporting: self.invocationsReporting.describeTable)
+                                 reporting: self.invocationsReporting.describeTable,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -486,7 +505,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeTableReplicaAutoScalingOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeTableReplicaAutoScaling.rawValue,
-                                 reporting: self.invocationsReporting.describeTableReplicaAutoScaling)
+                                 reporting: self.invocationsReporting.describeTableReplicaAutoScaling,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -503,7 +523,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeTimeToLiveOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.describeTimeToLive.rawValue,
-                                 reporting: self.invocationsReporting.describeTimeToLive)
+                                 reporting: self.invocationsReporting.describeTimeToLive,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -520,7 +541,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DisableKinesisStreamingDestinationOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.disableKinesisStreamingDestination.rawValue,
-                                 reporting: self.invocationsReporting.disableKinesisStreamingDestination)
+                                 reporting: self.invocationsReporting.disableKinesisStreamingDestination,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -537,7 +559,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: EnableKinesisStreamingDestinationOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.enableKinesisStreamingDestination.rawValue,
-                                 reporting: self.invocationsReporting.enableKinesisStreamingDestination)
+                                 reporting: self.invocationsReporting.enableKinesisStreamingDestination,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -554,7 +577,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ExecuteStatementOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.executeStatement.rawValue,
-                                 reporting: self.invocationsReporting.executeStatement)
+                                 reporting: self.invocationsReporting.executeStatement,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -571,7 +595,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ExecuteTransactionOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.executeTransaction.rawValue,
-                                 reporting: self.invocationsReporting.executeTransaction)
+                                 reporting: self.invocationsReporting.executeTransaction,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -588,7 +613,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ExportTableToPointInTimeOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.exportTableToPointInTime.rawValue,
-                                 reporting: self.invocationsReporting.exportTableToPointInTime)
+                                 reporting: self.invocationsReporting.exportTableToPointInTime,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -605,7 +631,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetItemOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.getItem.rawValue,
-                                 reporting: self.invocationsReporting.getItem)
+                                 reporting: self.invocationsReporting.getItem,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -622,7 +649,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListBackupsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.listBackups.rawValue,
-                                 reporting: self.invocationsReporting.listBackups)
+                                 reporting: self.invocationsReporting.listBackups,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -639,7 +667,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListContributorInsightsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.listContributorInsights.rawValue,
-                                 reporting: self.invocationsReporting.listContributorInsights)
+                                 reporting: self.invocationsReporting.listContributorInsights,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -656,7 +685,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListExportsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.listExports.rawValue,
-                                 reporting: self.invocationsReporting.listExports)
+                                 reporting: self.invocationsReporting.listExports,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -673,7 +703,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListGlobalTablesOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.listGlobalTables.rawValue,
-                                 reporting: self.invocationsReporting.listGlobalTables)
+                                 reporting: self.invocationsReporting.listGlobalTables,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -690,7 +721,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTablesOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.listTables.rawValue,
-                                 reporting: self.invocationsReporting.listTables)
+                                 reporting: self.invocationsReporting.listTables,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -707,7 +739,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTagsOfResourceOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.listTagsOfResource.rawValue,
-                                 reporting: self.invocationsReporting.listTagsOfResource)
+                                 reporting: self.invocationsReporting.listTagsOfResource,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -724,7 +757,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PutItemOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.putItem.rawValue,
-                                 reporting: self.invocationsReporting.putItem)
+                                 reporting: self.invocationsReporting.putItem,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -741,7 +775,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: QueryOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.query.rawValue,
-                                 reporting: self.invocationsReporting.query)
+                                 reporting: self.invocationsReporting.query,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -758,7 +793,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: RestoreTableFromBackupOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.restoreTableFromBackup.rawValue,
-                                 reporting: self.invocationsReporting.restoreTableFromBackup)
+                                 reporting: self.invocationsReporting.restoreTableFromBackup,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -775,7 +811,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: RestoreTableToPointInTimeOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.restoreTableToPointInTime.rawValue,
-                                 reporting: self.invocationsReporting.restoreTableToPointInTime)
+                                 reporting: self.invocationsReporting.restoreTableToPointInTime,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -792,7 +829,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ScanOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.scan.rawValue,
-                                 reporting: self.invocationsReporting.scan)
+                                 reporting: self.invocationsReporting.scan,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -807,7 +845,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: TagResourceOperationHTTPRequestInput(encodable: input),
                                     operation: DynamoDBModelOperations.tagResource.rawValue,
-                                    reporting: self.invocationsReporting.tagResource)
+                                    reporting: self.invocationsReporting.tagResource,
+                                    errorType: DynamoDBError.self)
     }
 
     /**
@@ -824,7 +863,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: TransactGetItemsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.transactGetItems.rawValue,
-                                 reporting: self.invocationsReporting.transactGetItems)
+                                 reporting: self.invocationsReporting.transactGetItems,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -841,7 +881,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: TransactWriteItemsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.transactWriteItems.rawValue,
-                                 reporting: self.invocationsReporting.transactWriteItems)
+                                 reporting: self.invocationsReporting.transactWriteItems,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -856,7 +897,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: UntagResourceOperationHTTPRequestInput(encodable: input),
                                     operation: DynamoDBModelOperations.untagResource.rawValue,
-                                    reporting: self.invocationsReporting.untagResource)
+                                    reporting: self.invocationsReporting.untagResource,
+                                    errorType: DynamoDBError.self)
     }
 
     /**
@@ -873,7 +915,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateContinuousBackupsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.updateContinuousBackups.rawValue,
-                                 reporting: self.invocationsReporting.updateContinuousBackups)
+                                 reporting: self.invocationsReporting.updateContinuousBackups,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -890,7 +933,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateContributorInsightsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.updateContributorInsights.rawValue,
-                                 reporting: self.invocationsReporting.updateContributorInsights)
+                                 reporting: self.invocationsReporting.updateContributorInsights,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -907,7 +951,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateGlobalTableOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.updateGlobalTable.rawValue,
-                                 reporting: self.invocationsReporting.updateGlobalTable)
+                                 reporting: self.invocationsReporting.updateGlobalTable,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -924,7 +969,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateGlobalTableSettingsOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.updateGlobalTableSettings.rawValue,
-                                 reporting: self.invocationsReporting.updateGlobalTableSettings)
+                                 reporting: self.invocationsReporting.updateGlobalTableSettings,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -941,7 +987,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateItemOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.updateItem.rawValue,
-                                 reporting: self.invocationsReporting.updateItem)
+                                 reporting: self.invocationsReporting.updateItem,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -958,7 +1005,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateTableOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.updateTable.rawValue,
-                                 reporting: self.invocationsReporting.updateTable)
+                                 reporting: self.invocationsReporting.updateTable,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -975,7 +1023,8 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateTableReplicaAutoScalingOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.updateTableReplicaAutoScaling.rawValue,
-                                 reporting: self.invocationsReporting.updateTableReplicaAutoScaling)
+                                 reporting: self.invocationsReporting.updateTableReplicaAutoScaling,
+                                 errorType: DynamoDBError.self)
     }
 
     /**
@@ -992,6 +1041,7 @@ public struct AWSDynamoDBClient<InvocationReportingType: HTTPClientCoreInvocatio
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: UpdateTimeToLiveOperationHTTPRequestInput(encodable: input),
                                  operation: DynamoDBModelOperations.updateTimeToLive.rawValue,
-                                 reporting: self.invocationsReporting.updateTimeToLive)
+                                 reporting: self.invocationsReporting.updateTimeToLive,
+                                 errorType: DynamoDBError.self)
     }
 }

@@ -164,7 +164,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CountClosedWorkflowExecutionsOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.countClosedWorkflowExecutions.rawValue,
-                                 reporting: self.invocationsReporting.countClosedWorkflowExecutions)
+                                 reporting: self.invocationsReporting.countClosedWorkflowExecutions,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -181,7 +182,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CountOpenWorkflowExecutionsOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.countOpenWorkflowExecutions.rawValue,
-                                 reporting: self.invocationsReporting.countOpenWorkflowExecutions)
+                                 reporting: self.invocationsReporting.countOpenWorkflowExecutions,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -198,7 +200,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CountPendingActivityTasksOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.countPendingActivityTasks.rawValue,
-                                 reporting: self.invocationsReporting.countPendingActivityTasks)
+                                 reporting: self.invocationsReporting.countPendingActivityTasks,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -215,7 +218,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: CountPendingDecisionTasksOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.countPendingDecisionTasks.rawValue,
-                                 reporting: self.invocationsReporting.countPendingDecisionTasks)
+                                 reporting: self.invocationsReporting.countPendingDecisionTasks,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -230,7 +234,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeprecateActivityTypeOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.deprecateActivityType.rawValue,
-                                    reporting: self.invocationsReporting.deprecateActivityType)
+                                    reporting: self.invocationsReporting.deprecateActivityType,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -245,7 +250,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeprecateDomainOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.deprecateDomain.rawValue,
-                                    reporting: self.invocationsReporting.deprecateDomain)
+                                    reporting: self.invocationsReporting.deprecateDomain,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -260,7 +266,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: DeprecateWorkflowTypeOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.deprecateWorkflowType.rawValue,
-                                    reporting: self.invocationsReporting.deprecateWorkflowType)
+                                    reporting: self.invocationsReporting.deprecateWorkflowType,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -277,7 +284,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeActivityTypeOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.describeActivityType.rawValue,
-                                 reporting: self.invocationsReporting.describeActivityType)
+                                 reporting: self.invocationsReporting.describeActivityType,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -294,7 +302,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeDomainOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.describeDomain.rawValue,
-                                 reporting: self.invocationsReporting.describeDomain)
+                                 reporting: self.invocationsReporting.describeDomain,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -311,7 +320,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeWorkflowExecutionOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.describeWorkflowExecution.rawValue,
-                                 reporting: self.invocationsReporting.describeWorkflowExecution)
+                                 reporting: self.invocationsReporting.describeWorkflowExecution,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -328,7 +338,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: DescribeWorkflowTypeOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.describeWorkflowType.rawValue,
-                                 reporting: self.invocationsReporting.describeWorkflowType)
+                                 reporting: self.invocationsReporting.describeWorkflowType,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -345,7 +356,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: GetWorkflowExecutionHistoryOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.getWorkflowExecutionHistory.rawValue,
-                                 reporting: self.invocationsReporting.getWorkflowExecutionHistory)
+                                 reporting: self.invocationsReporting.getWorkflowExecutionHistory,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -362,7 +374,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListActivityTypesOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.listActivityTypes.rawValue,
-                                 reporting: self.invocationsReporting.listActivityTypes)
+                                 reporting: self.invocationsReporting.listActivityTypes,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -379,7 +392,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListClosedWorkflowExecutionsOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.listClosedWorkflowExecutions.rawValue,
-                                 reporting: self.invocationsReporting.listClosedWorkflowExecutions)
+                                 reporting: self.invocationsReporting.listClosedWorkflowExecutions,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -396,7 +410,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListDomainsOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.listDomains.rawValue,
-                                 reporting: self.invocationsReporting.listDomains)
+                                 reporting: self.invocationsReporting.listDomains,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -413,7 +428,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListOpenWorkflowExecutionsOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.listOpenWorkflowExecutions.rawValue,
-                                 reporting: self.invocationsReporting.listOpenWorkflowExecutions)
+                                 reporting: self.invocationsReporting.listOpenWorkflowExecutions,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -430,7 +446,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.listTagsForResource.rawValue,
-                                 reporting: self.invocationsReporting.listTagsForResource)
+                                 reporting: self.invocationsReporting.listTagsForResource,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -447,7 +464,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: ListWorkflowTypesOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.listWorkflowTypes.rawValue,
-                                 reporting: self.invocationsReporting.listWorkflowTypes)
+                                 reporting: self.invocationsReporting.listWorkflowTypes,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -464,7 +482,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PollForActivityTaskOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.pollForActivityTask.rawValue,
-                                 reporting: self.invocationsReporting.pollForActivityTask)
+                                 reporting: self.invocationsReporting.pollForActivityTask,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -481,7 +500,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: PollForDecisionTaskOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.pollForDecisionTask.rawValue,
-                                 reporting: self.invocationsReporting.pollForDecisionTask)
+                                 reporting: self.invocationsReporting.pollForDecisionTask,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -498,7 +518,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: RecordActivityTaskHeartbeatOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.recordActivityTaskHeartbeat.rawValue,
-                                 reporting: self.invocationsReporting.recordActivityTaskHeartbeat)
+                                 reporting: self.invocationsReporting.recordActivityTaskHeartbeat,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -513,7 +534,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: RegisterActivityTypeOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.registerActivityType.rawValue,
-                                    reporting: self.invocationsReporting.registerActivityType)
+                                    reporting: self.invocationsReporting.registerActivityType,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -528,7 +550,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: RegisterDomainOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.registerDomain.rawValue,
-                                    reporting: self.invocationsReporting.registerDomain)
+                                    reporting: self.invocationsReporting.registerDomain,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -543,7 +566,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: RegisterWorkflowTypeOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.registerWorkflowType.rawValue,
-                                    reporting: self.invocationsReporting.registerWorkflowType)
+                                    reporting: self.invocationsReporting.registerWorkflowType,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -558,7 +582,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: RequestCancelWorkflowExecutionOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.requestCancelWorkflowExecution.rawValue,
-                                    reporting: self.invocationsReporting.requestCancelWorkflowExecution)
+                                    reporting: self.invocationsReporting.requestCancelWorkflowExecution,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -573,7 +598,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: RespondActivityTaskCanceledOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.respondActivityTaskCanceled.rawValue,
-                                    reporting: self.invocationsReporting.respondActivityTaskCanceled)
+                                    reporting: self.invocationsReporting.respondActivityTaskCanceled,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -588,7 +614,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: RespondActivityTaskCompletedOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.respondActivityTaskCompleted.rawValue,
-                                    reporting: self.invocationsReporting.respondActivityTaskCompleted)
+                                    reporting: self.invocationsReporting.respondActivityTaskCompleted,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -603,7 +630,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: RespondActivityTaskFailedOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.respondActivityTaskFailed.rawValue,
-                                    reporting: self.invocationsReporting.respondActivityTaskFailed)
+                                    reporting: self.invocationsReporting.respondActivityTaskFailed,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -618,7 +646,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: RespondDecisionTaskCompletedOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.respondDecisionTaskCompleted.rawValue,
-                                    reporting: self.invocationsReporting.respondDecisionTaskCompleted)
+                                    reporting: self.invocationsReporting.respondDecisionTaskCompleted,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -633,7 +662,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: SignalWorkflowExecutionOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.signalWorkflowExecution.rawValue,
-                                    reporting: self.invocationsReporting.signalWorkflowExecution)
+                                    reporting: self.invocationsReporting.signalWorkflowExecution,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -650,7 +680,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  requestInput: StartWorkflowExecutionOperationHTTPRequestInput(encodable: input),
                                  operation: SimpleWorkflowModelOperations.startWorkflowExecution.rawValue,
-                                 reporting: self.invocationsReporting.startWorkflowExecution)
+                                 reporting: self.invocationsReporting.startWorkflowExecution,
+                                 errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -665,7 +696,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: TagResourceOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.tagResource.rawValue,
-                                    reporting: self.invocationsReporting.tagResource)
+                                    reporting: self.invocationsReporting.tagResource,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -680,7 +712,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: TerminateWorkflowExecutionOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.terminateWorkflowExecution.rawValue,
-                                    reporting: self.invocationsReporting.terminateWorkflowExecution)
+                                    reporting: self.invocationsReporting.terminateWorkflowExecution,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -695,7 +728,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: UndeprecateActivityTypeOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.undeprecateActivityType.rawValue,
-                                    reporting: self.invocationsReporting.undeprecateActivityType)
+                                    reporting: self.invocationsReporting.undeprecateActivityType,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -710,7 +744,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: UndeprecateDomainOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.undeprecateDomain.rawValue,
-                                    reporting: self.invocationsReporting.undeprecateDomain)
+                                    reporting: self.invocationsReporting.undeprecateDomain,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -725,7 +760,8 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: UndeprecateWorkflowTypeOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.undeprecateWorkflowType.rawValue,
-                                    reporting: self.invocationsReporting.undeprecateWorkflowType)
+                                    reporting: self.invocationsReporting.undeprecateWorkflowType,
+                                    errorType: SimpleWorkflowError.self)
     }
 
     /**
@@ -740,6 +776,7 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     requestInput: UntagResourceOperationHTTPRequestInput(encodable: input),
                                     operation: SimpleWorkflowModelOperations.untagResource.rawValue,
-                                    reporting: self.invocationsReporting.untagResource)
+                                    reporting: self.invocationsReporting.untagResource,
+                                    errorType: SimpleWorkflowError.self)
     }
 }

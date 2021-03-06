@@ -148,7 +148,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: CancelUpdateStackOperationHTTPRequestInput(encodable: input),
                                     action: CloudformationModelOperations.cancelUpdateStack.rawValue,
-                                    reporting: self.invocationsReporting.cancelUpdateStack)
+                                    reporting: self.invocationsReporting.cancelUpdateStack,
+                                    errorType: CloudformationError.self)
     }
 
     /**
@@ -165,7 +166,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ContinueUpdateRollbackOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.continueUpdateRollback.rawValue,
-                                 reporting: self.invocationsReporting.continueUpdateRollback)
+                                 reporting: self.invocationsReporting.continueUpdateRollback,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -182,7 +184,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateChangeSetOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.createChangeSet.rawValue,
-                                 reporting: self.invocationsReporting.createChangeSet)
+                                 reporting: self.invocationsReporting.createChangeSet,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -199,7 +202,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateStackOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.createStack.rawValue,
-                                 reporting: self.invocationsReporting.createStack)
+                                 reporting: self.invocationsReporting.createStack,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -216,7 +220,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateStackInstancesOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.createStackInstances.rawValue,
-                                 reporting: self.invocationsReporting.createStackInstances)
+                                 reporting: self.invocationsReporting.createStackInstances,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -233,7 +238,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateStackSetOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.createStackSet.rawValue,
-                                 reporting: self.invocationsReporting.createStackSet)
+                                 reporting: self.invocationsReporting.createStackSet,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -250,7 +256,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteChangeSetOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.deleteChangeSet.rawValue,
-                                 reporting: self.invocationsReporting.deleteChangeSet)
+                                 reporting: self.invocationsReporting.deleteChangeSet,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -265,7 +272,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteStackOperationHTTPRequestInput(encodable: input),
                                     action: CloudformationModelOperations.deleteStack.rawValue,
-                                    reporting: self.invocationsReporting.deleteStack)
+                                    reporting: self.invocationsReporting.deleteStack,
+                                    errorType: CloudformationError.self)
     }
 
     /**
@@ -282,7 +290,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteStackInstancesOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.deleteStackInstances.rawValue,
-                                 reporting: self.invocationsReporting.deleteStackInstances)
+                                 reporting: self.invocationsReporting.deleteStackInstances,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -299,7 +308,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeleteStackSetOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.deleteStackSet.rawValue,
-                                 reporting: self.invocationsReporting.deleteStackSet)
+                                 reporting: self.invocationsReporting.deleteStackSet,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -316,7 +326,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DeregisterTypeOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.deregisterType.rawValue,
-                                 reporting: self.invocationsReporting.deregisterType)
+                                 reporting: self.invocationsReporting.deregisterType,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -332,7 +343,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeAccountLimitsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeAccountLimits.rawValue,
-                                 reporting: self.invocationsReporting.describeAccountLimits)
+                                 reporting: self.invocationsReporting.describeAccountLimits,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -349,7 +361,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeChangeSetOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeChangeSet.rawValue,
-                                 reporting: self.invocationsReporting.describeChangeSet)
+                                 reporting: self.invocationsReporting.describeChangeSet,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -365,7 +378,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStackDriftDetectionStatusOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStackDriftDetectionStatus.rawValue,
-                                 reporting: self.invocationsReporting.describeStackDriftDetectionStatus)
+                                 reporting: self.invocationsReporting.describeStackDriftDetectionStatus,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -381,7 +395,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStackEventsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStackEvents.rawValue,
-                                 reporting: self.invocationsReporting.describeStackEvents)
+                                 reporting: self.invocationsReporting.describeStackEvents,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -398,7 +413,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStackInstanceOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStackInstance.rawValue,
-                                 reporting: self.invocationsReporting.describeStackInstance)
+                                 reporting: self.invocationsReporting.describeStackInstance,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -414,7 +430,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStackResourceOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStackResource.rawValue,
-                                 reporting: self.invocationsReporting.describeStackResource)
+                                 reporting: self.invocationsReporting.describeStackResource,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -430,7 +447,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStackResourceDriftsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStackResourceDrifts.rawValue,
-                                 reporting: self.invocationsReporting.describeStackResourceDrifts)
+                                 reporting: self.invocationsReporting.describeStackResourceDrifts,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -446,7 +464,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStackResourcesOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStackResources.rawValue,
-                                 reporting: self.invocationsReporting.describeStackResources)
+                                 reporting: self.invocationsReporting.describeStackResources,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -463,7 +482,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStackSetOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStackSet.rawValue,
-                                 reporting: self.invocationsReporting.describeStackSet)
+                                 reporting: self.invocationsReporting.describeStackSet,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -480,7 +500,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStackSetOperationOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStackSetOperation.rawValue,
-                                 reporting: self.invocationsReporting.describeStackSetOperation)
+                                 reporting: self.invocationsReporting.describeStackSetOperation,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -496,7 +517,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeStacksOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeStacks.rawValue,
-                                 reporting: self.invocationsReporting.describeStacks)
+                                 reporting: self.invocationsReporting.describeStacks,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -513,7 +535,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTypeOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeType.rawValue,
-                                 reporting: self.invocationsReporting.describeType)
+                                 reporting: self.invocationsReporting.describeType,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -530,7 +553,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DescribeTypeRegistrationOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.describeTypeRegistration.rawValue,
-                                 reporting: self.invocationsReporting.describeTypeRegistration)
+                                 reporting: self.invocationsReporting.describeTypeRegistration,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -546,7 +570,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DetectStackDriftOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.detectStackDrift.rawValue,
-                                 reporting: self.invocationsReporting.detectStackDrift)
+                                 reporting: self.invocationsReporting.detectStackDrift,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -562,7 +587,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DetectStackResourceDriftOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.detectStackResourceDrift.rawValue,
-                                 reporting: self.invocationsReporting.detectStackResourceDrift)
+                                 reporting: self.invocationsReporting.detectStackResourceDrift,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -579,7 +605,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: DetectStackSetDriftOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.detectStackSetDrift.rawValue,
-                                 reporting: self.invocationsReporting.detectStackSetDrift)
+                                 reporting: self.invocationsReporting.detectStackSetDrift,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -595,7 +622,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: EstimateTemplateCostOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.estimateTemplateCost.rawValue,
-                                 reporting: self.invocationsReporting.estimateTemplateCost)
+                                 reporting: self.invocationsReporting.estimateTemplateCost,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -612,7 +640,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ExecuteChangeSetOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.executeChangeSet.rawValue,
-                                 reporting: self.invocationsReporting.executeChangeSet)
+                                 reporting: self.invocationsReporting.executeChangeSet,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -628,7 +657,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetStackPolicyOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.getStackPolicy.rawValue,
-                                 reporting: self.invocationsReporting.getStackPolicy)
+                                 reporting: self.invocationsReporting.getStackPolicy,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -645,7 +675,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetTemplateOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.getTemplate.rawValue,
-                                 reporting: self.invocationsReporting.getTemplate)
+                                 reporting: self.invocationsReporting.getTemplate,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -662,7 +693,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetTemplateSummaryOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.getTemplateSummary.rawValue,
-                                 reporting: self.invocationsReporting.getTemplateSummary)
+                                 reporting: self.invocationsReporting.getTemplateSummary,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -678,7 +710,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListChangeSetsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listChangeSets.rawValue,
-                                 reporting: self.invocationsReporting.listChangeSets)
+                                 reporting: self.invocationsReporting.listChangeSets,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -694,7 +727,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListExportsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listExports.rawValue,
-                                 reporting: self.invocationsReporting.listExports)
+                                 reporting: self.invocationsReporting.listExports,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -710,7 +744,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListImportsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listImports.rawValue,
-                                 reporting: self.invocationsReporting.listImports)
+                                 reporting: self.invocationsReporting.listImports,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -727,7 +762,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListStackInstancesOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listStackInstances.rawValue,
-                                 reporting: self.invocationsReporting.listStackInstances)
+                                 reporting: self.invocationsReporting.listStackInstances,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -743,7 +779,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListStackResourcesOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listStackResources.rawValue,
-                                 reporting: self.invocationsReporting.listStackResources)
+                                 reporting: self.invocationsReporting.listStackResources,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -760,7 +797,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListStackSetOperationResultsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listStackSetOperationResults.rawValue,
-                                 reporting: self.invocationsReporting.listStackSetOperationResults)
+                                 reporting: self.invocationsReporting.listStackSetOperationResults,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -777,7 +815,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListStackSetOperationsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listStackSetOperations.rawValue,
-                                 reporting: self.invocationsReporting.listStackSetOperations)
+                                 reporting: self.invocationsReporting.listStackSetOperations,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -793,7 +832,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListStackSetsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listStackSets.rawValue,
-                                 reporting: self.invocationsReporting.listStackSets)
+                                 reporting: self.invocationsReporting.listStackSets,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -809,7 +849,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListStacksOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listStacks.rawValue,
-                                 reporting: self.invocationsReporting.listStacks)
+                                 reporting: self.invocationsReporting.listStacks,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -826,7 +867,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListTypeRegistrationsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listTypeRegistrations.rawValue,
-                                 reporting: self.invocationsReporting.listTypeRegistrations)
+                                 reporting: self.invocationsReporting.listTypeRegistrations,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -843,7 +885,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListTypeVersionsOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listTypeVersions.rawValue,
-                                 reporting: self.invocationsReporting.listTypeVersions)
+                                 reporting: self.invocationsReporting.listTypeVersions,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -860,7 +903,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListTypesOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.listTypes.rawValue,
-                                 reporting: self.invocationsReporting.listTypes)
+                                 reporting: self.invocationsReporting.listTypes,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -877,7 +921,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RecordHandlerProgressOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.recordHandlerProgress.rawValue,
-                                 reporting: self.invocationsReporting.recordHandlerProgress)
+                                 reporting: self.invocationsReporting.recordHandlerProgress,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -894,7 +939,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: RegisterTypeOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.registerType.rawValue,
-                                 reporting: self.invocationsReporting.registerType)
+                                 reporting: self.invocationsReporting.registerType,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -908,7 +954,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: SetStackPolicyOperationHTTPRequestInput(encodable: input),
                                     action: CloudformationModelOperations.setStackPolicy.rawValue,
-                                    reporting: self.invocationsReporting.setStackPolicy)
+                                    reporting: self.invocationsReporting.setStackPolicy,
+                                    errorType: CloudformationError.self)
     }
 
     /**
@@ -925,7 +972,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: SetTypeDefaultVersionOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.setTypeDefaultVersion.rawValue,
-                                 reporting: self.invocationsReporting.setTypeDefaultVersion)
+                                 reporting: self.invocationsReporting.setTypeDefaultVersion,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -939,7 +987,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: SignalResourceOperationHTTPRequestInput(encodable: input),
                                     action: CloudformationModelOperations.signalResource.rawValue,
-                                    reporting: self.invocationsReporting.signalResource)
+                                    reporting: self.invocationsReporting.signalResource,
+                                    errorType: CloudformationError.self)
     }
 
     /**
@@ -956,7 +1005,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: StopStackSetOperationOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.stopStackSetOperation.rawValue,
-                                 reporting: self.invocationsReporting.stopStackSetOperation)
+                                 reporting: self.invocationsReporting.stopStackSetOperation,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -973,7 +1023,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UpdateStackOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.updateStack.rawValue,
-                                 reporting: self.invocationsReporting.updateStack)
+                                 reporting: self.invocationsReporting.updateStack,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -990,7 +1041,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UpdateStackInstancesOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.updateStackInstances.rawValue,
-                                 reporting: self.invocationsReporting.updateStackInstances)
+                                 reporting: self.invocationsReporting.updateStackInstances,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -1007,7 +1059,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UpdateStackSetOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.updateStackSet.rawValue,
-                                 reporting: self.invocationsReporting.updateStackSet)
+                                 reporting: self.invocationsReporting.updateStackSet,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -1023,7 +1076,8 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UpdateTerminationProtectionOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.updateTerminationProtection.rawValue,
-                                 reporting: self.invocationsReporting.updateTerminationProtection)
+                                 reporting: self.invocationsReporting.updateTerminationProtection,
+                                 errorType: CloudformationError.self)
     }
 
     /**
@@ -1039,6 +1093,7 @@ public struct AWSCloudformationClient<InvocationReportingType: HTTPClientCoreInv
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ValidateTemplateOperationHTTPRequestInput(encodable: input),
                                  action: CloudformationModelOperations.validateTemplate.rawValue,
-                                 reporting: self.invocationsReporting.validateTemplate)
+                                 reporting: self.invocationsReporting.validateTemplate,
+                                 errorType: CloudformationError.self)
     }
 }

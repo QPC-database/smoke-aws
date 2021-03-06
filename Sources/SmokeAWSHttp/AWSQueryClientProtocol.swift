@@ -17,11 +17,13 @@ public protocol AWSQueryClientProtocol {
 }
 
 public extension AWSQueryClientProtocol {
-    func executeWithoutOutput<InvocationReportingType: HTTPClientInvocationReporting, WrappedInputType: HTTPRequestInputProtocol>(
+    func executeWithoutOutput<InvocationReportingType: HTTPClientInvocationReporting,
+                              WrappedInputType: HTTPRequestInputProtocol, ErrorType: ConvertableError>(
             httpClient: HTTPOperationsClient,
             wrappedInput: WrappedInputType,
             action: String,
-            reporting: InvocationReportingType) -> EventLoopFuture<Void> {
+            reporting: InvocationReportingType,
+            errorType: ErrorType.Type) -> EventLoopFuture<Void> {
         let handlerDelegate = AWSClientInvocationDelegate(
                     credentialsProvider: credentialsProvider,
                     awsRegion: awsRegion,
@@ -42,15 +44,19 @@ public extension AWSQueryClientProtocol {
             input: requestInput,
             invocationContext: invocationContext,
             retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+            retryOnError: retryOnErrorProvider) .flatMapErrorThrowing { error in
+                let typedError: ErrorType = error.asTypedError()
+                throw typedError
+            }
     }
         
     func executeWithOutput<OutputType: HTTPResponseOutputProtocol, InvocationReportingType: HTTPClientInvocationReporting,
-                                WrappedInputType: HTTPRequestInputProtocol>(
+                                WrappedInputType: HTTPRequestInputProtocol, ErrorType: ConvertableError>(
             httpClient: HTTPOperationsClient,
             wrappedInput: WrappedInputType,
             action: String,
-            reporting: InvocationReportingType) -> EventLoopFuture<OutputType> {
+            reporting: InvocationReportingType,
+            errorType: ErrorType.Type) -> EventLoopFuture<OutputType> {
         let handlerDelegate = AWSClientInvocationDelegate(
                     credentialsProvider: credentialsProvider,
                     awsRegion: awsRegion,
@@ -71,6 +77,9 @@ public extension AWSQueryClientProtocol {
             input: requestInput,
             invocationContext: invocationContext,
             retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+            retryOnError: retryOnErrorProvider) .flatMapErrorThrowing { error in
+                let typedError: ErrorType = error.asTypedError()
+                throw typedError
+            }
     }
 }

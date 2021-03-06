@@ -165,7 +165,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: AddPermissionOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.addPermission.rawValue,
-                                    reporting: self.invocationsReporting.addPermission)
+                                    reporting: self.invocationsReporting.addPermission,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -182,7 +183,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CheckIfPhoneNumberIsOptedOutOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.checkIfPhoneNumberIsOptedOut.rawValue,
-                                 reporting: self.invocationsReporting.checkIfPhoneNumberIsOptedOut)
+                                 reporting: self.invocationsReporting.checkIfPhoneNumberIsOptedOut,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -199,7 +201,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ConfirmSubscriptionOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.confirmSubscription.rawValue,
-                                 reporting: self.invocationsReporting.confirmSubscription)
+                                 reporting: self.invocationsReporting.confirmSubscription,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -216,7 +219,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreatePlatformApplicationOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.createPlatformApplication.rawValue,
-                                 reporting: self.invocationsReporting.createPlatformApplication)
+                                 reporting: self.invocationsReporting.createPlatformApplication,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -233,7 +237,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreatePlatformEndpointOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.createPlatformEndpoint.rawValue,
-                                 reporting: self.invocationsReporting.createPlatformEndpoint)
+                                 reporting: self.invocationsReporting.createPlatformEndpoint,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -250,7 +255,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: CreateTopicOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.createTopic.rawValue,
-                                 reporting: self.invocationsReporting.createTopic)
+                                 reporting: self.invocationsReporting.createTopic,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -265,7 +271,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteEndpointOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.deleteEndpoint.rawValue,
-                                    reporting: self.invocationsReporting.deleteEndpoint)
+                                    reporting: self.invocationsReporting.deleteEndpoint,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -280,7 +287,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeletePlatformApplicationOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.deletePlatformApplication.rawValue,
-                                    reporting: self.invocationsReporting.deletePlatformApplication)
+                                    reporting: self.invocationsReporting.deletePlatformApplication,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -295,7 +303,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: DeleteTopicOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.deleteTopic.rawValue,
-                                    reporting: self.invocationsReporting.deleteTopic)
+                                    reporting: self.invocationsReporting.deleteTopic,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -312,7 +321,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetEndpointAttributesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.getEndpointAttributes.rawValue,
-                                 reporting: self.invocationsReporting.getEndpointAttributes)
+                                 reporting: self.invocationsReporting.getEndpointAttributes,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -329,7 +339,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetPlatformApplicationAttributesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.getPlatformApplicationAttributes.rawValue,
-                                 reporting: self.invocationsReporting.getPlatformApplicationAttributes)
+                                 reporting: self.invocationsReporting.getPlatformApplicationAttributes,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -346,7 +357,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetSMSAttributesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.getSMSAttributes.rawValue,
-                                 reporting: self.invocationsReporting.getSMSAttributes)
+                                 reporting: self.invocationsReporting.getSMSAttributes,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -363,7 +375,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetSubscriptionAttributesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.getSubscriptionAttributes.rawValue,
-                                 reporting: self.invocationsReporting.getSubscriptionAttributes)
+                                 reporting: self.invocationsReporting.getSubscriptionAttributes,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -380,7 +393,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: GetTopicAttributesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.getTopicAttributes.rawValue,
-                                 reporting: self.invocationsReporting.getTopicAttributes)
+                                 reporting: self.invocationsReporting.getTopicAttributes,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -397,7 +411,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListEndpointsByPlatformApplicationOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.listEndpointsByPlatformApplication.rawValue,
-                                 reporting: self.invocationsReporting.listEndpointsByPlatformApplication)
+                                 reporting: self.invocationsReporting.listEndpointsByPlatformApplication,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -414,7 +429,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListPhoneNumbersOptedOutOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.listPhoneNumbersOptedOut.rawValue,
-                                 reporting: self.invocationsReporting.listPhoneNumbersOptedOut)
+                                 reporting: self.invocationsReporting.listPhoneNumbersOptedOut,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -431,7 +447,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListPlatformApplicationsOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.listPlatformApplications.rawValue,
-                                 reporting: self.invocationsReporting.listPlatformApplications)
+                                 reporting: self.invocationsReporting.listPlatformApplications,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -448,7 +465,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListSubscriptionsOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.listSubscriptions.rawValue,
-                                 reporting: self.invocationsReporting.listSubscriptions)
+                                 reporting: self.invocationsReporting.listSubscriptions,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -465,7 +483,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListSubscriptionsByTopicOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.listSubscriptionsByTopic.rawValue,
-                                 reporting: self.invocationsReporting.listSubscriptionsByTopic)
+                                 reporting: self.invocationsReporting.listSubscriptionsByTopic,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -482,7 +501,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListTagsForResourceOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.listTagsForResource.rawValue,
-                                 reporting: self.invocationsReporting.listTagsForResource)
+                                 reporting: self.invocationsReporting.listTagsForResource,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -499,7 +519,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: ListTopicsOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.listTopics.rawValue,
-                                 reporting: self.invocationsReporting.listTopics)
+                                 reporting: self.invocationsReporting.listTopics,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -516,7 +537,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: OptInPhoneNumberOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.optInPhoneNumber.rawValue,
-                                 reporting: self.invocationsReporting.optInPhoneNumber)
+                                 reporting: self.invocationsReporting.optInPhoneNumber,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -533,7 +555,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: PublishOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.publish.rawValue,
-                                 reporting: self.invocationsReporting.publish)
+                                 reporting: self.invocationsReporting.publish,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -548,7 +571,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: RemovePermissionOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.removePermission.rawValue,
-                                    reporting: self.invocationsReporting.removePermission)
+                                    reporting: self.invocationsReporting.removePermission,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -563,7 +587,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: SetEndpointAttributesOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.setEndpointAttributes.rawValue,
-                                    reporting: self.invocationsReporting.setEndpointAttributes)
+                                    reporting: self.invocationsReporting.setEndpointAttributes,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -578,7 +603,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: SetPlatformApplicationAttributesOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.setPlatformApplicationAttributes.rawValue,
-                                    reporting: self.invocationsReporting.setPlatformApplicationAttributes)
+                                    reporting: self.invocationsReporting.setPlatformApplicationAttributes,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -595,7 +621,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: SetSMSAttributesOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.setSMSAttributes.rawValue,
-                                 reporting: self.invocationsReporting.setSMSAttributes)
+                                 reporting: self.invocationsReporting.setSMSAttributes,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -610,7 +637,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: SetSubscriptionAttributesOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.setSubscriptionAttributes.rawValue,
-                                    reporting: self.invocationsReporting.setSubscriptionAttributes)
+                                    reporting: self.invocationsReporting.setSubscriptionAttributes,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -625,7 +653,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: SetTopicAttributesOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.setTopicAttributes.rawValue,
-                                    reporting: self.invocationsReporting.setTopicAttributes)
+                                    reporting: self.invocationsReporting.setTopicAttributes,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -642,7 +671,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: SubscribeOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.subscribe.rawValue,
-                                 reporting: self.invocationsReporting.subscribe)
+                                 reporting: self.invocationsReporting.subscribe,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -659,7 +689,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: TagResourceOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.tagResource.rawValue,
-                                 reporting: self.invocationsReporting.tagResource)
+                                 reporting: self.invocationsReporting.tagResource,
+                                 errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -674,7 +705,8 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithoutOutput(httpClient: httpClient,
                                     wrappedInput: UnsubscribeOperationHTTPRequestInput(encodable: input),
                                     action: SimpleNotificationModelOperations.unsubscribe.rawValue,
-                                    reporting: self.invocationsReporting.unsubscribe)
+                                    reporting: self.invocationsReporting.unsubscribe,
+                                    errorType: SimpleNotificationError.self)
     }
 
     /**
@@ -691,6 +723,7 @@ public struct AWSSimpleNotificationClient<InvocationReportingType: HTTPClientCor
         return executeWithOutput(httpClient: httpClient,
                                  wrappedInput: UntagResourceOperationHTTPRequestInput(encodable: input),
                                  action: SimpleNotificationModelOperations.untagResource.rawValue,
-                                 reporting: self.invocationsReporting.untagResource)
+                                 reporting: self.invocationsReporting.untagResource,
+                                 errorType: SimpleNotificationError.self)
     }
 }

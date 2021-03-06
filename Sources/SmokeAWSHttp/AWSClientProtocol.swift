@@ -18,11 +18,13 @@ public protocol AWSClientProtocol {
 }
 
 public extension AWSClientProtocol {
-    func executeWithoutOutput<InvocationReportingType: HTTPClientInvocationReporting, InputType: HTTPRequestInputProtocol>(
+    func executeWithoutOutput<InvocationReportingType: HTTPClientInvocationReporting,
+                              InputType: HTTPRequestInputProtocol, ErrorType: ConvertableError>(
             httpClient: HTTPOperationsClient,
             requestInput: InputType,
             operation: String,
-            reporting: InvocationReportingType) -> EventLoopFuture<Void> {
+            reporting: InvocationReportingType,
+            errorType: ErrorType.Type) -> EventLoopFuture<Void> {
         let handlerDelegate = AWSClientInvocationDelegate(
                     credentialsProvider: credentialsProvider,
                     awsRegion: awsRegion,
@@ -39,15 +41,19 @@ public extension AWSClientProtocol {
             input: requestInput,
             invocationContext: invocationContext,
             retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+            retryOnError: retryOnErrorProvider) .flatMapErrorThrowing { error in
+                let typedError: ErrorType = error.asTypedError()
+                throw typedError
+            }
     }
     
     func executeWithOutput<OutputType: HTTPResponseOutputProtocol, InvocationReportingType: HTTPClientInvocationReporting,
-                           InputType: HTTPRequestInputProtocol>(
+                           InputType: HTTPRequestInputProtocol, ErrorType: ConvertableError>(
             httpClient: HTTPOperationsClient,
             requestInput: InputType,
             operation: String,
-            reporting: InvocationReportingType) -> EventLoopFuture<OutputType> {
+            reporting: InvocationReportingType,
+            errorType: ErrorType.Type) -> EventLoopFuture<OutputType> {
         let handlerDelegate = AWSClientInvocationDelegate(
                     credentialsProvider: credentialsProvider,
                     awsRegion: awsRegion,
@@ -64,7 +70,10 @@ public extension AWSClientProtocol {
             input: requestInput,
             invocationContext: invocationContext,
             retryConfiguration: retryConfiguration,
-            retryOnError: retryOnErrorProvider)
+            retryOnError: retryOnErrorProvider) .flatMapErrorThrowing { error in
+                let typedError: ErrorType = error.asTypedError()
+                throw typedError
+            }
     }
 }
 
