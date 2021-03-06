@@ -52,7 +52,7 @@ public struct AWSSimpleWorkflowClientGenerator {
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
 
     let operationsReporting: SimpleWorkflowOperationsReporting
     
@@ -68,6 +68,7 @@ public struct AWSSimpleWorkflowClientGenerator {
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<SimpleWorkflowModelOperations>
                     = SmokeAWSClientReportingConfiguration<SimpleWorkflowModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = JSONAWSHttpClientDelegate<SimpleWorkflowError>(requiresTLS: useTLS)
 
@@ -77,12 +78,11 @@ public struct AWSSimpleWorkflowClientGenerator {
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.awsRegion = awsRegion
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.operationsReporting = SimpleWorkflowOperationsReporting(clientName: "AWSSimpleWorkflowClient", reportingConfiguration: reportingConfiguration)
@@ -105,7 +105,7 @@ public struct AWSSimpleWorkflowClientGenerator {
             httpClient: self.httpClient,
             service: self.service,
             target: self.target,
-            eventLoopProvider: self.eventLoopProvider,
+            eventLoopGroup: self.eventLoopGroup,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)

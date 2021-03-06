@@ -57,7 +57,7 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
     public let reporting: InvocationReportingType
 
     let operationsReporting: RDSOperationsReporting
@@ -76,6 +76,7 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<RDSModelOperations>
                     = SmokeAWSClientReportingConfiguration<RDSModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = XMLAWSHttpClientDelegate<RDSError>(requiresTLS: useTLS)
 
@@ -85,13 +86,12 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.ownsHttpClients = true
         self.awsRegion = awsRegion
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -105,17 +105,17 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
                 httpClient: HTTPOperationsClient,
                 service: String,
                 apiVersion: String,
-                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
+                eventLoopGroup: EventLoopGroup,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: RDSOperationsReporting) {
+        self.eventLoopGroup = eventLoopGroup
         self.httpClient = httpClient
         self.ownsHttpClients = false
         self.awsRegion = awsRegion
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

@@ -5,6 +5,8 @@
 import SmokeHTTPClient
 import SmokeAWSCore
 import NIO
+import NIOTransportServices
+import AsyncHTTPClient
 
 public protocol AWSClientProtocol {
     var awsRegion: AWSRegion { get }
@@ -63,5 +65,24 @@ public extension AWSClientProtocol {
             invocationContext: invocationContext,
             retryConfiguration: retryConfiguration,
             retryOnError: retryOnErrorProvider)
+    }
+}
+
+public struct AWSClientHelper {
+    public static func getEventLoop(eventLoopGroupProvider: HTTPClient.EventLoopGroupProvider) -> EventLoopGroup {
+        switch eventLoopGroupProvider {
+        case .shared(let group):
+            return group
+        case .createNew:
+            #if canImport(Network)
+                if #available(OSX 10.14, iOS 12.0, tvOS 12.0, watchOS 6.0, *) {
+                    return NIOTSEventLoopGroup()
+                } else {
+                    return MultiThreadedEventLoopGroup(numberOfThreads: 1)
+                }
+            #else
+                self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            #endif
+        }
     }
 }

@@ -75,7 +75,7 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
     public let reporting: InvocationReportingType
 
     let operationsReporting: SimpleWorkflowOperationsReporting
@@ -94,6 +94,7 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<SimpleWorkflowModelOperations>
                     = SmokeAWSClientReportingConfiguration<SimpleWorkflowModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = JSONAWSHttpClientDelegate<SimpleWorkflowError>(requiresTLS: useTLS)
 
@@ -103,13 +104,12 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.ownsHttpClients = true
         self.awsRegion = awsRegion
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -122,17 +122,17 @@ public struct AWSSimpleWorkflowClient<InvocationReportingType: HTTPClientCoreInv
                 httpClient: HTTPOperationsClient,
                 service: String,
                 target: String?,
-                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
+                eventLoopGroup: EventLoopGroup,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: SimpleWorkflowOperationsReporting) {
+        self.eventLoopGroup = eventLoopGroup
         self.httpClient = httpClient
         self.ownsHttpClients = false
         self.awsRegion = awsRegion
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

@@ -42,7 +42,7 @@ public struct AWSECRClientGenerator {
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
 
     let operationsReporting: ECROperationsReporting
     
@@ -58,6 +58,7 @@ public struct AWSECRClientGenerator {
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<ECRModelOperations>
                     = SmokeAWSClientReportingConfiguration<ECRModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = JSONAWSHttpClientDelegate<ECRError>(requiresTLS: useTLS)
 
@@ -67,12 +68,11 @@ public struct AWSECRClientGenerator {
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.awsRegion = awsRegion
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.operationsReporting = ECROperationsReporting(clientName: "AWSECRClient", reportingConfiguration: reportingConfiguration)
@@ -95,7 +95,7 @@ public struct AWSECRClientGenerator {
             httpClient: self.httpClient,
             service: self.service,
             target: self.target,
-            eventLoopProvider: self.eventLoopProvider,
+            eventLoopGroup: self.eventLoopGroup,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)

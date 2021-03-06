@@ -43,7 +43,7 @@ public struct AWSS3ClientGenerator {
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
 
     let operationsReporting: S3OperationsReporting
     
@@ -59,6 +59,7 @@ public struct AWSS3ClientGenerator {
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<S3ModelOperations>
                     = SmokeAWSClientReportingConfiguration<S3ModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = XMLAWSHttpClientDelegate<S3Error>(requiresTLS: useTLS)
 
@@ -70,19 +71,18 @@ public struct AWSS3ClientGenerator {
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.dataHttpClient = HTTPOperationsClient(
             endpointHostName: endpointHostName,
             endpointPort: endpointPort,
             contentType: contentType,
             clientDelegate: clientDelegateForDataHttpClient,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.awsRegion = awsRegion ?? .us_east_1
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.operationsReporting = S3OperationsReporting(clientName: "AWSS3Client", reportingConfiguration: reportingConfiguration)
@@ -107,7 +107,7 @@ public struct AWSS3ClientGenerator {
             dataHttpClient: self.dataHttpClient,
             service: self.service,
             target: self.target,
-            eventLoopProvider: self.eventLoopProvider,
+            eventLoopGroup: self.eventLoopGroup,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)

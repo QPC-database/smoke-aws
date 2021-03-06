@@ -53,7 +53,7 @@ public struct AWSCloudWatchClientGenerator {
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
 
     let operationsReporting: CloudWatchOperationsReporting
     
@@ -69,6 +69,7 @@ public struct AWSCloudWatchClientGenerator {
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<CloudWatchModelOperations>
                     = SmokeAWSClientReportingConfiguration<CloudWatchModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = XMLAWSHttpClientDelegate<CloudWatchError>(requiresTLS: useTLS,
             outputListDecodingStrategy: .collapseListUsingItemTag("member"), 
@@ -80,12 +81,11 @@ public struct AWSCloudWatchClientGenerator {
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.awsRegion = awsRegion
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.apiVersion = apiVersion
@@ -109,7 +109,7 @@ public struct AWSCloudWatchClientGenerator {
             httpClient: self.httpClient,
             service: self.service,
             apiVersion: self.apiVersion,
-            eventLoopProvider: self.eventLoopProvider,
+            eventLoopGroup: self.eventLoopGroup,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)

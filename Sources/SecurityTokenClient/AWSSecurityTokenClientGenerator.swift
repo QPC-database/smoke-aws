@@ -43,7 +43,7 @@ public struct AWSSecurityTokenClientGenerator {
     let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
 
     let operationsReporting: SecurityTokenOperationsReporting
     
@@ -59,6 +59,7 @@ public struct AWSSecurityTokenClientGenerator {
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<SecurityTokenModelOperations>
                     = SmokeAWSClientReportingConfiguration<SecurityTokenModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = XMLAWSHttpClientDelegate<SecurityTokenError>(requiresTLS: useTLS)
 
@@ -68,12 +69,11 @@ public struct AWSSecurityTokenClientGenerator {
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.awsRegion = awsRegion ?? .us_east_1
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.retryOnErrorProvider = { error in error.isRetriable() }
         self.apiVersion = apiVersion
@@ -97,7 +97,7 @@ public struct AWSSecurityTokenClientGenerator {
             httpClient: self.httpClient,
             service: self.service,
             apiVersion: self.apiVersion,
-            eventLoopProvider: self.eventLoopProvider,
+            eventLoopGroup: self.eventLoopGroup,
             retryOnErrorProvider: self.retryOnErrorProvider,
             retryConfiguration: self.retryConfiguration,
             operationsReporting: self.operationsReporting)

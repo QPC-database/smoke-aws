@@ -122,6 +122,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-log", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-metrics.git", "1.0.0"..<"3.0.0"),
         .package(url: "https://github.com/LiveUI/XMLCoding.git", from: "0.4.1"),
+        .package(url: "https://github.com/apple/swift-nio-transport-services.git", from: "1.5.1"),
         .package(url: "https://github.com/amzn/smoke-http.git", .branch("event_loop_future")),
         .package(url: "https://github.com/apple/swift-crypto.git", from: "1.0.0"),
     ],
@@ -270,6 +271,7 @@ let package = Package(
                 .product(name: "HTTPPathCoding", package: "smoke-http"),
                 .product(name: "HTTPHeadersCoding", package: "smoke-http"),
                 .product(name: "Crypto", package: "swift-crypto"),
+                .product(name: "NIOTransportServices", package: "swift-nio-transport-services"),
             ]),
         .target(
             name: "SmokeAWSMetrics", dependencies: [

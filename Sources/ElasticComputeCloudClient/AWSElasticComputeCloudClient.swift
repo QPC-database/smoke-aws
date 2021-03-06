@@ -57,7 +57,7 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
     public let reporting: InvocationReportingType
 
     let operationsReporting: ElasticComputeCloudOperationsReporting
@@ -76,6 +76,7 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<ElasticComputeCloudModelOperations>
                     = SmokeAWSClientReportingConfiguration<ElasticComputeCloudModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = XMLAWSHttpClientDelegate<ElasticComputeCloudError>(requiresTLS: useTLS,
             outputListDecodingStrategy: .collapseListUsingItemTag("item"), 
@@ -87,13 +88,12 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.ownsHttpClients = true
         self.awsRegion = awsRegion
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -107,17 +107,17 @@ public struct AWSElasticComputeCloudClient<InvocationReportingType: HTTPClientCo
                 httpClient: HTTPOperationsClient,
                 service: String,
                 apiVersion: String,
-                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
+                eventLoopGroup: EventLoopGroup,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: ElasticComputeCloudOperationsReporting) {
+        self.eventLoopGroup = eventLoopGroup
         self.httpClient = httpClient
         self.ownsHttpClients = false
         self.awsRegion = awsRegion
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

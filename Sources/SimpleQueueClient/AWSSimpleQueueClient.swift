@@ -77,7 +77,7 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
     public let reporting: InvocationReportingType
 
     let operationsReporting: SimpleQueueOperationsReporting
@@ -96,6 +96,7 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<SimpleQueueModelOperations>
                     = SmokeAWSClientReportingConfiguration<SimpleQueueModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = XMLAWSHttpClientDelegate<SimpleQueueError>(requiresTLS: useTLS)
 
@@ -109,20 +110,19 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.listHttpClient = HTTPOperationsClient(
             endpointHostName: endpointHostName,
             endpointPort: endpointPort,
             contentType: contentType,
             clientDelegate: clientDelegateForListHttpClient,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.ownsHttpClients = true
         self.awsRegion = awsRegion
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -136,10 +136,11 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
                 httpClient: HTTPOperationsClient, listHttpClient: HTTPOperationsClient,
                 service: String,
                 apiVersion: String,
-                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
+                eventLoopGroup: EventLoopGroup,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: SimpleQueueOperationsReporting) {
+        self.eventLoopGroup = eventLoopGroup
         self.httpClient = httpClient
         self.listHttpClient = listHttpClient
         self.ownsHttpClients = false
@@ -147,7 +148,6 @@ public struct AWSSimpleQueueClient<InvocationReportingType: HTTPClientCoreInvoca
         self.service = service
         self.target = nil
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider

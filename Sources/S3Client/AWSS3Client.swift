@@ -57,7 +57,7 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
     public let retryOnErrorProvider: (SmokeHTTPClient.HTTPClientError) -> Bool
     public let credentialsProvider: CredentialsProvider
     
-    public let eventLoopProvider: HTTPClient.EventLoopGroupProvider
+    public let eventLoopGroup: EventLoopGroup
     public let reporting: InvocationReportingType
 
     let operationsReporting: S3OperationsReporting
@@ -76,6 +76,7 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
                 eventLoopProvider: HTTPClient.EventLoopGroupProvider = .createNew,
                 reportingConfiguration: SmokeAWSClientReportingConfiguration<S3ModelOperations>
                     = SmokeAWSClientReportingConfiguration<S3ModelOperations>() ) {
+        self.eventLoopGroup = AWSClientHelper.getEventLoop(eventLoopGroupProvider: eventLoopProvider)
         let useTLS = requiresTLS ?? AWSHTTPClientDelegate.requiresTLS(forEndpointPort: endpointPort)
         let clientDelegate = XMLAWSHttpClientDelegate<S3Error>(requiresTLS: useTLS)
 
@@ -87,20 +88,19 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
             contentType: contentType,
             clientDelegate: clientDelegate,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.dataHttpClient = HTTPOperationsClient(
             endpointHostName: endpointHostName,
             endpointPort: endpointPort,
             contentType: contentType,
             clientDelegate: clientDelegateForDataHttpClient,
             connectionTimeoutSeconds: connectionTimeoutSeconds,
-            eventLoopProvider: eventLoopProvider)
+            eventLoopProvider: .shared(self.eventLoopGroup))
         self.ownsHttpClients = true
         self.awsRegion = awsRegion ?? .us_east_1
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = { error in error.isRetriable() }
@@ -113,10 +113,11 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
                 httpClient: HTTPOperationsClient, dataHttpClient: HTTPOperationsClient,
                 service: String,
                 target: String?,
-                eventLoopProvider: HTTPClient.EventLoopGroupProvider,
+                eventLoopGroup: EventLoopGroup,
                 retryOnErrorProvider: @escaping (SmokeHTTPClient.HTTPClientError) -> Bool,
                 retryConfiguration: HTTPClientRetryConfiguration,
                 operationsReporting: S3OperationsReporting) {
+        self.eventLoopGroup = eventLoopGroup
         self.httpClient = httpClient
         self.dataHttpClient = dataHttpClient
         self.ownsHttpClients = false
@@ -124,7 +125,6 @@ public struct AWSS3Client<InvocationReportingType: HTTPClientCoreInvocationRepor
         self.service = service
         self.target = target
         self.credentialsProvider = credentialsProvider
-        self.eventLoopProvider = eventLoopProvider
         self.retryConfiguration = retryConfiguration
         self.reporting = reporting
         self.retryOnErrorProvider = retryOnErrorProvider
