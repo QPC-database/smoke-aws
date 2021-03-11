@@ -5,6 +5,7 @@
 import SmokeHTTPClient
 import SmokeAWSCore
 import NIO
+import NIOHTTP1
 import NIOTransportServices
 import AsyncHTTPClient
 
@@ -21,6 +22,8 @@ public extension AWSClientProtocol {
     func executeWithoutOutput<InvocationReportingType: HTTPClientInvocationReporting,
                               InputType: HTTPRequestInputProtocol, ErrorType: ConvertableError>(
             httpClient: HTTPOperationsClient,
+            endpointPath: String = "/",
+            httpMethod: HTTPMethod = .POST,
             requestInput: InputType,
             operation: String,
             reporting: InvocationReportingType,
@@ -36,8 +39,8 @@ public extension AWSClientProtocol {
                                                             handlerDelegate: handlerDelegate)
 
         return httpClient.executeAsEventLoopFutureRetriableWithoutOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
+            endpointPath: endpointPath,
+            httpMethod: httpMethod,
             input: requestInput,
             invocationContext: invocationContext,
             retryConfiguration: retryConfiguration,
@@ -50,6 +53,8 @@ public extension AWSClientProtocol {
     func executeWithOutput<OutputType: HTTPResponseOutputProtocol, InvocationReportingType: HTTPClientInvocationReporting,
                            InputType: HTTPRequestInputProtocol, ErrorType: ConvertableError>(
             httpClient: HTTPOperationsClient,
+            endpointPath: String = "/",
+            httpMethod: HTTPMethod = .POST,
             requestInput: InputType,
             operation: String,
             reporting: InvocationReportingType,
@@ -65,8 +70,8 @@ public extension AWSClientProtocol {
                                                             handlerDelegate: handlerDelegate)
 
         return httpClient.executeAsEventLoopFutureRetriableWithOutput(
-            endpointPath: "/",
-            httpMethod: .POST,
+            endpointPath: endpointPath,
+            httpMethod: httpMethod,
             input: requestInput,
             invocationContext: invocationContext,
             retryConfiguration: retryConfiguration,
