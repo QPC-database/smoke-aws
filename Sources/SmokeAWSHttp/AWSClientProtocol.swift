@@ -27,13 +27,15 @@ public extension AWSClientProtocol {
             requestInput: InputType,
             operation: String,
             reporting: InvocationReportingType,
+            signAllHeaders: Bool = false,
             errorType: ErrorType.Type) -> EventLoopFuture<Void> {
         let handlerDelegate = AWSClientInvocationDelegate(
                     credentialsProvider: credentialsProvider,
                     awsRegion: awsRegion,
                     service: service,
                     operation: operation,
-                    target: target)
+                    target: target,
+                    signAllHeaders: signAllHeaders)
 
         let invocationContext = HTTPClientInvocationContext(reporting: reporting,
                                                             handlerDelegate: handlerDelegate)
@@ -58,13 +60,15 @@ public extension AWSClientProtocol {
             requestInput: InputType,
             operation: String,
             reporting: InvocationReportingType,
+            signAllHeaders: Bool = false,
             errorType: ErrorType.Type) -> EventLoopFuture<OutputType> {
         let handlerDelegate = AWSClientInvocationDelegate(
                     credentialsProvider: credentialsProvider,
                     awsRegion: awsRegion,
                     service: service,
                     operation: operation,
-                    target: target)
+                    target: target,
+                    signAllHeaders: signAllHeaders)
 
         let invocationContext = HTTPClientInvocationContext(reporting: reporting,
                                                             handlerDelegate: handlerDelegate)
