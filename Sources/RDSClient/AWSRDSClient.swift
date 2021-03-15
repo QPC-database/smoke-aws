@@ -525,6 +525,24 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
     }
 
     /**
+     Invokes the CreateDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated CreateDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the CreateDBProxyEndpointResponseForCreateDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointAlreadyExists, dBProxyEndpointQuotaExceeded, dBProxyNotFound, invalidDBProxyState, invalidSubnet.
+     */
+    public func createDBProxyEndpoint(
+            input: RDSModel.CreateDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.CreateDBProxyEndpointResponseForCreateDBProxyEndpoint> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: CreateDBProxyEndpointOperationHTTPRequestInput(encodable: input),
+                                 action: RDSModelOperations.createDBProxyEndpoint.rawValue,
+                                 reporting: self.invocationsReporting.createDBProxyEndpoint,
+                                 errorType: RDSError.self)
+    }
+
+    /**
      Invokes the CreateDBSecurityGroup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
@@ -787,6 +805,24 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
                                  wrappedInput: DeleteDBProxyOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.deleteDBProxy.rawValue,
                                  reporting: self.invocationsReporting.deleteDBProxy,
+                                 errorType: RDSError.self)
+    }
+
+    /**
+     Invokes the DeleteDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated DeleteDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointNotFound, invalidDBProxyEndpointState.
+     */
+    public func deleteDBProxyEndpoint(
+            input: RDSModel.DeleteDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DeleteDBProxyEndpointOperationHTTPRequestInput(encodable: input),
+                                 action: RDSModelOperations.deleteDBProxyEndpoint.rawValue,
+                                 reporting: self.invocationsReporting.deleteDBProxyEndpoint,
                                  errorType: RDSError.self)
     }
 
@@ -1229,6 +1265,24 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
                                  wrappedInput: DescribeDBProxiesOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.describeDBProxies.rawValue,
                                  reporting: self.invocationsReporting.describeDBProxies,
+                                 errorType: RDSError.self)
+    }
+
+    /**
+     Invokes the DescribeDBProxyEndpoints operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated DescribeDBProxyEndpointsRequest object being passed to this operation.
+     - Returns: A future to the DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointNotFound, dBProxyNotFound.
+     */
+    public func describeDBProxyEndpoints(
+            input: RDSModel.DescribeDBProxyEndpointsRequest) -> EventLoopFuture<RDSModel.DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: DescribeDBProxyEndpointsOperationHTTPRequestInput(encodable: input),
+                                 action: RDSModelOperations.describeDBProxyEndpoints.rawValue,
+                                 reporting: self.invocationsReporting.describeDBProxyEndpoints,
                                  errorType: RDSError.self)
     }
 
@@ -1870,6 +1924,24 @@ public struct AWSRDSClient<InvocationReportingType: HTTPClientCoreInvocationRepo
                                  wrappedInput: ModifyDBProxyOperationHTTPRequestInput(encodable: input),
                                  action: RDSModelOperations.modifyDBProxy.rawValue,
                                  reporting: self.invocationsReporting.modifyDBProxy,
+                                 errorType: RDSError.self)
+    }
+
+    /**
+     Invokes the ModifyDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated ModifyDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointAlreadyExists, dBProxyEndpointNotFound, invalidDBProxyEndpointState, invalidDBProxyState.
+     */
+    public func modifyDBProxyEndpoint(
+            input: RDSModel.ModifyDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint> {
+        return executeWithOutput(httpClient: httpClient,
+                                 wrappedInput: ModifyDBProxyEndpointOperationHTTPRequestInput(encodable: input),
+                                 action: RDSModelOperations.modifyDBProxyEndpoint.rawValue,
+                                 reporting: self.invocationsReporting.modifyDBProxyEndpoint,
                                  errorType: RDSError.self)
     }
 

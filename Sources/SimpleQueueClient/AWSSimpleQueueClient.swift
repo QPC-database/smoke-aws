@@ -42,7 +42,7 @@ public enum SimpleQueueClientError: Swift.Error {
         return error.asUnrecognizedSimpleQueueError()
     }
 
-    func isRetriable() -> Bool? {
+    public func isRetriable() -> Bool? {
         switch self {
         case .overLimit:
             return true

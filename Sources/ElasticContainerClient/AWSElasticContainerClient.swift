@@ -42,7 +42,7 @@ public enum ElasticContainerClientError: Swift.Error {
         return error.asUnrecognizedElasticContainerError()
     }
 
-    func isRetriable() -> Bool? {
+    public func isRetriable() -> Bool? {
         switch self {
         case .attributeLimitExceeded:
             return true

@@ -74,6 +74,8 @@ public protocol RDSClientProtocol {
             _ input: RDSModel.CreateDBParameterGroupMessage) -> EventLoopFuture<RDSModel.CreateDBParameterGroupResultForCreateDBParameterGroup>
     typealias CreateDBProxyEventLoopFutureAsyncType = (
             _ input: RDSModel.CreateDBProxyRequest) -> EventLoopFuture<RDSModel.CreateDBProxyResponseForCreateDBProxy>
+    typealias CreateDBProxyEndpointEventLoopFutureAsyncType = (
+            _ input: RDSModel.CreateDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.CreateDBProxyEndpointResponseForCreateDBProxyEndpoint>
     typealias CreateDBSecurityGroupEventLoopFutureAsyncType = (
             _ input: RDSModel.CreateDBSecurityGroupMessage) -> EventLoopFuture<RDSModel.CreateDBSecurityGroupResultForCreateDBSecurityGroup>
     typealias CreateDBSnapshotEventLoopFutureAsyncType = (
@@ -104,6 +106,8 @@ public protocol RDSClientProtocol {
             _ input: RDSModel.DeleteDBParameterGroupMessage) -> EventLoopFuture<Void>
     typealias DeleteDBProxyEventLoopFutureAsyncType = (
             _ input: RDSModel.DeleteDBProxyRequest) -> EventLoopFuture<RDSModel.DeleteDBProxyResponseForDeleteDBProxy>
+    typealias DeleteDBProxyEndpointEventLoopFutureAsyncType = (
+            _ input: RDSModel.DeleteDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint>
     typealias DeleteDBSecurityGroupEventLoopFutureAsyncType = (
             _ input: RDSModel.DeleteDBSecurityGroupMessage) -> EventLoopFuture<Void>
     typealias DeleteDBSnapshotEventLoopFutureAsyncType = (
@@ -154,6 +158,8 @@ public protocol RDSClientProtocol {
             _ input: RDSModel.DescribeDBParametersMessage) -> EventLoopFuture<RDSModel.DBParameterGroupDetailsForDescribeDBParameters>
     typealias DescribeDBProxiesEventLoopFutureAsyncType = (
             _ input: RDSModel.DescribeDBProxiesRequest) -> EventLoopFuture<RDSModel.DescribeDBProxiesResponseForDescribeDBProxies>
+    typealias DescribeDBProxyEndpointsEventLoopFutureAsyncType = (
+            _ input: RDSModel.DescribeDBProxyEndpointsRequest) -> EventLoopFuture<RDSModel.DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints>
     typealias DescribeDBProxyTargetGroupsEventLoopFutureAsyncType = (
             _ input: RDSModel.DescribeDBProxyTargetGroupsRequest) -> EventLoopFuture<RDSModel.DescribeDBProxyTargetGroupsResponseForDescribeDBProxyTargetGroups>
     typealias DescribeDBProxyTargetsEventLoopFutureAsyncType = (
@@ -226,6 +232,8 @@ public protocol RDSClientProtocol {
             _ input: RDSModel.ModifyDBParameterGroupMessage) -> EventLoopFuture<RDSModel.DBParameterGroupNameMessageForModifyDBParameterGroup>
     typealias ModifyDBProxyEventLoopFutureAsyncType = (
             _ input: RDSModel.ModifyDBProxyRequest) -> EventLoopFuture<RDSModel.ModifyDBProxyResponseForModifyDBProxy>
+    typealias ModifyDBProxyEndpointEventLoopFutureAsyncType = (
+            _ input: RDSModel.ModifyDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint>
     typealias ModifyDBProxyTargetGroupEventLoopFutureAsyncType = (
             _ input: RDSModel.ModifyDBProxyTargetGroupRequest) -> EventLoopFuture<RDSModel.ModifyDBProxyTargetGroupResponseForModifyDBProxyTargetGroup>
     typealias ModifyDBSnapshotEventLoopFutureAsyncType = (
@@ -556,6 +564,18 @@ public protocol RDSClientProtocol {
             input: RDSModel.CreateDBProxyRequest) -> EventLoopFuture<RDSModel.CreateDBProxyResponseForCreateDBProxy>
 
     /**
+     Invokes the CreateDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated CreateDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the CreateDBProxyEndpointResponseForCreateDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointAlreadyExists, dBProxyEndpointQuotaExceeded, dBProxyNotFound, invalidDBProxyState, invalidSubnet.
+     */
+    func createDBProxyEndpoint(
+            input: RDSModel.CreateDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.CreateDBProxyEndpointResponseForCreateDBProxyEndpoint>
+
+    /**
      Invokes the CreateDBSecurityGroup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
@@ -730,6 +750,18 @@ public protocol RDSClientProtocol {
      */
     func deleteDBProxy(
             input: RDSModel.DeleteDBProxyRequest) -> EventLoopFuture<RDSModel.DeleteDBProxyResponseForDeleteDBProxy>
+
+    /**
+     Invokes the DeleteDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated DeleteDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointNotFound, invalidDBProxyEndpointState.
+     */
+    func deleteDBProxyEndpoint(
+            input: RDSModel.DeleteDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint>
 
     /**
      Invokes the DeleteDBSecurityGroup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
@@ -1022,6 +1054,18 @@ public protocol RDSClientProtocol {
      */
     func describeDBProxies(
             input: RDSModel.DescribeDBProxiesRequest) -> EventLoopFuture<RDSModel.DescribeDBProxiesResponseForDescribeDBProxies>
+
+    /**
+     Invokes the DescribeDBProxyEndpoints operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated DescribeDBProxyEndpointsRequest object being passed to this operation.
+     - Returns: A future to the DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointNotFound, dBProxyNotFound.
+     */
+    func describeDBProxyEndpoints(
+            input: RDSModel.DescribeDBProxyEndpointsRequest) -> EventLoopFuture<RDSModel.DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints>
 
     /**
      Invokes the DescribeDBProxyTargetGroups operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
@@ -1447,6 +1491,18 @@ public protocol RDSClientProtocol {
      */
     func modifyDBProxy(
             input: RDSModel.ModifyDBProxyRequest) -> EventLoopFuture<RDSModel.ModifyDBProxyResponseForModifyDBProxy>
+
+    /**
+     Invokes the ModifyDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated ModifyDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointAlreadyExists, dBProxyEndpointNotFound, invalidDBProxyEndpointState, invalidDBProxyState.
+     */
+    func modifyDBProxyEndpoint(
+            input: RDSModel.ModifyDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint>
 
     /**
      Invokes the ModifyDBProxyTargetGroup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.

@@ -54,6 +54,7 @@ public struct MockRDSClient: RDSClientProtocol {
     let createDBInstanceReadReplicaEventLoopFutureAsyncOverride: CreateDBInstanceReadReplicaEventLoopFutureAsyncType?
     let createDBParameterGroupEventLoopFutureAsyncOverride: CreateDBParameterGroupEventLoopFutureAsyncType?
     let createDBProxyEventLoopFutureAsyncOverride: CreateDBProxyEventLoopFutureAsyncType?
+    let createDBProxyEndpointEventLoopFutureAsyncOverride: CreateDBProxyEndpointEventLoopFutureAsyncType?
     let createDBSecurityGroupEventLoopFutureAsyncOverride: CreateDBSecurityGroupEventLoopFutureAsyncType?
     let createDBSnapshotEventLoopFutureAsyncOverride: CreateDBSnapshotEventLoopFutureAsyncType?
     let createDBSubnetGroupEventLoopFutureAsyncOverride: CreateDBSubnetGroupEventLoopFutureAsyncType?
@@ -69,6 +70,7 @@ public struct MockRDSClient: RDSClientProtocol {
     let deleteDBInstanceAutomatedBackupEventLoopFutureAsyncOverride: DeleteDBInstanceAutomatedBackupEventLoopFutureAsyncType?
     let deleteDBParameterGroupEventLoopFutureAsyncOverride: DeleteDBParameterGroupEventLoopFutureAsyncType?
     let deleteDBProxyEventLoopFutureAsyncOverride: DeleteDBProxyEventLoopFutureAsyncType?
+    let deleteDBProxyEndpointEventLoopFutureAsyncOverride: DeleteDBProxyEndpointEventLoopFutureAsyncType?
     let deleteDBSecurityGroupEventLoopFutureAsyncOverride: DeleteDBSecurityGroupEventLoopFutureAsyncType?
     let deleteDBSnapshotEventLoopFutureAsyncOverride: DeleteDBSnapshotEventLoopFutureAsyncType?
     let deleteDBSubnetGroupEventLoopFutureAsyncOverride: DeleteDBSubnetGroupEventLoopFutureAsyncType?
@@ -94,6 +96,7 @@ public struct MockRDSClient: RDSClientProtocol {
     let describeDBParameterGroupsEventLoopFutureAsyncOverride: DescribeDBParameterGroupsEventLoopFutureAsyncType?
     let describeDBParametersEventLoopFutureAsyncOverride: DescribeDBParametersEventLoopFutureAsyncType?
     let describeDBProxiesEventLoopFutureAsyncOverride: DescribeDBProxiesEventLoopFutureAsyncType?
+    let describeDBProxyEndpointsEventLoopFutureAsyncOverride: DescribeDBProxyEndpointsEventLoopFutureAsyncType?
     let describeDBProxyTargetGroupsEventLoopFutureAsyncOverride: DescribeDBProxyTargetGroupsEventLoopFutureAsyncType?
     let describeDBProxyTargetsEventLoopFutureAsyncOverride: DescribeDBProxyTargetsEventLoopFutureAsyncType?
     let describeDBSecurityGroupsEventLoopFutureAsyncOverride: DescribeDBSecurityGroupsEventLoopFutureAsyncType?
@@ -130,6 +133,7 @@ public struct MockRDSClient: RDSClientProtocol {
     let modifyDBInstanceEventLoopFutureAsyncOverride: ModifyDBInstanceEventLoopFutureAsyncType?
     let modifyDBParameterGroupEventLoopFutureAsyncOverride: ModifyDBParameterGroupEventLoopFutureAsyncType?
     let modifyDBProxyEventLoopFutureAsyncOverride: ModifyDBProxyEventLoopFutureAsyncType?
+    let modifyDBProxyEndpointEventLoopFutureAsyncOverride: ModifyDBProxyEndpointEventLoopFutureAsyncType?
     let modifyDBProxyTargetGroupEventLoopFutureAsyncOverride: ModifyDBProxyTargetGroupEventLoopFutureAsyncType?
     let modifyDBSnapshotEventLoopFutureAsyncOverride: ModifyDBSnapshotEventLoopFutureAsyncType?
     let modifyDBSnapshotAttributeEventLoopFutureAsyncOverride: ModifyDBSnapshotAttributeEventLoopFutureAsyncType?
@@ -194,6 +198,7 @@ public struct MockRDSClient: RDSClientProtocol {
             createDBInstanceReadReplicaEventLoopFutureAsync: CreateDBInstanceReadReplicaEventLoopFutureAsyncType? = nil,
             createDBParameterGroupEventLoopFutureAsync: CreateDBParameterGroupEventLoopFutureAsyncType? = nil,
             createDBProxyEventLoopFutureAsync: CreateDBProxyEventLoopFutureAsyncType? = nil,
+            createDBProxyEndpointEventLoopFutureAsync: CreateDBProxyEndpointEventLoopFutureAsyncType? = nil,
             createDBSecurityGroupEventLoopFutureAsync: CreateDBSecurityGroupEventLoopFutureAsyncType? = nil,
             createDBSnapshotEventLoopFutureAsync: CreateDBSnapshotEventLoopFutureAsyncType? = nil,
             createDBSubnetGroupEventLoopFutureAsync: CreateDBSubnetGroupEventLoopFutureAsyncType? = nil,
@@ -209,6 +214,7 @@ public struct MockRDSClient: RDSClientProtocol {
             deleteDBInstanceAutomatedBackupEventLoopFutureAsync: DeleteDBInstanceAutomatedBackupEventLoopFutureAsyncType? = nil,
             deleteDBParameterGroupEventLoopFutureAsync: DeleteDBParameterGroupEventLoopFutureAsyncType? = nil,
             deleteDBProxyEventLoopFutureAsync: DeleteDBProxyEventLoopFutureAsyncType? = nil,
+            deleteDBProxyEndpointEventLoopFutureAsync: DeleteDBProxyEndpointEventLoopFutureAsyncType? = nil,
             deleteDBSecurityGroupEventLoopFutureAsync: DeleteDBSecurityGroupEventLoopFutureAsyncType? = nil,
             deleteDBSnapshotEventLoopFutureAsync: DeleteDBSnapshotEventLoopFutureAsyncType? = nil,
             deleteDBSubnetGroupEventLoopFutureAsync: DeleteDBSubnetGroupEventLoopFutureAsyncType? = nil,
@@ -234,6 +240,7 @@ public struct MockRDSClient: RDSClientProtocol {
             describeDBParameterGroupsEventLoopFutureAsync: DescribeDBParameterGroupsEventLoopFutureAsyncType? = nil,
             describeDBParametersEventLoopFutureAsync: DescribeDBParametersEventLoopFutureAsyncType? = nil,
             describeDBProxiesEventLoopFutureAsync: DescribeDBProxiesEventLoopFutureAsyncType? = nil,
+            describeDBProxyEndpointsEventLoopFutureAsync: DescribeDBProxyEndpointsEventLoopFutureAsyncType? = nil,
             describeDBProxyTargetGroupsEventLoopFutureAsync: DescribeDBProxyTargetGroupsEventLoopFutureAsyncType? = nil,
             describeDBProxyTargetsEventLoopFutureAsync: DescribeDBProxyTargetsEventLoopFutureAsyncType? = nil,
             describeDBSecurityGroupsEventLoopFutureAsync: DescribeDBSecurityGroupsEventLoopFutureAsyncType? = nil,
@@ -270,6 +277,7 @@ public struct MockRDSClient: RDSClientProtocol {
             modifyDBInstanceEventLoopFutureAsync: ModifyDBInstanceEventLoopFutureAsyncType? = nil,
             modifyDBParameterGroupEventLoopFutureAsync: ModifyDBParameterGroupEventLoopFutureAsyncType? = nil,
             modifyDBProxyEventLoopFutureAsync: ModifyDBProxyEventLoopFutureAsyncType? = nil,
+            modifyDBProxyEndpointEventLoopFutureAsync: ModifyDBProxyEndpointEventLoopFutureAsyncType? = nil,
             modifyDBProxyTargetGroupEventLoopFutureAsync: ModifyDBProxyTargetGroupEventLoopFutureAsyncType? = nil,
             modifyDBSnapshotEventLoopFutureAsync: ModifyDBSnapshotEventLoopFutureAsyncType? = nil,
             modifyDBSnapshotAttributeEventLoopFutureAsync: ModifyDBSnapshotAttributeEventLoopFutureAsyncType? = nil,
@@ -329,6 +337,7 @@ public struct MockRDSClient: RDSClientProtocol {
         self.createDBInstanceReadReplicaEventLoopFutureAsyncOverride = createDBInstanceReadReplicaEventLoopFutureAsync
         self.createDBParameterGroupEventLoopFutureAsyncOverride = createDBParameterGroupEventLoopFutureAsync
         self.createDBProxyEventLoopFutureAsyncOverride = createDBProxyEventLoopFutureAsync
+        self.createDBProxyEndpointEventLoopFutureAsyncOverride = createDBProxyEndpointEventLoopFutureAsync
         self.createDBSecurityGroupEventLoopFutureAsyncOverride = createDBSecurityGroupEventLoopFutureAsync
         self.createDBSnapshotEventLoopFutureAsyncOverride = createDBSnapshotEventLoopFutureAsync
         self.createDBSubnetGroupEventLoopFutureAsyncOverride = createDBSubnetGroupEventLoopFutureAsync
@@ -344,6 +353,7 @@ public struct MockRDSClient: RDSClientProtocol {
         self.deleteDBInstanceAutomatedBackupEventLoopFutureAsyncOverride = deleteDBInstanceAutomatedBackupEventLoopFutureAsync
         self.deleteDBParameterGroupEventLoopFutureAsyncOverride = deleteDBParameterGroupEventLoopFutureAsync
         self.deleteDBProxyEventLoopFutureAsyncOverride = deleteDBProxyEventLoopFutureAsync
+        self.deleteDBProxyEndpointEventLoopFutureAsyncOverride = deleteDBProxyEndpointEventLoopFutureAsync
         self.deleteDBSecurityGroupEventLoopFutureAsyncOverride = deleteDBSecurityGroupEventLoopFutureAsync
         self.deleteDBSnapshotEventLoopFutureAsyncOverride = deleteDBSnapshotEventLoopFutureAsync
         self.deleteDBSubnetGroupEventLoopFutureAsyncOverride = deleteDBSubnetGroupEventLoopFutureAsync
@@ -369,6 +379,7 @@ public struct MockRDSClient: RDSClientProtocol {
         self.describeDBParameterGroupsEventLoopFutureAsyncOverride = describeDBParameterGroupsEventLoopFutureAsync
         self.describeDBParametersEventLoopFutureAsyncOverride = describeDBParametersEventLoopFutureAsync
         self.describeDBProxiesEventLoopFutureAsyncOverride = describeDBProxiesEventLoopFutureAsync
+        self.describeDBProxyEndpointsEventLoopFutureAsyncOverride = describeDBProxyEndpointsEventLoopFutureAsync
         self.describeDBProxyTargetGroupsEventLoopFutureAsyncOverride = describeDBProxyTargetGroupsEventLoopFutureAsync
         self.describeDBProxyTargetsEventLoopFutureAsyncOverride = describeDBProxyTargetsEventLoopFutureAsync
         self.describeDBSecurityGroupsEventLoopFutureAsyncOverride = describeDBSecurityGroupsEventLoopFutureAsync
@@ -405,6 +416,7 @@ public struct MockRDSClient: RDSClientProtocol {
         self.modifyDBInstanceEventLoopFutureAsyncOverride = modifyDBInstanceEventLoopFutureAsync
         self.modifyDBParameterGroupEventLoopFutureAsyncOverride = modifyDBParameterGroupEventLoopFutureAsync
         self.modifyDBProxyEventLoopFutureAsyncOverride = modifyDBProxyEventLoopFutureAsync
+        self.modifyDBProxyEndpointEventLoopFutureAsyncOverride = modifyDBProxyEndpointEventLoopFutureAsync
         self.modifyDBProxyTargetGroupEventLoopFutureAsyncOverride = modifyDBProxyTargetGroupEventLoopFutureAsync
         self.modifyDBSnapshotEventLoopFutureAsyncOverride = modifyDBSnapshotEventLoopFutureAsync
         self.modifyDBSnapshotAttributeEventLoopFutureAsyncOverride = modifyDBSnapshotAttributeEventLoopFutureAsync
@@ -937,6 +949,29 @@ public struct MockRDSClient: RDSClientProtocol {
     }
 
     /**
+     Invokes the CreateDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated CreateDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the CreateDBProxyEndpointResponseForCreateDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointAlreadyExists, dBProxyEndpointQuotaExceeded, dBProxyNotFound, invalidDBProxyState, invalidSubnet.
+     */
+    public func createDBProxyEndpoint(
+            input: RDSModel.CreateDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.CreateDBProxyEndpointResponseForCreateDBProxyEndpoint> {
+        if let createDBProxyEndpointEventLoopFutureAsyncOverride = createDBProxyEndpointEventLoopFutureAsyncOverride {
+            return createDBProxyEndpointEventLoopFutureAsyncOverride(input)
+        }
+
+        let result = CreateDBProxyEndpointResponseForCreateDBProxyEndpoint.__default
+        
+        let promise = self.eventLoop.makePromise(of: CreateDBProxyEndpointResponseForCreateDBProxyEndpoint.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
+    }
+
+    /**
      Invokes the CreateDBSecurityGroup operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
 
      - Parameters:
@@ -1268,6 +1303,29 @@ public struct MockRDSClient: RDSClientProtocol {
         let result = DeleteDBProxyResponseForDeleteDBProxy.__default
         
         let promise = self.eventLoop.makePromise(of: DeleteDBProxyResponseForDeleteDBProxy.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
+    }
+
+    /**
+     Invokes the DeleteDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated DeleteDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointNotFound, invalidDBProxyEndpointState.
+     */
+    public func deleteDBProxyEndpoint(
+            input: RDSModel.DeleteDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint> {
+        if let deleteDBProxyEndpointEventLoopFutureAsyncOverride = deleteDBProxyEndpointEventLoopFutureAsyncOverride {
+            return deleteDBProxyEndpointEventLoopFutureAsyncOverride(input)
+        }
+
+        let result = DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint.__default
+        
+        let promise = self.eventLoop.makePromise(of: DeleteDBProxyEndpointResponseForDeleteDBProxyEndpoint.self)
         promise.succeed(result)
         
         return promise.futureResult
@@ -1829,6 +1887,29 @@ public struct MockRDSClient: RDSClientProtocol {
         let result = DescribeDBProxiesResponseForDescribeDBProxies.__default
         
         let promise = self.eventLoop.makePromise(of: DescribeDBProxiesResponseForDescribeDBProxies.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
+    }
+
+    /**
+     Invokes the DescribeDBProxyEndpoints operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated DescribeDBProxyEndpointsRequest object being passed to this operation.
+     - Returns: A future to the DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointNotFound, dBProxyNotFound.
+     */
+    public func describeDBProxyEndpoints(
+            input: RDSModel.DescribeDBProxyEndpointsRequest) -> EventLoopFuture<RDSModel.DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints> {
+        if let describeDBProxyEndpointsEventLoopFutureAsyncOverride = describeDBProxyEndpointsEventLoopFutureAsyncOverride {
+            return describeDBProxyEndpointsEventLoopFutureAsyncOverride(input)
+        }
+
+        let result = DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints.__default
+        
+        let promise = self.eventLoop.makePromise(of: DescribeDBProxyEndpointsResponseForDescribeDBProxyEndpoints.self)
         promise.succeed(result)
         
         return promise.futureResult
@@ -2650,6 +2731,29 @@ public struct MockRDSClient: RDSClientProtocol {
         let result = ModifyDBProxyResponseForModifyDBProxy.__default
         
         let promise = self.eventLoop.makePromise(of: ModifyDBProxyResponseForModifyDBProxy.self)
+        promise.succeed(result)
+        
+        return promise.futureResult
+    }
+
+    /**
+     Invokes the ModifyDBProxyEndpoint operation returning immediately with an `EventLoopFuture` that will be completed with the result at a later time.
+
+     - Parameters:
+         - input: The validated ModifyDBProxyEndpointRequest object being passed to this operation.
+     - Returns: A future to the ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint object to be passed back from the caller of this operation.
+         Will be validated before being returned to caller.
+           The possible errors are: dBProxyEndpointAlreadyExists, dBProxyEndpointNotFound, invalidDBProxyEndpointState, invalidDBProxyState.
+     */
+    public func modifyDBProxyEndpoint(
+            input: RDSModel.ModifyDBProxyEndpointRequest) -> EventLoopFuture<RDSModel.ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint> {
+        if let modifyDBProxyEndpointEventLoopFutureAsyncOverride = modifyDBProxyEndpointEventLoopFutureAsyncOverride {
+            return modifyDBProxyEndpointEventLoopFutureAsyncOverride(input)
+        }
+
+        let result = ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint.__default
+        
+        let promise = self.eventLoop.makePromise(of: ModifyDBProxyEndpointResponseForModifyDBProxyEndpoint.self)
         promise.succeed(result)
         
         return promise.futureResult
